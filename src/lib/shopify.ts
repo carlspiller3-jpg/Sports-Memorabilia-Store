@@ -1,16 +1,17 @@
 
-import Client from 'shopify-buy';
+import ShopifyBuy from 'shopify-buy';
+import type { Client } from 'shopify-buy';
 import type { Product, Variant } from '@/types/schema';
 
 const isLive = import.meta.env.VITE_USE_LIVE_SHOPIFY === 'true';
 const domain = import.meta.env.VITE_SHOPIFY_DOMAIN || '';
 const storefrontAccessToken = import.meta.env.VITE_SHOPIFY_ACCESS_TOKEN || '';
 
-let client: Client.Client | null = null;
+let client: Client | null = null;
 
 if (isLive && domain && storefrontAccessToken) {
   try {
-    client = Client.buildClient({
+    client = ShopifyBuy.buildClient({
       domain,
       storefrontAccessToken,
       apiVersion: '2024-01'

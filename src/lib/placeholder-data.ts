@@ -18,7 +18,7 @@ const createVariant = (id: string, price: number, title: string, option1: string
 })
 
 // Helper to create common product fields
-const commonFields = (id: string, title: string) => ({
+const commonFields = (_id: string, title: string) => ({
   handle: title.toLowerCase().replace(/ /g, '-').replace(/[^a-z0-9-]/g, ''),
   vendor: 'Sports Memorabilia Store',
   created_at: new Date().toISOString(),
