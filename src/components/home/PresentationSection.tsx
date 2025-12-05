@@ -9,7 +9,7 @@ export function PresentationSection() {
                             <div className="aspect-square overflow-hidden rounded-sm">
                                 <img
                                     src="https://images.unsplash.com/photo-1513885535751-8b9238bd345a?q=80&w=2070&auto=format&fit=crop"
-                                    alt="Premium museum-grade framing"
+                                    alt="Premium professional framing"
                                     className="h-full w-full object-cover"
                                 />
                             </div>
@@ -55,10 +55,10 @@ export function PresentationSection() {
                             </div>
 
                             <h2 className="text-3xl font-bold tracking-tight text-navy sm:text-4xl lg:text-5xl">
-                                Museum-Grade Framing. Apple-Style Packaging.
+                                Premium Framing. Apple-Style Packaging.
                             </h2>
                             <p className="text-lg text-charcoal/70">
-                                Every piece is hand-framed using museum-grade materials and delivered in premium packaging designed to wow. From the moment you open the box, you'll know this is something special.
+                                Every piece is hand-framed using premium materials and delivered in luxury packaging designed to wow. From the moment you open the box, you'll know this is something special.
                             </p>
                         </div>
 
@@ -75,7 +75,7 @@ export function PresentationSection() {
                                     </svg>
                                 </div>
                                 <div>
-                                    <h3 className="font-semibold text-navy">Museum-Grade Materials</h3>
+                                    <h3 className="font-semibold text-navy">Premium Materials</h3>
                                     <p className="text-sm text-charcoal/70">UV-protective glass, acid-free mounting, and premium hardwood frames</p>
                                 </div>
                             </div>

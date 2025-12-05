@@ -8,7 +8,7 @@ const valueProps = [
     },
     {
         icon: Package,
-        title: "Museum-Grade Quality",
+        title: "Premium Quality",
         description: "Hand-framed by master craftsmen",
     },
     {

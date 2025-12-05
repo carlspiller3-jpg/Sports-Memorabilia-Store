@@ -1,0 +1,600 @@
+import { chatMemory } from './memory'
+import { getRecommendations } from './recommendations'
+import type { Product } from '@/types/schema'
+
+export interface ChatResponse {
+  message: string
+  quickReplies?: string[]
+  products?: Product[]
+}
+
+class ChatEngine {
+  async processMessage(userMessage: string): Promise<ChatResponse> {
+    const lower = userMessage.toLowerCase()
+    
+    // Empty message = initial greeting
+    if (!userMessage || userMessage.trim() === '') {
+      const memory = chatMemory.getTeam()
+      if (memory) {
+        return {
+          message: `Welcome back! 👋\n\nLast time you were interested in ${memory} memorabilia. Want to continue browsing?`,
+          quickReplies: [`Show me ${memory} items`, 'Browse other sports', 'Help with authenticity']
+        }
+      }
+      return {
+        message: "Welcome to Sports Memorabilia Store! 👋\n\nEvery item comes with NFC authentication and a lifetime guarantee.\n\nWhat's your favourite sport?",
+        quickReplies: ['Football', 'Boxing', 'Tennis', 'Browse all']
+      }
+    }
+
+    // PURCHASE INTENT DETECTION - Highest Priority
+    if (lower.includes('buy') || lower.includes('purchase') || lower.includes('add to cart') || 
+        lower.includes('add to basket') || lower.includes('checkout') || lower.includes('order')) {
+      return {
+        message: "Great! 🎯 I can help you with that.\n\nWhich item would you like to add to your basket?",
+        quickReplies: ['Show me shirts', 'Show me photos', 'Show me boots', 'Browse all']
+      }
+    }
+
+    // OCCASION DETECTION - Gift scenarios
+    const occasions = {
+      birthday: ['birthday', 'bday', 'b-day'],
+      christmas: ['christmas', 'xmas', 'festive', 'holiday'],
+      anniversary: ['anniversary'],
+      graduation: ['graduation', 'graduating'],
+      fathersday: ['father\'s day', 'fathers day', 'dad\'s day'],
+      mothersday: ['mother\'s day', 'mothers day', 'mum\'s day', 'mom\'s day'],
+      valentines: ['valentine', 'valentines'],
+      gift: ['gift', 'present']
+    }
+
+    let detectedOccasion: string | null = null
+    for (const [occasion, keywords] of Object.entries(occasions)) {
+      if (keywords.some(keyword => lower.includes(keyword))) {
+        detectedOccasion = occasion
+        break
+      }
+    }
+
+    if (detectedOccasion) {
+      chatMemory.setOccasion(detectedOccasion)
+      
+      const occasionMessages: Record<string, string> = {
+        birthday: "Perfect! 🎂 Signed memorabilia makes an unforgettable birthday gift.\n\nAll items come museum-framed and gift-ready. What's their favourite sport or team?",
+        christmas: "Brilliant! 🎄 Sports memorabilia is the ultimate Christmas gift.\n\nWe offer premium gift wrapping and can include a personal message. What sport do they love?",
+        fathersday: "Fantastic choice! 👔 Dads love authentic signed memorabilia.\n\nShirts are our most popular Father's Day gift — fully framed and ready to hang. What's his favourite team?",
+        anniversary: "How thoughtful! 💝 Signed memorabilia is a unique anniversary gift.\n\nWhat's their favourite sport or player?",
+        gift: "Sports memorabilia makes an incredible gift! 🎁\n\nAll items come in premium gift-ready packaging. What's the recipient's favourite sport?"
+      }
+
+      return {
+        message: occasionMessages[detectedOccasion] || occasionMessages.gift,
+        quickReplies: ['Football', 'Boxing', 'Tennis', 'Help me choose']
+      }
+    }
+
+    // Sport selection - detect if team sport or individual
+    if (lower.includes('football') || lower.includes('soccer')) {
+      return {
+        message: "Great choice! ⚽ Football memorabilia is our specialty.\n\nWhich team do you support?",
+        quickReplies: ['Liverpool', 'Manchester United', 'Chelsea', 'Other teams']
+      }
+    }
+
+    if (lower.includes('boxing')) {
+      const products = await getRecommendations({ itemType: 'boxing' })
+      return {
+        message: "Excellent! 🥊 Here are our top boxing items available right now.",
+        quickReplies: ['View all Boxing', 'Search specific boxer'],
+        products
+      }
+    }
+
+    if (lower.includes('tennis')) {
+      const products = await getRecommendations({ itemType: 'tennis' })
+      return {
+        message: "Perfect! 🎾 Here are our exclusive tennis memorabilia pieces.",
+        quickReplies: ['View all Tennis', 'Search specific player'],
+        products
+      }
+    }
+
+    if (lower.includes('rugby')) {
+      const products = await getRecommendations({ itemType: 'rugby' })
+      return {
+        message: "Rugby legends! 🏉 Check out these authentic signed items.",
+        quickReplies: ['View all Rugby', 'Search specific team'],
+        products
+      }
+    }
+
+    if (lower.includes('cricket')) {
+      const products = await getRecommendations({ itemType: 'cricket' })
+      return {
+        message: "Howzat! 🏏 Here's our finest cricket memorabilia.",
+        quickReplies: ['View all Cricket', 'Search specific player'],
+        products
+      }
+    }
+
+    // Authentication & Verification Questions
+    if (lower.includes('authentic') || lower.includes('real') || lower.includes('fake') || 
+        lower.includes('genuine') || lower.includes('verify') || lower.includes('trust')) {
+      return {
+        message: "Every item comes with our lifetime authenticity guarantee! 🛡️\n\n✓ NFC digital authentication (tap your phone to verify instantly)\n✓ Photo proof from signing sessions\n✓ Unique serial number for each item\n✓ Lifetime guarantee\n\nNo certificates needed - just tap and verify!",
+        quickReplies: ['How does NFC work?', 'Show me items', 'Shipping info']
+      }
+    }
+    
+    // NFC Specific Questions
+    if (lower.includes('nfc') || lower.includes('chip') || lower.includes('tag') || 
+        lower.includes('scan') || lower.includes('tap')) {
+      return {
+        message: "Our NFC authentication is simple and secure! 📱\n\nJust tap your smartphone on the NFC tag attached to your item. No app needed - it works instantly with any NFC-enabled phone.\n\nYou'll see:\n• Digital certificate\n• Signing history\n• Photo proof\n• Complete provenance\n\nIt's the most advanced authentication in sports memorabilia!",
+        quickReplies: ['That sounds great!', 'Show me products', 'Any other questions?']
+      }
+    }
+    
+    // Certificate Questions (redirect to NFC)
+    if (lower.includes('certificate') || lower.includes('coa') || lower.includes('paperwork') || 
+        lower.includes('documentation')) {
+      return {
+        message: "We don't use traditional paper certificates - we've gone fully digital! 🚀\n\nEvery item has NFC authentication instead, which is:\n✓ More secure (can't be forged)\n✓ Instant verification\n✓ Never gets lost\n✓ Includes photo proof\n\nJust tap your phone to the NFC tag for instant verification!",
+        quickReplies: ['Tell me more about NFC', 'Show me items', 'I understand']
+      }
+    }
+    
+    // Player-specific queries (e.g., "Cristiano Ronaldo signed shirts")
+    // Extract player name and item type
+    const playerNames = [
+      'cristiano ronaldo', 'ronaldo', 'messi', 'lionel messi', 'salah', 'mohamed salah',
+      'gerrard', 'steven gerrard', 'kane', 'harry kane', 'de bruyne', 'kevin de bruyne',
+      'rashford', 'marcus rashford', 'haaland', 'erling haaland', 'benzema', 'karim benzema',
+      'neymar', 'mbappe', 'kylian mbappe', 'lewandowski', 'robert lewandowski',
+      'tyson fury', 'fury', 'anthony joshua', 'joshua', 'canelo', 'mayweather',
+      'federer', 'roger federer', 'nadal', 'rafael nadal', 'djokovic', 'novak djokovic'
+    ]
+    
+    const foundPlayer = playerNames.find(player => lower.includes(player))
+    
+    if (foundPlayer) {
+      // Determine what type of item they're asking for
+      let itemType: string | undefined
+      if (lower.includes('shirt') || lower.includes('jersey') || lower.includes('kit')) {
+        itemType = 'shirt'
+      } else if (lower.includes('photo') || lower.includes('picture') || lower.includes('frame')) {
+        itemType = 'photo'
+      } else if (lower.includes('boot') || lower.includes('shoe')) {
+        itemType = 'boot'
+      } else if (lower.includes('glove')) {
+        itemType = 'boxing'
+      }
+      
+      // Search for products matching the player
+      const allProducts = await getRecommendations({})
+      const playerProducts = allProducts.filter(p => 
+        p.title.toLowerCase().includes(foundPlayer) ||
+        p.tags?.some(tag => tag.toLowerCase().includes(foundPlayer))
+      )
+      
+      // Filter by item type if specified
+      const matchingProducts = itemType 
+        ? playerProducts.filter(p => 
+            p.title.toLowerCase().includes(itemType) || 
+            p.tags?.some(tag => tag.toLowerCase() === itemType)
+          )
+        : playerProducts
+      
+      // Format player name for display
+      const playerDisplay = foundPlayer.split(' ').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ')
+      
+      if (matchingProducts.length > 0) {
+        // Found exact match
+        const itemTypeDisplay = itemType ? `${itemType}${matchingProducts.length > 1 ? 's' : ''}` : 'items'
+        const upsellMessage = itemType === 'photo' 
+          ? '\n\nFor gifts, shirts are by far the most impressive — fully framed and ready to hang.'
+          : itemType === 'shirt'
+          ? '\n\nAll shirts come museum-framed with premium matting — the perfect statement piece.'
+          : ''
+        return {
+          message: `Yes! 🎯 We have ${matchingProducts.length} ${playerDisplay} signed ${itemTypeDisplay} available.${upsellMessage}`,
+          products: matchingProducts.slice(0, 6),
+          quickReplies: ['Add to basket', 'Show more', 'Browse all']
+        }
+      } else if (playerProducts.length > 0) {
+        // Have player but not the specific item type
+        const availableTypes = [...new Set(playerProducts.map(p => {
+          if (p.title.toLowerCase().includes('shirt')) return 'shirts'
+          if (p.title.toLowerCase().includes('photo')) return 'photos'
+          if (p.title.toLowerCase().includes('boot')) return 'boots'
+          if (p.title.toLowerCase().includes('glove')) return 'gloves'
+          return 'items'
+        }))]
+        
+        const itemTypeDisplay = itemType ? `${itemType}s` : 'that item type'
+        return {
+          message: `We don't currently have ${playerDisplay} signed ${itemTypeDisplay}, but we do have ${availableTypes.join(' and ')}! 📸`,
+          products: playerProducts.slice(0, 6),
+          quickReplies: ['Show me those', 'Different player', 'Browse all']
+        }
+      } else {
+        // Don't have this player at all - show smart contextual alternatives
+        
+        // Define player relationships (team, league, era)
+        const playerContext: Record<string, { team?: string, league?: string, alternatives: string[] }> = {
+          'cristiano ronaldo': { team: 'Manchester United', league: 'Premier League', alternatives: ['wayne rooney', 'carlos tevez', 'rio ferdinand', 'paul scholes'] },
+          'ronaldo': { team: 'Manchester United', league: 'Premier League', alternatives: ['wayne rooney', 'carlos tevez', 'rio ferdinand'] },
+          'messi': { team: 'Barcelona', league: 'La Liga', alternatives: ['xavi', 'iniesta', 'neymar', 'suarez'] },
+          'lionel messi': { team: 'Barcelona', league: 'La Liga', alternatives: ['xavi', 'iniesta', 'neymar', 'suarez'] },
+          'salah': { team: 'Liverpool', league: 'Premier League', alternatives: ['gerrard', 'mane', 'firmino', 'van dijk'] },
+          'mohamed salah': { team: 'Liverpool', league: 'Premier League', alternatives: ['gerrard', 'mane', 'firmino'] }
+        }
+        
+        const context = playerContext[foundPlayer]
+        let alternatives: Product[] = []
+        
+        if (context) {
+          // Try to find items from same team first
+          if (context.team) {
+            alternatives = await getRecommendations({ team: context.team })
+          }
+          
+          // If not enough items, try by sport/league
+          if (alternatives.length < 3) {
+            const sport = lower.includes('football') || lower.includes('soccer') ? 'football' : 
+                         lower.includes('boxing') ? 'boxing' : 
+                         lower.includes('tennis') ? 'tennis' : 'football'
+            const moreItems = await getRecommendations({ itemType: sport })
+            alternatives = [...alternatives, ...moreItems].slice(0, 6)
+          }
+        } else {
+          // Fallback to sport-based recommendations
+          const sport = lower.includes('football') || lower.includes('soccer') ? 'football' : 
+                       lower.includes('boxing') ? 'boxing' : 
+                       lower.includes('tennis') ? 'tennis' : undefined
+          
+          alternatives = sport 
+            ? await getRecommendations({ itemType: sport })
+            : await getRecommendations({ itemType: itemType || 'shirt' })
+        }
+        
+        // Only show up to 6, but can be less
+        const itemsToShow = alternatives.slice(0, Math.min(6, alternatives.length))
+        const teamContext = context?.team ? ` from ${context.team}` : ''
+        
+        return {
+          message: `We don't currently have ${playerDisplay} memorabilia in stock. 😔\n\nBut here are some similar items${teamContext} you might love!`,
+          products: itemsToShow,
+          quickReplies: ['Browse all', 'Search another player', 'Help me choose']
+        }
+      }
+    }
+    
+    // Team-specific queries
+    if (lower.includes('liverpool')) {
+      chatMemory.setTeam('Liverpool')
+      const products = await getRecommendations({ team: 'Liverpool' })
+      return {
+        message: "Brilliant choice! 🔴 Here are our best Liverpool items.",
+        quickReplies: ['View all Liverpool', 'Search player'],
+        products
+      }
+    }
+    
+    if (lower.includes('manchester') || lower.includes('united') || lower.includes('city')) {
+      const team = lower.includes('city') ? 'Manchester City' : 'Manchester United'
+      chatMemory.setTeam(team)
+      const products = await getRecommendations({ team })
+      return {
+        message: `Great choice! Here are our top ${team} items.`,
+        quickReplies: [`View all ${team}`, 'Search player'],
+        products
+      }
+    }
+    
+    // Item type queries
+    if (lower.includes('shirt') || lower.includes('jersey') || lower.includes('kit')) {
+      chatMemory.setItemType('shirt')
+      const products = await getRecommendations({ itemType: 'shirt' })
+      return {
+        message: "Here are our most popular signed shirts! 👕",
+        quickReplies: ['View all Shirts', 'Filter by Team'],
+        products
+      }
+    }
+    
+    if (lower.includes('photo') || lower.includes('picture') || lower.includes('frame')) {
+      chatMemory.setItemType('photo')
+      const products = await getRecommendations({ itemType: 'photo' })
+      return {
+        message: "Check out these stunning framed photos! 🖼️",
+        quickReplies: ['View all Photos', 'Filter by Sport'],
+        products
+      }
+    }
+    
+    if (lower.includes('boot') || lower.includes('shoe')) {
+      chatMemory.setItemType('boot')
+      const products = await getRecommendations({ itemType: 'boot' })
+      return {
+        message: "Match-worn boots are incredible collector's pieces! 👟",
+        quickReplies: ['View all Boots', 'Search player'],
+        products
+      }
+    }
+
+    if (lower.includes('glove')) {
+      chatMemory.setItemType('boxing')
+      const products = await getRecommendations({ itemType: 'boxing' })
+      return {
+        message: "Signed boxing gloves are a knockout choice! 🥊",
+        quickReplies: ['View all Boxing', 'Search specific boxer'],
+        products
+      }
+    }
+    
+    // Shipping & Returns
+    if (lower.includes('shipping') || lower.includes('delivery') || lower.includes('postage')) {
+      return {
+        message: "We offer fast, insured shipping! 📦\n\n🇬🇧 UK: 3-5 days (£8 flat rate)\n🌍 International: 5-10 days\n\nAll items are fully insured during transit. Orders before 2pm GMT ship same day!",
+        quickReplies: ['Great!', 'International shipping?', 'Browse items']
+      }
+    }
+    
+    if (lower.includes('return') || lower.includes('refund') || lower.includes('money back')) {
+      return {
+        message: "We offer a 30-day money-back guarantee! ✓\n\nNot happy? Return it for a full refund.\n\nItems must be in original condition with all tags intact. We want you to be completely satisfied!",
+        quickReplies: ['That\'s reassuring', 'Show me items', 'Any other questions?']
+      }
+    }
+    
+    // Pricing & Budget
+    if (lower.includes('price') || lower.includes('cost') || lower.includes('budget') || 
+        lower.includes('cheap') || lower.includes('expensive')) {
+      return {
+        message: "Our prices vary based on the athlete and item rarity.\n\nTypical ranges:\n📸 Photos: £150-£400\n👕 Shirts: £300-£800\n👟 Boots/Gloves: £500-£1500\n\nWhat's your budget? I can help you find something perfect!",
+        quickReplies: ['Under £300', '£300-£800', '£800+']
+      }
+    }
+    
+    // Budget responses
+    if (lower.includes('under') && (lower.includes('300') || lower.includes('£300'))) {
+      chatMemory.setBudget(300)
+      const products = await getRecommendations({ maxPrice: 300 })
+      return {
+        message: "Great! I'll show you our best items under £300. These are all authentic, NFC-verified pieces.",
+        products,
+        quickReplies: ['Show more', 'Different budget', 'Help me choose']
+      }
+    }
+    
+    // Gift Questions
+    if (lower.includes('gift') || lower.includes('present') || lower.includes('birthday')) {
+      return {
+      
+      // Filter by item type if specified
+      const matchingProducts = itemType 
+        ? playerProducts.filter(p => 
+            p.title.toLowerCase().includes(itemType) || 
+            p.tags?.some(tag => tag.toLowerCase() === itemType)
+          )
+        : playerProducts
+      
+      // Format player name for display
+      const playerDisplay = foundPlayer.split(' ').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ')
+      
+      if (matchingProducts.length > 0) {
+        // Found exact match
+        const itemTypeDisplay = itemType ? `${itemType}${matchingProducts.length > 1 ? 's' : ''}` : 'items'
+        const upsellMessage = itemType === 'photo' 
+          ? '\n\nFor gifts, shirts are by far the most impressive — fully framed and ready to hang.'
+          : itemType === 'shirt'
+          ? '\n\nAll shirts come museum-framed with premium matting — the perfect statement piece.'
+          : ''
+        return {
+          message: `Yes! 🎯 We have ${matchingProducts.length} ${playerDisplay} signed ${itemTypeDisplay} available.${upsellMessage}`,
+          products: matchingProducts.slice(0, 6),
+          quickReplies: ['Add to basket', 'Show more', 'Browse all']
+        }
+      } else if (playerProducts.length > 0) {
+        // Have player but not the specific item type
+        const availableTypes = [...new Set(playerProducts.map(p => {
+          if (p.title.toLowerCase().includes('shirt')) return 'shirts'
+          if (p.title.toLowerCase().includes('photo')) return 'photos'
+          if (p.title.toLowerCase().includes('boot')) return 'boots'
+          if (p.title.toLowerCase().includes('glove')) return 'gloves'
+          return 'items'
+        }))]
+        
+        const itemTypeDisplay = itemType ? `${itemType}s` : 'that item type'
+        return {
+          message: `We don't currently have ${playerDisplay} signed ${itemTypeDisplay}, but we do have ${availableTypes.join(' and ')}! 📸`,
+          products: playerProducts.slice(0, 6),
+          quickReplies: ['Show me those', 'Different player', 'Browse all']
+        }
+      } else {
+        // Don't have this player at all - show smart contextual alternatives
+        
+        // Define player relationships (team, league, era)
+        const playerContext: Record<string, { team?: string, league?: string, alternatives: string[] }> = {
+          'cristiano ronaldo': { team: 'Manchester United', league: 'Premier League', alternatives: ['wayne rooney', 'carlos tevez', 'rio ferdinand', 'paul scholes'] },
+          'ronaldo': { team: 'Manchester United', league: 'Premier League', alternatives: ['wayne rooney', 'carlos tevez', 'rio ferdinand'] },
+          'messi': { team: 'Barcelona', league: 'La Liga', alternatives: ['xavi', 'iniesta', 'neymar', 'suarez'] },
+          'lionel messi': { team: 'Barcelona', league: 'La Liga', alternatives: ['xavi', 'iniesta', 'neymar', 'suarez'] },
+          'salah': { team: 'Liverpool', league: 'Premier League', alternatives: ['gerrard', 'mane', 'firmino', 'van dijk'] },
+          'mohamed salah': { team: 'Liverpool', league: 'Premier League', alternatives: ['gerrard', 'mane', 'firmino'] }
+        }
+        
+        const context = playerContext[foundPlayer]
+        let alternatives: Product[] = []
+        
+        if (context) {
+          // Try to find items from same team first
+          if (context.team) {
+            alternatives = await getRecommendations({ team: context.team })
+          }
+          
+          // If not enough items, try by sport/league
+          if (alternatives.length < 3) {
+            const sport = lower.includes('football') || lower.includes('soccer') ? 'football' : 
+                         lower.includes('boxing') ? 'boxing' : 
+                         lower.includes('tennis') ? 'tennis' : 'football'
+            const moreItems = await getRecommendations({ itemType: sport })
+            alternatives = [...alternatives, ...moreItems].slice(0, 6)
+          }
+        } else {
+          // Fallback to sport-based recommendations
+          const sport = lower.includes('football') || lower.includes('soccer') ? 'football' : 
+                       lower.includes('boxing') ? 'boxing' : 
+                       lower.includes('tennis') ? 'tennis' : undefined
+          
+          alternatives = sport 
+            ? await getRecommendations({ itemType: sport })
+            : await getRecommendations({ itemType: itemType || 'shirt' })
+        }
+        
+        // Only show up to 6, but can be less
+        const itemsToShow = alternatives.slice(0, Math.min(6, alternatives.length))
+        const teamContext = context?.team ? ` from ${context.team}` : ''
+        
+        return {
+          message: `We don't currently have ${playerDisplay} memorabilia in stock. 😔\n\nBut here are some similar items${teamContext} you might love!`,
+          products: itemsToShow,
+          quickReplies: ['Browse all', 'Search another player', 'Help me choose']
+        }
+      }
+    }
+    
+    // Team-specific queries
+    if (lower.includes('liverpool')) {
+      chatMemory.setTeam('Liverpool')
+      const products = await getRecommendations({ team: 'Liverpool' })
+      return {
+        message: "Brilliant choice! 🔴 Here are our best Liverpool items.",
+        quickReplies: ['View all Liverpool', 'Search player'],
+        products
+      }
+    }
+    
+    if (lower.includes('manchester') || lower.includes('united') || lower.includes('city')) {
+      const team = lower.includes('city') ? 'Manchester City' : 'Manchester United'
+      chatMemory.setTeam(team)
+      const products = await getRecommendations({ team })
+      return {
+        message: `Great choice! Here are our top ${team} items.`,
+        quickReplies: [`View all ${team}`, 'Search player'],
+        products
+      }
+    }
+    
+    // Item type queries
+    if (lower.includes('shirt') || lower.includes('jersey') || lower.includes('kit')) {
+      chatMemory.setItemType('shirt')
+      const products = await getRecommendations({ itemType: 'shirt' })
+      return {
+        message: "Here are our most popular signed shirts! 👕",
+        quickReplies: ['View all Shirts', 'Filter by Team'],
+        products
+      }
+    }
+    
+    if (lower.includes('photo') || lower.includes('picture') || lower.includes('frame')) {
+      chatMemory.setItemType('photo')
+      const products = await getRecommendations({ itemType: 'photo' })
+      return {
+        message: "Check out these stunning framed photos! 🖼️",
+        quickReplies: ['View all Photos', 'Filter by Sport'],
+        products
+      }
+    }
+    
+    if (lower.includes('boot') || lower.includes('shoe')) {
+      chatMemory.setItemType('boot')
+      const products = await getRecommendations({ itemType: 'boot' })
+      return {
+        message: "Match-worn boots are incredible collector's pieces! 👟",
+        quickReplies: ['View all Boots', 'Search player'],
+        products
+      }
+    }
+
+    if (lower.includes('glove')) {
+      chatMemory.setItemType('boxing')
+      const products = await getRecommendations({ itemType: 'boxing' })
+      return {
+        message: "Signed boxing gloves are a knockout choice! 🥊",
+        quickReplies: ['View all Boxing', 'Search specific boxer'],
+        products
+      }
+    }
+    
+    // Shipping & Returns
+    if (lower.includes('shipping') || lower.includes('delivery') || lower.includes('postage')) {
+      return {
+        message: "We offer fast, insured shipping! 📦\n\n🇬🇧 UK: 3-5 days (£8 flat rate)\n🌍 International: 5-10 days\n\nAll items are fully insured during transit. Orders before 2pm GMT ship same day!",
+        quickReplies: ['Great!', 'International shipping?', 'Browse items']
+      }
+    }
+    
+    if (lower.includes('return') || lower.includes('refund') || lower.includes('money back')) {
+      return {
+        message: "We offer a 30-day money-back guarantee! ✓\n\nNot happy? Return it for a full refund.\n\nItems must be in original condition with all tags intact. We want you to be completely satisfied!",
+        quickReplies: ['That\'s reassuring', 'Show me items', 'Any other questions?']
+      }
+    }
+    
+    // Pricing & Budget
+    if (lower.includes('price') || lower.includes('cost') || lower.includes('budget') || 
+        lower.includes('cheap') || lower.includes('expensive')) {
+      return {
+        message: "Our prices vary based on the athlete and item rarity.\n\nTypical ranges:\n📸 Photos: £150-£400\n👕 Shirts: £300-£800\n👟 Boots/Gloves: £500-£1500\n\nWhat's your budget? I can help you find something perfect!",
+        quickReplies: ['Under £300', '£300-£800', '£800+']
+      }
+    }
+    
+    // Budget responses
+    if (lower.includes('under') && (lower.includes('300') || lower.includes('£300'))) {
+      chatMemory.setBudget(300)
+      const products = await getRecommendations({ maxPrice: 300 })
+      return {
+        message: "Great! I'll show you our best items under £300. These are all authentic, NFC-verified pieces.",
+        products,
+        quickReplies: ['Show more', 'Different budget', 'Help me choose']
+      }
+    }
+    
+    // Gift Questions
+    if (lower.includes('gift') || lower.includes('present') || lower.includes('birthday')) {
+      return {
+        message: "Sports memorabilia makes an incredible gift! 🎁\n\nAll items come in premium gift-ready packaging. Add a personalized message at checkout!\n\nWhat's the recipient's favourite sport?",
+        quickReplies: ['Football', 'Boxing', 'Tennis', 'Other sports']
+      }
+    }
+    
+    // Custom Requests & Services
+    if (lower.includes('private signing') || lower.includes('custom') || lower.includes('bespoke') || 
+        lower.includes('commission') || lower.includes('special request')) {
+      return {
+        message: "Great question! We do offer custom services for special requests. 🌟\n\nFor private signings, bespoke framing, or custom memorabilia, please contact our team directly.\n\nWould you like to browse our current collection while you're here?",
+        quickReplies: ['Browse collection', 'Contact details', 'Show me shirts', 'Show me photos']
+      }
+    }
+
+    // Contact & Support
+    if (lower.includes('contact') || lower.includes('email') || lower.includes('phone') || 
+        lower.includes('speak to') || lower.includes('talk to')) {
+      return {
+        message: "Happy to help! 📞\n\nYou can reach our team at:\n• Email: info@sportsmemorabilia.com\n• Phone: 0800 123 4567\n\nOr I can help you find something right now?",
+        quickReplies: ['Browse items', 'About authenticity', 'Shipping info']
+      }
+    }
+    
+    // General/Fallback - More helpful and conversational
+    return {
+      message: "I'm here to help you find the perfect memorabilia! 👋\n\nWhat are you looking for?",
+      quickReplies: ['Browse by sport', 'Browse by team', 'Gift recommendations', 'Help me choose']
+    }
+  }
+}
+
+export const chatEngine = new ChatEngine()

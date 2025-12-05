@@ -25,7 +25,7 @@ export function HeroSection() {
                     </h1>
                     <p className="text-lg md:text-xl text-stone/80 max-w-2xl mx-auto font-light leading-relaxed">
                         Authentic signed memorabilia from the world's greatest athletes.
-                        Museum-grade framing. 24-hour dispatch.
+                        Premium framing. 24-hour dispatch.
                     </p>
                 </div>
 

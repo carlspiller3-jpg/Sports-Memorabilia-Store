@@ -1,0 +1,16 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://thesportsmemorabiliastore.com/sitemap.xml
+
+# Disallow checkout and cart pages from indexing
+Disallow: /checkout
+Disallow: /cart
+
+# Allow all other pages
+Allow: /shop
+Allow: /product/
+Allow: /verify
+Allow: /about
+Allow: /collections

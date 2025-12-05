@@ -6,19 +6,22 @@ interface ProductCardProps {
     title: string
     price: number
     image: string
+    altText?: string
     athlete: string
     type: string
     className?: string
 }
 
-export function ProductCard({ title, price, image, athlete, type, className }: ProductCardProps) {
+export function ProductCard({ title, price, image, altText, athlete, type, className }: ProductCardProps) {
     return (
         <div className={cn("group relative bg-white border border-stone/20 rounded-sm overflow-hidden hover:shadow-xl transition-all duration-500 ease-out", className)}>
             {/* Image Container */}
             <div className="aspect-[4/5] overflow-hidden bg-stone/5 relative">
                 <img
                     src={image}
-                    alt={title}
+                    alt={altText || title}
+                    loading="lazy"
+                    decoding="async"
                     className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
                 />
                 <div className="absolute top-3 left-3">

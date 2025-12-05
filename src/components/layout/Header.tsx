@@ -1,7 +1,14 @@
-import { ShoppingBag, Search, Menu } from "lucide-react"
+
+
+import { ShoppingBag, Search, Menu, User } from "lucide-react"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/Sheet"
+import { useCart } from "@/context/CartContext"
+import { useAuth } from "@/context/AuthContext"
 
 export function Header() {
+    const { openCart, cartCount } = useCart()
+    const { user } = useAuth()
+
     return (
         <header className="sticky top-0 z-50 w-full border-b border-stone/30 bg-ivory/80 backdrop-blur-md">
             <div className="container mx-auto px-4 h-16 flex items-center justify-between">
@@ -25,8 +32,12 @@ export function Header() {
 
                 {/* Logo */}
                 <div className="flex-1 md:flex-none flex justify-center md:justify-start">
-                    <a href="/" className="font-serif text-xl md:text-2xl font-bold tracking-tight text-charcoal">
-                        The Sports Memorabilia Store
+                    <a href="/" className="flex items-center">
+                        <img 
+                            src="/logo.png" 
+                            alt="Sports Memorabilia Store" 
+                            className="h-12 md:h-14 w-auto"
+                        />
                     </a>
                 </div>
 
@@ -43,9 +54,22 @@ export function Header() {
                     <button className="p-2 hover:text-gold transition-colors text-navy">
                         <Search className="w-5 h-5" />
                     </button>
-                    <button className="p-2 hover:text-gold transition-colors text-navy relative">
+                    
+                    <a href={user ? "/account" : "/login"} className="p-2 hover:text-gold transition-colors text-navy">
+                         <User className="w-5 h-5" />
+                    </a>
+
+                    <button
+                        onClick={openCart}
+                        data-cart-trigger
+                        className="hidden md:block p-2 hover:text-gold transition-colors text-navy relative"
+                    >
                         <ShoppingBag className="w-5 h-5" />
-                        <span className="absolute top-1 right-1 w-2 h-2 bg-gold rounded-full"></span>
+                        {cartCount > 0 && (
+                            <span className="absolute top-1 right-1 w-4 h-4 bg-gold text-white text-[10px] font-bold flex items-center justify-center rounded-full">
+                                {cartCount}
+                            </span>
+                        )}
                     </button>
                 </div>
             </div>

@@ -2,8 +2,8 @@ import { Link } from "react-router-dom"
 
 const authenticityFeatures = [
     {
-        title: "Certificate of Authenticity",
-        description: "Every item includes both digital and physical COA with unique serial numbers for lifetime verification.",
+        title: "NFC Authentication",
+        description: "Every item includes digital verification with unique serial numbers for lifetime verification.",
         icon: (
             <svg className="h-8 w-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path
@@ -46,7 +46,7 @@ const authenticityFeatures = [
     },
     {
         title: "Lifetime Guarantee",
-        description: "We stand behind every signature. If authenticity is ever questioned, we provide full support and documentation.",
+        description: "We guarantee the authenticity of every item for life. If proven non-authentic by a recognized third-party authenticator, we provide a full refund including shipping costs.",
         icon: (
             <svg className="h-8 w-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path
@@ -120,7 +120,7 @@ export function AuthenticitySection() {
                         </div>
                     </div>
 
-                    {/* COA Visual */}
+                    {/* NFC Visual */}
                     <div className="relative lg:order-last">
                         <div className="aspect-[3/4] w-full overflow-hidden rounded-sm bg-white shadow-2xl border border-stone/20">
                             <div className="flex h-full items-center justify-center bg-gradient-to-br from-ivory to-white p-8">
@@ -137,10 +137,10 @@ export function AuthenticitySection() {
                                     </div>
                                     <div className="space-y-2">
                                         <p className="font-serif text-xl font-bold text-navy">
-                                            Certificate of Authenticity
+                                            NFC Authentication
                                         </p>
                                         <p className="text-sm text-charcoal/60">
-                                            Every item includes a unique COA with blockchain verification
+                                            Every item includes unique digital verification
                                         </p>
                                     </div>
                                     <div className="pt-4 border-t border-stone space-y-1 text-xs text-charcoal/50">

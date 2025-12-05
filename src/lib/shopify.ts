@@ -1,0 +1,118 @@
+
+import Client from 'shopify-buy';
+import type { Product, Variant } from '@/types/schema';
+
+const isLive = import.meta.env.VITE_USE_LIVE_SHOPIFY === 'true';
+const domain = import.meta.env.VITE_SHOPIFY_DOMAIN || '';
+const storefrontAccessToken = import.meta.env.VITE_SHOPIFY_ACCESS_TOKEN || '';
+
+let client: Client.Client | null = null;
+
+if (isLive && domain && storefrontAccessToken) {
+  try {
+    client = Client.buildClient({
+      domain,
+      storefrontAccessToken,
+      apiVersion: '2024-01'
+    });
+  } catch (e) {
+    console.warn('Failed to initialize Shopify Client:', e);
+  }
+}
+
+export const shopifyClient = client;
+
+// --- Mappers ---
+
+export function mapShopifyProduct(shopifyProduct: any): Product {
+    // Map Standard Fields
+    const images = shopifyProduct.images?.map((img: any) => img.src) || [];
+    const variants = shopifyProduct.variants?.map((v: any) => ({
+        id: v.id,
+        product_id: shopifyProduct.id,
+        title: v.title,
+        price: parseFloat(v.price.amount),
+        sku: v.sku || `SKU-${v.id.substring(0,8)}`, // Fallback
+        inventory_quantity: v.availableForSale ? 10 : 0, // Simplified
+        option1: v.selectedOptions?.[0]?.value || null,
+        option2: v.selectedOptions?.[1]?.value || null,
+        created_at: new Date().toISOString(),
+        updated_at: new Date().toISOString()
+    } as Variant)) || [];
+
+    // Ensure tags are an array of strings
+    // Shopify SDK usually returns an array of objects {value: 'tag'} or just strings depending on query
+    // But shopify-buy usually maps them to objects or checking the raw GQL.
+    // In shopify-buy v2+, tags might be a simple array if requested correctly but often strings.
+    // We'll safely handle both.
+    const tags = Array.isArray(shopifyProduct.tags) 
+        ? shopifyProduct.tags.map((t: any) => typeof t === 'string' ? t : t.value)
+        : [];
+
+    return {
+        id: shopifyProduct.id,
+        title: shopifyProduct.title,
+        body_html: shopifyProduct.descriptionHtml || shopifyProduct.description || '',
+        vendor: shopifyProduct.vendor,
+        product_type: shopifyProduct.productType,
+        handle: shopifyProduct.handle,
+        status: 'active',
+        tags,
+        created_at: shopifyProduct.createdAt,
+        updated_at: shopifyProduct.updatedAt,
+        variants,
+        images,
+        seo_title: shopifyProduct.seo?.title || shopifyProduct.title,
+        seo_description: shopifyProduct.seo?.description || shopifyProduct.description
+    };
+}
+
+// --- Fetchers ---
+
+export async function fetchAllProducts(): Promise<Product[]> {
+    if (!client) {
+        console.warn('Shopify Client not initialized. Returning empty.');
+        return [];
+    }
+    
+    // Fetch all products (default limit is 20, we want more)
+    // shopify-buy handles pagination, but for now let's fetch first 250
+    try {
+        const products = await client.product.fetchAll(250);
+        return products.map(mapShopifyProduct);
+    } catch (err) {
+        console.error('Error fetching Shopify products:', err);
+        return [];
+    }
+}
+
+export async function fetchProductByHandle(handle: string): Promise<Product | null> {
+    if (!client) return null;
+    
+    try {
+        const product = await client.product.fetchByHandle(handle);
+        if (!product) return null;
+        return mapShopifyProduct(product);
+    } catch (err) {
+        console.error(`Error fetching product ${handle}:`, err);
+        return null;
+    }
+}
+
+export async function createCheckout(items: {variantId: string, quantity: number}[]): Promise<string | null> {
+    if (!client) return null;
+    try {
+        const lineItems = items.map(item => ({
+            variantId: item.variantId,
+            quantity: item.quantity
+        }));
+        
+        const checkout = await client.checkout.create({
+            lineItems
+        });
+        return checkout.webUrl as string;
+    } catch (err) {
+        console.error('Error creating checkout:', err);
+        return null;
+    }
+}

@@ -5,6 +5,8 @@ import { Button } from "@/components/ui/Button"
 import { supabase } from "@/lib/supabase"
 import type { Product } from "@/types/schema"
 
+import { PLACEHOLDER_PRODUCTS } from "@/lib/placeholder-data"
+
 export function FeaturedProducts() {
     const [products, setProducts] = useState<Product[]>([])
     const [loading, setLoading] = useState(true)
@@ -24,8 +26,11 @@ export function FeaturedProducts() {
 
             if (error) {
                 console.error('Error fetching products:', error)
+                setProducts(PLACEHOLDER_PRODUCTS.slice(0, 4))
+            } else if (data && data.length > 0) {
+                setProducts(data)
             } else {
-                setProducts(data || [])
+                setProducts(PLACEHOLDER_PRODUCTS.slice(0, 4))
             }
             setLoading(false)
         }
@@ -39,6 +44,7 @@ export function FeaturedProducts() {
     }
 
     const getImage = (product: Product) => {
+        if (product.images && product.images.length > 0) return product.images[0]
         if (product.handle.includes('messi')) return "https://images.unsplash.com/photo-1518605348435-2996d2606926?q=80&w=1936&auto=format&fit=crop"
         if (product.handle.includes('ronaldo')) return "https://images.unsplash.com/photo-1577212017184-80cc3c0bcb85?q=80&w=1974&auto=format&fit=crop"
         if (product.handle.includes('fury')) return "https://images.unsplash.com/photo-1549719386-74dfc441d82c?q=80&w=1887&auto=format&fit=crop"
@@ -71,7 +77,7 @@ export function FeaturedProducts() {
                         {products.map((product) => (
                             <Link to={`/product/${product.handle}`} key={product.id} className="block">
                                 <ProductCard
-                                    title={product.title}
+                                    title={product.seo_title || product.title}
                                     price={getPrice(product)}
                                     image={getImage(product)}
                                     athlete={product.tags?.[0] || "Athlete"}

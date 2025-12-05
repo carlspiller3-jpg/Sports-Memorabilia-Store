@@ -7,7 +7,7 @@ export function Footer() {
                 <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
                     {/* Brand */}
                     <div className="space-y-4">
-                        <h3 className="font-serif text-xl font-bold text-gold">The Sports Memorabilia Store</h3>
+                        <h3 className="font-serif text-xl font-bold text-gold">Sports Memorabilia Store</h3>
                         <p className="text-stone/80 text-sm leading-relaxed">
                             Premium signed sports memorabilia, authentically verified and beautifully framed.
                             Preserving legends, celebrating history.
@@ -18,10 +18,10 @@ export function Footer() {
                     <div className="space-y-4">
                         <h4 className="font-serif text-lg text-ivory">Shop</h4>
                         <ul className="space-y-2 text-sm text-stone/80">
-                            <li><a href="#" className="hover:text-gold transition-colors">Framed Shirts</a></li>
-                            <li><a href="#" className="hover:text-gold transition-colors">Boots & Gloves</a></li>
-                            <li><a href="#" className="hover:text-gold transition-colors">Framed Photos</a></li>
-                            <li><a href="#" className="hover:text-gold transition-colors">New Arrivals</a></li>
+                            <li><a href="/shop" className="hover:text-gold transition-colors">Framed Shirts</a></li>
+                            <li><a href="/shop" className="hover:text-gold transition-colors">Boots & Gloves</a></li>
+                            <li><a href="/shop" className="hover:text-gold transition-colors">Framed Photos</a></li>
+                            <li><a href="/shop" className="hover:text-gold transition-colors">New Arrivals</a></li>
                         </ul>
                     </div>
 
@@ -29,10 +29,11 @@ export function Footer() {
                     <div className="space-y-4">
                         <h4 className="font-serif text-lg text-ivory">Support</h4>
                         <ul className="space-y-2 text-sm text-stone/80">
-                            <li><a href="#" className="hover:text-gold transition-colors">Verify Authenticity</a></li>
-                            <li><a href="#" className="hover:text-gold transition-colors">Shipping & Returns</a></li>
-                            <li><a href="#" className="hover:text-gold transition-colors">Contact Us</a></li>
-                            <li><a href="#" className="hover:text-gold transition-colors">FAQ</a></li>
+                            <li><a href="/about" className="hover:text-gold transition-colors">Our Story</a></li>
+                            <li><a href="/verify" className="hover:text-gold transition-colors">Verify Authenticity</a></li>
+                            <li><a href="/shipping" className="hover:text-gold transition-colors">Shipping & Returns</a></li>
+                            <li><a href="/contact" className="hover:text-gold transition-colors">Contact Us</a></li>
+                            <li><a href="/faq" className="hover:text-gold transition-colors">FAQ</a></li>
                         </ul>
                     </div>
 
@@ -59,10 +60,10 @@ export function Footer() {
                 </div>
 
                 <div className="border-t border-stone/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-stone/40">
-                    <p>&copy; 2025 The Sports Memorabilia Store. All rights reserved.</p>
+                    <p>&copy; 2025 Sports Memorabilia Store. All rights reserved.</p>
                     <div className="flex gap-6">
-                        <a href="#" className="hover:text-stone/60">Privacy Policy</a>
-                        <a href="#" className="hover:text-stone/60">Terms of Service</a>
+                        <a href="/privacy" className="hover:text-stone/60">Privacy Policy</a>
+                        <a href="/terms" className="hover:text-stone/60">Terms of Service</a>
                     </div>
                 </div>
             </div>

@@ -83,9 +83,17 @@ export function CheckoutPage() {
                                 </div>
                             </div>
 
-                            <div className="flex items-center gap-2 text-xs text-navy/60 bg-stone/5 p-3 rounded-sm">
-                                <ShieldCheck className="w-4 h-4 text-gold" />
-                                <span>Secure SSL Encryption. Authenticity Guaranteed.</span>
+                            <div className="flex flex-col gap-2 text-xs text-navy/60 bg-stone/5 p-3 rounded-sm">
+                                <div className="flex items-center gap-2">
+                                    <ShieldCheck className="w-4 h-4 text-gold" />
+                                    <span>Secure SSL Encryption. Authenticity Guaranteed.</span>
+                                </div>
+                                <div className="text-[10px] text-center pt-1 border-t border-stone/10 mt-1">
+                                    By placing an order, you agree to our <a href="/terms" className="underline hover:text-navy">Terms</a> and <a href="/privacy" className="underline hover:text-navy">Privacy Policy</a>.
+                                </div>
+                                <div className="text-[10px] text-center pt-1 border-t border-stone/10 mt-1 text-navy/50">
+                                    International orders: Customer is responsible for all customs duties, import taxes, and tariffs.
+                                </div>
                             </div>
                         </div>
                     </div>

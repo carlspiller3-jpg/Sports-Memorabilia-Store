@@ -1,0 +1,63 @@
+{
+  "lastUpdated": "2025-12-02T12:17:18.616Z",
+  "version": "2025-12",
+  "title": {
+    "optimalMin": 50,
+    "optimalMax": 60,
+    "hardMax": 70,
+    "rules": [
+      "Place primary keyword at the start",
+      "Keep within 50-60 characters for optimal display",
+      "Make each title unique",
+      "Avoid keyword stuffing",
+      "Front-load important information (Google rewrites 76% of titles)"
+    ]
+  },
+  "description": {
+    "optimalMin": 150,
+    "optimalMax": 160,
+    "hardMax": 320,
+    "rules": [
+      "Include natural keywords (they get bolded in search)",
+      "Add a clear call-to-action (increases CTR by 5.8%)",
+      "Make each description unique",
+      "Include E-E-A-T signals (Expertise, Authority, Trust)",
+      "Google rewrites 60-70% of descriptions - focus on clarity"
+    ]
+  },
+  "productPage": {
+    "required": [
+      "Detailed product descriptions (avoid thin content)",
+      "High-quality images with alt text",
+      "Customer reviews and ratings",
+      "Product schema markup (JSON-LD)",
+      "Unique content per product"
+    ],
+    "schema": {
+      "required": [
+        "name",
+        "offers"
+      ],
+      "recommended": [
+        "image",
+        "description",
+        "SKU",
+        "brand",
+        "aggregateRating",
+        "review"
+      ]
+    }
+  },
+  "currentTrends": [
+    "AI readiness - structure content for AI overviews",
+    "E-E-A-T (Experience, Expertise, Authority, Trust) is critical",
+    "Mobile-first design is mandatory",
+    "Core Web Vitals affect rankings",
+    "Avoid thin content - Google penalizes it in Dec 2025 update"
+  ],
+  "sources": [
+    "Google Search Central - December 2025",
+    "Core Algorithm Update - December 2025",
+    "Product Schema Guidelines - schema.org"
+  ]
+}

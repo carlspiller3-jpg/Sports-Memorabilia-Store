@@ -20,6 +20,8 @@ export interface Product {
     variants?: Variant[]
     options?: Option[]
     images?: string[] // Virtual field for now
+    seo_title?: string
+    seo_description?: string
 }
 
 export interface Variant {
