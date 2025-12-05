@@ -6,11 +6,27 @@ Since Netlify is not an option, **Vercel** is the perfect alternative. It is the
 
 ## Option 1: Connect with GitHub (Recommended)
 
-1.  **Push your code to GitHub.**
-    *   If you haven't done this yet, you can create a new repository on GitHub and push your local code there.
-2.  Go to [Vercel.com](https://vercel.com/signup) and sign up (using your GitHub account is easiest).
-3.  On your dashboard, click **"Add New..."** > **"Project"**.
-4.  Import your **sports-memorabilia-store** repository.
+1.  **Create a Repository on GitHub:**
+    *   Go to [github.com/new](https://github.com/new).
+    *   Name it `sports-memorabilia-store`.
+    *   Make it **Private** (recommended since it has your business logic).
+    *   Click **Create repository**.
+
+2.  **Push Your Code:**
+    *   I have already initialized the git repository locally for you.
+    *   Copy the commands from the "…or push an existing repository from the command line" section on GitHub.
+    *   It will look like this (Run these in your VS Code terminal):
+        ```bash
+        git remote add origin https://github.com/YOUR_USERNAME/sports-memorabilia-store.git
+        git branch -M main
+        git push -u origin main
+        ```
+
+3.  **Deploy to Vercel:**
+    *   Go to [Vercel.com](https://vercel.com/signup) and sign up with GitHub.
+    *   Click **"Add New..."** > **"Project"**.
+    *   Select your new `sports-memorabilia-store` repo.
+    *   **Important:** Add your Environment Variables (see below) before clicking Deploy.
 5.  **Configure Project:**
     *   **Framework Preset:** Vite
     *   **Root Directory:** `./` (default)
