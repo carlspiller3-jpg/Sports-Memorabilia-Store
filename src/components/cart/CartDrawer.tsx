@@ -9,7 +9,7 @@ import { useCart } from "@/context/CartContext"
 import { PLACEHOLDER_IMAGES } from "@/data/placeholders"
 
 export function CartDrawer() {
-    const { items, isOpen, closeCart, removeFromCart, cartTotal, checkout } = useCart()
+    const { items, isOpen, closeCart, removeFromCart, cartTotal, checkout, updateQuantity } = useCart()
     const [isCheckingOut, setIsCheckingOut] = useState(false)
 
     // Helper to get image
@@ -62,14 +62,31 @@ export function CartDrawer() {
                                             {item.variant.option1 !== 'Default' ? item.variant.option1 : 'Standard'}
                                         </p>
                                     </div>
-                                    <div className="flex items-center justify-between">
-                                        <span className="font-medium text-gold">£{item.variant.price}</span>
-                                        <button
-                                            onClick={() => removeFromCart(item.id)}
-                                            className="text-stone-400 hover:text-red-500 transition-colors"
-                                        >
-                                            <Trash2 className="w-4 h-4" />
-                                        </button>
+                                    <div className="flex items-center justify-between mt-2">
+                                        <div className="flex items-center border border-stone/20 rounded-md">
+                                            <button 
+                                                className="px-2 py-1 text-stone-500 hover:bg-stone/5"
+                                                onClick={() => updateQuantity(item.id, item.quantity - 1)}
+                                            >
+                                                -
+                                            </button>
+                                            <span className="px-2 text-sm font-medium text-charcoal">{item.quantity}</span>
+                                            <button 
+                                                className="px-2 py-1 text-stone-500 hover:bg-stone/5"
+                                                 onClick={() => updateQuantity(item.id, item.quantity + 1)}
+                                            >
+                                                +
+                                            </button>
+                                        </div>
+                                        <div className="flex items-center gap-3">
+                                            <span className="font-medium text-gold">£{(item.variant.price * item.quantity).toFixed(2)}</span>
+                                            <button
+                                                onClick={() => removeFromCart(item.id)}
+                                                className="text-stone-400 hover:text-red-500 transition-colors"
+                                            >
+                                                <Trash2 className="w-4 h-4" />
+                                            </button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

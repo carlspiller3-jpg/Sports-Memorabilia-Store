@@ -19,6 +19,7 @@ interface CartContextType {
     cartTotal: number
     cartCount: number
     checkout: () => Promise<void>
+    updateQuantity: (variantId: string, quantity: number) => void
 }
 
 const CartContext = createContext<CartContextType | undefined>(undefined)
@@ -66,6 +67,16 @@ export function CartProvider({ children }: { children: ReactNode }) {
         setItems(prev => prev.filter(item => item.id !== variantId))
     }
 
+    const updateQuantity = (variantId: string, quantity: number) => {
+        if (quantity < 1) {
+            removeFromCart(variantId)
+            return
+        }
+        setItems(prev => prev.map(item => 
+            item.id === variantId ? { ...item, quantity } : item
+        ))
+    }
+
     const cartTotal = items.reduce((total, item) => total + (item.variant.price * item.quantity), 0)
     const cartCount = items.reduce((count, item) => count + item.quantity, 0)
 
@@ -102,6 +113,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
             removeFromCart,
             cartTotal,
             cartCount,
+            updateQuantity,
             checkout
         }}>
             {children}
