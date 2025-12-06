@@ -103,7 +103,7 @@ export function CartDrawer() {
                             </div>
                             <div className="flex justify-between text-sm text-navy/60">
                                 <span>Shipping</span>
-                                <span className="text-green-600 font-medium">Free</span>
+                                <span className="text-navy/60 font-medium">Calculated at checkout</span>
                             </div>
                             <div className="flex justify-between text-lg font-serif font-bold text-charcoal pt-2 border-t border-stone/10">
                                 <span>Total</span>
