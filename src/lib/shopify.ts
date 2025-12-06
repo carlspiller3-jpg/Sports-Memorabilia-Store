@@ -161,3 +161,76 @@ export async function createCheckout(items: {variantId: string, quantity: number
         return null;
     }
 }
+
+export const CUSTOMER_QUERY = `
+  query getCustomer($customerAccessToken: String!) {
+    customer(customerAccessToken: $customerAccessToken) {
+      id
+      firstName
+      lastName
+      displayName
+      email
+      phone
+      defaultAddress {
+        id
+        address1
+        address2
+        city
+        province
+        zip
+        country
+        formatted
+      }
+      addresses(first: 10) {
+        edges {
+          node {
+            id
+            address1
+            address2
+            city
+            province
+            zip
+            country
+            formatted
+            firstName
+            lastName
+            phone
+          }
+        }
+      }
+      orders(first: 20, sortKey: PROCESSED_AT, reverse: true) {
+        edges {
+          node {
+            id
+            orderNumber
+            processedAt
+            financialStatus
+            fulfillmentStatus
+            totalPrice {
+              amount
+              currencyCode
+            }
+            lineItems(first: 5) {
+              edges {
+                node {
+                  title
+                  quantity
+                  variant {
+                    image {
+                      url
+                      altText
+                    }
+                    price {
+                      amount
+                      currencyCode
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+`;

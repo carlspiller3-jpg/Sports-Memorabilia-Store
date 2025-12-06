@@ -4,19 +4,31 @@ import { createContext, useContext, useState, useEffect, ReactNode } from 'react
 const domain = import.meta.env.VITE_SHOPIFY_DOMAIN || '';
 const storefrontAccessToken = import.meta.env.VITE_SHOPIFY_ACCESS_TOKEN || '';
 
+// Basic types (we can expand this later or import from schema if we had one for customer)
+export interface CustomerProfile {
+    firstName: string
+    lastName: string
+    email: string
+    orders: any[]
+    addresses: any[]
+    defaultAddress: any
+}
+
 interface User {
-    firstName?: string;
-    lastName?: string;
-    email?: string;
-    token: string;
+    token: string
+    email?: string
+    firstName?: string
+    lastName?: string
+    profile?: CustomerProfile
 }
 
 interface AuthContextType {
-    user: User | null;
-    login: (email: string, pass: string) => Promise<boolean>;
-    register: (first: string, last: string, email: string, pass: string) => Promise<boolean>;
-    logout: () => void;
-    isLoading: boolean;
+    user: User | null
+    login: (email: string, pass: string) => Promise<boolean>
+    register: (first: string, last: string, email: string, pass: string) => Promise<boolean>
+    logout: () => void
+    isLoading: boolean
+    refreshProfile: () => Promise<void>
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -29,11 +41,40 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         // Hydrate from storage
         const token = localStorage.getItem('shopify_customer_token');
         if (token) {
-            // Start with just the token, ideally we'd fetch the user profile here too
             setUser({ token });
+            // Fetch profile immediately
+            fetchProfile(token);
+        } else {
+            setIsLoading(false);
+        }
+    }, []);
+
+    const fetchProfile = async (token: string) => {
+        const { CUSTOMER_QUERY } = await import('@/lib/shopify');
+        const data = await shopifyFetch(CUSTOMER_QUERY, { customerAccessToken: token });
+        
+        if (data?.data?.customer) {
+            const c = data.data.customer;
+            setUser({
+                token,
+                profile: {
+                    firstName: c.firstName,
+                    lastName: c.lastName,
+                    email: c.email,
+                    defaultAddress: c.defaultAddress,
+                    addresses: c.addresses?.edges?.map((e: any) => e.node) || [],
+                    orders: c.orders?.edges?.map((e: any) => e.node) || []
+                }
+            });
         }
         setIsLoading(false);
-    }, []);
+    };
+
+    const refreshProfile = async () => {
+        if (user?.token) {
+            await fetchProfile(user.token);
+        }
+    };
 
     async function shopifyFetch(query: string, variables: any = {}) {
         if (!domain || !storefrontAccessToken) return null;
@@ -117,7 +158,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     };
 
     return (
-        <AuthContext.Provider value={{ user, login, register, logout, isLoading }}>
+        <AuthContext.Provider value={{ user, login, register, logout, isLoading, refreshProfile }}>
             {children}
         </AuthContext.Provider>
     );
