@@ -1,6 +1,6 @@
 
-import { extractEntities, fuzzyMatch } from './src/lib/chatbot/utils';
-import { ATHLETE_DB } from './src/lib/chatbot/knowledge';
+import { extractEntities, fuzzyMatch } from '../../src/lib/chatbot/utils';
+import { ATHLETE_DB } from '../../src/lib/chatbot/knowledge';
 
 // Mock dependencies if needed, but here we just import directly
 // We need to make sure ts-node can run this. 

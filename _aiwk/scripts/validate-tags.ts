@@ -1,4 +1,4 @@
-import { printTagValidationReport } from '../src/lib/tag-validator'
+import { printTagValidationReport } from '../../src/lib/tag-validator'
 
 /**
  * Validate tag consistency across all products

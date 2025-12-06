@@ -101,19 +101,63 @@ export async function fetchProductByHandle(handle: string): Promise<Product | nu
 }
 
 export async function createCheckout(items: {variantId: string, quantity: number}[]): Promise<string | null> {
-    if (!client) return null;
+    // We use the modern 'cartCreate' mutation via raw fetch 
+    // because 'checkoutCreate' requires specific legacy permissions 
+    // that are often missing or hard to configure.
+    
+    if (!domain || !storefrontAccessToken) return null;
+
+    const query = `
+      mutation cartCreate($input: CartInput!) {
+        cartCreate(input: $input) {
+          cart {
+            checkoutUrl
+          }
+          userErrors {
+            message
+            code
+          }
+        }
+      }
+    `;
+
+    const variables = {
+        input: {
+            lines: items.map(item => ({
+                merchandiseId: item.variantId,
+                quantity: item.quantity
+            }))
+        }
+    };
+
     try {
-        const lineItems = items.map(item => ({
-            variantId: item.variantId,
-            quantity: item.quantity
-        }));
-        
-        const checkout = await client.checkout.create({
-            lineItems
+        const response = await fetch(`https://${domain}/api/2024-01/graphql.json`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-Shopify-Storefront-Access-Token': storefrontAccessToken
+            },
+            body: JSON.stringify({ query, variables })
         });
-        return checkout.webUrl as string;
+
+        const json = await response.json();
+        
+        if (json.errors) {
+            console.error('Shopify API Errors:', json.errors);
+            return null;
+        }
+
+        const result = json.data?.cartCreate;
+        
+        if (result?.userErrors?.length > 0) {
+            console.error('Cart Creation Errors:', result.userErrors);
+            return null;
+        }
+
+        return result?.cart?.checkoutUrl || null;
+
     } catch (err) {
-        console.error('Error creating checkout:', err);
+        console.error('Error creating cart/checkout:', err);
         return null;
     }
 }

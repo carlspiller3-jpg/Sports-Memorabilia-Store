@@ -9,8 +9,8 @@
     "mobile:sync": "npm run build && npx cap sync",
     "lint": "eslint .",
     "preview": "vite preview",
-    "export:shopify": "tsx scripts/export-to-shopify-csv.ts",
-    "validate:tags": "tsx scripts/validate-tags.ts"
+    "export:shopify": "tsx _aiwk/scripts/export-to-shopify-csv.ts",
+    "validate:tags": "tsx _aiwk/scripts/validate-tags.ts"
   },
   "dependencies": {
     "@capacitor/android": "^7.4.4",

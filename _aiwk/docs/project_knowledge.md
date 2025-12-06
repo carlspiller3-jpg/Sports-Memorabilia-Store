@@ -22,6 +22,24 @@ The system must be structurally prepared for future Shopify integration.
 
 ---
 
+## 2. Codebase Structure & Rules
+This project uses a centralized "AI Workspace" folder (`/_aiwk`) to organize all non-application code and documentation.
+
+**Directory Structure:**
+- `/_aiwk`: **Central Repo Root**
+  - `/docs`: All project documentation, guides, and knowledge files.
+  - `/scripts`: Utility scripts, setup tools, and maintenance commands.
+  - `/plans`: Implementation plans, TODOs, and architectural decisions.
+  - `/tests`: Integration, fuzzy, and logic tests (excluding unit tests adjacent to source code).
+  - `/logs`: Log files (ignored by git).
+
+**Rules:**
+- **No Orphaned Files:** Do not create random files in the project root.
+- **Root Directory:** Should only contain standard config files (`package.json`, `vite.config.ts`, etc.) and the `src` folder.
+- **New Artifacts:** Always place new plans, guides, or scripts in the appropriate `_aiwk` subdirectory.
+
+---
+
 ## 2. Brand Identity & Style Guide
 - **Logo:** Signature in a gold framed square, serif + sans typography.
 - **Core Brand Concept:** Modern Heritage Luxury

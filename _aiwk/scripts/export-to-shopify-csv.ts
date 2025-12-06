@@ -1,4 +1,4 @@
-import { PLACEHOLDER_PRODUCTS } from '../src/lib/placeholder-data'
+import { PLACEHOLDER_PRODUCTS } from '../../src/lib/placeholder-data'
 import * as fs from 'fs'
 import * as path from 'path'
 

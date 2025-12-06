@@ -1,5 +1,5 @@
 
-import { chatEngine } from './src/lib/chatbot/engine';
+import { chatEngine } from '../../src/lib/chatbot/engine';
 
 async function testSalahLogic() {
   console.log("Testing Mohamed Salah logic...");

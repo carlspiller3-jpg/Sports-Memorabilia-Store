@@ -1,6 +1,6 @@
 
-import { PLACEHOLDER_PRODUCTS } from './src/lib/placeholder-data';
-import { ATHLETE_DB } from './src/lib/chatbot/knowledge';
+import { PLACEHOLDER_PRODUCTS } from '../../src/lib/placeholder-data';
+import { ATHLETE_DB } from '../../src/lib/chatbot/knowledge';
 
 interface IntegrityReport {
     totalProducts: number;
