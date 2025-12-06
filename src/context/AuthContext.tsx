@@ -29,6 +29,9 @@ interface AuthContextType {
     logout: () => void
     isLoading: boolean
     refreshProfile: () => Promise<void>
+    addAddress: (address: any) => Promise<boolean>
+    deleteAddress: (id: string) => Promise<boolean>
+    updateAddress: (id: string, address: any) => Promise<boolean>
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -152,13 +155,62 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         return false;
     };
 
+    const addAddress = async (address: any) => {
+        if (!user?.token) return false;
+        const { CUSTOMER_ADDRESS_CREATE } = await import('@/lib/shopify');
+        const data = await shopifyFetch(CUSTOMER_ADDRESS_CREATE, { 
+            customerAccessToken: user.token,
+            address 
+        });
+
+        if (data?.data?.customerAddressCreate?.customerAddress?.id) {
+            await refreshProfile();
+            return true;
+        }
+        if (data?.data?.customerAddressCreate?.customerUserErrors?.length) {
+            alert(data.data.customerAddressCreate.customerUserErrors[0].message);
+        }
+        return false;
+    };
+
+    const deleteAddress = async (id: string) => {
+        if (!user?.token) return false;
+        const { CUSTOMER_ADDRESS_DELETE } = await import('@/lib/shopify');
+        const data = await shopifyFetch(CUSTOMER_ADDRESS_DELETE, { 
+            customerAccessToken: user.token,
+            id 
+        });
+
+        if (data?.data?.customerAddressDelete?.deletedCustomerAddressId) {
+            await refreshProfile();
+            return true;
+        }
+        return false;
+    };
+
+    const updateAddress = async (id: string, address: any) => {
+        if (!user?.token) return false;
+        const { CUSTOMER_ADDRESS_UPDATE } = await import('@/lib/shopify');
+        const data = await shopifyFetch(CUSTOMER_ADDRESS_UPDATE, { 
+            customerAccessToken: user.token,
+            id,
+            address 
+        });
+        
+        if (data?.data?.customerAddressUpdate?.customerAddress?.id) {
+            await refreshProfile();
+            return true;
+        }
+        return false;
+    };
+
     const logout = () => {
         localStorage.removeItem('shopify_customer_token');
         setUser(null);
     };
 
     return (
-        <AuthContext.Provider value={{ user, login, register, logout, isLoading, refreshProfile }}>
+        <AuthContext.Provider value={{ user, login, register, logout, isLoading, refreshProfile, addAddress, deleteAddress, updateAddress }}>
             {children}
         </AuthContext.Provider>
     );

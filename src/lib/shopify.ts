@@ -234,3 +234,40 @@ export const CUSTOMER_QUERY = `
     }
   }
 `;
+
+export const CUSTOMER_ADDRESS_CREATE = `
+  mutation customerAddressCreate($customerAccessToken: String!, $address: MailingAddressInput!) {
+    customerAddressCreate(customerAccessToken: $customerAccessToken, address: $address) {
+      customerAddress {
+        id
+      }
+      customerUserErrors {
+        message
+      }
+    }
+  }
+`;
+
+export const CUSTOMER_ADDRESS_DELETE = `
+  mutation customerAddressDelete($id: ID!, $customerAccessToken: String!) {
+    customerAddressDelete(id: $id, customerAccessToken: $customerAccessToken) {
+      deletedCustomerAddressId
+      customerUserErrors {
+        message
+      }
+    }
+  }
+`;
+
+export const CUSTOMER_ADDRESS_UPDATE = `
+  mutation customerAddressUpdate($customerAccessToken: String!, $id: ID!, $address: MailingAddressInput!) {
+    customerAddressUpdate(customerAccessToken: $customerAccessToken, id: $id, address: $address) {
+      customerAddress {
+        id
+      }
+      customerUserErrors {
+        message
+      }
+    }
+  }
+`;

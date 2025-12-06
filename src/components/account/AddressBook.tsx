@@ -1,5 +1,8 @@
+import { useState } from 'react'
 import { MapPin, Plus, Edit2, Trash2 } from 'lucide-react'
 import { Button } from '@/components/ui/Button'
+import { useAuth } from '@/context/AuthContext'
+import { AddressModal } from './AddressModal'
 
 interface AddressBookProps {
     defaultAddress: any
@@ -7,13 +10,52 @@ interface AddressBookProps {
 }
 
 export function AddressBook({ defaultAddress, addresses }: AddressBookProps) {
+    const { addAddress, deleteAddress, updateAddress } = useAuth()
+    const [isModalOpen, setIsModalOpen] = useState(false)
+    const [editingAddress, setEditingAddress] = useState<any>(null)
+    const [isDeleting, setIsDeleting] = useState<string | null>(null)
+
     const allAddresses = [defaultAddress, ...addresses.filter((a: any) => a.id !== defaultAddress?.id)].filter(Boolean)
+
+    const handleAdd = async (addressData: any) => {
+        const success = await addAddress(addressData)
+        if (success) setIsModalOpen(false)
+    }
+    
+    const handleEdit = async (addressData: any) => {
+        if (!editingAddress) return
+        // Shopify update mutation requires just the fields to change.
+        // We'll pass the whole form data.
+        const success = await updateAddress(editingAddress.id, addressData)
+        if (success) {
+            setIsModalOpen(false)
+            setEditingAddress(null)
+        }
+    }
+
+    const handleDelete = async (id: string) => {
+        if (confirm('Are you sure you want to delete this address?')) {
+            setIsDeleting(id)
+            await deleteAddress(id)
+            setIsDeleting(null)
+        }
+    }
+
+    const openForEdit = (addr: any) => {
+        setEditingAddress(addr)
+        setIsModalOpen(true)
+    }
+
+    const openForAdd = () => {
+        setEditingAddress(null)
+        setIsModalOpen(true)
+    }
 
     return (
         <div className="space-y-8">
             <div className="flex items-center justify-between">
                 <h3 className="font-serif text-xl font-bold text-charcoal">Saved Addresses</h3>
-                <Button variant="outline" className="gap-2">
+                <Button variant="outline" className="gap-2" onClick={openForAdd}>
                     <Plus className="w-4 h-4" />
                     Add New Address
                 </Button>
@@ -49,14 +91,25 @@ export function AddressBook({ defaultAddress, addresses }: AddressBookProps) {
                             </div>
 
                             <div className="flex items-center gap-2 mt-6 pt-4 border-t border-stone/5 opacity-0 group-hover:opacity-100 transition-opacity">
-                                <Button variant="ghost" size="sm" className="text-navy/60 hover:text-charcoal h-8 px-2">
+                                <Button 
+                                    variant="ghost" 
+                                    size="sm" 
+                                    className="text-navy/60 hover:text-charcoal h-8 px-2"
+                                    onClick={() => openForEdit(addr)}
+                                >
                                     <Edit2 className="w-3 h-3 mr-1.5" />
                                     Edit
                                 </Button>
                                 {!isDefault && (
-                                    <Button variant="ghost" size="sm" className="text-red-400 hover:text-red-600 h-8 px-2">
+                                    <Button 
+                                        variant="ghost" 
+                                        size="sm" 
+                                        className="text-red-400 hover:text-red-600 h-8 px-2"
+                                        onClick={() => handleDelete(addr.id)}
+                                        disabled={isDeleting === addr.id}
+                                    >
                                         <Trash2 className="w-3 h-3 mr-1.5" />
-                                        Remove
+                                        {isDeleting === addr.id ? 'Removing...' : 'Remove'}
                                     </Button>
                                 )}
                             </div>
@@ -72,9 +125,17 @@ export function AddressBook({ defaultAddress, addresses }: AddressBookProps) {
                     <p className="text-navy/60 max-w-sm mx-auto mt-2 mb-4">
                         Add a shipping address for faster checkout.
                     </p>
-                    <Button variant="secondary">Add Address</Button>
+                    <Button variant="secondary" onClick={openForAdd}>Add Address</Button>
                 </div>
             )}
+
+            <AddressModal 
+                isOpen={isModalOpen}
+                onClose={() => setIsModalOpen(false)}
+                onSubmit={editingAddress ? handleEdit : handleAdd}
+                initialData={editingAddress}
+                title={editingAddress ? 'Edit Address' : 'Add New Address'}
+            />
         </div>
     )
 }
