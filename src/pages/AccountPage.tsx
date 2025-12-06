@@ -167,10 +167,10 @@ export function AccountPage() {
                             </div>
                          </div>
 
-                        <div className="bg-gold/10 p-6 rounded-sm border border-gold/20 text-center">
+                        <div className="bg-stone/5 p-6 rounded-sm border border-stone/10 text-center">
                             <h4 className="font-serif font-bold text-charcoal mb-2">Need Help?</h4>
-                            <p className="text-sm text-navy/70 mb-4">Our concierge team is available 24/7 for premium members.</p>
-                            <Button variant="outline" className="w-full border-gold text-gold hover:bg-gold hover:text-white">Contact Concierge</Button>
+                            <p className="text-sm text-navy/70 mb-4">Have questions about your order or collection?</p>
+                            <Button variant="outline" className="w-full">Contact Support</Button>
                         </div>
                     </div>
                 </div>
