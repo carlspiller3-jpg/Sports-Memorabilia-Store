@@ -2,15 +2,39 @@ import { ArrowRight } from "lucide-react"
 import { ProductCard } from "@/components/ui/ProductCard"
 import { PLACEHOLDER_PRODUCTS } from "@/lib/placeholder-data"
 import { generateImageAlt } from "@/lib/seo"
+import { useEffect, useState } from "react"
+import { fetchProductsByCollection } from "@/lib/shopify"
+import type { Product } from "@/types/schema"
 
 export function TrendingNow() {
-    // Select specific trending items (e.g., Messi, Tyson, Carter)
-    const trendingProducts = PLACEHOLDER_PRODUCTS.filter(p => 
-        ['messi-boot-signed', 'tyson-glove-signed', 'carter-shirt-signed', 'lebron-jersey-signed'].includes(p.handle)
-    ).slice(0, 4)
+    const [products, setProducts] = useState<Product[]>([])
+    const [loading, setLoading] = useState(true)
 
-    // Fallback if specific items aren't found (just take first 4)
-    const productsToShow = trendingProducts.length > 0 ? trendingProducts : PLACEHOLDER_PRODUCTS.slice(0, 4)
+    useEffect(() => {
+        async function loadTrending() {
+            setLoading(true)
+            
+            // Try fetching from a 'trending' collection first
+            let fetched = await fetchProductsByCollection('trending')
+            
+            // Fallback: If no trending collection, fetch 'frontpage' or just fallback to placeholders
+            if (fetched.length === 0) {
+                 fetched = await fetchProductsByCollection('frontpage')
+            }
+            
+            if (fetched.length > 0) {
+                setProducts(fetched.slice(0, 4))
+            } else {
+                // Determine placeholders
+                const trendingPlaceholders = PLACEHOLDER_PRODUCTS.filter(p => 
+                    ['messi-boot-signed', 'tyson-glove-signed', 'carter-shirt-signed', 'lebron-jersey-signed'].includes(p.handle)
+                ).slice(0, 4)
+                setProducts(trendingPlaceholders.length > 0 ? trendingPlaceholders : PLACEHOLDER_PRODUCTS.slice(0, 4))
+            }
+            setLoading(false)
+        }
+        loadTrending()
+    }, [])
 
     const getImage = (product: any) => {
         if (product.images && product.images.length > 0) return product.images[0]
@@ -36,7 +60,7 @@ export function TrendingNow() {
                 </div>
 
                 <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
-                    {productsToShow.map((product) => (
+                    {products.map((product) => (
                         <a href={`/product/${product.handle}`} key={product.id} className="block group">
                             <ProductCard
                                 title={product.seo_title || product.title}
@@ -48,6 +72,11 @@ export function TrendingNow() {
                             />
                         </a>
                     ))}
+                    {loading && products.length === 0 && (
+                         [...Array(4)].map((_, i) => (
+                            <div key={i} className="aspect-[4/5] bg-stone/5 animate-pulse rounded-sm" />
+                         ))
+                    )}
                 </div>
 
                 <div className="mt-8 text-center sm:hidden">
