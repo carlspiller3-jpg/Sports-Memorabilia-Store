@@ -27,25 +27,25 @@ export function Hero() {
           </div>
 
           {/* Headline */}
-          <h1 className="font-serif text-5xl sm:text-6xl lg:text-7xl font-bold tracking-tight text-white leading-tight">
+          <h1 className="font-serif text-4xl sm:text-6xl lg:text-7xl font-bold tracking-tight text-white leading-tight">
             Own a Piece of <br />
             <span className="text-gold">Sporting History</span>
           </h1>
 
           {/* Subheadline */}
-          <p className="text-lg sm:text-xl text-white/80 max-w-xl leading-relaxed">
+          <p className="text-base sm:text-xl text-white/80 max-w-xl leading-relaxed">
             Premium authenticated sports memorabilia, expertly framed and ready to display. The ultimate gift for the ultimate fan.
           </p>
 
           {/* CTA Buttons */}
-          <div className="flex flex-col sm:flex-row gap-4 pt-4">
+          <div className="flex flex-col sm:flex-row gap-3 pt-2">
             <Link to="/shop">
-              <Button size="lg" className="h-14 px-8 text-lg font-bold bg-gold hover:bg-gold/90 text-charcoal w-full sm:w-auto shadow-lg shadow-gold/20">
+              <Button size="lg" className="h-12 sm:h-14 px-8 text-base sm:text-lg font-bold bg-gold hover:bg-gold/90 text-charcoal w-full sm:w-auto shadow-lg shadow-gold/20">
                 Shop Collection
               </Button>
             </Link>
             <Link to="/verify">
-              <Button size="lg" variant="outline" className="h-14 px-8 text-lg font-bold border-white text-white hover:bg-white hover:text-charcoal w-full sm:w-auto backdrop-blur-sm bg-white/5">
+              <Button size="lg" variant="outline" className="h-12 sm:h-14 px-8 text-base sm:text-lg font-bold border-white text-white hover:bg-white hover:text-charcoal w-full sm:w-auto backdrop-blur-sm bg-white/5">
                 Verify Authenticity
               </Button>
             </Link>
