@@ -22,6 +22,7 @@ import {
 } from "@/lib/seo"
 import { RelatedProducts } from "@/components/product/RelatedProducts"
 import { fetchProductByHandle } from "@/lib/shopify"
+import { ReviewList } from "@/components/reviews/ReviewList"
 
 export function ProductPage() {
     const { handle } = useParams<{ handle: string }>()
@@ -373,6 +374,12 @@ export function ProductPage() {
                     </div>
                 </div>
             </div>
+
+            {/* Reviews Section */}
+            <div className="container mx-auto px-4">
+                <ReviewList productHandle={product.handle} />
+            </div>
+
 
             {/* Related Products */}
             <RelatedProducts currentProduct={product} />
