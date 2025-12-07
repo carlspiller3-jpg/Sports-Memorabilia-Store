@@ -4,9 +4,10 @@ import { motion } from 'framer-motion'
 
 interface CollectionGalleryProps {
     orders: any[]
+    onTradeInClick: () => void
 }
 
-export function CollectionGallery({ orders }: CollectionGalleryProps) {
+export function CollectionGallery({ orders, onTradeInClick }: CollectionGalleryProps) {
     // Extract unique items from all orders
     const collectionItems = orders.flatMap(order => 
         order.lineItems.edges.map((edge: any) => ({
@@ -51,6 +52,7 @@ export function CollectionGallery({ orders }: CollectionGalleryProps) {
                 </div>
             </div>
 
+            {/* Grid */}
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                 {collectionItems.map((item, idx) => (
                     <motion.div 
@@ -92,6 +94,32 @@ export function CollectionGallery({ orders }: CollectionGalleryProps) {
                         </div>
                     </motion.div>
                 ))}
+            </div>
+
+            {/* Care Guide Section */}
+            <div className="border-t border-stone/10 pt-12 mt-12">
+                <div className="flex flex-col md:flex-row gap-8 items-start">
+                    <div className="flex-1">
+                        <h3 className="font-serif text-xl font-bold text-charcoal mb-4 flex items-center gap-2">
+                            <ShieldCheck className="w-5 h-5 text-gold" />
+                            Preserving Your Investment
+                        </h3>
+                        <p className="text-navy/70 mb-6 leading-relaxed">
+                            Sports memorabilia requires specific care to maintain its value. Keep items out of direct sunlight,
+                            manage humidity levels, and always use archival-grade materials for framing.
+                        </p>
+                        <Button variant="outline">Download Care Guide (PDF)</Button>
+                    </div>
+                    <div className="flex-1 bg-ivory p-6 rounded-sm border border-stone/10">
+                        <h4 className="font-bold text-charcoal mb-2">Ready to sell?</h4>
+                        <p className="text-sm text-navy/60 mb-4">
+                            We offer competitive valuations for authenticated items. Start a trade-in to upgrade your collection.
+                        </p>
+                        <Button onClick={onTradeInClick} className="w-full bg-navy text-white hover:bg-navy/90">
+                            Start Trade-in Request
+                        </Button>
+                    </div>
+                </div>
             </div>
         </div>
     )

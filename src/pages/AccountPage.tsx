@@ -8,6 +8,7 @@ import { Package, User as UserIcon, LogOut, LayoutDashboard, Gem, MapPin } from 
 import { OrderHistory } from '@/components/account/OrderHistory'
 import { AddressBook } from '@/components/account/AddressBook'
 import { CollectionGallery } from '@/components/account/CollectionGallery'
+import { TradeInModal } from '@/components/account/TradeInModal'
 
 type Tab = 'overview' | 'orders' | 'vault' | 'addresses'
 
@@ -15,6 +16,7 @@ export function AccountPage() {
     const { user, logout, isLoading, refreshProfile } = useAuth()
     const navigate = useNavigate()
     const [activeTab, setActiveTab] = useState<Tab>('overview')
+    const [showTradeIn, setShowTradeIn] = useState(false)
 
     useEffect(() => {
         if (!isLoading && !user) {
@@ -136,7 +138,12 @@ export function AccountPage() {
 
                         {activeTab === 'orders' && <OrderHistory orders={profile?.orders || []} />}
                         
-                        {activeTab === 'vault' && <CollectionGallery orders={profile?.orders || []} />}
+                        {activeTab === 'vault' && (
+                            <CollectionGallery 
+                                orders={profile?.orders || []} 
+                                onTradeInClick={() => setShowTradeIn(true)}
+                            />
+                        )}
 
                         {activeTab === 'addresses' && (
                             <AddressBook 
@@ -144,6 +151,11 @@ export function AccountPage() {
                                 addresses={profile?.addresses || []} 
                             />
                         )}
+                        
+                        <TradeInModal 
+                            isOpen={showTradeIn} 
+                            onClose={() => setShowTradeIn(false)} 
+                        />
                     </div>
 
                     {/* Sidebar / Quick Actions */}
