@@ -271,3 +271,36 @@ export const CUSTOMER_ADDRESS_UPDATE = `
     }
   }
 `;
+
+// --- Collection Fetchers ---
+
+export async function fetchCollections(): Promise<any[]> {
+    if (!client) return [];
+    
+    try {
+        const collections = await (client as any).collection.fetchAll();
+        return collections.map((c: any) => ({
+            id: c.id,
+            title: c.title,
+            handle: c.handle,
+            description: c.description,
+            image: c.image ? c.image.src : null
+        }));
+    } catch (err) {
+        console.error('Error fetching collections:', err);
+        return [];
+    }
+}
+
+export async function fetchProductsByCollection(handle: string): Promise<Product[]> {
+    if (!client) return [];
+    
+    try {
+        const collection = await (client as any).collection.fetchByHandle(handle);
+        if (!collection || !collection.products) return [];
+        return collection.products.map(mapShopifyProduct);
+    } catch (err) {
+        console.error(`Error fetching products for collection ${handle}:`, err);
+        return [];
+    }
+}
