@@ -55,7 +55,7 @@ export function PresentationSection() {
                             </div>
 
                             <h2 className="text-3xl font-bold tracking-tight text-navy sm:text-4xl lg:text-5xl">
-                                Premium Framing. Apple-Style Packaging.
+                                Premium Framing. Luxury Packaging.
                             </h2>
                             <p className="text-lg text-charcoal/70">
                                 Every piece is hand-framed using premium materials and delivered in luxury packaging designed to wow. From the moment you open the box, you'll know this is something special.

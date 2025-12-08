@@ -52,15 +52,15 @@ export function Footer() {
                             </button>
                         </div>
                         <div className="flex gap-4 pt-4 text-stone/60">
-                            <a href="#" className="hover:text-gold transition-colors"><Instagram className="w-5 h-5" /></a>
-                            <a href="#" className="hover:text-gold transition-colors"><Facebook className="w-5 h-5" /></a>
-                            <a href="#" className="hover:text-gold transition-colors"><Twitter className="w-5 h-5" /></a>
+                            <a href="#" className="hover:text-gold transition-colors" aria-label="Instagram"><Instagram className="w-5 h-5" /></a>
+                            <a href="#" className="hover:text-gold transition-colors" aria-label="Facebook"><Facebook className="w-5 h-5" /></a>
+                            <a href="#" className="hover:text-gold transition-colors" aria-label="Twitter"><Twitter className="w-5 h-5" /></a>
                         </div>
                     </div>
                 </div>
 
                 <div className="border-t border-stone/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-stone/40">
-                    <p>&copy; 2025 Sports Memorabilia Store. All rights reserved. <span className="opacity-50 ml-2">v1.1.0</span></p>
+                    <p>&copy; 2025 Sports Memorabilia Store. All rights reserved. <span className="opacity-50 ml-2">v1.1.1</span></p>
                     <div className="flex gap-6">
                         <a href="/privacy" className="hover:text-stone/60">Privacy Policy</a>
                         <a href="/terms" className="hover:text-stone/60">Terms of Service</a>
