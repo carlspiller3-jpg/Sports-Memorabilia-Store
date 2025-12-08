@@ -9,6 +9,7 @@ import { OrderHistory } from '@/components/account/OrderHistory'
 import { AddressBook } from '@/components/account/AddressBook'
 import { CollectionGallery } from '@/components/account/CollectionGallery'
 import { TradeInModal } from '@/components/account/TradeInModal'
+import { Order } from '@/types/schema'
 
 type Tab = 'overview' | 'orders' | 'vault' | 'addresses'
 
@@ -110,7 +111,7 @@ export function AccountPage() {
                                             <Gem className="w-4 h-4" /> Collection Value
                                         </h3>
                                         <p className="text-3xl font-bold">
-                                            £{profile?.orders?.reduce((acc: number, o: any) => acc + parseFloat(o.totalPrice?.amount || '0'), 0).toFixed(2) || '0.00'}
+                                            £{profile?.orders?.reduce((acc: number, o: Order) => acc + parseFloat(o.totalPrice?.amount || '0'), 0).toFixed(2) || '0.00'}
                                         </p>
                                         <p className="text-white/40 text-sm mt-1">Based on purchase history</p>
                                     </div>
@@ -191,7 +192,7 @@ export function AccountPage() {
     )
 }
 
-function TabButton({ active, icon: Icon, label, onClick }: { active: boolean, icon: any, label: string, onClick: () => void }) {
+function TabButton({ active, icon: Icon, label, onClick }: { active: boolean, icon: React.ElementType, label: string, onClick: () => void }) {
     return (
         <button 
             onClick={onClick}

@@ -778,3 +778,21 @@ export const TEAM_ALIASES: Record<string, string[]> = {
   'Mercedes': ['silver arrows', 'merc'],
   'Red Bull Racing': ['red bull', 'rbr']
 }
+
+export interface TeamProfile {
+  id: string
+  name: string
+  league: string
+  colors: string[]
+  commonName: string
+}
+
+export const TEAM_INFO: TeamProfile[] = [
+  { id: 'liverpool', name: 'Liverpool', league: 'Premier League', colors: ['red'], commonName: 'Liverpool' },
+  { id: 'man_utd', name: 'Manchester United', league: 'Premier League', colors: ['red'], commonName: 'Man Utd' },
+  { id: 'arsenal', name: 'Arsenal', league: 'Premier League', colors: ['red'], commonName: 'Arsenal' },
+  { id: 'chelsea', name: 'Chelsea', league: 'Premier League', colors: ['blue'], commonName: 'Chelsea' },
+  { id: 'man_city', name: 'Manchester City', league: 'Premier League', colors: ['blue', 'sky blue'], commonName: 'Man City' },
+  { id: 'real_madrid', name: 'Real Madrid', league: 'La Liga', colors: ['white'], commonName: 'Real Madrid' },
+  { id: 'barcelona', name: 'Barcelona', league: 'La Liga', colors: ['blue', 'red', 'blaugrana'], commonName: 'Barcelona' }
+]

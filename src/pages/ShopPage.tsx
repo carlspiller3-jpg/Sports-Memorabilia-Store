@@ -1,5 +1,5 @@
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, useMemo } from "react"
 import { useSearchParams } from "react-router-dom"
 import { SlidersHorizontal, ChevronDown, Search } from "lucide-react"
 import { ProductCard } from "@/components/ui/ProductCard"
@@ -16,7 +16,7 @@ import { fetchAllProducts } from "@/lib/shopify"
 export function ShopPage() {
     const [searchParams, setSearchParams] = useSearchParams()
     const [products, setProducts] = useState<Product[]>([])
-    const [filteredProducts, setFilteredProducts] = useState<Product[]>([])
+    // filteredProducts is now derived via useMemo
     const [loading, setLoading] = useState(true)
     const [sortBy, setSortBy] = useState("featured")
     const [searchQuery, setSearchQuery] = useState(searchParams.get("q") || "")
@@ -47,7 +47,6 @@ export function ShopPage() {
             if (import.meta.env.VITE_USE_LIVE_SHOPIFY === 'true') {
                 const liveProducts = await fetchAllProducts()
                 setProducts(liveProducts)
-                setFilteredProducts(liveProducts)
             } else {
                 // 1. Start with placeholders
                 let allProducts = [...PLACEHOLDER_PRODUCTS]
@@ -68,7 +67,6 @@ export function ShopPage() {
                 }
 
                 setProducts(allProducts)
-                setFilteredProducts(allProducts)
             }
             setLoading(false)
         }
@@ -76,8 +74,8 @@ export function ShopPage() {
         loadProducts()
     }, [])
 
-    // Filter effect
-    useEffect(() => {
+    // Filter logic using useMemo
+    const filteredProducts = useMemo(() => {
         let result = [...products]
 
         // Search filter
@@ -87,9 +85,6 @@ export function ShopPage() {
                 p.title.toLowerCase().includes(query) ||
                 p.tags?.some(tag => tag.toLowerCase().includes(query))
             )
-            setSearchParams(prev => { prev.set("q", searchQuery); return prev }, { replace: true })
-        } else {
-            setSearchParams(prev => { prev.delete("q"); return prev }, { replace: true })
         }
 
         // Type filter
@@ -116,8 +111,20 @@ export function ShopPage() {
             })
         }
 
-        setFilteredProducts(result)
-    }, [searchQuery, products, setSearchParams, selectedType, selectedSport, selectedTeam, priceRange])
+        return result
+    }, [products, searchQuery, selectedType, selectedSport, selectedTeam, priceRange])
+
+    // Sync search query to URL
+    useEffect(() => {
+        setSearchParams(prev => {
+            if (searchQuery) {
+                prev.set("q", searchQuery)
+            } else {
+                prev.delete("q")
+            }
+            return prev
+        }, { replace: true })
+    }, [searchQuery, setSearchParams])
 
     // Helper to get price range or single price
     const getPrice = (product: Product) => {
@@ -264,6 +271,7 @@ export function ShopPage() {
                                             value={selectedTeam}
                                             onChange={(e) => setSelectedTeam(e.target.value)}
                                             className="w-full p-3 bg-white border border-stone/20 rounded-sm text-sm focus:outline-none focus:border-gold"
+                                            aria-label="Filter by Team or Athlete"
                                         >
                                             <option value="all">All Teams & Athletes</option>
                                             {teams.map((team: string) => (
@@ -318,7 +326,7 @@ export function ShopPage() {
                 ) : (
                     <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6">
                         {sortedProducts.map((product) => (
-                            <a href={`/product/${product.handle}`} key={product.id} className="block group">
+                            <a href={`/product/${product.handle}`} key={product.id} className="block group" aria-label={`View ${product.title}`}>
                                 <ProductCard
                                     title={product.seo_title || product.title}
                                     price={getPrice(product)}

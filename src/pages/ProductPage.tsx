@@ -5,7 +5,9 @@ import { ShieldCheck, Truck, Package, Star, ZoomIn, CheckCircle } from "lucide-r
 import { Button } from "@/components/ui/Button"
 import { TrustBadge } from "@/components/ui/TrustBadge"
 import { supabase } from "@/lib/supabase"
-import type { Product, Variant } from "@/types/schema"
+import type { Product } from "@/types/schema"
+
+
 import { PLACEHOLDER_PRODUCTS } from "@/lib/placeholder-data"
 import { PLACEHOLDER_IMAGES } from "@/data/placeholders"
 import { useCart } from "@/context/CartContext"
@@ -30,10 +32,7 @@ export function ProductPage() {
     const [product, setProduct] = useState<Product | null>(null)
     const [loading, setLoading] = useState(true)
     const [selectedFrame, setSelectedFrame] = useState<string>("")
-    const [selectedVariant, setSelectedVariant] = useState<Variant | null>(null)
     const [activeImageIndex, setActiveImageIndex] = useState(0)
-
-
 
     useEffect(() => {
         async function loadProduct() {
@@ -45,7 +44,6 @@ export function ProductPage() {
                 if (liveProduct) {
                     setProduct(liveProduct)
                      if (liveProduct.variants && liveProduct.variants.length > 0) {
-                        setSelectedVariant(liveProduct.variants[0])
                         if (liveProduct.variants[0].option1) {
                             setSelectedFrame(liveProduct.variants[0].option1)
                         }
@@ -60,7 +58,6 @@ export function ProductPage() {
             if (placeholder) {
                 setProduct(placeholder)
                 if (placeholder.variants && placeholder.variants.length > 0) {
-                    setSelectedVariant(placeholder.variants[0])
                     if (placeholder.variants[0].option1) {
                         setSelectedFrame(placeholder.variants[0].option1)
                     }
@@ -84,7 +81,6 @@ export function ProductPage() {
             } else {
                 setProduct(data)
                 if (data.variants && data.variants.length > 0) {
-                    setSelectedVariant(data.variants[0])
                     if (data.variants[0].option1) {
                         setSelectedFrame(data.variants[0].option1)
                     }
@@ -96,13 +92,7 @@ export function ProductPage() {
         loadProduct()
     }, [handle])
 
-    // Update selected variant when frame changes
-    useEffect(() => {
-        if (product?.variants && selectedFrame) {
-            const variant = product.variants.find(v => v.option1 === selectedFrame)
-            if (variant) setSelectedVariant(variant)
-        }
-    }, [selectedFrame, product])
+    const selectedVariant = product?.variants?.find(v => v.option1 === selectedFrame) || product?.variants?.[0] || null
 
     const handleAddToCart = () => {
         if (product && selectedVariant) {

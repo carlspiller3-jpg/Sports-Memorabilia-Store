@@ -1,6 +1,5 @@
 import { ArrowRight } from "lucide-react"
 import { ProductCard } from "@/components/ui/ProductCard"
-import { PLACEHOLDER_PRODUCTS } from "@/lib/placeholder-data"
 import { generateImageAlt } from "@/lib/seo"
 import { useEffect, useState } from "react"
 import { fetchProductsByCollection } from "@/lib/shopify"
@@ -17,19 +16,12 @@ export function TrendingNow() {
             // Try fetching from a 'trending' collection first
             let fetched = await fetchProductsByCollection('trending')
             
-            // Fallback: If no trending collection, fetch 'frontpage' or just fallback to placeholders
-            if (fetched.length === 0) {
-                 fetched = await fetchProductsByCollection('frontpage')
-            }
+
             
             if (fetched.length > 0) {
                 setProducts(fetched.slice(0, 4))
             } else {
-                // Determine placeholders
-                const trendingPlaceholders = PLACEHOLDER_PRODUCTS.filter(p => 
-                    ['messi-boot-signed', 'tyson-glove-signed', 'carter-shirt-signed', 'lebron-jersey-signed'].includes(p.handle)
-                ).slice(0, 4)
-                setProducts(trendingPlaceholders.length > 0 ? trendingPlaceholders : PLACEHOLDER_PRODUCTS.slice(0, 4))
+               setProducts([])
             }
             setLoading(false)
         }
@@ -59,25 +51,32 @@ export function TrendingNow() {
                     </a>
                 </div>
 
-                <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
-                    {products.map((product) => (
-                        <a href={`/product/${product.handle}`} key={product.id} className="block group">
-                            <ProductCard
-                                title={product.seo_title || product.title}
-                                price={getPrice(product)}
-                                image={getImage(product)}
-                                altText={generateImageAlt(product)}
-                                athlete={product.tags?.[2] || product.tags?.[0] || "Athlete"}
-                                type={(product.product_type as "shirt" | "boot" | "photo" | "other") || "other"}
-                            />
-                        </a>
-                    ))}
-                    {loading && products.length === 0 && (
-                         [...Array(4)].map((_, i) => (
-                            <div key={i} className="aspect-[4/5] bg-stone/5 animate-pulse rounded-sm" />
-                         ))
-                    )}
-                </div>
+                {products.length > 0 ? (
+                    <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
+                        {products.map((product) => (
+                            <a href={`/product/${product.handle}`} key={product.id} className="block group">
+                                <ProductCard
+                                    title={product.seo_title || product.title}
+                                    price={getPrice(product)}
+                                    image={getImage(product)}
+                                    altText={generateImageAlt(product)}
+                                    athlete={product.tags?.[2] || product.tags?.[0] || "Athlete"}
+                                    type={(product.product_type as "shirt" | "boot" | "photo" | "other") || "other"}
+                                />
+                            </a>
+                        ))}
+                    </div>
+                ) : (
+                    loading ? (
+                        <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
+                             {[...Array(4)].map((_, i) => (
+                                <div key={i} className="aspect-[4/5] bg-stone/5 animate-pulse rounded-sm" />
+                             ))}
+                        </div>
+                    ) : (
+                        <p className="text-center text-navy/60">No trending items at the moment. Check back soon!</p>
+                    )
+                )}
 
                 <div className="mt-8 text-center sm:hidden">
                     <a href="/shop" className="inline-flex items-center gap-2 text-navy font-medium hover:text-gold transition-colors">

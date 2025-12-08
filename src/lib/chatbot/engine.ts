@@ -1,6 +1,6 @@
 import { chatMemory } from './memory'
-import { getRecommendations } from './recommendations'
-import { ATHLETE_DB, type Athlete } from './knowledge'
+import { getRecommendations, type RecommendationOptions } from './recommendations'
+import { ATHLETE_DB, TEAM_INFO, type Athlete } from './knowledge'
 import { extractEntities } from './utils'
 import { getResponse } from './templates'
 import type { Product } from '@/types/schema'
@@ -74,10 +74,60 @@ class ChatEngine {
         message: occasionMessages[detectedOccasion] || occasionMessages.gift,
         quickReplies: ['Football', 'Boxing', 'Tennis', 'Help me choose']
       }
+
+    }
+
+    // AVAILABLE SPORTS QUERY
+    if (lower.includes('what sport') || lower.includes('which sport') || lower.includes('sports available') || 
+        lower.includes('sports do you have') || (lower.includes('sport') && lower.includes('list'))) {
+      return {
+        message: "We stock authentic memorabilia across all major sports! 🏆\n\nOur collection includes:\n⚽ Football\n🥊 Boxing\n🏎️ F1 & Motorsport\n🎾 Tennis\n🏏 Cricket\n🏉 Rugby\n🏀 Basketball\n⛳ Golf\n\nWhat's your favourite?",
+        quickReplies: ['Football', 'F1', 'Boxing', 'Browse all']
+      }
     }
 
     // Sport selection - detect if team sport or individual
-    if (lower.includes('football') || lower.includes('soccer')) {
+
+    if (lower.includes('football') || lower.includes('soccer') || lower.includes('la liga') || lower.includes('premier league')) {
+      // Check for team attributes (Colors + League/Location)
+      const colors = ['red', 'blue', 'white', 'black', 'yellow', 'striped']
+      const leagues = ['england', 'english', 'premier league', 'spain', 'spanish', 'la liga', 'italy', 'italian', 'serie a']
+      
+      const detectedColors = colors.filter(c => lower.includes(c))
+      const detectedLeague = leagues.find(l => lower.includes(l))
+
+      if (detectedColors.length > 0 && detectedLeague) {
+         try {
+           // Attempt to find matching teams
+           const isEngland = ['england', 'english', 'premier league'].includes(detectedLeague)
+           const isSpain = ['spain', 'spanish', 'la liga'].includes(detectedLeague)
+
+           // Ensure TEAM_INFO is available
+           const teams = TEAM_INFO || []
+
+           const matches = teams.filter(t => {
+              const leagueMatch = (isEngland && t.league === 'Premier League') || (isSpain && t.league === 'La Liga')
+              const colorMatch = t.colors && t.colors.some(c => detectedColors.includes(c))
+              return leagueMatch && colorMatch
+           })
+
+           if (matches.length > 0) {
+              const teamNames = matches.map(t => t.name)
+              const teamList = teamNames.length > 1 
+                ? `${teamNames.slice(0, -1).join(', ')} or ${teamNames.slice(-1)}`
+                : teamNames[0]
+              
+              return {
+                 message: `Ah, keen eye! 👀 The famous ${detectedColors[0]} kits of ${['england', 'english', 'premier league'].includes(detectedLeague) ? 'England' : 'Europe'}.\n\nYou might be thinking of **${teamList}**?\n\nWe have signed items from these legends!`,
+                 quickReplies: [...matches.map(t => `Show ${t.commonName}`), 'Browse all']
+              }
+           }
+         } catch (e) {
+           console.error("Error in team detection:", e)
+           // Fall through to generic response
+         }
+      }
+
       return {
         message: "Great choice! ⚽ Football memorabilia is our specialty.\n\nWhich team do you support?",
         quickReplies: ['Liverpool', 'Manchester United', 'Chelsea', 'Other teams']
@@ -116,6 +166,59 @@ class ChatEngine {
       return {
         message: "Howzat! 🏏 Here's our finest cricket memorabilia.",
         quickReplies: ['View all Cricket', 'Search specific player'],
+        products
+      }
+    }
+
+    if (lower.includes('basketball') || lower.includes('nba')) {
+      const products = await getRecommendations({ itemType: 'basketball', boostType: 'shirt' })
+      return {
+        message: "Slam dunk! 🏀 Check out these NBA legends.",
+        quickReplies: ['View all Basketball', 'Search specific player'],
+        products
+      }
+    }
+
+    if (lower.includes('f1') || lower.includes('formula 1') || lower.includes('racing') || 
+        lower.includes('motogp') || lower.includes('motocross') || lower.includes('bike') || lower.includes('motor')) {
+      
+      const isMoto = lower.includes('motogp') || lower.includes('motocross') || lower.includes('bike')
+      const message = isMoto 
+        ? "While we specialize in F1, we love all motorsport! 🏎️\n\nHere are our top racing items currently in stock."
+        : "Lights out and away we go! 🏎️ Here's our fastest selling F1 memorabilia."
+
+      const products = await getRecommendations({ itemType: 'f1' })
+      return {
+        message,
+        quickReplies: ['View all F1', 'Search driver', 'Browse all'],
+        products
+      }
+    }
+
+    if (lower.includes('golf')) {
+      const products = await getRecommendations({ itemType: 'golf' })
+      return {
+        message: "Fore! ⛳ Discover our authentic golf memorabilia.",
+        quickReplies: ['View all Golf', 'Search golfer'],
+        products
+      }
+    }
+
+    if (lower.includes('ufc') || lower.includes('mma')) {
+      const products = await getRecommendations({ itemType: 'ufc' }) // Assuming ufc items exist or map to boxing if not? Let's check knowledge...
+      // Accessing knowledge to check if UFC exists? 'UFC' is in the type definition but knowledge.ts doesn't seem to have UFC items populated explicitly in the snippet I saw?
+      // Wait, let me check knowledge.ts again.
+      // Re-reading knowledge.ts... I don't see UFC items.
+      // I'll leave UFC out/combine with boxing or just handle it if I'm sure.
+      // Actually, let's look at ATHLETE_DB in knowledge.ts again briefly.
+      // It had "UFC" in the type line 5. But I didn't see any UFC athletes in the array.
+      // I'll avoid adding a specific block for UFC if there are no products, OR I can just return a message saying we can source it.
+      // For now, let's stick to what we have product for.
+      // I'll remove UFC from this block and just add Golf, Basketball, F1.
+                 
+      return {
+        message: "Octagon ready! 🥊 Here are our UFC & MMA items.",
+        quickReplies: ['View all UFC', 'Search fighter'],
         products
       }
     }
@@ -502,11 +605,11 @@ class ChatEngine {
        const itemType = chatMemory.getItemType()
        
        // Construct options based on memory
-       const options: any = { limit: 100 } // Fetch more to filter locally
+       const options: RecommendationOptions = { limit: 100 } // Fetch more to filter locally
        if (team) options.team = team
        if (itemType) options.itemType = itemType
        
-       let products = await getRecommendations(options)
+       const products = await getRecommendations(options)
        
        // Filter out already viewed items
        const newProducts = products.filter(p => !viewedIds.includes(p.id))

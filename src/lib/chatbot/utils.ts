@@ -88,7 +88,12 @@ export function extractEntities(input: string): ExtractedEntities {
   if (lowerInput.includes('football') || lowerInput.includes('soccer')) entities.sport = 'Football'
   else if (lowerInput.includes('boxing') || lowerInput.includes('fight')) entities.sport = 'Boxing'
   else if (lowerInput.includes('tennis')) entities.sport = 'Tennis'
-  else if (lowerInput.includes('f1') || lowerInput.includes('formula 1') || lowerInput.includes('racing')) entities.sport = 'F1'
+  else if (lowerInput.includes('f1') || lowerInput.includes('formula 1') || lowerInput.includes('racing') || lowerInput.includes('motorsport') || lowerInput.includes('motogp') || lowerInput.includes('motocross') || lowerInput.includes('bike')) entities.sport = 'F1'
+  else if (lowerInput.includes('rugby')) entities.sport = 'Rugby'
+  else if (lowerInput.includes('cricket')) entities.sport = 'Cricket'
+  else if (lowerInput.includes('basketball') || lowerInput.includes('nba')) entities.sport = 'Basketball'
+  else if (lowerInput.includes('golf')) entities.sport = 'Golf'
+  else if (lowerInput.includes('ufc') || lowerInput.includes('mma')) entities.sport = 'UFC'
 
   return entities
 }

@@ -1,3 +1,4 @@
+
 export type Json =
     | string
     | number
@@ -61,5 +62,35 @@ export interface Database {
                 Update: Partial<Omit<Variant, 'id' | 'created_at' | 'updated_at'>>
             }
         }
+    }
+}
+
+export interface Order {
+    id: string
+    orderNumber: number
+    processedAt: string
+    financialStatus: string
+    fulfillmentStatus: string
+    totalPrice: {
+        amount: string
+        currencyCode: string
+    }
+    lineItems: {
+        edges: {
+            node: {
+                title: string
+                quantity: number
+                variant?: {
+                    image?: {
+                        url: string
+                        altText: string
+                    }
+                    price: {
+                        amount: string
+                        currencyCode: string
+                    }
+                }
+            }
+        }[]
     }
 }

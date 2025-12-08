@@ -26,10 +26,9 @@ export function RegisterPage() {
             if (success) {
                 navigate('/account')
             } else {
-                // Error is handled in context with alert, but we update UI state too
                 setLoading(false)
             }
-        } catch (err) {
+        } catch (error) {
             setError('An error occurred. Please try again.')
             setLoading(false)
         }

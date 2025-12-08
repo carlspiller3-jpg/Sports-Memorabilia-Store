@@ -50,7 +50,7 @@ export function ChatWidget() {
     chatMemory.clear()
 
     // Start with fresh greeting
-    initializeChat()
+    setTimeout(() => initializeChat(), 0)
 
     // Clear chat when user leaves the website
     const handleBeforeUnload = () => {

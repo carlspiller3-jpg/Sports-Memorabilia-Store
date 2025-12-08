@@ -1,4 +1,5 @@
-import { useState, useEffect } from "react"
+
+import { useState, useEffect, useCallback } from "react"
 import { useSearchParams } from "react-router-dom"
 import { ShieldCheck, Loader2, XCircle, Smartphone, Zap, CheckCircle, Lock } from "lucide-react"
 import { Button } from "@/components/ui/Button"
@@ -6,18 +7,19 @@ import { TrustBadge } from "@/components/ui/TrustBadge"
 
 export function VerifyPage() {
     const [searchParams] = useSearchParams()
+    interface VerifiedProduct {
+        title: string
+        date: string
+        location: string
+        contract: string
+        tokenId: string
+        image: string
+    }
+
     const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle')
-    const [product, setProduct] = useState<any>(null)
+    const [product, setProduct] = useState<VerifiedProduct | null>(null)
 
-    // Simulate NFC scan handling
-    useEffect(() => {
-        const tagId = searchParams.get('tag_id')
-        if (tagId) {
-            handleVerify(tagId)
-        }
-    }, [searchParams])
-
-    const handleVerify = async (tagId: string) => {
+    const handleVerify = useCallback(async (tagId: string) => {
         setStatus('loading')
 
         try {
@@ -54,7 +56,15 @@ export function VerifyPage() {
             console.error('Verification failed:', error)
             setStatus('error')
         }
-    }
+    }, [])
+
+    // Simulate NFC scan handling
+    useEffect(() => {
+        const tagId = searchParams.get('tag_id')
+        if (tagId) {
+            setTimeout(() => handleVerify(tagId), 0)
+        }
+    }, [searchParams, handleVerify])
 
     return (
         <div className="min-h-screen bg-ivory">
