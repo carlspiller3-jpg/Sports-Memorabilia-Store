@@ -32,12 +32,13 @@ export function Header() {
 
                 {/* Logo */}
                 <div className="flex-1 md:flex-none flex justify-center md:justify-start">
-                    <a href="/" className="flex items-center">
-                        <img 
-                            src="/logo.png" 
-                            alt="Sports Memorabilia Store" 
-                            className="h-12 md:h-14 w-auto"
-                        />
+                    <a href="/" className="flex items-center gap-2">
+                        <div className="w-10 h-10 bg-gold rounded-sm flex items-center justify-center text-navy font-bold text-xl font-serif">
+                            S
+                        </div>
+                        <span className="font-serif text-xl md:text-2xl font-bold text-navy tracking-tight">
+                            Sports<span className="text-gold">Signed</span>
+                        </span>
                     </a>
                 </div>
 
