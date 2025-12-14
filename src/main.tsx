@@ -3,7 +3,7 @@ import { createRoot } from 'react-dom/client'
 import './index.css'
 import App from './App.tsx'
 
-console.log('App Version: 1.2.1 - Hide Empty Trending & Fix Logo Z');
+console.log('App Version: 1.3.0 - NUCLEAR REMOVAL of Trending');
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>

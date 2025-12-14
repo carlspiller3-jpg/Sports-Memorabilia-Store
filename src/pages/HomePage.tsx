@@ -24,7 +24,8 @@ export function HomePage() {
 
             <Hero />
             <TrustIndicators />
-            <TrendingNow />
+            {/* <TrendingNow /> - Temporarily removed per user request */}
+            {/* <TrendingNow /> */}
             <ProductCategories />
             <AuthenticitySection />
             <PresentationSection />
