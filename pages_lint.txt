@@ -1,0 +1,78 @@
+[0m[0m
+[0m[4mC:\Users\carls\.gemini\antigravity\scratch\sports-memorabilia-store\src\pages\LoginPage.tsx[24m[0m
+[0m  [2m29:18[22m  [31merror[39m  'err' is defined but never used  [2m@typescript-eslint/no-unused-vars[22m[0m
+[0m[0m
+[0m[4mC:\Users\carls\.gemini\antigravity\scratch\sports-memorabilia-store\src\pages\ProductPage.tsx[24m[0m
+[0m  [2m103:26[22m  [31merror[39m  Error: Calling setState synchronously within an effect can trigger cascading renders[0m
+[0m[0m
+[0mEffects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:[0m
+[0m* Update external systems with the latest state from React.[0m
+[0m* Subscribe for updates from some external system, calling setState in a callback function when external state changes.[0m
+[0m[0m
+[0mCalling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).[0m
+[0m[0m
+[0mC:\Users\carls\.gemini\antigravity\scratch\sports-memorabilia-store\src\pages\ProductPage.tsx:103:26[0m
+[0m  101 |         if (product?.variants && selectedFrame) {[0m
+[0m  102 |             const variant = product.variants.find(v => v.option1 === selectedFrame)[0m
+[0m> 103 |             if (variant) setSelectedVariant(variant)[0m
+[0m      |                          ^^^^^^^^^^^^^^^^^^ Avoid calling setState() directly within an effect[0m
+[0m  104 |         }[0m
+[0m  105 |     }, [selectedFrame, product])[0m
+[0m  106 |  [2mreact-hooks/set-state-in-effect[22m[0m
+[0m[0m
+[0m[4mC:\Users\carls\.gemini\antigravity\scratch\sports-memorabilia-store\src\pages\RegisterPage.tsx[24m[0m
+[0m  [2m32:18[22m  [31merror[39m  'err' is defined but never used  [2m@typescript-eslint/no-unused-vars[22m[0m
+[0m[0m
+[0m[4mC:\Users\carls\.gemini\antigravity\scratch\sports-memorabilia-store\src\pages\ShopPage.tsx[24m[0m
+[0m  [2m119:9[22m  [31merror[39m  Error: Calling setState synchronously within an effect can trigger cascading renders[0m
+[0m[0m
+[0mEffects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:[0m
+[0m* Update external systems with the latest state from React.[0m
+[0m* Subscribe for updates from some external system, calling setState in a callback function when external state changes.[0m
+[0m[0m
+[0mCalling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).[0m
+[0m[0m
+[0mC:\Users\carls\.gemini\antigravity\scratch\sports-memorabilia-store\src\pages\ShopPage.tsx:119:9[0m
+[0m  117 |         }[0m
+[0m  118 |[0m
+[0m> 119 |         setFilteredProducts(result)[0m
+[0m      |         ^^^^^^^^^^^^^^^^^^^ Avoid calling setState() directly within an effect[0m
+[0m  120 |     }, [searchQuery, products, setSearchParams, selectedType, selectedSport, selectedTeam, priceRange])[0m
+[0m  121 |[0m
+[0m  122 |     // Helper to get price range or single price  [2mreact-hooks/set-state-in-effect[22m[0m
+[0m[0m
+[0m[4mC:\Users\carls\.gemini\antigravity\scratch\sports-memorabilia-store\src\pages\VerifyPage.tsx[24m[0m
+[0m  [2m10:44[22m  [31merror[39m  Unexpected any. Specify a different type                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                [2m@typescript-eslint/no-explicit-any[22m[0m
+[0m  [2m16:13[22m  [31merror[39m  Error: Cannot access variable before it is declared[0m
+[0m[0m
+[0m`handleVerify` is accessed before it is declared, which prevents the earlier access from updating when this value changes over time.[0m
+[0m[0m
+[0mC:\Users\carls\.gemini\antigravity\scratch\sports-memorabilia-store\src\pages\VerifyPage.tsx:16:13[0m
+[0m  14 |         const tagId = searchParams.get('tag_id')[0m
+[0m  15 |         if (tagId) {[0m
+[0m> 16 |             handleVerify(tagId)[0m
+[0m     |             ^^^^^^^^^^^^ `handleVerify` accessed before it is declared[0m
+[0m  17 |         }[0m
+[0m  18 |     }, [searchParams])[0m
+[0m  19 |[0m
+[0m[0m
+[0mC:\Users\carls\.gemini\antigravity\scratch\sports-memorabilia-store\src\pages\VerifyPage.tsx:20:5[0m
+[0m  18 |     }, [searchParams])[0m
+[0m  19 |[0m
+[0m> 20 |     const handleVerify = async (tagId: string) => {[0m
+[0m     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+[0m> 21 |         setStatus('loading')[0m
+[0m     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+[0m> 22 |[0m
+[0m     …[0m
+[0m     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+[0m> 56 |         }[0m
+[0m     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+[0m> 57 |     }[0m
+[0m     | ^^^^^^ `handleVerify` is declared here[0m
+[0m  58 |[0m
+[0m  59 |     return ([0m
+[0m  60 |         <div className="min-h-screen bg-ivory">  [2mreact-hooks/immutability[22m[0m
+[0m[0m
+[0m[31m[1m✖ 6 problems (6 errors, 0 warnings)[22m[39m[0m
+[0m[31m[1m[22m[39m[0m

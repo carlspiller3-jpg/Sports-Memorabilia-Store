@@ -13,17 +13,25 @@ export function TrendingNow() {
         async function loadTrending() {
             setLoading(true)
             
-            // Try fetching from a 'trending' collection first
-            let fetched = await fetchProductsByCollection('trending')
-            
+            try {
+                // Try fetching from a 'trending' collection first
+                // Add a timeout race to prevent hanging
+                const fetchPromise = fetchProductsByCollection('trending')
+                const timeoutPromise = new Promise((_, reject) => setTimeout(() => reject('Timeout'), 5000))
 
-            
-            if (fetched.length > 0) {
-                setProducts(fetched.slice(0, 4))
-            } else {
-               setProducts([])
+                let fetched: any = await Promise.race([fetchPromise, timeoutPromise]).catch(() => [])
+                
+                if (fetched && fetched.length > 0) {
+                    setProducts(fetched.slice(0, 4))
+                } else {
+                    setProducts([])
+                }
+            } catch (error) {
+                console.error("Error loading trending:", error)
+                setProducts([])
+            } finally {
+                setLoading(false)
             }
-            setLoading(false)
         }
         loadTrending()
     }, [])

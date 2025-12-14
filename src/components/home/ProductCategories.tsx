@@ -69,7 +69,7 @@ export function ProductCategories() {
                         <Link
                             key={category.id}
                             to={`/shop?category=${category.handle}`}
-                            className="px-6 py-3 border rounded-sm text-sm font-medium transition-all relative overflow-hidden border-stone/30 text-navy hover:border-navy/50 bg-white hover:bg-stone/5"
+                            className="px-5 py-2 border rounded-sm text-sm font-medium transition-all relative overflow-hidden border-stone/30 text-navy hover:border-navy/50 bg-white hover:bg-stone/5"
                         >
                             {category.title}
                         </Link>

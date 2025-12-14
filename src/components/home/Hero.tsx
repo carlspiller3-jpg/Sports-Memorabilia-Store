@@ -3,7 +3,7 @@ import { Link } from "react-router-dom"
 
 export function Hero() {
   return (
-    <section className="relative h-[80vh] md:h-[75vh] min-h-[600px] w-full overflow-hidden">
+    <section className="relative h-[65vh] min-h-[500px] w-full overflow-hidden">
       {/* Background Image */}
       <div className="absolute inset-0">
         <img
@@ -16,7 +16,7 @@ export function Hero() {
       </div>
 
       {/* Content */}
-      <div className="relative h-full container mx-auto px-4 flex flex-col justify-end pb-20 pt-32 md:justify-center md:pt-0 md:pb-0">
+      <div className="relative h-full container mx-auto px-4 flex flex-col justify-center pb-12 pt-20 md:pt-0 md:pb-0">
         <div className="max-w-2xl space-y-8 animate-in fade-in slide-in-from-bottom-8 duration-1000">
           {/* Trust Badge */}
           <div className="inline-flex items-center space-x-2 rounded-full border border-white/20 bg-white/10 backdrop-blur-sm px-4 py-2 text-sm font-medium text-white w-fit">

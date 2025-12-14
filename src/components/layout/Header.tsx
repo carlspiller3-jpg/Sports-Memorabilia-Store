@@ -10,7 +10,7 @@ export function Header() {
     const { user } = useAuth()
 
     return (
-        <header className="sticky top-0 z-50 w-full border-b border-stone/30 bg-ivory/80 backdrop-blur-md">
+        <header className="sticky top-0 z-[100] w-full border-b border-stone/30 bg-ivory/80 backdrop-blur-md">
             <div className="container mx-auto px-4 h-16 flex items-center justify-between">
                 {/* Mobile Menu */}
                 <Sheet>
