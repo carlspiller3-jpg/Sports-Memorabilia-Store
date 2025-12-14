@@ -3,7 +3,7 @@ import { createRoot } from 'react-dom/client'
 import './index.css'
 import App from './App.tsx'
 
-console.log('App Version: 1.1.2 - Deployment Test');
+console.log('App Version: 1.2.0 - Placeholder REMOVED & Mobile Fix');
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
