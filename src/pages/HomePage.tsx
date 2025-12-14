@@ -1,7 +1,6 @@
 import { Helmet } from "react-helmet-async"
 import { Hero } from "@/components/home/Hero"
 import { TrustIndicators } from "@/components/home/TrustIndicators"
-import { TrendingNow } from "@/components/home/TrendingNow"
 import { ProductCategories } from "@/components/home/ProductCategories"
 import { AuthenticitySection } from "@/components/home/AuthenticitySection"
 import { PresentationSection } from "@/components/home/PresentationSection"
@@ -24,8 +23,6 @@ export function HomePage() {
 
             <Hero />
             <TrustIndicators />
-            {/* <TrendingNow /> - Temporarily removed per user request */}
-            {/* <TrendingNow /> */}
             <ProductCategories />
             <AuthenticitySection />
             <PresentationSection />

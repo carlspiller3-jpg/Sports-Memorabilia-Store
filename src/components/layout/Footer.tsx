@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom"
 import { Facebook, Instagram, Twitter } from "lucide-react"
 
 export function Footer() {
@@ -59,13 +60,15 @@ export function Footer() {
                     </div>
                 </div>
 
-                <div className="border-t border-stone/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-stone/40">
-                    <p>&copy; 2025 Sports Memorabilia Store. All rights reserved. <span className="opacity-50 ml-2">v1.1.1</span></p>
-                    <div className="flex gap-6">
-                        <a href="/privacy" className="hover:text-stone/60">Privacy Policy</a>
-                        <a href="/terms" className="hover:text-stone/60">Terms of Service</a>
+                    <div className="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+                        <p className="text-stone/60 text-sm">
+                            © 2024 SportsSigned. All rights reserved. <span className="text-xs opacity-50 ml-2">v1.4.0 - CLEAN BUILD</span>
+                        </p>
+                        <div className="flex gap-6">
+                            <Link to="/privacy" className="text-stone/60 hover:text-gold text-sm transition-colors">Privacy Policy</Link>
+                            <Link to="/terms" className="text-stone/60 hover:text-gold text-sm transition-colors">Terms of Service</Link>
+                        </div>
                     </div>
-                </div>
             </div>
         </footer>
     )
