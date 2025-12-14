@@ -46,6 +46,10 @@ export function TrendingNow() {
         return product.variants[0].price
     }
 
+    if (!loading && products.length === 0) {
+        return null; // Hide section completely if no products and not loading
+    }
+
     return (
         <section className="py-16 sm:py-24 bg-ivory">
             <div className="container mx-auto px-4">
@@ -59,7 +63,13 @@ export function TrendingNow() {
                     </a>
                 </div>
 
-                {products.length > 0 ? (
+                {loading ? (
+                    <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
+                            {[...Array(4)].map((_, i) => (
+                            <div key={i} className="aspect-[4/5] bg-stone/5 animate-pulse rounded-sm" />
+                            ))}
+                    </div>
+                ) : (
                     <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
                         {products.map((product) => (
                             <a href={`/product/${product.handle}`} key={product.id} className="block group">
@@ -74,16 +84,6 @@ export function TrendingNow() {
                             </a>
                         ))}
                     </div>
-                ) : (
-                    loading ? (
-                        <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
-                             {[...Array(4)].map((_, i) => (
-                                <div key={i} className="aspect-[4/5] bg-stone/5 animate-pulse rounded-sm" />
-                             ))}
-                        </div>
-                    ) : (
-                        <p className="text-center text-navy/60">No trending items at the moment. Check back soon!</p>
-                    )
                 )}
 
                 <div className="mt-8 text-center sm:hidden">

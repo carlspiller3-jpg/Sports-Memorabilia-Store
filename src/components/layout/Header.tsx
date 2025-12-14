@@ -31,7 +31,7 @@ export function Header() {
                 </Sheet>
 
                 {/* Logo */}
-                <div className="flex-1 md:flex-none flex justify-center md:justify-start z-[101]">
+                <div className="flex-1 md:flex-none flex justify-center md:justify-start z-[101] relative">
                     <a href="/" className="flex items-center gap-2">
                         <div className="w-10 h-10 bg-gold rounded-sm flex items-center justify-center text-navy font-bold text-xl font-serif shadow-sm">
                             S
