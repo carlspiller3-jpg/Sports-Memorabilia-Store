@@ -63,20 +63,36 @@ export function ProductCategories() {
                     </p>
                 </div>
 
-                {/* Categories Tabs */}
-                <div className="flex flex-wrap justify-center gap-4">
+                {/* Categories Grid */}
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                     {categories.map((category) => (
                         <Link
                             key={category.id}
                             to={`/shop?category=${category.handle}`}
-                            className="px-5 py-2 border rounded-sm text-sm font-medium transition-all relative overflow-hidden border-stone/30 text-navy hover:border-navy/50 bg-white hover:bg-stone/5"
+                            className="group relative h-32 md:h-40 overflow-hidden rounded-sm border border-stone/20"
                         >
-                            {category.title}
+                             <div className="absolute inset-0 bg-navy/20 group-hover:bg-navy/10 transition-colors z-10" />
+                            {/* Make assume we have images or use fallbacks */}
+                            <img 
+                                src={category.image || 
+                                    (category.handle === 'shirts' ? 'https://images.unsplash.com/photo-1551958219-acbc608c6377?q=80&w=2070&auto=format&fit=crop' :
+                                    category.handle === 'boots' ? 'https://images.unsplash.com/photo-1511886929837-354d827aae26?q=80&w=1964&auto=format&fit=crop' :
+                                    category.handle === 'photos' ? 'https://images.unsplash.com/photo-1516245973784-0995fa1b8493?q=80&w=2069&auto=format&fit=crop' :
+                                    'https://images.unsplash.com/photo-1493723843689-d9631fc161f5?q=80&w=2066&auto=format&fit=crop')
+                                }
+                                alt={category.title}
+                                className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                            />
+                            <div className="absolute inset-0 flex items-center justify-center z-20">
+                                <h3 className="text-white font-serif font-bold text-lg md:text-xl tracking-wide text-center px-2 drop-shadow-md">
+                                    {category.title}
+                                </h3>
+                            </div>
                         </Link>
                     ))}
                     {loading && categories.length === 0 && (
                         [...Array(4)].map((_, i) => (
-                            <div key={i} className="h-12 w-32 bg-stone/5 animate-pulse rounded-sm" />
+                            <div key={i} className="h-32 md:h-40 bg-stone/5 animate-pulse rounded-sm" />
                         ))
                     )}
                 </div>
