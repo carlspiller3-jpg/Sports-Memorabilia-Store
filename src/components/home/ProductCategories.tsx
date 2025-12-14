@@ -17,33 +17,8 @@ export function ProductCategories() {
             if (validCollections.length > 0) {
                 setCategories(validCollections)
             } else {
-                // Fallback to static if no collections found (so the section isn't empty on dev)
-                setCategories([
-                    {
-                        id: 1,
-                        title: "Signed Shirts",
-                        handle: "shirts",
-                        link: "/shop?category=shirt",
-                    },
-                    {
-                        id: 2,
-                        title: "Signed Boots",
-                        handle: "boots",
-                        link: "/shop?category=boot",
-                    },
-                    {
-                        id: 3,
-                        title: "Signed Photos",
-                        handle: "photos",
-                        link: "/shop?category=photo",
-                    },
-                    {
-                        id: 4,
-                        title: "Gift Sets",
-                        handle: "gifts",
-                        link: "/shop",
-                    },
-                ])
+                // No fallback, clean state
+                setCategories([])
             }
             setLoading(false)
         }

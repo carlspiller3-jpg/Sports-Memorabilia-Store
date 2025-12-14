@@ -24,95 +24,11 @@ export function TrendingNow() {
                 if (fetched && fetched.length > 0) {
                     setProducts(fetched.slice(0, 4))
                 } else {
-                    // Fallback to premium mock data
-                    setProducts([
-                        {
-                            id: 991,
-                            title: "Signed Lionel Messi Argentina Shirt - World Cup 2022 Winner",
-                            handle: "messi-wc-2022",
-                            variants: [{ price: 899 }],
-                            images: ["https://images.unsplash.com/photo-1551958219-acbc608c6377?q=80&w=2070&auto=format&fit=crop"],
-                            tags: ["Football", "Shirt", "Legend"],
-                            product_type: "shirt",
-                            seo_title: "Lionel Messi Signed Argentina Shirt"
-                        },
-                        {
-                            id: 992,
-                            title: "Michael Jordan Signed Chicago Bulls Jersey 1998",
-                            handle: "jordan-bulls-1998",
-                            variants: [{ price: 2499 }],
-                            images: ["https://images.unsplash.com/photo-1549492423-400259a2e574?q=80&w=2021&auto=format&fit=crop"], // Placeholder lookalike but high quality
-                            tags: ["Basketball", "Jersey", "Icon"],
-                            product_type: "shirt",
-                            seo_title: "Michael Jordan Signed Jersey"
-                        },
-                        {
-                            id: 993,
-                            title: "Lewis Hamilton Signed Mercedes AMG F1 Photo",
-                            handle: "hamilton-f1-photo",
-                            variants: [{ price: 299 }],
-                            images: ["https://images.unsplash.com/photo-1516245973784-0995fa1b8493?q=80&w=2069&auto=format&fit=crop"], // Motorsport vibe
-                            tags: ["F1", "Photo", "Champion"],
-                            product_type: "photo",
-                            seo_title: "Lewis Hamilton Autograph"
-                        },
-                        {
-                            id: 994,
-                            title: "Roger Federer Signed Wilson Racquet - 2017 Australian Open",
-                            handle: "federer-racquet",
-                            variants: [{ price: 1250 }],
-                            images: ["https://images.unsplash.com/photo-1622163642998-1ea14b60c57e?q=80&w=2069&auto=format&fit=crop"],
-                            tags: ["Tennis", "Equipment", "Legend"],
-                            product_type: "other",
-                            seo_title: "Roger Federer Signed Racquet"
-                        }
-                    ] as any)
+                    setProducts([])
                 }
             } catch (error) {
                 console.error("Error loading trending:", error)
-                // Use same fallback on error
-                setProducts([
-                     {
-                            id: 991,
-                            title: "Signed Lionel Messi Argentina Shirt - World Cup 2022 Winner",
-                            handle: "messi-wc-2022",
-                            variants: [{ price: 899 }],
-                            images: ["https://images.unsplash.com/photo-1551958219-acbc608c6377?q=80&w=2070&auto=format&fit=crop"],
-                            tags: ["Football", "Shirt", "Legend"],
-                            product_type: "shirt",
-                            seo_title: "Lionel Messi Signed Argentina Shirt"
-                        },
-                        {
-                            id: 992,
-                            title: "Michael Jordan Signed Chicago Bulls Jersey 1998",
-                            handle: "jordan-bulls-1998",
-                            variants: [{ price: 2499 }],
-                            images: ["https://images.unsplash.com/photo-1549492423-400259a2e574?q=80&w=2021&auto=format&fit=crop"], 
-                            tags: ["Basketball", "Jersey", "Icon"],
-                            product_type: "shirt",
-                            seo_title: "Michael Jordan Signed Jersey"
-                        },
-                        {
-                            id: 993,
-                            title: "Lewis Hamilton Signed Mercedes AMG F1 Photo",
-                            handle: "hamilton-f1-photo",
-                            variants: [{ price: 299 }],
-                            images: ["https://images.unsplash.com/photo-1516245973784-0995fa1b8493?q=80&w=2069&auto=format&fit=crop"], 
-                            tags: ["F1", "Photo", "Champion"],
-                            product_type: "photo",
-                            seo_title: "Lewis Hamilton Autograph"
-                        },
-                        {
-                            id: 994,
-                            title: "Roger Federer Signed Wilson Racquet - 2017 Australian Open",
-                            handle: "federer-racquet",
-                            variants: [{ price: 1250 }],
-                            images: ["https://images.unsplash.com/photo-1622163642998-1ea14b60c57e?q=80&w=2069&auto=format&fit=crop"],
-                            tags: ["Tennis", "Equipment", "Legend"],
-                            product_type: "other",
-                            seo_title: "Roger Federer Signed Racquet"
-                        }
-                ] as any)
+                setProducts([])
             } finally {
                 setLoading(false)
             }
