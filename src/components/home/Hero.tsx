@@ -3,7 +3,7 @@ import { Link } from "react-router-dom"
 
 export function Hero() {
   return (
-    <section className="relative flex-1 w-full overflow-hidden flex flex-col min-h-[500px]">
+    <section className="relative w-full h-full overflow-hidden flex flex-col">
       {/* Background Image */}
       <div className="absolute inset-0">
         <img
