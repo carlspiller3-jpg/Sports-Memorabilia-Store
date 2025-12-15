@@ -11,6 +11,11 @@ export function Header() {
 
     return (
         <header className="sticky top-0 z-[100] w-full border-b border-stone/30 bg-ivory/80 backdrop-blur-md">
+            {/* DEBUG BANNER - TO BE REMOVED */}
+            <div className="bg-red-600 text-white text-xs font-bold text-center py-1 absolute top-0 left-0 w-full z-[200]">
+                V1.5.0 - DEBUG MODE: IF YOU SEE THIS, YOU HAVE THE LATEST VERSION
+            </div>
+
             <div className="container mx-auto px-4 h-16 flex items-center justify-between">
                 {/* Mobile Menu */}
                 <Sheet>
