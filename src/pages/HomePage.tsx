@@ -21,12 +21,12 @@ export function HomePage() {
                 <meta name="twitter:card" content="summary_large_image" />
             </Helmet>
 
-            <Hero />
-            <TrustIndicators />
-            <ProductCategories />
-            <AuthenticitySection />
-            <PresentationSection />
-            <ValuePropositions />
+            <div className="flex flex-col min-h-[calc(100vh-64px)]"> {/* Subtract header height */}
+                <div className="flex-1 flex flex-col">
+                     <Hero />
+                </div>
+                <TrustIndicators />
+            </div>
         </div>
     )
 }

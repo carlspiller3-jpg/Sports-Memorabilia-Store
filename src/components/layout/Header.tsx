@@ -10,14 +10,8 @@ export function Header() {
     const { user } = useAuth()
 
     return (
-        <header className="sticky top-0 z-[100] w-full border-b border-stone/30 bg-ivory/80 backdrop-blur-md">
-            {/* DEBUG BANNER - TO BE REMOVED */}
-            <div className="bg-red-600 text-white text-xs font-bold text-center py-1 absolute top-0 left-0 w-full z-[200]">
-                V1.5.0 - DEBUG MODE: IF YOU SEE THIS, YOU HAVE THE LATEST VERSION
-            </div>
-
-            <div className="container mx-auto px-4 h-16 flex items-center justify-between">
-                {/* Mobile Menu */}
+        <header className="fixed top-0 left-0 right-0 z-[100] transition-all duration-300 border-b border-transparent bg-transparent py-4 text-white">
+            <div className="container mx-auto px-4 flex items-center justify-between">
                 <Sheet>
                     <SheetTrigger asChild>
                         <button className="md:hidden p-2 hover:bg-stone/20 rounded-md">
