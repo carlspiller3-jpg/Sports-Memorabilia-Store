@@ -1,6 +1,8 @@
 import { Helmet } from "react-helmet-async"
 import { Hero } from "@/components/home/Hero"
 import { TrustIndicators } from "@/components/home/TrustIndicators"
+import { AuthenticitySection } from "@/components/home/AuthenticitySection"
+import { PresentationSection } from "@/components/home/PresentationSection"
 
 export function HomePage() {
     return (
@@ -17,12 +19,10 @@ export function HomePage() {
                 <meta name="twitter:card" content="summary_large_image" />
             </Helmet>
 
-            <div className="flex flex-col min-h-[calc(100vh-64px)]"> {/* Subtract header height */}
-                <div className="flex-1 flex flex-col">
-                     <Hero />
-                </div>
-                <TrustIndicators />
-            </div>
+            <Hero />
+            <AuthenticitySection />
+            <PresentationSection />
+            <TrustIndicators />
         </div>
     )
 }
