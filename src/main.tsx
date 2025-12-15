@@ -3,7 +3,7 @@ import { createRoot } from 'react-dom/client'
 import './index.css'
 import App from './App.tsx'
 
-console.log('App Version: 1.11.0 - Ivory Header Restored');
+console.log('App Version: 1.12.0 - Hero Zoom Fix');
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>

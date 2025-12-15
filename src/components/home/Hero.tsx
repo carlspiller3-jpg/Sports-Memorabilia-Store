@@ -9,7 +9,7 @@ export function Hero() {
         <img
           src="/hero-banner.png"
           alt="Premium authenticated sports memorabilia"
-          className="h-full w-full object-cover"
+          className="h-full w-full object-cover object-top"
         />
         {/* Gradient Overlay */}
         <div className="absolute inset-0 bg-gradient-to-r from-charcoal/90 via-charcoal/50 to-transparent" />

@@ -20,7 +20,7 @@ export function HomePage() {
             </Helmet>
 
             {/* Above the Fold: Hero + Trust Bar = 100vh */}
-            <div className="flex flex-col h-screen">
+            <div className="flex flex-col h-screen pt-[104px]">
                 <div className="flex-1 relative min-h-0">
                     <Hero />
                 </div>
