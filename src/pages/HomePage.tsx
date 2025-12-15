@@ -1,10 +1,6 @@
 import { Helmet } from "react-helmet-async"
 import { Hero } from "@/components/home/Hero"
 import { TrustIndicators } from "@/components/home/TrustIndicators"
-import { ProductCategories } from "@/components/home/ProductCategories"
-import { AuthenticitySection } from "@/components/home/AuthenticitySection"
-import { PresentationSection } from "@/components/home/PresentationSection"
-import { ValuePropositions } from "@/components/home/ValuePropositions"
 
 export function HomePage() {
     return (

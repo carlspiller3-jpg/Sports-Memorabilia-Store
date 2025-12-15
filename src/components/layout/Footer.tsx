@@ -3,7 +3,7 @@ import { Facebook, Instagram, Twitter } from "lucide-react"
 
 export function Footer() {
     return (
-        <footer className="bg-navy pt-16 pb-8 border-t border-white/10 text-white">
+        <footer className="bg-navy pt-8 pb-8 text-white">
             <div className="container mx-auto px-4">
                 <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
                     <div className="space-y-4">
@@ -54,7 +54,7 @@ export function Footer() {
 
                     <div className="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
                         <p className="text-white/40 text-sm font-bold">
-                            © 2024 SportsSigned. <span className="text-red-500">VERSION 1.6.0 - DARK FOOTER FIX</span>
+                            © 2024 SportsSigned. <span className="text-red-500">VERSION 1.7.0 - FINAL LAYOUT</span>
                         </p>
                         <div className="flex gap-6">
                             <Link to="/privacy" className="text-white/40 hover:text-gold text-sm transition-colors">Privacy Policy</Link>
