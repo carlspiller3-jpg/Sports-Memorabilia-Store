@@ -32,9 +32,9 @@ export function Header() {
                 {/* Logo */}
                 <div className="flex-shrink-0 flex items-center z-[101] relative">
                     <a href="/" className="flex items-center">
-                        <img 
-                            src="/logo-transparent.png" 
-                            alt="Sports Memorabilia Store" 
+                        <img
+                            src="/logo-transparent.png"
+                            alt="SportsSigned"
                             className="h-16 w-auto object-contain"
                         />
                     </a>
@@ -53,9 +53,9 @@ export function Header() {
                     <button className="p-2 hover:text-gold transition-colors text-navy">
                         <Search className="w-5 h-5" />
                     </button>
-                    
+
                     <a href={user ? "/account" : "/login"} className="p-2 hover:text-gold transition-colors text-navy">
-                         <User className="w-5 h-5" />
+                        <User className="w-5 h-5" />
                     </a>
 
                     <button

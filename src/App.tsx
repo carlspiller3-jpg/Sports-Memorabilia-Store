@@ -30,7 +30,7 @@ function App() {
     <HelmetProvider>
       <AuthProvider>
       <Helmet>
-        <title>Sports Memorabilia Store | Authentic Signed Memorabilia</title>
+        <title>SportsSigned | Authentic Signed Memorabilia</title>
         <meta name="description" content="Premium signed sports memorabilia, authentically verified on the blockchain. Shop signed shirts, photos, and equipment from the world's greatest athletes." />
       </Helmet>
       <CartProvider>
