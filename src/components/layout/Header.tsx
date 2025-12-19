@@ -21,6 +21,7 @@ export function Header() {
                     <SheetContent side="left">
                         <nav className="flex flex-col gap-6 mt-8 text-lg font-medium text-navy">
                             <a href="/" className="hover:text-gold transition-colors">Home</a>
+                            <a href="/hub" className="hover:text-gold transition-colors">News</a>
                             <a href="/shop" className="hover:text-gold transition-colors">Shop</a>
                             <a href="/collections" className="hover:text-gold transition-colors">Collections</a>
                             <a href="/about" className="hover:text-gold transition-colors">Our Story</a>
@@ -42,6 +43,7 @@ export function Header() {
 
                 {/* Desktop Nav */}
                 <nav className="hidden md:flex items-center gap-8 text-sm font-medium text-navy/80">
+                    <a href="/hub" className="hover:text-gold transition-colors">News</a>
                     <a href="/shop" className="hover:text-gold transition-colors">Shop</a>
                     <a href="/collections" className="hover:text-gold transition-colors">Collections</a>
                     <a href="/about" className="hover:text-gold transition-colors">Our Story</a>

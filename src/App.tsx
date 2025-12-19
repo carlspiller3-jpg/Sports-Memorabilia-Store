@@ -24,51 +24,58 @@ import { AuthProvider } from "@/context/AuthContext"
 import { LoginPage } from "@/pages/LoginPage"
 import { RegisterPage } from "@/pages/RegisterPage"
 import { AccountPage } from "@/pages/AccountPage"
+import { KnowledgeHubPage } from "@/pages/blog/KnowledgeHubPage"
+import { ArticlePage } from "@/pages/blog/ArticlePage"
 
 function App() {
   return (
     <HelmetProvider>
       <AuthProvider>
-      <Helmet>
-        <title>SportsSigned | Authentic Signed Memorabilia</title>
-        <meta name="description" content="Premium signed sports memorabilia, authentically verified on the blockchain. Shop signed shirts, photos, and equipment from the world's greatest athletes." />
-      </Helmet>
-      <CartProvider>
-        <Router>
-          <div className="min-h-screen bg-ivory text-charcoal font-sans selection:bg-gold/30 flex flex-col">
-            <Header />
+        <Helmet>
+          <title>SportsSigned | Authentic Signed Memorabilia</title>
+          <meta name="description" content="Premium signed sports memorabilia, authentically verified on the blockchain. Shop signed shirts, photos, and equipment from the world's greatest athletes." />
+        </Helmet>
+        <CartProvider>
+          <Router>
+            <div className="min-h-screen bg-ivory text-charcoal font-sans selection:bg-gold/30 flex flex-col">
+              <Header />
+              <CartDrawer />
+              <main className="flex-1 animate-fade-in pb-16 md:pb-0">
+                <Routes>
+                  <Route path="/" element={<HomePage />} />
+                  <Route path="/shop" element={<ShopPage />} />
+                  <Route path="/collections" element={<CollectionsPage />} /> {/* Added Collections route */}
+                  <Route path="/product/:handle" element={<ProductPage />} />
+                  <Route path="/verify" element={<VerifyPage />} />
+                  <Route path="/checkout" element={<CheckoutPage />} />
+
+                  {/* Account */}
+                  <Route path="/login" element={<LoginPage />} />
+                  <Route path="/register" element={<RegisterPage />} />
+                  <Route path="/account" element={<AccountPage />} />
+
+                  {/* Legal & Support */}
+                  <Route path="/about" element={<AboutPage />} />
+                  <Route path="/privacy" element={<PrivacyPolicy />} />
+                  <Route path="/terms" element={<TermsOfService />} />
+                  <Route path="/shipping" element={<ShippingReturns />} />
+                  <Route path="/contact" element={<ContactPage />} />
+                  <Route path="/faq" element={<FAQPage />} />
+
+                  {/* Knowledge Hub */}
+                  <Route path="/hub" element={<KnowledgeHubPage />} />
+                  <Route path="/hub/:slug" element={<ArticlePage />} />
+
+                  <Route path="*" element={<NotFoundPage />} />
+                </Routes>
+              </main>
+              <Footer />
+              <MobileNav />
+              <ChatWidget />
+            </div>
             <CartDrawer />
-            <main className="flex-1 animate-fade-in pb-16 md:pb-0">
-              <Routes>
-                <Route path="/" element={<HomePage />} />
-                <Route path="/shop" element={<ShopPage />} />
-                <Route path="/collections" element={<CollectionsPage />} /> {/* Added Collections route */}
-                <Route path="/product/:handle" element={<ProductPage />} />
-                <Route path="/verify" element={<VerifyPage />} />
-                <Route path="/checkout" element={<CheckoutPage />} />
-
-                {/* Account */}
-                <Route path="/login" element={<LoginPage />} />
-                <Route path="/register" element={<RegisterPage />} />
-                <Route path="/account" element={<AccountPage />} />
-
-                {/* Legal & Support */}
-                <Route path="/about" element={<AboutPage />} />
-                <Route path="/privacy" element={<PrivacyPolicy />} />
-                <Route path="/terms" element={<TermsOfService />} />
-                <Route path="/shipping" element={<ShippingReturns />} />
-                <Route path="/contact" element={<ContactPage />} />
-                <Route path="/faq" element={<FAQPage />} />
-                <Route path="*" element={<NotFoundPage />} />
-              </Routes>
-            </main>
-            <Footer />
-            <MobileNav />
-            <ChatWidget />
-          </div>
-          <CartDrawer />
-        </Router>
-      </CartProvider>
+          </Router>
+        </CartProvider>
       </AuthProvider>
     </HelmetProvider>
   )

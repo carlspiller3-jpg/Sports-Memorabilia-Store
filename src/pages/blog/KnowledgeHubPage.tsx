@@ -1,0 +1,92 @@
+import { useNavigate } from "react-router-dom";
+import { articles } from "@/data/articles";
+import { ArrowRight, BookOpen, TrendingUp, History, ShieldCheck } from "lucide-react";
+
+export function KnowledgeHubPage() {
+    const navigate = useNavigate();
+
+    const getIcon = (category: string) => {
+        switch (category) {
+            case "Analysis": return <TrendingUp className="w-4 h-4" />;
+            case "History": return <History className="w-4 h-4" />;
+            case "Education": return <ShieldCheck className="w-4 h-4" />;
+            default: return <BookOpen className="w-4 h-4" />;
+        }
+    };
+
+    return (
+        <div className="bg-ivory min-h-screen pt-24 pb-16">
+            <div className="container mx-auto px-4">
+                <div className="max-w-4xl mx-auto">
+
+                    {/* Header */}
+                    <div className="text-center mb-16">
+                        <h1 className="font-serif text-4xl md:text-5xl text-navy mb-4">The Knowledge Hub</h1>
+                        <p className="text-navy/60 text-lg max-w-2xl mx-auto">
+                            Expert analysis, authenticity guides, and collecting history from the team at SportsSigned.
+                        </p>
+                    </div>
+
+                    {/* Featured / Hero Article (First one) */}
+                    <div
+                        className="group cursor-pointer bg-white rounded-xl shadow-sm border border-navy/5 overflow-hidden mb-12 hover:shadow-md transition-all"
+                        onClick={() => navigate(`/hub/${articles[0].slug}`)}
+                    >
+                        <div className="grid md:grid-cols-2 gap-0">
+                            <div className="bg-navy/10 h-64 md:h-auto flex items-center justify-center">
+                                {/* Placeholder Image Area */}
+                                <BookOpen className="w-16 h-16 text-navy/20" />
+                            </div>
+                            <div className="p-8 flex flex-col justify-center">
+                                <div className="flex items-center gap-2 text-gold font-bold text-sm uppercase tracking-wider mb-4">
+                                    {getIcon(articles[0].category)}
+                                    {articles[0].category}
+                                </div>
+                                <h2 className="font-serif text-2xl md:text-3xl text-navy mb-4 group-hover:text-gold transition-colors">
+                                    {articles[0].title}
+                                </h2>
+                                <p className="text-navy/70 mb-6 line-clamp-3">
+                                    {articles[0].excerpt}
+                                </p>
+                                <span className="text-navy font-bold flex items-center gap-2 text-sm">
+                                    Read Article <ArrowRight className="w-4 h-4" />
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Grid for the rest */}
+                    <div className="grid md:grid-cols-2 gap-8">
+                        {articles.slice(1).map((article) => (
+                            <div
+                                key={article.id}
+                                className="group cursor-pointer bg-white rounded-xl shadow-sm border border-navy/5 overflow-hidden hover:shadow-md transition-all flex flex-col"
+                                onClick={() => navigate(`/hub/${article.slug}`)}
+                            >
+                                <div className="h-48 bg-navy/5 flex items-center justify-center">
+                                    <BookOpen className="w-12 h-12 text-navy/20" />
+                                </div>
+                                <div className="p-6 flex-1 flex flex-col">
+                                    <div className="flex items-center gap-2 text-gold font-bold text-xs uppercase tracking-wider mb-3">
+                                        {getIcon(article.category)}
+                                        {article.category}
+                                    </div>
+                                    <h3 className="font-serif text-xl text-navy mb-3 group-hover:text-gold transition-colors">
+                                        {article.title}
+                                    </h3>
+                                    <p className="text-navy/60 text-sm mb-6 flex-1">
+                                        {article.excerpt}
+                                    </p>
+                                    <span className="text-navy/40 text-xs font-mono">
+                                        {article.date} • By {article.author}
+                                    </span>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    );
+}
