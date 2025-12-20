@@ -1,26 +1,26 @@
 export interface BlogPost {
-    id: string;
-    title: string;
-    excerpt: string;
-    content: string;
-    date: string;
-    author: string;
-    category: "Analysis" | "History" | "Education" | "News";
-    slug: string;
-    imageUrl: string;
+  id: string;
+  title: string;
+  excerpt: string;
+  content: string;
+  date: string;
+  author: string;
+  category: "Analysis" | "History" | "Education" | "News";
+  slug: string;
+  imageUrl: string;
 }
 
 export const articles: BlogPost[] = [
-    {
-        id: "1",
-        title: "Real vs Fake: How to Spot a Counterfeit Signed Shirt",
-        slug: "real-vs-fake-signed-shirt-guide",
-        date: "2025-12-10",
-        author: "The Authenticator",
-        category: "Education",
-        excerpt: "Don't get stung by forgeries. We break down the 5 key signs of a fake autograph, from 'dotting' to the pen pressure test.",
-        imageUrl: "/placeholder-article-1.jpg",
-        content: `
+  {
+    id: "1",
+    title: "Real vs Fake: How to Spot a Counterfeit Signed Shirt",
+    slug: "real-vs-fake-signed-shirt-guide",
+    date: "2025-12-10",
+    author: "The Authenticator",
+    category: "Education",
+    excerpt: "Don't get stung by forgeries. We break down the 5 key signs of a fake autograph, from 'dotting' to the pen pressure test.",
+    imageUrl: "/placeholder-article-1.jpg",
+    content: `
       <h2>The Plague of Fakes</h2>
       <p>The memorabilia market is flooded with fakes. Some estimates suggest up to 80% of "signed" items on general auction sites are largely worthless. As a buyer, your best defence is knowledge.</p>
 
@@ -37,17 +37,17 @@ export const articles: BlogPost[] = [
         <strong>The SportsSigned Standard:</strong> We don't rely on opinion. We rely on witness. Every item we sell was signed in our presence or the presence of a trusted supply partner.
       </div>
     `
-    },
-    {
-        id: "2",
-        title: "Market Analysis: Why Did That Messi World Cup Shirt Sell for £5k?",
-        slug: "market-analysis-messi-world-cup",
-        date: "2025-12-15",
-        author: "Market Analyst",
-        category: "Analysis",
-        excerpt: "We dive into the auction results this week to understand why certain modern shirts are skyrocketing in value.",
-        imageUrl: "/placeholder-article-2.jpg",
-        content: `
+  },
+  {
+    id: "2",
+    title: "Market Analysis: Why Did That Messi World Cup Shirt Sell for £5k?",
+    slug: "market-analysis-messi-world-cup",
+    date: "2025-12-15",
+    author: "Market Analyst",
+    category: "Analysis",
+    excerpt: "We dive into the auction results this week to understand why certain modern shirts are skyrocketing in value.",
+    imageUrl: "/placeholder-article-2.jpg",
+    content: `
       <h2>The "Goat" Effect</h2>
       <p>This week, a 2022 Argentina Home Shirt signed by Lionel Messi hammered at a specialist auction for over £5,000. For a modern shirt, this is exceptional. Why?</p>
 
@@ -60,17 +60,17 @@ export const articles: BlogPost[] = [
       <h3>Investment Verdict</h3>
       <p>While £5k is high, we believe "Peak Messi" items will outperform the general market over the next decade as he approaches retirement. It is the Michael Jordan effect happening in real-time for football.</p>
     `
-    },
-    {
-        id: "3",
-        title: "On This Day: The 1966 World Cup Final",
-        slug: "history-1966-world-cup",
-        date: "2025-07-30",
-        author: "Team Historian",
-        category: "History",
-        excerpt: "Looking back at the most famous afternoon in English football history, and the rising value of the 'Boys of 66' signatures.",
-        imageUrl: "/placeholder-article-3.jpg",
-        content: `
+  },
+  {
+    id: "3",
+    title: "On This Day: The 1966 World Cup Final",
+    slug: "history-1966-world-cup",
+    date: "2025-07-30",
+    author: "Team Historian",
+    category: "History",
+    excerpt: "Looking back at the most famous afternoon in English football history, and the rising value of the 'Boys of 66' signatures.",
+    imageUrl: "/placeholder-article-3.jpg",
+    content: `
       <h2>They Think It's All Over...</h2>
       <p>It is now!</p>
       <p>Today marks the anniversary of England's only World Cup triumph. But for collectors, the '66 squad represents a different kind of tragedy: time.</p>
@@ -81,5 +81,69 @@ export const articles: BlogPost[] = [
       <h3>The "Moore" Factor</h3>
       <p>Bobby Moore's signature is the anchor of any '66 piece. Because he passed away relatively young (1993), his signature is the rarest of the key trio. When evaluating a '66 piece, the condition of Moore's autograph is usually the primary value driver.</p>
     `
-    }
+  },
+  {
+    id: "4",
+    title: "Digital COA vs Paper COA: Why The Old Way is Dead",
+    slug: "digital-coa-vs-paper-coa",
+    date: "2025-12-20",
+    author: "The Authenticator",
+    category: "Education",
+    excerpt: "Why we abandoned paper certificates for blockchain technology, and why your collection's value depends on it.",
+    imageUrl: "/placeholder-article-4.jpg",
+    content: `
+      <h2>The Paper Problem</h2>
+      <p>For decades, the sports memorabilia industry has relied on a piece of A4 paper to prove that an item is worth thousands of pounds. This is madness.</p>
+
+      <h3>The Vulnerability of Paper</h3>
+      <p>Anyone with a high-quality home printer can forge a Certificate of Authenticity (COA). If you lose the paper, your £500 signed shirt becomes a £50 second-hand shirt. Paper degrades, gets lost, and is easily separated from the item it protects.</p>
+
+      <h3>The NFC Solution</h3>
+      <p>At SportsSigned, we use Near Field Communication (NFC) technology. A tiny, tamper-proof chip is applied to your framed item. When you tap it with your smartphone, it opens a secure, immutable digital record on the blockchain.</p>
+
+      <div class="bg-navy/5 p-6 rounded-lg my-8 border-l-4 border-gold">
+        <strong>Key Benefits:</strong>
+        <ul class="list-disc ml-6 mt-4 space-y-2">
+            <li><strong>Impossible to Lose:</strong> The proof is on the cloud, not in a drawer.</li>
+            <li><strong>Impossible to Fake:</strong> The digital record is cryptographically secured.</li>
+            <li><strong>Instant Verification:</strong> Buyers can verify the item in 1 second with a phone tap.</li>
+        </ul>
+      </div>
+
+      <p>We believe this is the only way to truly protect the investment value of sports history in the 21st century.</p>
+    `
+  },
+  {
+    id: "5",
+    title: "Investment Watch: 'Match Worn' vs 'Replica'",
+    slug: "match-worn-vs-replica-investment",
+    date: "2025-12-21",
+    author: "Market Analyst",
+    category: "Analysis",
+    excerpt: "Understanding the massive value gap between a signed fan shirt and a signed player-spec shirt.",
+    imageUrl: "/placeholder-article-5.jpg",
+    content: `
+      <h2>Not All Shirts Are Created Equal</h2>
+      <p>When you see a signed shirt selling for £150 and another, seemingly identical one selling for £1,500, the difference is usually in the fabric itself.</p>
+
+      <h3>Reviewing the Tiers</h3>
+      <ol class="list-decimal ml-6 my-6 space-y-4 font-bold text-navy">
+        <li>
+            <span class="block text-gold">Fan Replica (Standard)</span>
+            <span class="block text-sm font-normal text-navy/70">The shirt you buy in the club shop. Looser fit, embroidered badges. Great for display, lower entry price.</span>
+        </li>
+        <li>
+            <span class="block text-gold">Player Issue / Match Spec</span>
+            <span class="block text-sm font-normal text-navy/70">The exact same specification as worn by players (lighter fabric, heat-pressed badges). These are rarer and command a 20-40% premium.</span>
+        </li>
+        <li>
+            <span class="block text-gold">Match Worn</span>
+            <span class="block text-sm font-normal text-navy/70">The Holy Grail. A shirt that has physically been on the back of the player during a game. Unwashed, these carry the dna of the match.</span>
+        </li>
+      </ol>
+
+      <h3>Where is the Smart Money?</h3>
+      <p>For entry-level collectors, a signed <strong>Replica</strong> is perfect. But for investors, <strong>Match Spec</strong> (even if not worn) is becoming the standard. As manufacturers make the difference between "Fan" and "Player" versions more distinct, the "Player Spec" signed items are holding their value significantly better.</p>
+    `
+  }
 ];
