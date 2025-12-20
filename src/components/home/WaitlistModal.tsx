@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import { X, Lock, ChevronRight, Search } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { supabase } from "@/lib/supabaseClient";
+import { sendWelcomeEmail } from "@/lib/email";
 
 const SUGGESTIONS = [
     "Football", "Boxing", "Formula 1", "Basketball", "American Football",
@@ -71,6 +72,9 @@ export function WaitlistModal() {
                 } else {
                     throw error;
                 }
+            } else {
+                // Only send email if DB insert was successful (and not a dupe)
+                sendWelcomeEmail(email);
             }
 
             setIsSuccess(true);
