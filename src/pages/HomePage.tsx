@@ -4,9 +4,12 @@ import { TrustIndicators } from "@/components/home/TrustIndicators"
 import { AuthenticitySection } from "@/components/home/AuthenticitySection"
 import { PresentationSection } from "@/components/home/PresentationSection"
 
+import { WaitlistModal } from "@/components/home/WaitlistModal"
+
 export function HomePage() {
     return (
         <div className="min-h-screen">
+            <WaitlistModal />
             <Helmet>
                 <title>Sports Memorabilia Store | Premium Authenticated Collectibles</title>
                 <meta
