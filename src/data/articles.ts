@@ -145,5 +145,124 @@ export const articles: BlogPost[] = [
       <h3>Where is the Smart Money?</h3>
       <p>For entry-level collectors, a signed <strong>Replica</strong> is perfect. But for investors, <strong>Match Spec</strong> (even if not worn) is becoming the standard. As manufacturers make the difference between "Fan" and "Player" versions more distinct, the "Player Spec" signed items are holding their value significantly better.</p>
     `
+  },
+  {
+    id: "6",
+    title: "The Class of '92: A Signing History",
+    slug: "class-of-92-signing-history",
+    date: "2025-12-25",
+    author: "Team Historian",
+    category: "History",
+    excerpt: "Nev, Becks, Scholesy, Giggs, Butt, Phil. The story of the most famous academy graduates in history and their autograph legacy.",
+    imageUrl: "/placeholder-article-6.jpg",
+    content: `
+      <h2>The Academy That Changed Everything</h2>
+      <p>Manchester United's 1992 FA Youth Cup winning side didn't just win trophies; they became a global brand. Beckham, Scholes, Giggs, Neville (x2), and Butt.</p>
+
+      <h3>Beckham: The Global Brand</h3>
+      <p>David Beckham is arguably the most signed athlete in glorious history. However, his signature has evolved from a tight "David Beckham" to a sweeping, loop-heavy design. Finding a '90s era Beckham signature is rare and highly prized.</p>
+
+      <h3>Scholes: The Silent Genius</h3>
+      <p>Paul Scholes famously disliked the limelight. Consequently, he did fewer commercial signings during his playing career than his peers. This makes a genuine Scholes signature harder to find than a Giggs or Neville.</p>
+
+      <h3>The "Full Set" Premium</h3>
+      <p>Items signed by all six members of the class are the gold standard. Finding a shirt where all six sat down to sign is increasingly difficult as their careers diverge.</p>
+    `
+  },
+  {
+    id: "7",
+    title: "The 'Ronaldo vs Messi' Market Index",
+    slug: "ronaldo-vs-messi-market-index",
+    date: "2025-12-28",
+    author: "Market Analyst",
+    category: "Analysis",
+    excerpt: "Forget the Ballon d'Or. Who wins the battle of the bank balance? We analyse the appreciation value of the two GOATs.",
+    imageUrl: "/placeholder-article-7.jpg",
+    content: `
+      <h2>The Endless Debate</h2>
+      <p>On the pitch, it's a matter of taste. In the investment market, it's a matter of data.</p>
+
+      <h3>Messi: The Peak Burst</h3>
+      <p>Lionel Messi's value saw the single biggest vertical spike in history following the 2022 World Cup. Items from that specific 12-month period carry a "World Champion" tax. Before 2022, his prices were high but stable. Now, "National Team" items outstrip "Barcelona" items.</p>
+
+      <h3>Ronaldo: The Global Volume</h3>
+      <p>CR7 has arguably signed more items than any human being in history. He is a commercial machine. This high supply means standard "Real Madrid" Ronaldo shirts are relatively accessible (£400-£600). However, his early "Manchester United" (2003-2009) signatures are where the scarcity value lies.</p>
+
+      <h3>The Verdict</h3>
+      <p>Buy <strong>Messi</strong> for peak "moment in time" value (World Cup). Buy <strong>Ronaldo</strong> for early-era nostalgia (Man Utd).</p>
+    `
+  },
+  {
+    id: "8",
+    title: "Framing Guide: Why UV Protection Matters",
+    slug: "framing-guide-uv-protection",
+    date: "2026-01-02",
+    author: "The Conservator",
+    category: "Education",
+    excerpt: "The sun is the enemy. How to stop your £500 shirt turning into a faded rag.",
+    imageUrl: "/placeholder-article-8.jpg",
+    content: `
+      <h2>The Invisible Killer</h2>
+      <p>You hang your signed shirt on the wall. It looks great. Two years later, the signature has turned from sharp black to a ghostly brown. Why? UV Radiation.</p>
+
+      <h3>Standard Glass vs UV Glass</h3>
+      <p>Standard picture frame glass allows about 97% of UV rays to pass through. Even indirect sunlight will bleach Sharpie ink over time. Once ink fades, it cannot be restored.</p>
+
+      <h3>The SportsSigned Standard</h3>
+      <p>All our premium frames use Conservation Grade UV-Protection Acrylic. This blocks 99% of harmful rays. It costs us more, but it ensures your investment survives for the next generation.</p>
+
+      <div class="bg-navy/5 p-6 rounded-lg font-bold">
+        Rule #1: Never hang signed memorabilia on a wall that faces a window directly.
+      </div>
+    `
+  },
+  {
+    id: "9",
+    title: "Buying Gifts? How to Choose",
+    slug: "gift-buying-guide",
+    date: "2026-01-05",
+    author: "Editor",
+    category: "Education",
+    excerpt: "Don't know your offside from your goal kick? Here is how to buy for the football fanatic in your life without getting it wrong.",
+    imageUrl: "/placeholder-article-9.jpg",
+    content: `
+      <h2>The Fear of Getting it Wrong</h2>
+      <p>Buying football gifts is high stakes. Buy a Liverpool fan a generic "football" gift and they will hate it. It has to be specific.</p>
+
+      <h3>Step 1: The Tribe</h3>
+      <p>Find out exactly who they support. Not just "Football". "Arsenal". If you get this wrong, the gift is toxic.</p>
+
+      <h3>Step 2: The Erat</h3>
+      <p>How old are they?
+      <ul class="list-disc ml-6">
+        <li><strong>Under 20:</strong> Buy current players (Saka, Haaland, Bellingham).</li>
+        <li><strong>30-40:</strong> Buy the heroes of their childhood (Henry, Rooney, Gerrard).</li>
+        <li><strong>50+:</strong> Buy the legends (Best, Moore, Dalglish).</li>
+      </ul>
+      </p>
+
+      <h3>Step 3: The Presentation</h3>
+      <p>Don't give them a rolled up shirt in a plastic bag. A framed piece is "Furniture". It goes on the wall. It shows you care.</p>
+    `
+  },
+  {
+    id: "10",
+    title: "Why 1990s Signatures Are Becoming Gold Dust",
+    slug: "why-90s-signatures-are-gold",
+    date: "2026-01-10",
+    author: "Market Analyst",
+    category: "Analysis",
+    excerpt: "Nostalgia is the biggest driver of price. The kids of the 90s now have money, and they want their childhood back.",
+    imageUrl: "/placeholder-article-10.jpg",
+    content: `
+      <h2>The 30-Year Rule</h2>
+      <p>Collectibles markets operate on a 30-year nostalgia cycle. When a generation reaches their peak earning years (35-50), they start buying back the toys and heroes of their youth.</p>
+
+      <h3>The Premier League Boom</h3>
+      <p>The 90s was the birth of the Premier League. The kits were baggy, the collars were huge, and the personalities were massive capable (Cantona, Gazza, Wright). These items have a cult status that modern, clinical football lacks.</p>
+
+      <h3>The Scarcity</h3>
+      <p>In the 90s, organized signing sessions were rare. Most signatures were obtained "in the wild" (outside training grounds). This makes verifying them harder, but finding a pristine, verified example incredibly valuable.</p>
+    `
   }
 ];
