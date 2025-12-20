@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { X, Lock, ChevronRight, Search } from "lucide-react";
 import { Button } from "@/components/ui/Button";
+import { supabase } from "@/lib/supabaseClient";
 
 const SUGGESTIONS = [
     "Football", "Boxing", "Formula 1", "Basketball", "American Football",
@@ -57,16 +58,33 @@ export function WaitlistModal() {
         e.preventDefault();
         setIsSubmitting(true);
 
-        // TODO: Send { email, interest } to Supabase
-        await new Promise(resolve => setTimeout(resolve, 1000));
-        console.log("Saving:", { email, interest });
+        try {
+            const { error } = await supabase
+                .from('newsletter_subscribers')
+                .insert([
+                    { email, interest }
+                ]);
 
-        setIsSuccess(true);
-        setIsSubmitting(false);
+            if (error) {
+                if (error.code === '23505') { // Unique violation (already subscribed)
+                    console.log("Already subscribed");
+                } else {
+                    throw error;
+                }
+            }
 
-        setTimeout(() => {
-            handleClose();
-        }, 4000);
+            setIsSuccess(true);
+            setTimeout(() => {
+                handleClose();
+            }, 4000);
+
+        } catch (err) {
+            console.error("Error saving email:", err);
+            // In a real app we might show a toast error, but for the modal let's fail silently or alert
+            alert("Something went wrong. Please try again.");
+        } finally {
+            setIsSubmitting(false);
+        }
     };
 
     // Filter suggestions based on input
