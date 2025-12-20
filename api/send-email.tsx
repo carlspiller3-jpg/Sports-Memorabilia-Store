@@ -1,12 +1,11 @@
 import { Resend } from 'resend';
 
-// Initialize Resend with the key
-const resend = new Resend(import.meta.env.VITE_RESEND_API_KEY);
+const resend = new Resend(process.env.VITE_RESEND_API_KEY);
 
-export async function sendWelcomeEmail(email: string) {
-    if (!email) return;
-
+export async function POST(request: Request) {
     try {
+        const { email } = await request.json();
+
         const { data, error } = await resend.emails.send({
             from: 'SportsSigned <info@sportssigned.com>',
             to: [email],
@@ -62,15 +61,11 @@ export async function sendWelcomeEmail(email: string) {
         });
 
         if (error) {
-            console.error('Email failed:', error);
-            return { success: false, error };
+            return new Response(JSON.stringify({ error }), { status: 500 });
         }
 
-        console.log('Email sent successfully:', data);
-        return { success: true, data };
-
-    } catch (e) {
-        console.error('Unexpected error sending email:', e);
-        return { success: false, error: e };
+        return new Response(JSON.stringify(data), { status: 200 });
+    } catch (error) {
+        return new Response(JSON.stringify({ error: 'Internal Server Error' }), { status: 500 });
     }
 }
