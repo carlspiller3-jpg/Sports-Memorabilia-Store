@@ -33,7 +33,7 @@ export function Hero() {
 
           {/* Subheadline */}
           <p className="text-base sm:text-xl text-white/80 max-w-xl leading-relaxed">
-            The vault is currently closed. We open our doors for the first exclusive drop in <strong>January 2026</strong>. Don't miss out.
+            Our inaugural collection is currently in the vault. Secure your position for the <strong>January 2026</strong> drop.
           </p>
 
           {/* CTA Buttons */}
