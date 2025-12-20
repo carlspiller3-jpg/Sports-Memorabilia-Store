@@ -1,14 +1,21 @@
-import { useState, useEffect } from "react";
-import { X, Lock, ChevronRight } from "lucide-react";
+import { useState, useEffect, useRef } from "react";
+import { X, Lock, ChevronRight, Search } from "lucide-react";
 import { Button } from "@/components/ui/Button";
+
+const SUGGESTIONS = [
+    "Football", "Boxing", "Formula 1", "Basketball", "American Football",
+    "Rugby", "Cricket", "Tennis", "Golf", "UFC/MMA"
+];
 
 export function WaitlistModal() {
     const [isOpen, setIsOpen] = useState(false);
     const [email, setEmail] = useState("");
-    const [interest, setInterest] = useState<string>("");
-    const [footballTeam, setFootballTeam] = useState<string>("");
+    const [interest, setInterest] = useState("");
+    const [showSuggestions, setShowSuggestions] = useState(false);
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [isSuccess, setIsSuccess] = useState(false);
+
+    const wrapperRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
         const timer = setTimeout(() => {
@@ -17,7 +24,18 @@ export function WaitlistModal() {
                 setIsOpen(true);
             }
         }, 2000);
-        return () => clearTimeout(timer);
+
+        // Close suggestions on click outside
+        function handleClickOutside(event: MouseEvent) {
+            if (wrapperRef.current && !wrapperRef.current.contains(event.target as Node)) {
+                setShowSuggestions(false);
+            }
+        }
+        document.addEventListener("mousedown", handleClickOutside);
+        return () => {
+            clearTimeout(timer);
+            document.removeEventListener("mousedown", handleClickOutside);
+        };
     }, []);
 
     const handleClose = () => {
@@ -25,13 +43,23 @@ export function WaitlistModal() {
         localStorage.setItem("waitlist_seen", "true");
     };
 
+    const handleInterestChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setInterest(e.target.value);
+        setShowSuggestions(true);
+    };
+
+    const selectSuggestion = (value: string) => {
+        setInterest(value);
+        setShowSuggestions(false);
+    };
+
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setIsSubmitting(true);
 
-        // TODO: Send { email, interest, footballTeam } to Supabase
+        // TODO: Send { email, interest } to Supabase
         await new Promise(resolve => setTimeout(resolve, 1000));
-        console.log("Saving:", { email, interest, footballTeam });
+        console.log("Saving:", { email, interest });
 
         setIsSuccess(true);
         setIsSubmitting(false);
@@ -40,6 +68,12 @@ export function WaitlistModal() {
             handleClose();
         }, 4000);
     };
+
+    // Filter suggestions based on input
+    const filteredSuggestions = SUGGESTIONS.filter(item =>
+        item.toLowerCase().includes(interest.toLowerCase()) &&
+        item.toLowerCase() !== interest.toLowerCase()
+    );
 
     if (!isOpen) return null;
 
@@ -74,7 +108,7 @@ export function WaitlistModal() {
                     {!isSuccess ? (
                         <>
                             <p className="text-navy/70 text-center mb-6 leading-relaxed">
-                                Avoid the rush. Join the <strong>Priority Access List</strong> to receive your password 60 minutes before the public.
+                                Join the <strong>Priority Access List</strong> to receive your password 60 minutes before the public.
                             </p>
 
                             <form onSubmit={handleSubmit} className="space-y-4">
@@ -91,47 +125,38 @@ export function WaitlistModal() {
                                     />
                                 </div>
 
-                                {/* Interest Selector */}
-                                <div>
-                                    <label className="block text-xs font-bold text-navy/50 uppercase tracking-wider mb-2">I Collect...</label>
-                                    <div className="grid grid-cols-2 gap-2">
-                                        {['Football', 'Boxing', 'F1', 'Other'].map((item) => (
-                                            <button
-                                                key={item}
-                                                type="button"
-                                                onClick={() => setInterest(item)}
-                                                className={`px-4 py-3 rounded-lg text-sm font-medium transition-all border ${interest === item
-                                                        ? "bg-navy text-white border-navy"
-                                                        : "bg-white text-navy/60 border-navy/10 hover:border-navy/30"
-                                                    }`}
-                                            >
-                                                {item}
-                                            </button>
-                                        ))}
+                                {/* Autocomplete Interest Input */}
+                                <div className="relative" ref={wrapperRef}>
+                                    <label className="block text-xs font-bold text-navy/50 uppercase tracking-wider mb-2">My Main Interest</label>
+                                    <div className="relative">
+                                        <input
+                                            type="text"
+                                            value={interest}
+                                            onChange={handleInterestChange}
+                                            onFocus={() => setShowSuggestions(true)}
+                                            placeholder="e.g. Football, Boxing, F1..."
+                                            className="w-full px-5 py-3 pl-10 rounded-lg bg-ivory border border-navy/10 text-navy placeholder:text-navy/30 focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold"
+                                            required
+                                        />
+                                        <Search className="absolute left-3 top-3.5 w-4 h-4 text-navy/30" />
                                     </div>
-                                </div>
 
-                                {/* Conditional Football Team Selector */}
-                                {interest === 'Football' && (
-                                    <div className="animate-in fade-in slide-in-from-top-2 duration-300">
-                                        <label className="block text-xs font-bold text-navy/50 uppercase tracking-wider mb-2">Team Preference</label>
-                                        <select
-                                            className="w-full px-5 py-3 rounded-lg bg-ivory border border-navy/10 text-navy/80 focus:outline-none focus:border-gold"
-                                            value={footballTeam}
-                                            onChange={(e) => setFootballTeam(e.target.value)}
-                                        >
-                                            <option value="">Select a team (Optional)</option>
-                                            <option value="Liverpool">Liverpool</option>
-                                            <option value="Man Utd">Manchester United</option>
-                                            <option value="Arsenal">Arsenal</option>
-                                            <option value="Man City">Manchester City</option>
-                                            <option value="Chelsea">Chelsea</option>
-                                            <option value="Real Madrid">Real Madrid</option>
-                                            <option value="Barcelona">Barcelona</option>
-                                            <option value="Other">Other</option>
-                                        </select>
-                                    </div>
-                                )}
+                                    {/* Suggestions Dropdown */}
+                                    {showSuggestions && filteredSuggestions.length > 0 && (
+                                        <div className="absolute z-10 w-full mt-1 bg-white border border-navy/10 rounded-lg shadow-lg max-h-40 overflow-y-auto">
+                                            {filteredSuggestions.map((suggestion) => (
+                                                <button
+                                                    key={suggestion}
+                                                    type="button"
+                                                    onClick={() => selectSuggestion(suggestion)}
+                                                    className="w-full text-left px-5 py-2 text-sm text-navy hover:bg-ivory hover:text-gold transition-colors"
+                                                >
+                                                    {suggestion}
+                                                </button>
+                                            ))}
+                                        </div>
+                                    )}
+                                </div>
 
                                 <Button
                                     type="submit"
@@ -150,7 +175,7 @@ export function WaitlistModal() {
                             </div>
                             <h3 className="font-serif text-2xl text-navy mb-2">Access Secured</h3>
                             <p className="text-navy/60">
-                                You are on the list{footballTeam ? ` for ${footballTeam} updates` : ""}.<br />
+                                You are on the list for <strong>{interest}</strong> updates.<br />
                                 Watch your inbox in January.
                             </p>
                         </div>
