@@ -1,5 +1,4 @@
 import { Button } from "@/components/ui/Button"
-import { Link } from "react-router-dom"
 
 export function Hero() {
   return (
@@ -34,21 +33,16 @@ export function Hero() {
 
           {/* Subheadline */}
           <p className="text-base sm:text-xl text-white/80 max-w-xl leading-relaxed">
-            Premium authenticated sports memorabilia, expertly framed and ready to display. The ultimate gift for the ultimate fan.
+            The vault is currently closed. We open our doors for the first exclusive drop in <strong>January 2026</strong>. Don't miss out.
           </p>
 
           {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row gap-3 pt-2">
-            <Link to="/shop">
+            <a href="#waitlist">
               <Button size="lg" className="h-12 sm:h-14 px-8 text-base sm:text-lg font-bold bg-gold hover:bg-gold/90 text-charcoal w-full sm:w-auto shadow-lg shadow-gold/20">
-                Shop Collection
+                Join the Drop Waitlist
               </Button>
-            </Link>
-            <Link to="/verify">
-              <Button size="lg" variant="outline" className="h-12 sm:h-14 px-8 text-base sm:text-lg font-bold border-white text-white hover:bg-white hover:text-charcoal w-full sm:w-auto backdrop-blur-sm bg-white/5">
-                Verify Authenticity
-              </Button>
-            </Link>
+            </a>
           </div>
         </div>
       </div>
