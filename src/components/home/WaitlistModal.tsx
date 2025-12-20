@@ -84,9 +84,9 @@ export function WaitlistModal() {
                 onClick={handleClose}
             />
 
-            <div className="relative w-full max-w-lg bg-white border border-navy/10 rounded-xl shadow-2xl overflow-hidden animate-in zoom-in-95 duration-300">
+            <div className="relative w-full max-w-lg bg-white border border-navy/10 rounded-xl shadow-2xl animate-in zoom-in-95 duration-300">
                 {/* Decorative Header */}
-                <div className="bg-navy p-6 text-center border-b border-gold/20">
+                <div className="bg-navy p-6 text-center border-b border-gold/20 rounded-t-xl">
                     <div className="w-12 h-12 bg-white/10 rounded-full flex items-center justify-center mx-auto mb-4">
                         <Lock className="w-6 h-6 text-gold" />
                     </div>
