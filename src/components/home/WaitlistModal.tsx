@@ -72,12 +72,21 @@ export function WaitlistModal() {
                     throw error;
                 }
             } else {
-                // Call the Vercel API Route
-                fetch('/api/send-email', {
+                // 3. Trigger Email API
+                const emailRes = await fetch('/api/send-email', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ email })
-                }).catch(err => console.error("Failed to trigger email", err));
+                });
+
+                if (!emailRes.ok) {
+                    const errorData = await emailRes.json();
+                    console.error("Email API Failed:", errorData);
+                    alert(`DEBUG ERROR: Lead saved, but Email failed.\nReason: ${JSON.stringify(errorData)}`);
+                } else {
+                    setIsOpen(false);
+                    setIsSuccess(true); // Corrected from setShowSuccess to setIsSuccess
+                }
             }
 
             setIsSuccess(true);
