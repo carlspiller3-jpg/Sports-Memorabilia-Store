@@ -8,17 +8,17 @@ export function Hero() {
         <img
           src="/hero-banner.png"
           alt="Premium authenticated sports memorabilia"
-          className="h-full w-full object-contain bg-[#050505] object-right"
+          className="h-full w-full object-contain bg-[#F9F9F7] object-right"
         />
         {/* Gradient Overlay */}
-        <div className="absolute inset-0 bg-gradient-to-r from-[#050505] via-[#050505]/80 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#F9F9F7] via-[#F9F9F7]/90 to-transparent" />
       </div>
 
       {/* Content */}
       <div className="relative h-full container mx-auto px-4 flex flex-col justify-center pb-12 pt-20 md:pt-0 md:pb-0">
         <div className="max-w-2xl space-y-8 animate-in fade-in slide-in-from-bottom-8 duration-1000">
           {/* Trust Badge */}
-          <div className="inline-flex items-center space-x-2 rounded-full border border-white/20 bg-white/10 backdrop-blur-sm px-4 py-2 text-sm font-medium text-white w-fit">
+          <div className="inline-flex items-center space-x-2 rounded-full border border-navy/10 bg-white/50 backdrop-blur-sm px-4 py-2 text-sm font-medium text-navy w-fit">
             <svg className="h-4 w-4 text-gold" fill="currentColor" viewBox="0 0 20 20">
               <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
             </svg>
@@ -26,13 +26,13 @@ export function Hero() {
           </div>
 
           {/* Headline */}
-          <h1 className="font-serif text-4xl sm:text-6xl lg:text-7xl font-bold tracking-tight text-white leading-tight">
+          <h1 className="font-serif text-4xl sm:text-6xl lg:text-7xl font-bold tracking-tight text-navy leading-tight">
             Own a Piece of <br />
             <span className="text-gold">Sporting History</span>
           </h1>
 
           {/* Subheadline */}
-          <p className="text-base sm:text-xl text-white/80 max-w-xl leading-relaxed">
+          <p className="text-base sm:text-xl text-charcoal/80 max-w-xl leading-relaxed">
             Our inaugural collection is currently in the vault. Secure your position for the <strong>January 2026</strong> drop.
           </p>
 
