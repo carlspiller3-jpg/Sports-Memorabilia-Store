@@ -23,9 +23,13 @@ export function HomePage() {
             </Helmet>
 
             {/* Above the Fold: Hero + Trust Bar */}
-            <div className="pt-[80px]">
-                <Hero />
-                <TrustIndicators />
+            <div className="pt-[80px] h-screen flex flex-col justify-between">
+                <div className="flex-1 min-h-0 relative">
+                    <Hero />
+                </div>
+                <div className="shrink-0 z-10 w-full">
+                    <TrustIndicators />
+                </div>
             </div>
 
             {/* Waitlist Section (Anchor) */}
