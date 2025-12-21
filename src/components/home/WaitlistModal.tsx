@@ -191,8 +191,15 @@ export function WaitlistModal() {
                                 >
                                     {isSubmitting ? "Unlocking..." : "Secure Priority Access"}
                                 </Button>
+                                <button
+                                    type="button"
+                                    onClick={handleClose}
+                                    className="w-full py-3 text-sm text-navy/50 font-medium hover:text-navy underline-offset-4 hover:underline"
+                                >
+                                    No thanks, I'll just browse
+                                </button>
                             </form>
-                            <p className="mt-4 text-xs text-center text-navy/30">We respect your privacy.</p>
+                            <p className="mt-2 text-xs text-center text-navy/30">We respect your privacy.</p>
                         </>
                     ) : (
                         <div className="text-center py-8">
