@@ -4,42 +4,13 @@ export function PresentationSection() {
             <div className="container mx-auto px-4">
                 <div className="grid gap-12 lg:grid-cols-2 lg:gap-16 items-center">
                     {/* Image Grid */}
-                    <div className="grid grid-cols-2 gap-4">
-                        <div className="space-y-4">
-                            <div className="aspect-square overflow-hidden rounded-sm">
-                                <img
-                                    src="https://images.unsplash.com/photo-1513885535751-8b9238bd345a?q=80&w=2070&auto=format&fit=crop"
-                                    alt="Premium professional framing"
-                                    className="h-full w-full object-cover"
-                                />
-                            </div>
-                            <div className="aspect-[4/3] overflow-hidden rounded-sm">
-                                <img
-                                    src="https://images.unsplash.com/photo-1607083206869-4c7672e72a8a?q=80&w=2070&auto=format&fit=crop"
-                                    alt="Luxury packaging unboxing experience"
-                                    className="h-full w-full object-cover"
-                                />
-                            </div>
-                        </div>
-                        <div className="space-y-4 pt-8">
-                            <div className="aspect-[4/3] overflow-hidden rounded-sm">
-                                <img
-                                    src="https://images.unsplash.com/photo-1518605348435-2996d2606926?q=80&w=1936&auto=format&fit=crop"
-                                    alt="Framed memorabilia in home setting"
-                                    className="h-full w-full object-cover"
-                                />
-                            </div>
-                            <div className="aspect-square overflow-hidden rounded-sm">
-                                <img
-                                    src="https://images.unsplash.com/photo-1621996661448-032646298517?q=80&w=1974&auto=format&fit=crop"
-                                    alt="Close-up of premium frame details"
-                                    className="h-full w-full object-cover"
-                                />
-                            </div>
-                        </div>
-                    </div>
-
-                    {/* Content */}
+                    <div className="relative h-[600px] w-full">
+                        <img
+                            src="/premium-packaging.png"
+                            alt="Premium navy and gold packaging with framed jersey"
+                            className="h-full w-full object-cover rounded-xl shadow-2xl"
+                        />
+                    </div>      {/* Content */}
                     <div className="space-y-6 lg:order-first">
                         <div className="space-y-4">
                             <div className="inline-flex items-center space-x-2 rounded-full border border-gold bg-gold/10 px-4 py-2 text-sm font-medium text-navy w-fit">
