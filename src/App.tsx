@@ -27,6 +27,7 @@ import { RegisterPage } from "@/pages/RegisterPage"
 import { AccountPage } from "@/pages/AccountPage"
 import { KnowledgeHubPage } from "@/pages/blog/KnowledgeHubPage"
 import { ArticlePage } from "@/pages/blog/ArticlePage"
+import { ShopGate } from "@/components/auth/ShopGate"
 
 function App() {
   return (
@@ -44,9 +45,21 @@ function App() {
               <main className="flex-1 animate-fade-in pb-16 md:pb-0">
                 <Routes>
                   <Route path="/" element={<HomePage />} />
-                  <Route path="/shop" element={<ShopPage />} />
-                  <Route path="/collections" element={<CollectionsPage />} /> {/* Added Collections route */}
-                  <Route path="/product/:handle" element={<ProductPage />} />
+                  <Route path="/shop" element={
+                    <ShopGate>
+                      <ShopPage />
+                    </ShopGate>
+                  } />
+                  <Route path="/collections" element={
+                    <ShopGate>
+                      <CollectionsPage />
+                    </ShopGate>
+                  } />
+                  <Route path="/product/:handle" element={
+                    <ShopGate>
+                      <ProductPage />
+                    </ShopGate>
+                  } />
                   <Route path="/verify" element={<VerifyPage />} />
                   <Route path="/checkout" element={<CheckoutPage />} />
                   <Route path="/debug" element={<DebugPage />} />

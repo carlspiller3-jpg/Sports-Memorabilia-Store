@@ -25,7 +25,7 @@ export function Hero() {
 
             {/* Subheadline */}
             <p className="text-base sm:text-xl text-charcoal/80 max-w-xl leading-relaxed">
-              Our inaugural collection is currently in the vault. Secure your position for the <strong>January 2026</strong> drop.
+              The Vault Opens <strong>January 2026</strong>. Be the first inside.
             </p>
 
             {/* CTA Buttons */}
