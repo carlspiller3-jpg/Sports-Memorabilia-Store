@@ -1,4 +1,4 @@
-import { Resend } from 'resend';
+
 
 const resendApiKey = process.env.VITE_RESEND_API_KEY || process.env.RESEND_API_KEY;
 
@@ -21,8 +21,6 @@ export default async function handler(req: any, res: any) {
         return res.status(500).json({ error: 'Server Configuration Error: Missing API Key' });
     }
 
-    const resend = new Resend(resendApiKey);
-
     try {
         if (req.method !== 'POST') {
             return res.status(405).json({ error: 'Method Not Allowed' });
@@ -34,13 +32,19 @@ export default async function handler(req: any, res: any) {
             return res.status(400).json({ error: 'Missing email address' });
         }
 
-        console.log(`API: Sending email to ${email}`);
+        console.log(`API: Sending email to ${email} via Native Fetch`);
 
-        const { data, error } = await resend.emails.send({
-            from: 'SportsSigned <hello@sportssigned.com>',
-            to: [email],
-            subject: 'Priority Access Confirmed: Welcome to The Vault',
-            html: `
+        const response = await fetch('https://api.resend.com/emails', {
+            method: 'POST',
+            headers: {
+                'Authorization': `Bearer ${resendApiKey}`,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                from: 'SportsSigned <hello@sportssigned.com>',
+                to: [email],
+                subject: 'Priority Access Confirmed: Welcome to The Vault',
+                html: `
             <!DOCTYPE html>
             <html>
             <head>
@@ -88,11 +92,14 @@ export default async function handler(req: any, res: any) {
             </body>
             </html>
             `
+            })
         });
 
-        if (error) {
-            console.error("Resend API Error:", error);
-            return res.status(500).json({ error: error });
+        const data = await response.json();
+
+        if (!response.ok) {
+            console.error("Resend API Error:", data);
+            return res.status(response.status).json({ error: data });
         }
 
         return res.status(200).json(data);
