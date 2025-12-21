@@ -1,19 +1,37 @@
 import { Resend } from 'resend';
+import type { VercelRequest, VercelResponse } from '@vercel/node';
 
 const resendApiKey = process.env.VITE_RESEND_API_KEY || process.env.RESEND_API_KEY;
 
-export async function POST(request: Request) {
+export default async function handler(req: VercelRequest, res: VercelResponse) {
+    // Enable CORS just in case
+    res.setHeader('Access-Control-Allow-Credentials', 'true');
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Methods', 'POST,OPTIONS');
+    res.setHeader(
+        'Access-Control-Allow-Headers',
+        'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version'
+    );
+
+    if (req.method === 'OPTIONS') {
+        return res.status(200).end();
+    }
+
     console.log("API: /api/send-email called");
 
     if (!resendApiKey) {
         console.error("API Error: Missing RESEND_API_KEY");
-        return new Response(JSON.stringify({ error: 'Server Configuration Error: Missing API Key' }), { status: 500 });
+        return res.status(500).json({ error: 'Server Configuration Error: Missing API Key' });
     }
 
     const resend = new Resend(resendApiKey);
 
     try {
-        const { email } = await request.json();
+        if (req.method !== 'POST') {
+            return res.status(405).json({ error: 'Method Not Allowed' });
+        }
+
+        const { email } = req.body;
         console.log(`API: Sending email to ${email}`);
 
         const { data, error } = await resend.emails.send({
@@ -71,11 +89,13 @@ export async function POST(request: Request) {
         });
 
         if (error) {
-            return new Response(JSON.stringify({ error }), { status: 500 });
+            console.error("Resend API Error:", error);
+            return res.status(500).json({ error: error });
         }
 
-        return new Response(JSON.stringify(data), { status: 200 });
+        return res.status(200).json(data);
     } catch (error) {
-        return new Response(JSON.stringify({ error: 'Internal Server Error' }), { status: 500 });
+        console.error("Internal Error:", error);
+        return res.status(500).json({ error: 'Internal Server Error' });
     }
 }
