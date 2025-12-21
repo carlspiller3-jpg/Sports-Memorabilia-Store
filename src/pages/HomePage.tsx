@@ -22,11 +22,9 @@ export function HomePage() {
                 <meta name="twitter:card" content="summary_large_image" />
             </Helmet>
 
-            {/* Above the Fold: Hero + Trust Bar = 100vh */}
-            <div className="flex flex-col h-screen pt-[104px]">
-                <div className="flex-1 relative min-h-0">
-                    <Hero />
-                </div>
+            {/* Above the Fold: Hero + Trust Bar */}
+            <div className="pt-[80px]">
+                <Hero />
                 <TrustIndicators />
             </div>
 
