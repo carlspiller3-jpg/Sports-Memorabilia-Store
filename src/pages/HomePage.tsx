@@ -6,7 +6,41 @@ import { PresentationSection } from "@/components/home/PresentationSection"
 
 import { WaitlistModal } from "@/components/home/WaitlistModal"
 
+import { useState } from "react"
+import { supabase } from "@/lib/supabaseClient"
+
 export function HomePage() {
+    const [footerEmail, setFooterEmail] = useState("")
+    const [footerStatus, setFooterStatus] = useState<"idle" | "submitting" | "success">("idle")
+
+    const handleFooterSubmit = async (e: React.FormEvent) => {
+        e.preventDefault()
+        setFooterStatus("submitting")
+
+        try {
+            // 1. Insert into Supabase
+            const { error } = await supabase
+                .from('newsletter_subscribers')
+                .insert([{ email: footerEmail, interest: 'General' }])
+
+            if (error && error.code !== '23505') throw error // Ignore duplicate errors
+
+            // 2. Send Email
+            fetch('/api/send-email', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email: footerEmail })
+            }).catch(console.error)
+
+            setFooterStatus("success")
+            setFooterEmail("")
+        } catch (err) {
+            console.error(err)
+            alert("Something went wrong. Please try again.")
+            setFooterStatus("idle")
+        }
+    }
+
     return (
         <div className="min-h-screen">
             <WaitlistModal />
@@ -40,17 +74,33 @@ export function HomePage() {
                         Our first collection drops in <strong>January 2026</strong> featuring signed pieces from Messi, Gerrard, and Fury.
                         Stock is strictly limited. Enter your email to get 1 hour early access.
                     </p>
-                    <form className="max-w-md mx-auto flex gap-3 flex-col sm:flex-row" onSubmit={(e) => { e.preventDefault(); alert('You are on the list! (Dev Mode)'); }}>
-                        <input
-                            type="email"
-                            placeholder="Enter your email address"
-                            className="flex-1 px-6 py-4 rounded bg-white/5 border border-white/20 text-white placeholder:text-white/30 focus:outline-none focus:border-gold"
-                            required
-                        />
-                        <button type="submit" className="bg-gold text-navy font-bold px-8 py-4 rounded hover:bg-gold/90 transition-colors uppercase tracking-wide">
-                            Notify Me
-                        </button>
-                    </form>
+
+                    {footerStatus === "success" ? (
+                        <div className="p-6 bg-white/10 rounded-lg max-w-md mx-auto animate-in zoom-in">
+                            <p className="text-gold font-bold text-xl mb-2">You are on the list.</p>
+                            <p className="text-white/70 text-sm">Review your inbox for confirmation.</p>
+                        </div>
+                    ) : (
+                        <form className="max-w-md mx-auto flex gap-3 flex-col sm:flex-row" onSubmit={handleFooterSubmit}>
+                            <input
+                                type="email"
+                                value={footerEmail}
+                                onChange={(e) => setFooterEmail(e.target.value)}
+                                placeholder="Enter your email address"
+                                className="flex-1 px-6 py-4 rounded bg-white/5 border border-white/20 text-white placeholder:text-white/30 focus:outline-none focus:border-gold"
+                                required
+                                disabled={footerStatus === "submitting"}
+                            />
+                            <button
+                                type="submit"
+                                disabled={footerStatus === "submitting"}
+                                className="bg-gold text-navy font-bold px-8 py-4 rounded hover:bg-gold/90 transition-colors uppercase tracking-wide disabled:opacity-50 disabled:cursor-not-allowed"
+                            >
+                                {footerStatus === "submitting" ? "Processing..." : "Notify Me"}
+                            </button>
+                        </form>
+                    )}
+
                     <p className="text-white/30 text-xs mt-4">We respect your inbox. No spam. Unsubscribe anytime.</p>
                 </div>
             </section>
