@@ -8,7 +8,7 @@ export function Hero() {
         <div className="grid lg:grid-cols-2 gap-8 lg:gap-20 items-center w-full">
 
           {/* Left Column: Content */}
-          <div className="space-y-6 lg:space-y-8 animate-in fade-in slide-in-from-bottom-8 duration-1000 order-1 lg:order-1 pt-4 lg:pt-0">
+          <div className="space-y-6 lg:space-y-8 animate-in fade-in slide-in-from-bottom-8 duration-1000 order-1 lg:order-1 pt-32 lg:pt-0">
             {/* Trust Badge */}
             <div className="inline-flex items-center space-x-2 rounded-full border border-white/10 bg-navy/90 backdrop-blur-sm px-4 py-2 text-sm font-medium text-white w-fit shadow-lg">
               <svg className="h-4 w-4 text-gold" fill="currentColor" viewBox="0 0 20 20">
