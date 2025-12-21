@@ -1,6 +1,5 @@
 import { Helmet } from "react-helmet-async"
 import { Hero } from "@/components/home/Hero"
-import { TrustIndicators } from "@/components/home/TrustIndicators"
 import { AuthenticitySection } from "@/components/home/AuthenticitySection"
 import { PresentationSection } from "@/components/home/PresentationSection"
 
@@ -67,9 +66,6 @@ export function HomePage() {
             <div className="pt-[80px] min-h-screen lg:h-screen flex flex-col justify-between">
                 <div className="flex-1 min-h-0 relative">
                     <Hero />
-                </div>
-                <div className="shrink-0 z-10 w-full">
-                    <TrustIndicators />
                 </div>
             </div>
 
