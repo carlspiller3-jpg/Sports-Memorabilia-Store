@@ -121,6 +121,7 @@ export function PresentationSection() {
                         </div>
                     </div>
                 </div>
+            </div>
         </section>
     )
 }
