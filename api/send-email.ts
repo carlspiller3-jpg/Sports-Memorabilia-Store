@@ -16,7 +16,7 @@ export async function POST(request: Request) {
         console.log(`API: Sending email to ${email}`);
 
         const { data, error } = await resend.emails.send({
-            from: 'SportsSigned <info@sportssigned.com>',
+            from: 'SportsSigned <hello@sportssigned.com>',
             to: [email],
             subject: 'Priority Access Confirmed: Welcome to The Vault',
             html: `
