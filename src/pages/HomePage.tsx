@@ -26,11 +26,17 @@ export function HomePage() {
             if (error && error.code !== '23505') throw error // Ignore duplicate errors
 
             // 2. Send Email
-            fetch('/api/send-email', {
+            const emailRes = await fetch('/api/send-email', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ email: footerEmail })
-            }).catch(console.error)
+            })
+
+            if (!emailRes.ok) {
+                const errorData = await emailRes.json();
+                console.error("Email API Failed:", errorData);
+                alert(`DEBUG ERROR: Email failed to send. \nReason: ${JSON.stringify(errorData)}\n\n(Did you add VITE_RESEND_API_KEY to Vercel Settings?)`);
+            }
 
             setFooterStatus("success")
             setFooterEmail("")
