@@ -89,7 +89,7 @@ export function WaitlistModal() {
                 }
             }
 
-            setIsSuccess(true);
+
             setTimeout(() => {
                 handleClose();
             }, 4000);
