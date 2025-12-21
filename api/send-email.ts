@@ -1,9 +1,7 @@
 import { Resend } from 'resend';
-import type { VercelRequest, VercelResponse } from '@vercel/node';
-
 const resendApiKey = process.env.VITE_RESEND_API_KEY || process.env.RESEND_API_KEY;
 
-export default async function handler(req: VercelRequest, res: VercelResponse) {
+export default async function handler(req: any, res: any) {
     // Enable CORS just in case
     res.setHeader('Access-Control-Allow-Credentials', 'true');
     res.setHeader('Access-Control-Allow-Origin', '*');
