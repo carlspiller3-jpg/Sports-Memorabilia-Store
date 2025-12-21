@@ -12,7 +12,7 @@ export function AboutPage() {
                 <meta name="description" content="Our story: Preserving sports history with 100% authentic, NFC-verified memorabilia and premium framing." />
             </Helmet>
 
-            <PageHero 
+            <PageHero
                 title="Our Story"
                 subtitle="Preserving the moments that define sporting history."
                 backgroundImage="https://images.unsplash.com/photo-1522778119026-d647f0565c6a?q=80&w=2070&auto=format&fit=crop"
@@ -23,13 +23,13 @@ export function AboutPage() {
                 <div className="container mx-auto px-4">
                     <div className="max-w-3xl mx-auto text-center space-y-8">
                         <h2 className="text-3xl md:text-4xl font-serif font-bold text-navy">
-                            More Than Just Memorabilia
+                            The New Standard
                         </h2>
-                        <p className="text-lg text-charcoal/80 leading-relaxed">
-                            Sports Memorabilia Store was founded on a simple belief: <span className="font-semibold text-navy">true fans deserve true authenticity.</span>
+                        <p className="text-lg text-charcoal/80 leading-relaxed font-light">
+                            Sports Signed was established to elevate the industry. We believe that owning a piece of history should be unquestionable.
                         </p>
-                        <p className="text-lg text-charcoal/80 leading-relaxed">
-                            In a market flooded with questionable items and paper certificates that are easily forged, we set out to build a new standard. We combine direct relationships with athletes, premium museum-quality framing, and cutting-edge NFC technology to create the most trusted destination for sports collectors.
+                        <p className="text-lg text-charcoal/80 leading-relaxed font-light">
+                            In a market often compromised by uncertainty, we provide absolute clarity. We combine direct athlete partnerships, museum-grade preservation, and immutable blockchain verification to create the definitive collection for the modern connoisseur.
                         </p>
                     </div>
                 </div>
@@ -43,36 +43,36 @@ export function AboutPage() {
                             <div className="w-16 h-16 bg-gold/10 rounded-full flex items-center justify-center mx-auto text-gold">
                                 <ShieldCheck className="w-8 h-8" />
                             </div>
-                            <h3 className="font-serif text-xl font-bold text-navy">100% Authenticated</h3>
-                            <p className="text-stone/80">
-                                Every single item is verified with our proprietary NFC technology. No paper certificates, just instant digital proof.
+                            <h3 className="font-serif text-xl font-bold text-navy">Absolute Authenticity</h3>
+                            <p className="text-stone/80 text-sm leading-relaxed">
+                                Every item is verified via blockchain. No paper certificates. Just instant, immutable digital proof.
                             </p>
                         </div>
                         <div className="space-y-4 text-center">
                             <div className="w-16 h-16 bg-gold/10 rounded-full flex items-center justify-center mx-auto text-gold">
                                 <Frame className="w-8 h-8" />
                             </div>
-                            <h3 className="font-serif text-xl font-bold text-navy">Premium Framing</h3>
-                            <p className="text-stone/80">
-                                We use UV-protective glass and acid-free mounts to ensure your piece of history lasts a lifetime.
+                            <h3 className="font-serif text-xl font-bold text-navy">Conservation Grade</h3>
+                            <p className="text-stone/80 text-sm leading-relaxed">
+                                We utilize UV-protective glass and acid-free mounts to ensure your investment is preserved for generations.
                             </p>
                         </div>
                         <div className="space-y-4 text-center">
                             <div className="w-16 h-16 bg-gold/10 rounded-full flex items-center justify-center mx-auto text-gold">
                                 <Heart className="w-8 h-8" />
                             </div>
-                            <h3 className="font-serif text-xl font-bold text-navy">Fan Focused</h3>
-                            <p className="text-stone/80">
-                                We are fans first. We understand the emotion behind every signature and the story behind every game.
+                            <h3 className="font-serif text-xl font-bold text-navy">Unrivaled Access</h3>
+                            <p className="text-stone/80 text-sm leading-relaxed">
+                                We curate opportunities. Our relationships allow us to bring you closer to the icons of sport.
                             </p>
                         </div>
                         <div className="space-y-4 text-center">
                             <div className="w-16 h-16 bg-gold/10 rounded-full flex items-center justify-center mx-auto text-gold">
                                 <Truck className="w-8 h-8" />
                             </div>
-                            <h3 className="font-serif text-xl font-bold text-navy">Secure Delivery</h3>
-                            <p className="text-stone/80">
-                                Fully insured global shipping in custom-designed protective packaging.
+                            <h3 className="font-serif text-xl font-bold text-navy">Secure Logistics</h3>
+                            <p className="text-stone/80 text-sm leading-relaxed">
+                                Fully insured, white-glove shipping in custom protective packaging. Global delivery without compromise.
                             </p>
                         </div>
                     </div>

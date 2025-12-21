@@ -5,7 +5,7 @@ import { Lock } from "lucide-react";
 const PASSWORD = "LEGENDS26"; // Simple shared password
 
 export function ShopGate({ children }: { children: React.ReactNode }) {
-    const { user, isLoading } = useAuth();
+    const { isLoading } = useAuth();
     const [isUnlocked, setIsUnlocked] = useState(false);
     const [input, setInput] = useState("");
     const [error, setError] = useState(false);
@@ -21,8 +21,8 @@ export function ShopGate({ children }: { children: React.ReactNode }) {
     // 1. If loading auth, show nothing or spinner
     if (isLoading) return <div className="min-h-screen bg-navy flex items-center justify-center text-gold">Loading...</div>;
 
-    // 2. If User is Logged In (Admin/Member) OR Session is Unlocked -> Show Content
-    if (user || isUnlocked) {
+    // 2. If Session is Unlocked -> Show Content (Login does NOT bypass)
+    if (isUnlocked) {
         return <>{children}</>;
     }
 
@@ -46,8 +46,8 @@ export function ShopGate({ children }: { children: React.ReactNode }) {
                 </div>
 
                 <h1 className="font-serif text-3xl text-navy mb-4">The Vault is Locked</h1>
-                <p className="text-charcoal/60 mb-8 leading-relaxed">
-                    Our inaugural collection is currently reserved for Waitlist Members with Early Access.
+                <p className="text-charcoal/60 mb-8 leading-relaxed font-light">
+                    Our first collection is reserved for members with early access.
                     <br /><br />
                     Please enter your password to view the collection.
                 </p>
