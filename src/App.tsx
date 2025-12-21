@@ -8,7 +8,8 @@ import { VerifyPage } from "@/pages/VerifyPage"
 import { ShopPage } from "@/pages/ShopPage"
 import { ProductPage } from "@/pages/ProductPage"
 import { CollectionsPage } from "@/pages/CollectionsPage"
-import { CheckoutPage } from "@/pages/CheckoutPage"
+import { CheckoutPage } from "./pages/CheckoutPage"
+import { DebugPage } from "./pages/DebugPage"
 import { CartProvider } from "@/context/CartContext"
 import { CartDrawer } from "@/components/cart/CartDrawer"
 import { ChatWidget } from "@/components/chat/ChatWidget"
@@ -48,6 +49,7 @@ function App() {
                   <Route path="/product/:handle" element={<ProductPage />} />
                   <Route path="/verify" element={<VerifyPage />} />
                   <Route path="/checkout" element={<CheckoutPage />} />
+                  <Route path="/debug" element={<DebugPage />} />
 
                   {/* Account */}
                   <Route path="/login" element={<LoginPage />} />
