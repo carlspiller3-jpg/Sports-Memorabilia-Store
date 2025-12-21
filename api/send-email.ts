@@ -43,50 +43,73 @@ export default async function handler(req: any, res: any) {
             body: JSON.stringify({
                 from: 'SportsSigned <hello@sportssigned.com>',
                 to: [email],
-                subject: 'Priority Access Confirmed: Welcome to The Vault',
+                subject: 'Access Secured: The Vault is Locked',
                 html: `
             <!DOCTYPE html>
             <html>
             <head>
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <style>
-                body { font-family: 'Georgia', serif; color: #0a192f; line-height: 1.6; }
-                .container { max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #e1e1e1; background-color: #fafafa; }
-                .header { text-align: center; padding-bottom: 20px; border-bottom: 2px solid #d4af37; }
-                .logo { color: #0a192f; font-size: 24px; font-weight: bold; text-transform: uppercase; letter-spacing: 2px; text-decoration: none; }
-                .content { padding: 30px 0; }
-                .h1 { font-family: 'Times New Roman', serif; color: #0a192f; font-size: 28px; margin-bottom: 10px; }
-                .highlight { color: #d4af37; font-weight: bold; }
-                .footer { font-size: 12px; color: #888; text-align: center; margin-top: 40px; border-top: 1px solid #ddd; padding-top: 20px; }
+                body { margin: 0; padding: 0; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; background-color: #0a192f; color: #e6e6e6; }
+                .wrapper { width: 100%; table-layout: fixed; background-color: #0a192f; padding-bottom: 40px; }
+                .container { max-width: 600px; margin: 0 auto; background-color: #0a192f; }
+                .content { padding: 40px 20px; text-align: center; }
+                
+                /* Typography */
+                h1 { font-family: 'Georgia', serif; font-size: 28px; font-weight: 400; color: #ffffff; letter-spacing: 1px; margin-bottom: 24px; }
+                p { font-size: 16px; line-height: 1.8; color: #b3b3b3; margin-bottom: 20px; }
+                .gold-text { color: #d4af37; font-weight: 600; }
+                .small-text { font-size: 12px; color: #666; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 30px; display: block; }
+                
+                /* Elements */
+                .logo { font-family: 'Georgia', serif; font-size: 24px; letter-spacing: 4px; color: #ffffff; text-decoration: none; border: 1px solid #d4af37; padding: 12px 24px; display: inline-block; margin-bottom: 40px; }
+                .divider { height: 1px; width: 60%; background: linear-gradient(90deg, transparent, #d4af37, transparent); margin: 30px auto; opacity: 0.5; }
+                .btn { background-color: #d4af37; color: #0a192f; padding: 16px 32px; text-decoration: none; font-weight: bold; text-transform: uppercase; letter-spacing: 1px; font-size: 14px; display: inline-block; margin-top: 20px; border-radius: 2px; }
+                
+                /* Footer */
+                .footer { font-size: 12px; color: #4a5568; margin-top: 60px; padding-top: 20px; border-top: 1px solid #1a2c4e; }
             </style>
             </head>
             <body>
-                <div class="container">
-                    <div class="header">
-                        <span class="logo">SPORTS SIGNED</span>
-                    </div>
-                    <div class="content">
-                        <p style="text-transform: uppercase; font-size: 10px; letter-spacing: 1px; color: #888;">Priority Access Confirmed</p>
-                        <h1 class="h1">Welcome to <span class="highlight">The Vault</span>.</h1>
-                        
-                        <p>You are in.</p>
-                        
-                        <p>You have secured your position on the Priority Access List for our inaugural drop in <strong>January 2026</strong>. This list is strictly capped, and you have claimed one of the 500 spots.</p>
-                        
-                        <h3>What happens next?</h3>
-                        <p>The vault is currently locked to the public. As a priority member, here is your advantage:</p>
-                        <ul>
-                            <li><strong>60 Minutes Early Access:</strong> On drop day, you will receive a password via email 1 hour before the store opens to the world.</li>
-                            <li><strong>The Inventory:</strong> We will be releasing signed pieces from <em>Messi, Gerrard, Fury</em> and more.</li>
-                        </ul>
+                <div class="wrapper">
+                    <div class="container">
+                        <div class="content">
+                            <!-- Logo -->
+                            <div style="padding-top: 20px;">
+                                <span class="logo">SPORTS SIGNED</span>
+                            </div>
 
-                        <p>Until then, keep an eye on your inbox. We will be sharing preview images of the stock in the coming weeks.</p>
-                        
-                        <p><strong>The SportsSigned Team</strong><br>
-                        London, UK</p>
-                    </div>
-                    <div class="footer">
-                        &copy; 2025 Sports Memorabilia Store Ltd.<br>
-                        Sent to you because you joined the waitlist at sportssigned.com
+                            <!-- Pre-Header -->
+                            <span class="small-text">Authentication Verified • Chain of Custody • Secure</span>
+
+                            <!-- Main Headline -->
+                            <h1>Welcome to the <span class="gold-text">Inner Circle</span>.</h1>
+
+                            <!-- Body Text -->
+                            <p>You have successfully secured your position on the Priority Access List for <strong>January 2026</strong>.</p>
+                            
+                            <p>At Sports Signed, we don't just sell memorabilia; we deal in <strong>History</strong>. Every piece in our upcoming collection is protected by our proprietary NFC Digital Chain of Custody, ensuring your asset retains its value for generations.</p>
+
+                            <div class="divider"></div>
+
+                            <p style="color: #ffffff; font-size: 18px;">"The Vault Opens in January."</p>
+
+                            <p>As a priority member, you will receive:</p>
+                            <p style="color: #d4af37;">
+                                • 60-Minute Head Start on Drop Day<br>
+                                • Access to "1-of-1" Inventory<br>
+                                • Private Signing Event Invites
+                            </p>
+
+                            <p>Prepare your collection. The countdown has begun.</p>
+
+                            <!-- Footer -->
+                            <div class="footer">
+                                <p>&copy; 2025 Sports Memorabilia Store Ltd.<br>
+                                London, United Kingdom</p>
+                                <p style="font-style: italic; color: #2d3748;">Authenticity Guaranteed.</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </body>
