@@ -10,8 +10,7 @@ export function Hero() {
           alt="Premium authenticated sports memorabilia"
           className="h-full w-full object-contain bg-[#F9F9F7] object-right"
         />
-        {/* Gradient Overlay */}
-        <div className="absolute inset-0 bg-gradient-to-r from-[#F9F9F7] via-[#F9F9F7]/90 to-transparent" />
+
       </div>
 
       {/* Content */}
