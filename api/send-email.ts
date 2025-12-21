@@ -1,5 +1,4 @@
 
-
 const resendApiKey = process.env.VITE_RESEND_API_KEY || process.env.RESEND_API_KEY;
 
 export default async function handler(req: any, res: any) {
@@ -45,76 +44,84 @@ export default async function handler(req: any, res: any) {
                 to: [email],
                 subject: 'Access Secured: The Vault is Locked',
                 html: `
-            <!DOCTYPE html>
-            <html>
-            <head>
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <style>
-                body { margin: 0; padding: 0; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; background-color: #0a192f; color: #e6e6e6; }
-                .wrapper { width: 100%; table-layout: fixed; background-color: #0a192f; padding-bottom: 40px; }
-                .container { max-width: 600px; margin: 0 auto; background-color: #0a192f; }
-                .content { padding: 40px 20px; text-align: center; }
-                
-                /* Typography */
-                h1 { font-family: 'Georgia', serif; font-size: 28px; font-weight: 400; color: #ffffff; letter-spacing: 1px; margin-bottom: 24px; }
-                p { font-size: 16px; line-height: 1.8; color: #b3b3b3; margin-bottom: 20px; }
-                .gold-text { color: #d4af37; font-weight: 600; }
-                .small-text { font-size: 12px; color: #666; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 30px; display: block; }
-                
-                /* Elements */
-                .logo { font-family: 'Georgia', serif; font-size: 24px; letter-spacing: 4px; color: #ffffff; text-decoration: none; border: 1px solid #d4af37; padding: 12px 24px; display: inline-block; margin-bottom: 40px; }
-                .divider { height: 1px; width: 60%; background: linear-gradient(90deg, transparent, #d4af37, transparent); margin: 30px auto; opacity: 0.5; }
-                .btn { background-color: #d4af37; color: #0a192f; padding: 16px 32px; text-decoration: none; font-weight: bold; text-transform: uppercase; letter-spacing: 1px; font-size: 14px; display: inline-block; margin-top: 20px; border-radius: 2px; }
-                
-                /* Footer */
-                .footer { font-size: 12px; color: #4a5568; margin-top: 60px; padding-top: 20px; border-top: 1px solid #1a2c4e; }
-            </style>
-            </head>
-            <body>
-                <div class="wrapper">
-                    <div class="container">
-                        <div class="content">
-                            <!-- Logo -->
-                            <div style="padding-top: 20px;">
-                                <span class="logo">SPORTS SIGNED</span>
-                            </div>
-
-                            <!-- Pre-Header -->
-                            <span class="small-text">Authentication Verified • Chain of Custody • Secure</span>
-
-                            <!-- Main Headline -->
-                            <h1>Welcome to the <span class="gold-text">Inner Circle</span>.</h1>
-
-                            <!-- Body Text -->
-                            <p>You have successfully secured your position on the Priority Access List for <strong>January 2026</strong>.</p>
-                            
-                            <p>At Sports Signed, we don't just sell memorabilia; we deal in <strong>History</strong>. Every piece in our upcoming collection is protected by our proprietary NFC Digital Chain of Custody, ensuring your asset retains its value for generations.</p>
-
-                            <div class="divider"></div>
-
-                            <p style="color: #ffffff; font-size: 18px;">"The Vault Opens in January."</p>
-
-                            <p>As a priority member, you will receive:</p>
-                            <p style="color: #d4af37;">
-                                • 60-Minute Head Start on Drop Day<br>
-                                • Access to "1-of-1" Inventory<br>
-                                • Private Signing Event Invites
-                            </p>
-
-                            <p>Prepare your collection. The countdown has begun.</p>
-
-                            <!-- Footer -->
-                            <div class="footer">
-                                <p>&copy; 2025 Sports Memorabilia Store Ltd.<br>
-                                London, United Kingdom</p>
-                                <p style="font-style: italic; color: #2d3748;">Authenticity Guaranteed.</p>
-                            </div>
-                        </div>
-                    </div>
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+    body { margin: 0; padding: 0; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; background-color: #F9F7F3; color: #2E2E2E; }
+    .wrapper { width: 100%; table-layout: fixed; background-color: #F9F7F3; padding-bottom: 40px; }
+    .container { max-width: 600px; margin: 0 auto; background-color: #ffffff; border: 1px solid #D9D5CD; }
+    .content { padding: 40px 30px; text-align: center; }
+    
+    /* Typography */
+    h1 { font-family: 'Georgia', serif; font-size: 32px; font-weight: 400; color: #1C273A; letter-spacing: -0.5px; margin-bottom: 24px; margin-top: 10px; }
+    p { font-size: 16px; line-height: 1.8; color: #2E2E2E; margin-bottom: 24px; }
+    .gold-text { color: #C6A664; font-weight: 600; }
+    .small-text { font-size: 11px; color: #888; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 30px; display: block; font-weight: 600; }
+    
+    /* Elements */
+    .logo-container { margin-bottom: 30px; padding-bottom: 20px; border-bottom: 2px solid #C6A664; display: inline-block; }
+    .logo { font-family: 'Georgia', serif; font-size: 26px; letter-spacing: 3px; color: #1C273A; text-decoration: none; text-transform: uppercase; font-weight: bold; }
+    
+    .infobox { background-color: #F9F7F3; border: 1px solid #D9D5CD; padding: 20px; text-align: left; margin: 30px 0; border-left: 4px solid #C6A664; }
+    .infobox p { margin: 0 0 10px 0; font-size: 15px; }
+    .infobox li { margin-bottom: 8px; color: #2E2E2E; }
+    
+    .btn { background-color: #1C273A; color: #ffffff !important; padding: 18px 36px; text-decoration: none; font-weight: bold; text-transform: uppercase; letter-spacing: 1px; font-size: 13px; display: inline-block; margin-top: 30px; }
+    
+    /* Footer */
+    .footer { background-color: #1C273A; padding: 40px 20px; text-align: center; margin-top: 0; }
+    .footer p { color: #D9D5CD; font-size: 12px; margin-bottom: 10px; opacity: 0.8; }
+    .footer-link { color: #C6A664; text-decoration: none; }
+</style>
+</head>
+<body>
+    <div class="wrapper">
+        <div class="container">
+            <div class="content">
+                <!-- Logo -->
+                <div class="logo-container">
+                    <span class="logo">SPORTS SIGNED</span>
                 </div>
-            </body>
-            </html>
-            `
+
+                <!-- Pre-Header -->
+                <span class="small-text">Authentication Verified • Chain of Custody</span>
+
+                <!-- Main Headline -->
+                <h1>Welcome to the <span class="gold-text">Inner Circle</span>.</h1>
+
+                <!-- Body Text -->
+                <p>You have secured your position on the Priority Access List for <strong>January 2026</strong>.</p>
+                
+                <p>At Sports Signed, we treat memorabilia as an asset class. Every piece is backed by our digital chain of custody, ensuring provenance is absolute.</p>
+
+                <div class="infobox">
+                    <p style="font-weight: bold; color: #1C273A; text-transform: uppercase; font-size: 12px; letter-spacing: 1px;">Priority Member Benefits:</p>
+                    <ul style="padding-left: 20px; margin: 0;">
+                        <li><strong>60-Minute Head Start</strong> on Drop Day.</li>
+                        <li>Access to <strong>"1-of-1"</strong> Unlisted Inventory.</li>
+                        <li>Private signing event invitations.</li>
+                    </ul>
+                </div>
+
+                <p style="font-style: italic; color: #666; font-size: 18px;">"The Vault is strictly capped."</p>
+
+                <!-- Button -->
+                <a href="https://sportssigned.com" class="btn">Return to Vault</a>
+            </div>
+
+            <!-- Footer -->
+            <div class="footer">
+                <p>&copy; 2025 Sports Memorabilia Store Ltd.<br>
+                London, United Kingdom</p>
+                <p>Authenticity Guaranteed.</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+`
             })
         });
 
