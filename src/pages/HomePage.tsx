@@ -78,7 +78,7 @@ export function HomePage() {
                 <div className="container mx-auto px-4 text-center">
                     <h2 className="font-serif text-3xl md:text-5xl text-white mb-6">Be The First To Know</h2>
                     <p className="text-white/60 max-w-2xl mx-auto mb-8 text-lg">
-                        Our first collection drops in <strong>January 2026</strong> featuring signed pieces from Messi, Gerrard, and Fury.
+                        Our first collection drops in <strong>January 2026</strong> featuring an exclusive curation of signed pieces from global icons.
                         Stock is strictly limited. Enter your email to get 48 hours early access.
                     </p>
 
