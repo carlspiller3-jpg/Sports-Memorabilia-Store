@@ -88,7 +88,7 @@ export function HomePage() {
                             <p className="text-white/70 text-sm">Review your inbox for confirmation.</p>
                         </div>
                     ) : (
-                        <form className="max-w-md mx-auto flex gap-3 flex-col sm:flex-row" onSubmit={handleFooterSubmit}>
+                        <form className="max-w-2xl mx-auto flex gap-3 flex-col sm:flex-row" onSubmit={handleFooterSubmit}>
                             <input
                                 type="email"
                                 value={footerEmail}
