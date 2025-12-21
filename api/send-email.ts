@@ -2,11 +2,11 @@ import { Resend } from 'resend';
 
 const resendApiKey = process.env.VITE_RESEND_API_KEY || process.env.RESEND_API_KEY;
 
-export default async function handler(req, res) {
-    // CORS
-    res.setHeader('Access-Control-Allow-Credentials', true);
+export default async function handler(req: any, res: any) {
+    // Enable CORS
+    res.setHeader('Access-Control-Allow-Credentials', 'true');
     res.setHeader('Access-Control-Allow-Origin', '*');
-    res.setHeader('Access-Control-Allow-Methods', 'GET,OPTIONS,PATCH,DELETE,POST,PUT');
+    res.setHeader('Access-Control-Allow-Methods', 'POST,OPTIONS');
     res.setHeader(
         'Access-Control-Allow-Headers',
         'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version'
@@ -21,7 +21,6 @@ export default async function handler(req, res) {
         return res.status(500).json({ error: 'Server Configuration Error: Missing API Key' });
     }
 
-    // Initialize inside handler to be safe
     const resend = new Resend(resendApiKey);
 
     try {
@@ -30,6 +29,11 @@ export default async function handler(req, res) {
         }
 
         const { email } = req.body;
+
+        if (!email) {
+            return res.status(400).json({ error: 'Missing email address' });
+        }
+
         console.log(`API: Sending email to ${email}`);
 
         const { data, error } = await resend.emails.send({
@@ -92,8 +96,8 @@ export default async function handler(req, res) {
         }
 
         return res.status(200).json(data);
-    } catch (error) {
+    } catch (error: any) {
         console.error("Internal Error:", error);
-        return res.status(500).json({ error: 'Internal Server Error' });
+        return res.status(500).json({ error: error.message || 'Internal Server Error' });
     }
-};
+}
