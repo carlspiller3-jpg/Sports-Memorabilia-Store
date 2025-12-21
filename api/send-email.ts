@@ -1,10 +1,19 @@
 import { Resend } from 'resend';
 
-const resend = new Resend(process.env.VITE_RESEND_API_KEY);
+const resendApiKey = process.env.VITE_RESEND_API_KEY || process.env.RESEND_API_KEY;
+const resend = new Resend(resendApiKey);
 
 export async function POST(request: Request) {
+    console.log("API: /api/send-email called");
+
+    if (!resendApiKey) {
+        console.error("API Error: Missing RESEND_API_KEY");
+        return new Response(JSON.stringify({ error: 'Server Configuration Error: Missing API Key' }), { status: 500 });
+    }
+
     try {
         const { email } = await request.json();
+        console.log(`API: Sending email to ${email}`);
 
         const { data, error } = await resend.emails.send({
             from: 'SportsSigned <info@sportssigned.com>',
