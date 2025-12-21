@@ -39,8 +39,8 @@ export function ShopGate({ children }: { children: React.ReactNode }) {
     };
 
     return (
-        <div className="min-h-[70vh] flex flex-col items-center justify-center bg-ivory px-4 text-center">
-            <div className="bg-white p-8 md:p-12 rounded-lg shadow-xl max-w-lg w-full border border-navy/10">
+        <div className="min-h-[80vh] flex flex-col items-center justify-center bg-ivory px-4 text-center pt-32 pb-12">
+            <div className="bg-white p-8 md:p-12 rounded-lg shadow-xl max-w-lg w-full border border-navy/10 relative">
                 <div className="w-16 h-16 bg-navy rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg shadow-navy/20">
                     <Lock className="w-8 h-8 text-gold" />
                 </div>
