@@ -8,10 +8,10 @@ export function Hero() {
         <img
           src="/hero-banner.png"
           alt="Premium authenticated sports memorabilia"
-          className="h-full w-full object-contain bg-[#080c16] object-right"
+          className="h-full w-full object-contain bg-[#050505] object-right"
         />
         {/* Gradient Overlay */}
-        <div className="absolute inset-0 bg-gradient-to-r from-[#080c16] via-[#080c16]/80 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#050505] via-[#050505]/80 to-transparent" />
       </div>
 
       {/* Content */}
