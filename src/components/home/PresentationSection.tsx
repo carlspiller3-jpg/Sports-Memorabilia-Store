@@ -7,7 +7,7 @@ export function PresentationSection() {
             <div className="container mx-auto px-4">
                 <div className="grid gap-12 lg:grid-cols-2 lg:gap-16 items-center">
                     {/* Image Grid */}
-                    <div className="relative h-[600px] w-full group cursor-pointer" onClick={() => setIsOpen(!isOpen)}>
+                    <div className="relative aspect-square lg:aspect-[4/3] w-full group cursor-pointer" onClick={() => setIsOpen(!isOpen)}>
                         {/* Closed Box Image */}
                         <img
                             src="/premium-packaging.png"
