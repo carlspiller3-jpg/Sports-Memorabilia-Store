@@ -1,7 +1,6 @@
 import { Resend } from 'resend';
 
 const resendApiKey = process.env.VITE_RESEND_API_KEY || process.env.RESEND_API_KEY;
-const resend = new Resend(resendApiKey);
 
 export async function POST(request: Request) {
     console.log("API: /api/send-email called");
@@ -10,6 +9,8 @@ export async function POST(request: Request) {
         console.error("API Error: Missing RESEND_API_KEY");
         return new Response(JSON.stringify({ error: 'Server Configuration Error: Missing API Key' }), { status: 500 });
     }
+
+    const resend = new Resend(resendApiKey);
 
     try {
         const { email } = await request.json();
