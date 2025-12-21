@@ -122,7 +122,7 @@ export function AuthenticitySection() {
 
                     {/* NFC Visual */}
                     <div className="relative lg:order-last">
-                        <div className="aspect-square w-full overflow-hidden rounded-sm bg-white shadow-2xl border border-stone/20">
+                        <div className="aspect-square lg:aspect-[4/3] w-full overflow-hidden rounded-sm bg-white shadow-2xl border border-stone/20">
                             <div className="flex h-full items-center justify-center bg-gradient-to-br from-ivory to-white p-8">
                                 <div className="text-center space-y-6 max-w-sm">
                                     <div className="mx-auto flex h-24 w-24 items-center justify-center rounded-full border-4 border-gold bg-gold/10">
