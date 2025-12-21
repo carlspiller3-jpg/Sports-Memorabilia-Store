@@ -1,13 +1,14 @@
+```
 import { Button } from "@/components/ui/Button"
 
 export function Hero() {
   return (
-    <section className="bg-[#F9F9F7] w-full min-h-[calc(100vh-80px)] flex items-center py-12 lg:py-0">
+    <section className="bg-[#F9F9F7] w-full min-h-[100dvh] flex items-center py-8 lg:py-0">
       <div className="container mx-auto px-4">
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+        <div className="grid lg:grid-cols-2 gap-8 lg:gap-20 items-center">
 
           {/* Left Column: Content */}
-          <div className="space-y-8 animate-in fade-in slide-in-from-bottom-8 duration-1000 order-2 lg:order-1">
+          <div className="space-y-6 lg:space-y-8 animate-in fade-in slide-in-from-bottom-8 duration-1000 order-1 lg:order-1 pt-20 lg:pt-0">
             {/* Trust Badge */}
             <div className="inline-flex items-center space-x-2 rounded-full border border-navy/10 bg-white/50 backdrop-blur-sm px-4 py-2 text-sm font-medium text-navy w-fit">
               <svg className="h-4 w-4 text-gold" fill="currentColor" viewBox="0 0 20 20">
@@ -17,7 +18,7 @@ export function Hero() {
             </div>
 
             {/* Headline */}
-            <h1 className="font-serif text-4xl sm:text-6xl lg:text-7xl font-bold tracking-tight text-navy leading-tight">
+            <h1 className="font-serif text-4xl sm:text-6xl lg:text-7xl font-bold tracking-tight text-navy leading-[1.1]">
               Own a Piece of <br />
               <span className="text-gold">Sporting History</span>
             </h1>
@@ -38,7 +39,7 @@ export function Hero() {
           </div>
 
           {/* Right Column: Hero Image Container */}
-          <div className="relative order-1 lg:order-2 h-[400px] lg:h-[700px] w-full">
+          <div className="relative order-2 lg:order-2 h-[300px] sm:h-[400px] lg:h-[700px] w-full">
             <div className="absolute inset-0 rounded-2xl overflow-hidden shadow-2xl border border-navy/5">
               <img
                 src="/hero-banner.png"
