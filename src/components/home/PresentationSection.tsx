@@ -6,30 +6,8 @@ export function PresentationSection() {
         <section className="bg-white py-16 sm:py-20 lg:py-28">
             <div className="container mx-auto px-4">
                 <div className="grid gap-12 lg:grid-cols-2 lg:gap-16 items-center">
-                    {/* Image Grid */}
-                    <div className="relative aspect-square lg:aspect-[4/3] w-full group cursor-pointer" onClick={() => setIsOpen(!isOpen)}>
-                        {/* Closed Box Image */}
-                        <img
-                            src="/premium-packaging.png"
-                            alt="Premium navy and gold packaging"
-                            className={`absolute inset-0 h-full w-full object-cover rounded-xl shadow-2xl transition-opacity duration-700 ${isOpen ? 'opacity-0' : 'opacity-100'}`}
-                        />
-
-                        {/* Open Box Image */}
-                        <img
-                            src="/premium-packaging-open.png"
-                            alt="Open box revealing framed jersey"
-                            className={`absolute inset-0 h-full w-full object-cover rounded-xl shadow-2xl transition-opacity duration-700 ${isOpen ? 'opacity-100' : 'opacity-0'}`}
-                        />
-
-                        {/* Interaction Hint */}
-                        <div className="absolute bottom-6 left-1/2 -translate-x-1/2 bg-white/90 backdrop-blur px-6 py-3 rounded-full shadow-lg flex items-center gap-3 z-20 hover:scale-105 transition-transform">
-                            <span className="text-navy font-bold uppercase tracking-wider text-xs">
-                                {isOpen ? "Tap to Close" : "Tap to Unbox"}
-                            </span>
-                        </div>
-                    </div>      {/* Content */}
-                    <div className="space-y-6 lg:order-first">
+                    {/* Content */}
+                    <div className="space-y-6">
                         <div className="space-y-4">
                             <div className="inline-flex items-center space-x-2 rounded-full border border-gold bg-gold/10 px-4 py-2 text-sm font-medium text-navy w-fit">
                                 <svg className="h-4 w-4 text-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -118,8 +96,31 @@ export function PresentationSection() {
                             </div>
                         </div>
                     </div>
+
+                    {/* Image Grid */}
+                    <div className="relative aspect-square lg:aspect-[4/3] w-full group cursor-pointer" onClick={() => setIsOpen(!isOpen)}>
+                        {/* Closed Box Image */}
+                        <img
+                            src="/premium-packaging.png"
+                            alt="Premium navy and gold packaging"
+                            className={`absolute inset-0 h-full w-full object-cover rounded-xl shadow-2xl transition-opacity duration-700 ${isOpen ? 'opacity-0' : 'opacity-100'}`}
+                        />
+
+                        {/* Open Box Image */}
+                        <img
+                            src="/premium-packaging-open.png"
+                            alt="Open box revealing framed jersey"
+                            className={`absolute inset-0 h-full w-full object-cover rounded-xl shadow-2xl transition-opacity duration-700 ${isOpen ? 'opacity-100' : 'opacity-0'}`}
+                        />
+
+                        {/* Interaction Hint */}
+                        <div className="absolute bottom-6 left-1/2 -translate-x-1/2 bg-white/90 backdrop-blur px-6 py-3 rounded-full shadow-lg flex items-center gap-3 z-20 hover:scale-105 transition-transform">
+                            <span className="text-navy font-bold uppercase tracking-wider text-xs">
+                                {isOpen ? "Tap to Close" : "Tap to Unbox"}
+                            </span>
+                        </div>
+                    </div>
                 </div>
-            </div>
         </section>
     )
 }

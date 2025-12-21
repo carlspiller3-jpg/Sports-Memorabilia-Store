@@ -5,11 +5,11 @@ import { TrustIndicators } from "./TrustIndicators"
 export function Hero() {
   return (
     <section className="bg-[#F9F9F7] w-full min-h-screen lg:h-full flex flex-col justify-between py-4 lg:py-0 relative">
-      <div className="container mx-auto px-4 flex-1 flex items-center justify-center pt-20">
+      <div className="container mx-auto px-4 flex-1 flex items-center justify-center pt-2 md:pt-20">
         <div className="grid lg:grid-cols-2 gap-8 lg:gap-20 items-center w-full">
 
           {/* Left Column: Content */}
-          <div className="space-y-6 lg:space-y-8 animate-in fade-in slide-in-from-bottom-8 duration-1000 order-1 lg:order-1 pt-12 lg:pt-0 pb-12">
+          <div className="space-y-6 lg:space-y-8 animate-in fade-in slide-in-from-bottom-8 duration-1000 order-1 lg:order-1 pt-4 lg:pt-0 pb-12">
             {/* Trust Badge */}
             <div className="inline-flex items-center space-x-2 rounded-full border border-white/10 bg-navy/90 backdrop-blur-sm px-4 py-2 text-sm font-medium text-white w-fit shadow-lg">
               <svg className="h-4 w-4 text-gold" fill="currentColor" viewBox="0 0 20 20">
