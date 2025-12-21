@@ -11,6 +11,7 @@ import { supabase } from "@/lib/supabaseClient"
 
 export function HomePage() {
     const [footerEmail, setFooterEmail] = useState("")
+    const [footerReferral, setFooterReferral] = useState("")
     const [footerStatus, setFooterStatus] = useState<"idle" | "submitting" | "success">("idle")
 
     const handleFooterSubmit = async (e: React.FormEvent) => {
@@ -21,7 +22,7 @@ export function HomePage() {
             // 1. Insert into Supabase
             const { error } = await supabase
                 .from('newsletter_subscribers')
-                .insert([{ email: footerEmail, interest: 'General' }])
+                .insert([{ email: footerEmail, interest: 'General', referral_code: footerReferral }])
 
             if (error && error.code !== '23505') throw error // Ignore duplicate errors
 
@@ -78,7 +79,7 @@ export function HomePage() {
                     <h2 className="font-serif text-3xl md:text-5xl text-white mb-6">Be The First To Know</h2>
                     <p className="text-white/60 max-w-2xl mx-auto mb-8 text-lg">
                         Our first collection drops in <strong>January 2026</strong> featuring signed pieces from Messi, Gerrard, and Fury.
-                        Stock is strictly limited. Enter your email to get 1 hour early access.
+                        Stock is strictly limited. Enter your email to get 48 hours early access.
                     </p>
 
                     {footerStatus === "success" ? (
@@ -95,6 +96,14 @@ export function HomePage() {
                                 placeholder="Enter your email address"
                                 className="flex-1 px-6 py-4 rounded bg-white/5 border border-white/20 text-white placeholder:text-white/30 focus:outline-none focus:border-gold"
                                 required
+                                disabled={footerStatus === "submitting"}
+                            />
+                            <input
+                                type="text"
+                                value={footerReferral}
+                                onChange={(e) => setFooterReferral(e.target.value.toUpperCase())}
+                                placeholder="Referral Code (Optional)"
+                                className="w-full sm:w-48 px-6 py-4 rounded bg-white/5 border border-white/20 text-white placeholder:text-white/30 focus:outline-none focus:border-gold tracking-widest"
                                 disabled={footerStatus === "submitting"}
                             />
                             <button

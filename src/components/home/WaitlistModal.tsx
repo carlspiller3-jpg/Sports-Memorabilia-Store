@@ -12,6 +12,7 @@ export function WaitlistModal() {
     const [isOpen, setIsOpen] = useState(false);
     const [email, setEmail] = useState("");
     const [interest, setInterest] = useState("");
+    const [referralCode, setReferralCode] = useState("");
     const [showSuggestions, setShowSuggestions] = useState(false);
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [isSuccess, setIsSuccess] = useState(false);
@@ -62,7 +63,7 @@ export function WaitlistModal() {
             const { error } = await supabase
                 .from('newsletter_subscribers')
                 .insert([
-                    { email, interest }
+                    { email, interest, referral_code: referralCode }
                 ]);
 
             if (error) {
@@ -143,7 +144,7 @@ export function WaitlistModal() {
                     {!isSuccess ? (
                         <>
                             <p className="text-navy/70 text-center mb-6 leading-relaxed">
-                                Join the <strong>Priority Access List</strong> to receive your password 60 minutes before the public.
+                                Join the <strong>Priority Access List</strong> to receive your password 48 hours before the public.
                             </p>
 
                             <form onSubmit={handleSubmit} className="space-y-4">
@@ -191,6 +192,18 @@ export function WaitlistModal() {
                                             ))}
                                         </div>
                                     )}
+                                </div>
+
+                                {/* Referral Code Input (Optional) */}
+                                <div>
+                                    <label className="block text-xs font-bold text-navy/50 uppercase tracking-wider mb-2">Referral Code (Optional)</label>
+                                    <input
+                                        type="text"
+                                        value={referralCode}
+                                        onChange={(e) => setReferralCode(e.target.value.toUpperCase())}
+                                        placeholder="e.g. VIP-1234"
+                                        className="w-full px-5 py-3 rounded-lg bg-ivory border border-navy/10 text-navy placeholder:text-navy/30 focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold tracking-widest"
+                                    />
                                 </div>
 
                                 <Button
