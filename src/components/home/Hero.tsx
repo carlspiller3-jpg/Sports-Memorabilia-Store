@@ -40,7 +40,7 @@ export function Hero() {
           </div>
 
           {/* Right Column: Hero Image Container */}
-          <div className="relative order-2 lg:order-2 w-full aspect-square sm:h-[400px] lg:h-[85%] flex items-center justify-center">
+          <div className="relative order-2 lg:order-2 w-full aspect-square sm:h-[400px] lg:h-auto lg:max-h-[65vh] flex items-center justify-center">
             <div className="relative w-full h-full rounded-2xl overflow-hidden shadow-2xl border border-navy/5">
               <img
                 src="/hero-banner.png"
