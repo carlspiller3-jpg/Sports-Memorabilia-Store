@@ -11,7 +11,8 @@ export interface UserMemory {
   budget?: number
   itemType?: string
   occasion?: string
-  currentTopic?: 'private_signing' | 'authentication' | 'product_search' | 'general'
+  lastInterest?: string
+  currentTopic?: 'private_signing' | 'authentication' | 'product_search' | 'general' | 'awaiting_email'
   salesStage?: 'discovery' | 'recommendation' | 'objection' | 'closing'
   favouritePlayers?: string[]
   viewedPlayers?: string[] // Track which players they've seen to avoid repetition
@@ -45,7 +46,7 @@ export class ChatMemory {
   getViewedProductIds(): string[] {
     return this.memory.viewedProductIds || []
   }
-  
+
   clearViewedProductIds(): void {
     this.memory.viewedProductIds = []
     this.save()
@@ -102,7 +103,7 @@ export class ChatMemory {
 
   save(): void {
     if (typeof window === 'undefined') return
-    
+
     localStorage.setItem(MEMORY_KEY, JSON.stringify(this.memory))
   }
 
@@ -153,13 +154,24 @@ export class ChatMemory {
     return this.memory.itemType
   }
 
-  setTopic(topic: 'private_signing' | 'authentication' | 'product_search' | 'general'): void {
+  setTopic(topic: 'private_signing' | 'authentication' | 'product_search' | 'general' | 'awaiting_email' | null): void {
+    // @ts-ignore
     this.memory.currentTopic = topic
     this.save()
   }
 
-  getTopic(): 'private_signing' | 'authentication' | 'product_search' | 'general' | undefined {
+  getTopic(): 'private_signing' | 'authentication' | 'product_search' | 'general' | 'awaiting_email' | undefined {
+    // @ts-ignore
     return this.memory.currentTopic
+  }
+
+  setLastInterest(interest: string): void {
+    this.memory.lastInterest = interest
+    this.save()
+  }
+
+  getLastInterest(): string | undefined {
+    return this.memory.lastInterest
   }
 
   setSalesStage(stage: 'discovery' | 'recommendation' | 'objection' | 'closing'): void {

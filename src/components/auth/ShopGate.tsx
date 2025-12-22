@@ -32,6 +32,7 @@ export function ShopGate({ children }: { children: React.ReactNode }) {
         if (input.toUpperCase() === PASSWORD) {
             setIsUnlocked(true);
             sessionStorage.setItem("shop_unlocked", "true");
+            window.dispatchEvent(new Event("shop_unlocked"));
             setError(false);
         } else {
             setError(true);
