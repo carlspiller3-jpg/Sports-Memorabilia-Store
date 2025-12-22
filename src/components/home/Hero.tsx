@@ -5,7 +5,7 @@ import { TrustIndicators } from "./TrustIndicators"
 export function Hero() {
   return (
     <section className="bg-[#F9F9F7] w-full min-h-screen lg:h-full flex flex-col justify-between pt-4 pb-0 lg:py-0 relative">
-      <div className="container mx-auto px-4 flex-1 flex items-center justify-center pt-2 md:pt-20">
+      <div className="container mx-auto px-4 flex-1 flex items-center justify-center pt-2 lg:pt-2">
         <div className="grid lg:grid-cols-2 gap-2 lg:gap-20 items-center w-full">
 
           {/* Left Column: Content */}
