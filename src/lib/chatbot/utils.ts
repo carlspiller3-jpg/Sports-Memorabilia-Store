@@ -52,34 +52,65 @@ export function extractEntities(input: string): ExtractedEntities {
     teams: []
   }
 
+  const commonSurnames = ['best', 'king', 'love', 'rose', 'white', 'brown', 'black', 'green', 'young', 'long', 'small', 'power', 'speed', 'hope', 'joy', 'smart', 'wood', 'woods', 'west', 'north', 'south', 'east', 'star', 'legend', 'champion', 'gross']
+
   // Extract Athletes
   for (const athlete of ATHLETE_DB) {
-    // Check name and aliases
-    if (lowerInput.includes(athlete.name.toLowerCase()) || 
-        athlete.aliases.some(alias => lowerInput.includes(alias))) {
+    const nameLower = athlete.name.toLowerCase()
+
+    // Determine target strings to match against (Name, Aliases, SAFE Surname)
+    // We construct a dynamic list of strings that identify this athlete
+    const matchTargets = [nameLower, ...athlete.aliases.map(a => a.toLowerCase())]
+
+    // Add Surname if it's unique enough
+    const nameParts = nameLower.split(' ')
+    if (nameParts.length > 1) {
+      const surname = nameParts[nameParts.length - 1]
+      // Only add surname if > 3 chars and not in blacklist
+      if (surname.length > 3 && !commonSurnames.includes(surname)) {
+        matchTargets.push(surname)
+      }
+    }
+
+    // 1. Exact Word Match (Regex)
+    // This allows identifying "Cannavaro" from "What about Cannavaro?"
+    const isExactMatch = matchTargets.some(target => {
+      // Escape special regex chars in target just in case, though usually names are safe
+      const safeTarget = target.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+      const regex = new RegExp(`\\b${safeTarget}\\b`, 'i')
+      return regex.test(lowerInput)
+    })
+
+    if (isExactMatch) {
       entities.athletes.push(athlete)
       continue
     }
 
-    // Fuzzy check if no exact match
-    // Only fuzzy match words that are long enough to avoid false positives
-    // Clean input of punctuation for better matching
+    // 2. Fuzzy Match (Word by Word)
+    // Matches "Canavaro" -> "Cannavaro"
     const cleanInput = lowerInput.replace(/[^\w\s]/g, '')
-    const words = cleanInput.split(/\s+/)
-    for (const word of words) {
+    const inputWords = cleanInput.split(/\s+/)
+
+    let isFuzzyStart = false
+    for (const word of inputWords) {
       if (word.length > 3) {
-        if (fuzzyMatch(word, athlete.name) || athlete.aliases.some(alias => fuzzyMatch(word, alias))) {
+        // Check this input word against ANY of the valid targets (Name, Alias, Surname)
+        if (matchTargets.some(target => fuzzyMatch(word, target))) {
           entities.athletes.push(athlete)
+          isFuzzyStart = true
           break
         }
       }
     }
+    if (isFuzzyStart) continue
   }
 
   // Extract Teams
   for (const [teamName, aliases] of Object.entries(TEAM_ALIASES)) {
-    if (lowerInput.includes(teamName.toLowerCase()) || 
-        aliases.some(alias => lowerInput.includes(alias))) {
+    const teamRegex = new RegExp(`\\b${teamName.toLowerCase()}\\b`, 'i')
+    const aliasRegexes = aliases.map(alias => new RegExp(`\\b${alias.toLowerCase()}\\b`, 'i'))
+
+    if (teamRegex.test(lowerInput) || aliasRegexes.some(regex => regex.test(lowerInput))) {
       entities.teams.push(teamName)
     }
   }

@@ -15,6 +15,8 @@ import { CartDrawer } from "@/components/cart/CartDrawer"
 import { ChatWidget } from "@/components/chat/ChatWidget"
 import { PrivacyPolicy } from "@/pages/legal/PrivacyPolicy"
 import { TermsOfService } from "@/pages/legal/TermsOfService"
+import { CookiePolicy } from "@/pages/legal/CookiePolicy"
+import { CookieConsent } from "@/components/layout/CookieConsent"
 import { ShippingReturns } from "@/pages/support/ShippingReturns"
 import { ContactPage } from "@/pages/support/ContactPage"
 import { FAQPage } from "@/pages/support/FAQPage"
@@ -72,6 +74,7 @@ function App() {
                   {/* Legal & Support */}
                   <Route path="/about" element={<AboutPage />} />
                   <Route path="/privacy" element={<PrivacyPolicy />} />
+                  <Route path="/cookies" element={<CookiePolicy />} />
                   <Route path="/terms" element={<TermsOfService />} />
                   <Route path="/shipping" element={<ShippingReturns />} />
                   <Route path="/contact" element={<ContactPage />} />
@@ -87,6 +90,7 @@ function App() {
               <Footer />
               <MobileNav />
               <ChatWidget />
+              <CookieConsent />
             </div>
             <CartDrawer />
           </Router>

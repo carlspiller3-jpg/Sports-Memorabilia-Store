@@ -55,11 +55,17 @@ export function Footer() {
                 </div>
 
                 <div className="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
-                    <p className="text-white/40 text-sm font-bold">
-                        © 2025 Sports Memorabilia Store Limited.
-                    </p>
+                    <div className="flex flex-col gap-1 items-start">
+                        <p className="text-white/40 text-sm font-bold">
+                            © 2025 SPORTS MEMORABILIA STORE LIMITED.
+                        </p>
+                        <p className="text-white/20 text-xs">
+                            Company Reg: 16854974 • Registered Office: 189 Greenwood, Walters Ash, High Wycombe, HP14 4XF
+                        </p>
+                    </div>
                     <div className="flex gap-6">
                         <Link to="/privacy" className="text-white/40 hover:text-gold text-sm transition-colors">Privacy Policy</Link>
+                        <Link to="/cookies" className="text-white/40 hover:text-gold text-sm transition-colors">Cookie Policy</Link>
                         <Link to="/terms" className="text-white/40 hover:text-gold text-sm transition-colors">Terms of Service</Link>
                     </div>
                 </div>

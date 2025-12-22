@@ -193,6 +193,7 @@ export function ChatWidget() {
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
             email,
+            interest: interest || 'General',
             referralCode: `INTEREST-${(interest || 'General').toUpperCase()}`
           })
         })

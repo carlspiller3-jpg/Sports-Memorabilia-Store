@@ -1,6 +1,6 @@
 import { chatMemory } from './memory'
 import { getRecommendations, type RecommendationOptions } from './recommendations'
-import { ATHLETE_DB, TEAM_INFO, type Athlete } from './knowledge'
+import { TEAM_INFO } from './knowledge'
 import { extractEntities } from './utils'
 import { getResponse } from './templates'
 import type { Product } from '@/types/schema'
@@ -54,12 +54,23 @@ class ChatEngine {
           quickReplies: ['Browse other sports', 'Authenticity info'],
           capturedData: { email, interest }
         }
-      } else {
-        return {
-          message: "That doesn't look like a valid email. Please try again so we can notify you.",
-          quickReplies: ['Cancel']
-        }
       }
+
+      // CHECK FOR INTENT CHANGE / CORRECTION
+      // If user says "No I want Maldini", we shouldn't say "Invalid email".
+      const correctionEntities = extractEntities(userMessage)
+      if (correctionEntities.athletes.length > 0 || correctionEntities.teams.length > 0 ||
+        lower.includes('search') || lower.includes('look') || lower.includes('buy') || lower.includes('cancel')) {
+
+        chatMemory.setTopic(null) // Exit lead gen state
+        return this.processMessage(userMessage, isLocked) // Recursively process the new intent
+      }
+
+      return {
+        message: "That doesn't look like a valid email. Please try again so we can notify you.\n\nOr type 'cancel' to stop.",
+        quickReplies: ['Cancel']
+      }
+
     } else if (lower === 'cancel') {
       chatMemory.setTopic(null)
       chatMemory.setLastInterest('')
@@ -134,12 +145,32 @@ class ChatEngine {
 
     // F1 / MOTORSPORT
     if (lower.includes('f1') || lower.includes('formula 1') || lower.includes('racing') ||
-      lower.includes('motogp') || lower.includes('motocross') || lower.includes('bike') || lower.includes('motor')) {
+      lower.includes('motogp') || lower.includes('motocross') || lower.includes('motorcross') || lower.includes('bike') || lower.includes('motor')) {
 
-      const isMoto = lower.includes('motogp') || lower.includes('motocross') || lower.includes('bike')
+      const isMoto = lower.includes('motogp') || lower.includes('motocross') || lower.includes('motorcross') || lower.includes('bike')
+
+      // Determine refined label for "No Stock" message logic
+      let stockLabel = 'F1'
+      let interest = 'F1'
+
+      if (lower.includes('motocross') || lower.includes('motorcross')) {
+        stockLabel = 'Motocross'
+        interest = 'Motocross'
+      } else if (lower.includes('motogp')) {
+        stockLabel = 'MotoGP'
+        interest = 'MotoGP'
+      } else if (isMoto) {
+        stockLabel = 'Motorsport'
+        interest = 'Motorsport'
+      } else if (!lower.includes('f1') && !lower.includes('formula 1')) {
+        // User said "racing" or "motor" but not F1 specifically
+        stockLabel = 'Motorsport'
+        interest = 'Motorsport'
+      }
+
       const products = await getRecommendations({ itemType: 'f1' })
 
-      if (products.length === 0) return handleNoStock('F1', 'F1')
+      if (products.length === 0) return handleNoStock(interest, stockLabel)
 
       return {
         message: isMoto
@@ -251,7 +282,7 @@ class ChatEngine {
 
     // SMART FALLBACK: PREDICTIVE ENTITY EXTRACTION
     // If we missed the entity but user asked for "signed X", assume 'X' is the interest.
-    const signingMatch = lower.match(/(?:signed|autographed)\s+(.*?)\s+(?:shirt|jersey|photo|boot|glove|item|memorabilia)/)
+    const signingMatch = lower.match(/(?:signed|autographed)\s+(.*?)\s+(?:shirt|jersey|shitr|photo|boot|glove|item|memorabilia)/)
     if (signingMatch && signingMatch[1]) {
       const suspectedName = signingMatch[1].replace(/\b(?:a|an|the)\b/g, '').trim() // Clean articles
       if (suspectedName.length > 2) {

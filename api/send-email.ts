@@ -1,6 +1,4 @@
 
-const resendApiKey = process.env.VITE_RESEND_API_KEY || process.env.RESEND_API_KEY;
-
 export default async function handler(req: any, res: any) {
     // Enable CORS
     res.setHeader('Access-Control-Allow-Credentials', 'true');
@@ -15,10 +13,6 @@ export default async function handler(req: any, res: any) {
         return res.status(200).end();
     }
 
-    if (!resendApiKey) {
-        console.error("API Error: Missing RESEND_API_KEY");
-        return res.status(500).json({ error: 'Server Configuration Error: Missing API Key' });
-    }
 
     try {
         if (req.method !== 'POST') {
@@ -26,7 +20,7 @@ export default async function handler(req: any, res: any) {
         }
 
 
-        const { email } = req.body;
+        const { email, interest } = req.body;
 
         if (!email) {
             return res.status(400).json({ error: 'Missing email address' });
@@ -62,6 +56,7 @@ export default async function handler(req: any, res: any) {
                                         email: email,
                                         properties: {
                                             referral_code: referralCode,
+                                            interest: interest || 'General',
                                             source: 'Website Waitlist'
                                         }
                                     }
@@ -87,7 +82,7 @@ export default async function handler(req: any, res: any) {
         }
         // --- KLAVIYO INTEGRATION END ---
 
-        // Success Response (Resend logic removed)
+        // Success Response
         return res.status(200).json({ success: true, message: "Added to Waitlist" });
 
     } catch (error: any) {

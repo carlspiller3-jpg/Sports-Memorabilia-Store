@@ -149,7 +149,7 @@ export const FOOTBALL_ATHLETES: Athlete[] = [
     {
         id: 'maldini',
         name: 'Paolo Maldini',
-        aliases: ['il capitano'],
+        aliases: ['il capitano', 'maldini'],
         sport: 'Football',
         team: 'AC Milan',
         era: ['Legend', '90s', '2000s'],
