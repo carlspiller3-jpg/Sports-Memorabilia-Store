@@ -40,6 +40,51 @@ export default async function handler(req: any, res: any) {
         const uniqueSuffix = Buffer.from(email).toString('base64').replace(/[^A-Z0-9]/g, '').substring(0, 5);
         const referralCode = `VIP-${cleanEmail.substring(0, 3)}-${uniqueSuffix}`;
 
+        // --- KLAVIYO INTEGRATION START ---
+        try {
+            const klaviyoPublicKey = "VMkY3E";
+            const klaviyoListId = "WbMvGh";
+
+            await fetch(`https://a.klaviyo.com/client/subscriptions/?company_id=${klaviyoPublicKey}`, {
+                method: 'POST',
+                headers: {
+                    'revision': '2024-02-15',
+                    'content-type': 'application/json'
+                },
+                body: JSON.stringify({
+                    data: {
+                        type: 'subscription',
+                        attributes: {
+                            profile: {
+                                data: {
+                                    type: 'profile',
+                                    attributes: {
+                                        email: email,
+                                        properties: {
+                                            referral_code: referralCode,
+                                            source: 'Website Waitlist'
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        relationships: {
+                            list: {
+                                data: {
+                                    type: 'list',
+                                    id: klaviyoListId
+                                }
+                            }
+                        }
+                    }
+                })
+            });
+            console.log("Klaviyo Sync Success");
+        } catch (kErr) {
+            console.error("Klaviyo Sync Failed:", kErr);
+        }
+        // --- KLAVIYO INTEGRATION END ---
+
         const response = await fetch('https://api.resend.com/emails', {
             method: 'POST',
             headers: {
@@ -47,7 +92,7 @@ export default async function handler(req: any, res: any) {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                from: 'SportsSigned <hello@sportssigned.com>',
+                from: 'Sports Memorabilia Store <hello@sportssigned.com>',
                 to: [email],
                 subject: 'Access Secured: The Vault is Locked',
                 html: `
@@ -91,7 +136,7 @@ export default async function handler(req: any, res: any) {
             <div class="content">
                 <!-- Logo -->
                 <div class="logo-container">
-                    <img src="https://sportssigned.com/logo-transparent.png" alt="SPORTS SIGNED" class="logo-img">
+                    <img src="https://sportssigned.com/logo-transparent.png" alt="SPORTS MEMORABILIA STORE" class="logo-img">
                 </div>
 
                 <!-- Pre-Header -->
