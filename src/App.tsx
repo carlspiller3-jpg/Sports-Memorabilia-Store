@@ -16,6 +16,7 @@ import { ChatWidget } from "@/components/chat/ChatWidget"
 import { PrivacyPolicy } from "@/pages/legal/PrivacyPolicy"
 import { TermsOfService } from "@/pages/legal/TermsOfService"
 import { CookiePolicy } from "@/pages/legal/CookiePolicy"
+import { RefundPolicy } from "@/pages/legal/RefundPolicy"
 import { CookieConsent } from "@/components/layout/CookieConsent"
 import { ShippingReturns } from "@/pages/support/ShippingReturns"
 import { ContactPage } from "@/pages/support/ContactPage"
@@ -76,6 +77,7 @@ function App() {
                   <Route path="/privacy" element={<PrivacyPolicy />} />
                   <Route path="/cookies" element={<CookiePolicy />} />
                   <Route path="/terms" element={<TermsOfService />} />
+                  <Route path="/refund-policy" element={<RefundPolicy />} />
                   <Route path="/shipping" element={<ShippingReturns />} />
                   <Route path="/contact" element={<ContactPage />} />
                   <Route path="/faq" element={<FAQPage />} />

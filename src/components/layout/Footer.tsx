@@ -67,6 +67,7 @@ export function Footer() {
                         <Link to="/privacy" className="text-white/40 hover:text-gold text-sm transition-colors">Privacy Policy</Link>
                         <Link to="/cookies" className="text-white/40 hover:text-gold text-sm transition-colors">Cookie Policy</Link>
                         <Link to="/terms" className="text-white/40 hover:text-gold text-sm transition-colors">Terms of Service</Link>
+                        <Link to="/refund-policy" className="text-white/40 hover:text-gold text-sm transition-colors">Refund Policy</Link>
                     </div>
                 </div>
             </div>
