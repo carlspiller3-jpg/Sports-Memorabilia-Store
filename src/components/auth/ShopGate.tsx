@@ -46,7 +46,7 @@ export function ShopGate({ children }: { children: React.ReactNode }) {
                     <Lock className="w-8 h-8 text-gold" />
                 </div>
 
-                <h1 className="font-serif text-3xl text-navy mb-4">The Vault is Locked</h1>
+                <h1 className="font-serif text-3xl text-navy mb-4">Access Restricted</h1>
                 <p className="text-charcoal/60 mb-8 leading-relaxed font-light">
                     Our first collection is reserved for members with early access.
                     <br /><br />

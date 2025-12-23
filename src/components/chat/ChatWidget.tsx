@@ -84,7 +84,7 @@ export function ChatWidget() {
       const unlockMsg: Message = {
         id: `sys_${Date.now()}`,
         role: 'bot',
-        content: "🔓 **ACCESS GRANTED**\n\nWelcome to the Vault. The collection is now available to you.\n\nWe have just stocked some rare F1 and Football items. What would you like to see?",
+        content: "🔓 **ACCESS GRANTED**\n\nWelcome. The collection is now available to you.\n\nWe have just stocked some rare F1 and Football items. What would you like to see?",
         timestamp: new Date()
       }
       setMessages(prev => [...prev, unlockMsg])

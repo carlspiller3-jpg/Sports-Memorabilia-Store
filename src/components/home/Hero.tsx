@@ -26,7 +26,7 @@ export function Hero() {
 
             {/* Subheadline */}
             <p className="text-base sm:text-xl text-charcoal/80 max-w-xl leading-relaxed">
-              The Vault Opens <strong>January 2026</strong>. Be the first inside.
+              Store Opens <strong>January 2026</strong>. Be the first inside.
             </p>
 
             {/* CTA Buttons */}

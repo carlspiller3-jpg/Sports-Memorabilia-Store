@@ -21,7 +21,7 @@ class ChatEngine {
     if (isLocked) {
       if (!userMessage || userMessage.trim() === '') {
         return {
-          message: "Hi there! Looking for a piece of history? I'm here to help.\n\nEvery item comes with NFC authentication and a lifetime guarantee.\n\nHowever, the Vault is currently **Locked** to the public.",
+          message: "Hi there! Looking for a piece of history? I'm here to help.\n\nEvery item comes with NFC authentication and a lifetime guarantee.\n\nHowever, access is currently **Restricted** to the public.",
           quickReplies: ['How do I enter?', 'Join Waitlist']
         }
       }
