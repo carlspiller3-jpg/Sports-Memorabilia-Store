@@ -48,12 +48,12 @@ export function ShippingReturns() {
                         <h2 className="text-2xl font-serif font-bold text-charcoal">Return Policy</h2>
                         <div className="space-y-4 text-navy/80">
                             <p>
-                                We want you to be completely satisfied with your purchase. We offer a <strong>30-Day Money Back Guarantee</strong> on all items.
+                                We want you to be completely satisfied with your purchase. We offer a <strong>14-Day Money Back Guarantee</strong> on all items.
                             </p>
                             <div className="space-y-2">
                                 <h3 className="font-bold text-charcoal">How to Return:</h3>
                                 <ol className="list-decimal pl-5 space-y-2 text-sm">
-                                    <li>Contact our support team at <a href="mailto:support@thesportsmemorabiliastore.com" className="text-gold hover:underline">support@thesportsmemorabiliastore.com</a> to initiate a return.</li>
+                                    <li>Contact our support team at <a href="mailto:support@sportssigned.com" className="text-gold hover:underline">support@sportssigned.com</a> to initiate a return.</li>
                                     <li>Pack the item securely in its original packaging.</li>
                                     <li>Ship the item back to us using a tracked service.</li>
                                     <li>Refunds are processed within 5 business days of receipt.</li>
