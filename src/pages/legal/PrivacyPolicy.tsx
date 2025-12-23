@@ -46,7 +46,7 @@ export function PrivacyPolicy() {
                     <section className="space-y-4">
                         <h2 className="text-xl font-bold text-charcoal font-serif">4. Data Security</h2>
                         <p>
-                            We have put in place appropriate security measures to prevent your personal data from being accidentally lost, used or accessed in an unauthorized way, altered or disclosed.
+                            We have put in place appropriate security measures to prevent your personal data from being accidentally lost, used or accessed in an unauthorised way, altered or disclosed.
                             In addition, we limit access to your personal data to those employees, agents, contractors and other third parties who have a business need to know.
                         </p>
                         <div className="flex items-center gap-3 bg-stone/5 p-4 rounded-sm mt-4">
@@ -60,7 +60,7 @@ export function PrivacyPolicy() {
                         <p>
                             If you have any questions about this privacy policy or our privacy practices, please contact us at:
                             <br />
-                            <a href="mailto:privacy@thesportsmemorabiliastore.com" className="text-gold hover:underline">privacy@thesportsmemorabiliastore.com</a>
+                            <a href="mailto:privacy@sportssigned.com" className="text-gold hover:underline">privacy@sportssigned.com</a>
                         </p>
                     </section>
                 </div>

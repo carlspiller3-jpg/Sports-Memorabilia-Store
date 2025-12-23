@@ -16,7 +16,7 @@ export function RefundPolicy() {
                     We offer a <strong>lifetime money-back guarantee</strong> regarding the authenticity of our items.
                 </p>
                 <p>
-                    If any item is proven to be non-authentic by a recognized third-party authority (such as PSA/DNA, JSA, or Beckett),
+                    If any item is proven to be non-authentic by a recognised third-party authority (such as PSA/DNA, JSA, or Beckett),
                     we will issue a full refund immediately, including all shipping costs. This guarantee has no time limit.
                 </p>
             </Section>
@@ -28,7 +28,7 @@ export function RefundPolicy() {
                 <ul className="list-disc pl-5 space-y-2 mt-2">
                     <li>Gift cards</li>
                     <li>Downloadable software products</li>
-                    <li>Personalized items (e.g., items signed specifically "To [Name]")</li>
+                    <li>Personalised items (e.g., items signed specifically "To [Name]")</li>
                 </ul>
             </Section>
 
@@ -44,7 +44,7 @@ export function RefundPolicy() {
 
             <Section title="5. Shipping Returns">
                 <p>
-                    To return your product, please contact us at <a href="mailto:support@sportssigned.com" className="text-gold hover:underline">support@sportssigned.com</a> for a return authorization.
+                    To return your product, please contact us at <a href="mailto:support@sportssigned.com" className="text-gold hover:underline">support@sportssigned.com</a> for a return authorisation.
                 </p>
                 <p>
                     You will be responsible for paying for your own shipping costs for returning your item (unless the return is due to an error on our part or an authenticity issue).

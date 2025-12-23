@@ -13,7 +13,7 @@ export function CookiePolicy() {
                         <h2 className="text-xl font-bold text-charcoal font-serif">1. What Are Cookies</h2>
                         <p>
                             Cookies are small text files that are placed on your computer or mobile device when you visit our website.
-                            We use them to ensure our website works correctly, to understand how you use our site, and to provide personalized experiences.
+                            We use them to ensure our website works correctly, to understand how you use our site, and to provide personalised experiences.
                         </p>
                     </section>
 
@@ -27,7 +27,7 @@ export function CookiePolicy() {
                                 <strong>Analytics Cookies:</strong> We use tools like Google Analytics to understand visitor numbers and traffic sources so we can improve our performance.
                             </li>
                             <li>
-                                <strong>Functional Cookies:</strong> These allow the website to provide enhanced functionality and personalization, such as remembering your preferences.
+                                <strong>Functional Cookies:</strong> These allow the website to provide enhanced functionality and personalisation, such as remembering your preferences.
                             </li>
                             <li>
                                 <strong>Marketing Cookies:</strong> These may be set by our advertising partners (e.g., Klaviyo, Facebook) to build a profile of your interests and show you relevant adverts on other sites.

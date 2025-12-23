@@ -20,7 +20,7 @@ export function TermsOfService() {
                         <h2 className="text-xl font-bold text-charcoal font-serif">2. Authenticity Guarantee</h2>
                         <p>
                             We guarantee the authenticity of every item we sell for life. All items are verified using our proprietary NFC technology.
-                            If any item is proven to be non-authentic by a recognized third-party authenticator, we will provide a full refund including all shipping costs.
+                            If any item is proven to be non-authentic by a recognised third-party authenticator, we will provide a full refund including all shipping costs.
                         </p>
                     </section>
 
