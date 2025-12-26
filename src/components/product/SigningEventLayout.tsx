@@ -160,7 +160,12 @@ export function SigningEventLayout({ product }: SigningEventLayoutProps) {
                                 </div>
                                 <div className="text-sm">
                                     <strong className="text-charcoal block">Secure Handling</strong>
-                                    <span className="text-navy/60">Professional handling and premium packaging.</span>
+                                    <span className="text-navy/60">
+                                        {isSendIn
+                                            ? "Secure tracked return delivery included."
+                                            : "Professional framing and premium packaging included."
+                                        }
+                                    </span>
                                 </div>
                             </div>
                         </div>

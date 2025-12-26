@@ -107,7 +107,7 @@ export function ProductPage() {
             id: "demo-eubank",
             title: "Chris Eubank Sr - World Tour Private Signing",
             handle: "test-signing",
-            body_html: "Exclusive private signing session with British boxing legend, Chris Eubank Sr. All items are delivered professionally framed with our lifetime authenticity guarantee.",
+            body_html: "Exclusive private signing session with British boxing legend, Chris Eubank Sr. <br/><br/><strong>Item Details:</strong><br/>• <strong>Gloves & Photos:</strong> Supplied by us and delivered professionally framed.<br/>• <strong>Send-In Service:</strong> You send your item, we get it signed and return it via tracked courier (unframed).",
             images: ["https://images.unsplash.com/photo-1615117967963-39d48dd48911?q=80&w=2000&auto=format&fit=crop"],
             options: [
                 { id: "opt1", product_id: "demo-eubank", name: "Item Selection", position: 1, values: ["Framed Signed Glove", "Framed Signed Photo", "Send-In Service"] }
