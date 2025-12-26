@@ -151,7 +151,7 @@ export function SigningEventLayout({ product }: SigningEventLayoutProps) {
                                 </div>
                                 <div className="text-sm">
                                     <strong className="text-charcoal block">Guaranteed Authenticity</strong>
-                                    <span className="text-navy/60">Every item comes with our proprietary NFC Digital Authentication technology. No paper COAs—just instant digital proof.</span>
+                                    <span className="text-navy/60">Every item comes with our proprietary NFC Digital Authentication technology.</span>
                                 </div>
                             </div>
                             <div className="flex items-start gap-3">
@@ -295,6 +295,24 @@ export function SigningEventLayout({ product }: SigningEventLayoutProps) {
                                 {isSendIn ? "Book Send-In Slot" : "Pre-Order Now"} <ArrowRight className="ml-2 w-5 h-5" />
                             </Button>
                             <p className="text-center text-xs text-stone-400 mt-4">Safe & Secure Checkout via Shopify Payments</p>
+                        </div>
+
+                        {/* Description & Tags */}
+                        <div className="pt-8 border-t border-stone/10 space-y-6">
+                            <div>
+                                <h3 className="font-serif text-xl font-bold text-charcoal mb-4">Event Details</h3>
+                                <div className="prose prose-sm text-navy/80 leading-relaxed" dangerouslySetInnerHTML={{ __html: product.body_html || "" }} />
+                            </div>
+
+                            {product.tags && product.tags.length > 0 && (
+                                <div className="flex flex-wrap gap-2 pt-4">
+                                    {product.tags.map(tag => (
+                                        <span key={tag} className="px-3 py-1 bg-stone-100 text-stone-500 text-xs font-medium rounded-full uppercase tracking-wider">
+                                            {tag}
+                                        </span>
+                                    ))}
+                                </div>
+                            )}
                         </div>
 
                     </div>
