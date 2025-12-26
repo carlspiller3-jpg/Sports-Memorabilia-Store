@@ -104,48 +104,33 @@ export function ProductPage() {
     // DEMO: Mock Signing Product for User Preview
     if (handle === 'test-signing') {
         const mockSigningProduct: Product = {
-            id: "demo-signing",
-            title: "Mike Tyson - Official Private Signing (March 2025)",
+            id: "demo-eubank",
+            title: "Chris Eubank Sr - World Tour Private Signing",
             handle: "test-signing",
-            body_html: "Official private signing session with the boxing legend.",
-            images: ["https://images.unsplash.com/photo-1544698310-74ea9d188c1b?q=80&w=2670&auto=format&fit=crop"],
+            body_html: "Exclusive private signing session with British boxing legend, Chris Eubank Sr. All items are delivered professionally framed with our lifetime authenticity guarantee.",
+            images: ["https://images.unsplash.com/photo-1615117967963-39d48dd48911?q=80&w=2000&auto=format&fit=crop"],
             options: [
-                { id: "opt1", product_id: "demo-signing", name: "Item Type", position: 1, values: ["Signed Glove", "Signed Photo", "Send-In Service"] },
-                { id: "opt2", product_id: "demo-signing", name: "Framing", position: 2, values: ["Unframed", "Deluxe Dome Frame"] }
+                { id: "opt1", product_id: "demo-eubank", name: "Item Selection", position: 1, values: ["Framed Signed Glove", "Framed Signed Photo", "Send-In Service"] }
             ],
             variants: [
                 {
-                    id: "v1", product_id: "demo-signing", title: "Glove / Unframed", price: 150,
-                    option1: "Signed Glove", option2: "Unframed",
-                    sku: "DEMO-GLOVE-UNF", inventory_quantity: 10,
+                    id: "v1", product_id: "demo-eubank", title: "Framed Signed Glove", price: 299,
+                    option1: "Framed Signed Glove", option2: null,
+                    sku: "EUBANK-GLOVE-FRM", inventory_quantity: 50,
                     created_at: new Date().toISOString(), updated_at: new Date().toISOString(),
                     smart_contract_address: null, token_id: null
                 },
                 {
-                    id: "v2", product_id: "demo-signing", title: "Glove / Framed", price: 350,
-                    option1: "Signed Glove", option2: "Deluxe Dome Frame",
-                    sku: "DEMO-GLOVE-FRM", inventory_quantity: 5,
+                    id: "v2", product_id: "demo-eubank", title: "Framed Signed Photo", price: 149,
+                    option1: "Framed Signed Photo", option2: null,
+                    sku: "EUBANK-PHOTO-FRM", inventory_quantity: 100,
                     created_at: new Date().toISOString(), updated_at: new Date().toISOString(),
                     smart_contract_address: null, token_id: null
                 },
                 {
-                    id: "v3", product_id: "demo-signing", title: "Photo / Unframed", price: 80,
-                    option1: "Signed Photo", option2: "Unframed",
-                    sku: "DEMO-PHOTO-UNF", inventory_quantity: 20,
-                    created_at: new Date().toISOString(), updated_at: new Date().toISOString(),
-                    smart_contract_address: null, token_id: null
-                },
-                {
-                    id: "v4", product_id: "demo-signing", title: "Photo / Framed", price: 180,
-                    option1: "Signed Photo", option2: "Deluxe Dome Frame",
-                    sku: "DEMO-PHOTO-FRM", inventory_quantity: 10,
-                    created_at: new Date().toISOString(), updated_at: new Date().toISOString(),
-                    smart_contract_address: null, token_id: null
-                },
-                {
-                    id: "v5", product_id: "demo-signing", title: "Send-In / Unframed", price: 60,
-                    option1: "Send-In Service", option2: "Unframed",
-                    sku: "DEMO-SENDIN", inventory_quantity: 100,
+                    id: "v3", product_id: "demo-eubank", title: "Send-In Service (Your Item)", price: 99,
+                    option1: "Send-In Service", option2: null,
+                    sku: "EUBANK-SENDIN", inventory_quantity: 200,
                     created_at: new Date().toISOString(), updated_at: new Date().toISOString(),
                     smart_contract_address: null, token_id: null
                 }
