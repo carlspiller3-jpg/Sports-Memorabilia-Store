@@ -4,6 +4,7 @@ import { useSearchParams } from "react-router-dom"
 import { ShieldCheck, Loader2, XCircle, Smartphone, Zap, CheckCircle, Lock } from "lucide-react"
 import { Button } from "@/components/ui/Button"
 import { TrustBadge } from "@/components/ui/TrustBadge"
+import { supabase } from "@/lib/supabase"
 
 export function VerifyPage() {
     const [searchParams] = useSearchParams()
@@ -23,35 +24,29 @@ export function VerifyPage() {
         setStatus('loading')
 
         try {
-            // TODO: Replace with actual API call to Supabase or Shopify Storefront API
-            // Example Supabase implementation:
-            /*
+            // Real Database Call
             const { data, error } = await supabase
-                .from('nfc_tags')
-                .select('*, products(*)')
+                .from('certificates')
+                .select('*')
                 .eq('tag_id', tagId)
                 .single()
-            
-            if (error) throw error
-            setProduct(mapDatabaseToProduct(data))
-            */
 
-            // Simulation for Demo
-            setTimeout(() => {
-                if (tagId === 'error') {
-                    setStatus('error')
-                } else {
-                    setProduct({
-                        title: "Lionel Messi Signed Argentina 2022 Home Shirt",
-                        date: "2022-12-18",
-                        location: "Lusail Stadium, Qatar",
-                        contract: "0x123...abc",
-                        tokenId: "456",
-                        image: "https://images.unsplash.com/photo-1518605348435-2996d2606926?q=80&w=1936&auto=format&fit=crop"
-                    })
-                    setStatus('success')
-                }
-            }, 2000)
+            if (error) throw error
+
+            if (data) {
+                setProduct({
+                    title: data.title,
+                    date: data.date_signed, // Map from DB column names
+                    location: data.location,
+                    contract: "The Sports Memorabilia Store", // Static issuer name
+                    tokenId: data.id, // The Certificate UUID
+                    image: data.image_url
+                })
+                setStatus('success')
+            } else {
+                setStatus('error')
+            }
+
         } catch (error) {
             console.error('Verification failed:', error)
             setStatus('error')
@@ -225,7 +220,7 @@ export function VerifyPage() {
                         {/* FAQ */}
                         <div className="space-y-4">
                             <h3 className="font-serif text-xl font-bold text-charcoal mb-6">Common Questions</h3>
-                            
+
                             <details className="bg-ivory rounded-lg p-4 group">
                                 <summary className="font-bold text-charcoal cursor-pointer text-sm list-none flex items-center justify-between">
                                     Does my phone support NFC?
