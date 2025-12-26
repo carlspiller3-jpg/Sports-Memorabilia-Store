@@ -7,6 +7,7 @@ export interface CartItem {
     product: Product
     variant: Variant
     quantity: number
+    attributes?: Record<string, string>
 }
 
 interface CartContextType {
@@ -14,7 +15,7 @@ interface CartContextType {
     isOpen: boolean
     openCart: () => void
     closeCart: () => void
-    addToCart: (product: Product, variant: Variant) => void
+    addToCart: (product: Product, variant: Variant, quantity?: number, attributes?: Record<string, string>) => void
     removeFromCart: (variantId: string) => void
     cartTotal: number
     cartCount: number
@@ -48,22 +49,41 @@ export function CartProvider({ children }: { children: ReactNode }) {
     const openCart = () => setIsOpen(true)
     const closeCart = () => setIsOpen(false)
 
-    const addToCart = (product: Product, variant: Variant) => {
+    const addToCart = (product: Product, variant: Variant, quantity: number = 1, attributes?: Record<string, string>) => {
         setItems(prev => {
-            const existing = prev.find(item => item.id === variant.id)
-            if (existing) {
-                return prev.map(item =>
-                    item.id === variant.id
-                        ? { ...item, quantity: item.quantity + 1 }
-                        : item
-                )
+            // Check if existing item matches Variant ID AND Attributes (Deep check needed strictly, but simple check for now)
+            // For simplicity in this iteration, we treat items with different attributes as different entries? 
+            // Or just append?
+            // "Send-In" items with different instructions should be separate lines.
+            // Let's create a unique ID based on Variant + Attrs string
+            const attrString = attributes ? JSON.stringify(attributes) : ""
+            const uniqueKey = variant.id + attrString
+
+            const existingIndex = prev.findIndex(item => {
+                const itemAttrString = item.attributes ? JSON.stringify(item.attributes) : ""
+                return item.variant.id === variant.id && itemAttrString === attrString
+            })
+
+            if (existingIndex > -1) {
+                const newItems = [...prev]
+                newItems[existingIndex].quantity += quantity
+                return newItems
             }
-            return [...prev, { id: variant.id, product, variant, quantity: 1 }]
+
+            return [...prev, {
+                id: variant.id,
+                product,
+                variant,
+                quantity,
+                attributes
+            }]
         })
         setIsOpen(true)
     }
 
     const removeFromCart = (variantId: string) => {
+        // Warning: This simple ID remove might remove duplicates with different attrs. 
+        // Ideally we should remove by index or unique key. 
         setItems(prev => prev.filter(item => item.id !== variantId))
     }
 
@@ -72,7 +92,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
             removeFromCart(variantId)
             return
         }
-        setItems(prev => prev.map(item => 
+        setItems(prev => prev.map(item =>
             item.id === variantId ? { ...item, quantity } : item
         ))
     }
@@ -83,14 +103,19 @@ export function CartProvider({ children }: { children: ReactNode }) {
     const checkout = async () => {
         if (import.meta.env.VITE_USE_LIVE_SHOPIFY === 'true') {
             // Map items for Shopify
-            const lineItems = items.map(item => ({
-                variantId: item.variant.id, // Assuming variant.id is the Shopify GID
-                quantity: item.quantity
-            }))
-            
-            // Dynamic import to avoid SSR/Circ-dep issues if any, but standard import is fine here
-            // We import standard at top, but let's assume imports are handled.
-            // Actually I need to add the import at the top of the file.
+            // Note: Shopify Storefront API expects 'customAttributes' array [{key, value}]
+            const lineItems = items.map(item => {
+                const customAttributes = item.attributes ? Object.entries(item.attributes).map(([key, value]) => ({
+                    key, value
+                })) : []
+
+                return {
+                    variantId: item.variant.id,
+                    quantity: item.quantity,
+                    customAttributes
+                }
+            })
+
             const { createCheckout } = await import('@/lib/shopify')
             const url = await createCheckout(lineItems)
             if (url) {

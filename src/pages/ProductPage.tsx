@@ -25,6 +25,7 @@ import {
 import { RelatedProducts } from "@/components/product/RelatedProducts"
 import { fetchProductByHandle } from "@/lib/shopify"
 import { ReviewList } from "@/components/reviews/ReviewList"
+import { SigningEventLayout } from "@/components/product/SigningEventLayout"
 
 export function ProductPage() {
     const { handle } = useParams<{ handle: string }>()
@@ -43,7 +44,7 @@ export function ProductPage() {
                 const liveProduct = await fetchProductByHandle(handle)
                 if (liveProduct) {
                     setProduct(liveProduct)
-                     if (liveProduct.variants && liveProduct.variants.length > 0) {
+                    if (liveProduct.variants && liveProduct.variants.length > 0) {
                         if (liveProduct.variants[0].option1) {
                             setSelectedFrame(liveProduct.variants[0].option1)
                         }
@@ -100,8 +101,76 @@ export function ProductPage() {
         }
     }
 
+    // DEMO: Mock Signing Product for User Preview
+    if (handle === 'test-signing') {
+        const mockSigningProduct: Product = {
+            id: "demo-signing",
+            title: "Mike Tyson - Official Private Signing (March 2025)",
+            handle: "test-signing",
+            body_html: "Official private signing session with the boxing legend.",
+            images: ["https://images.unsplash.com/photo-1544698310-74ea9d188c1b?q=80&w=2670&auto=format&fit=crop"],
+            options: [
+                { id: "opt1", product_id: "demo-signing", name: "Item Type", position: 1, values: ["Signed Glove", "Signed Photo", "Send-In Service"] },
+                { id: "opt2", product_id: "demo-signing", name: "Framing", position: 2, values: ["Unframed", "Deluxe Dome Frame"] }
+            ],
+            variants: [
+                {
+                    id: "v1", product_id: "demo-signing", title: "Glove / Unframed", price: 150,
+                    option1: "Signed Glove", option2: "Unframed",
+                    sku: "DEMO-GLOVE-UNF", inventory_quantity: 10,
+                    created_at: new Date().toISOString(), updated_at: new Date().toISOString(),
+                    smart_contract_address: null, token_id: null
+                },
+                {
+                    id: "v2", product_id: "demo-signing", title: "Glove / Framed", price: 350,
+                    option1: "Signed Glove", option2: "Deluxe Dome Frame",
+                    sku: "DEMO-GLOVE-FRM", inventory_quantity: 5,
+                    created_at: new Date().toISOString(), updated_at: new Date().toISOString(),
+                    smart_contract_address: null, token_id: null
+                },
+                {
+                    id: "v3", product_id: "demo-signing", title: "Photo / Unframed", price: 80,
+                    option1: "Signed Photo", option2: "Unframed",
+                    sku: "DEMO-PHOTO-UNF", inventory_quantity: 20,
+                    created_at: new Date().toISOString(), updated_at: new Date().toISOString(),
+                    smart_contract_address: null, token_id: null
+                },
+                {
+                    id: "v4", product_id: "demo-signing", title: "Photo / Framed", price: 180,
+                    option1: "Signed Photo", option2: "Deluxe Dome Frame",
+                    sku: "DEMO-PHOTO-FRM", inventory_quantity: 10,
+                    created_at: new Date().toISOString(), updated_at: new Date().toISOString(),
+                    smart_contract_address: null, token_id: null
+                },
+                {
+                    id: "v5", product_id: "demo-signing", title: "Send-In / Unframed", price: 60,
+                    option1: "Send-In Service", option2: "Unframed",
+                    sku: "DEMO-SENDIN", inventory_quantity: 100,
+                    created_at: new Date().toISOString(), updated_at: new Date().toISOString(),
+                    smart_contract_address: null, token_id: null
+                }
+            ],
+            tags: ["SigningEvent"],
+            created_at: new Date().toISOString(),
+            updated_at: new Date().toISOString(),
+            vendor: "Sports Signed",
+            product_type: "Private Signing",
+            status: "active"
+        }
+        return <SigningEventLayout product={mockSigningProduct} />
+    }
+
     if (loading) {
         return <div className="min-h-screen bg-ivory flex items-center justify-center">Loading...</div>
+    }
+
+    if (!product) {
+        return <div className="min-h-screen bg-ivory flex items-center justify-center">Product not found</div>
+    }
+
+    // Check for Signing Event Tag
+    if (product.tags && product.tags.includes('SigningEvent')) {
+        return <SigningEventLayout product={product} />
     }
 
     if (!product) {
@@ -321,7 +390,7 @@ export function ProductPage() {
                         {/* Product Information - SKU, Tags, SEO */}
                         <div className="space-y-4 pt-6 border-t border-stone/10 mt-6">
                             <h3 className="font-serif text-xl font-bold text-charcoal border-b border-stone/10 pb-2">Product Information</h3>
-                            
+
                             {/* SKU */}
                             <div className="flex items-start gap-3">
                                 <span className="text-sm font-bold text-navy/60 uppercase tracking-wider min-w-[80px]">SKU:</span>
@@ -381,7 +450,7 @@ export function ProductPage() {
                         <p className="text-xs text-stone/60">Price</p>
                         <p className="text-lg font-bold text-charcoal">£{selectedVariant?.price || 0}</p>
                     </div>
-                    <Button 
+                    <Button
                         onClick={handleAddToCart}
                         className="flex-1 bg-gold text-navy h-12 font-bold hover:bg-gold/90"
                     >
