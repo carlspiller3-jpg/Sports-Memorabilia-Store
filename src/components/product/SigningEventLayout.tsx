@@ -1,8 +1,18 @@
 import { useState, useMemo } from "react"
+import { Helmet } from "react-helmet-async"
 import { ShieldCheck, Calendar, Clock, MapPin, PenTool, CheckCircle, Package, ArrowRight, Truck } from "lucide-react"
 import { Button } from "@/components/ui/Button"
 import { useCart } from "@/context/CartContext"
 import type { Product } from "@/types/schema"
+import {
+    generateSEOTitle,
+    generateMetaDescription,
+    generateImageAlt,
+    getCanonicalUrl,
+    generateOGTags,
+    generateTwitterTags,
+    generateProductSchema
+} from "@/lib/seo"
 
 interface SigningEventLayoutProps {
     product: Product
@@ -55,8 +65,45 @@ export function SigningEventLayout({ product }: SigningEventLayoutProps) {
         }
     }
 
+    // --- SEO GENERATION ---
+    const price = selectedVariant?.price || product.variants?.[0]?.price || 0
+    const mainImage = product.images?.[0] || ""
+
+    const seoTitle = product.seo_title || generateSEOTitle(product)
+    const seoDescription = product.seo_description || generateMetaDescription(product, price)
+    const imageAlt = generateImageAlt(product)
+    const canonicalUrl = getCanonicalUrl(product.handle)
+    const ogTags = generateOGTags(product, price, mainImage)
+    const twitterTags = generateTwitterTags(product, price, mainImage)
+    const productSchema = generateProductSchema(product, price, mainImage)
+
     return (
         <div className="min-h-screen bg-ivory">
+            <Helmet>
+                {/* Primary Meta Tags */}
+                <title>{seoTitle}</title>
+                <meta name="description" content={seoDescription} />
+                <link rel="canonical" href={canonicalUrl} />
+
+                {/* Open Graph / Facebook */}
+                <meta property="og:type" content={ogTags.type} />
+                <meta property="og:url" content={ogTags.url} />
+                <meta property="og:title" content={ogTags.title} />
+                <meta property="og:description" content={ogTags.description} />
+                <meta property="og:image" content={ogTags.image} />
+                <meta property="og:site_name" content={ogTags.siteName} />
+
+                {/* Twitter */}
+                <meta name="twitter:card" content={twitterTags.card} />
+                <meta name="twitter:title" content={twitterTags.title} />
+                <meta name="twitter:description" content={twitterTags.description} />
+                <meta name="twitter:image" content={twitterTags.image} />
+
+                {/* Schema.org markup */}
+                <script type="application/ld+json">
+                    {JSON.stringify(productSchema)}
+                </script>
+            </Helmet>
 
             {/* Hero Header for User Event */}
             <div className="bg-charcoal text-white py-16 px-4 relative overflow-hidden">
@@ -85,7 +132,7 @@ export function SigningEventLayout({ product }: SigningEventLayoutProps) {
                             <div className="aspect-[4/5] bg-stone-100 rounded-sm overflow-hidden relative">
                                 <img
                                     src={product.images?.[0] || ""}
-                                    alt={product.title}
+                                    alt={imageAlt}
                                     className="w-full h-full object-cover"
                                 />
                                 <div className="absolute top-4 left-4">
@@ -104,7 +151,7 @@ export function SigningEventLayout({ product }: SigningEventLayoutProps) {
                                 </div>
                                 <div className="text-sm">
                                     <strong className="text-charcoal block">Guaranteed Authenticity</strong>
-                                    <span className="text-navy/60">Every item comes with a COA and Lifetime Guarantee.</span>
+                                    <span className="text-navy/60">Every item comes with our proprietary NFC Digital Authentication technology. No paper COAs—just instant digital proof.</span>
                                 </div>
                             </div>
                             <div className="flex items-start gap-3">
