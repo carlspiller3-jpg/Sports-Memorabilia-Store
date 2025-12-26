@@ -264,5 +264,40 @@ export const articles: BlogPost[] = [
       <h3>The Scarcity</h3>
       <p>In the 90s, organized signing sessions were rare. Most signatures were obtained "in the wild" (outside training grounds). This makes verifying them harder, but finding a pristine, verified example incredibly valuable.</p>
     `
+  },
+  {
+    id: "11",
+    title: "The Complete Guide to Send-In Autographs",
+    slug: "guide-to-send-in-autographs",
+    date: "2026-02-01",
+    author: "The Authenticator",
+    category: "Education",
+    excerpt: "Everything you need to know about our Send-In service. How to pack, what to send, and how to ensure your item returns safely signed.",
+    imageUrl: "/placeholder-article-sendin.jpg",
+    content: `
+      <h2>Turn Your Own Item into a Legend</h2>
+      <p>Have a shirt you've owned for years? A photo you took yourself? Our Send-In Service allows you to get your personal items signed by the world's biggest athletes.</p>
+
+      <h3>Step 1: Booking Your Slot</h3>
+      <p>Send-In slots are limited. You must purchase a "Send-In" ticket for the specific event on our website. This secures your place in the signing queue. Once purchased, you will receive a confirmation email with our <strong>Secure Depot Address</strong> and a unique reference number.</p>
+
+      <h3>Step 2: Packaging Your Item</h3>
+      <p>This is the most critical step. You are responsible for the item arriving to us safely.
+      <ul class="list-disc ml-6 mt-2 space-y-2">
+        <li><strong>Photos:</strong> Must be sent in hard-backed envelopes or tubes. Do not fold.</li>
+        <li><strong>Shirts:</strong> Fold neatly and place in a waterproof bag inside a padded envelope/box.</li>
+        <li><strong>Other Items:</strong> Bubble wrap is your friend.</li>
+      </ul>
+      </p>
+
+      <h3>Step 3: Post & Insurance</h3>
+      <p>We <strong>strongly recommend</strong> using a tracked and insured service (e.g., Royal Mail Special Delivery). We cannot be held responsible for items that go missing on their way to us.</p>
+
+      <h3>Step 4: The Signing</h3>
+      <p>Our team handles your item with white gloves. We will attempt to accommodate specific requests (e.g., "Sign on the number", "Dedicate to Toom"), but these are at the athlete's discretion and cannot be 100% guaranteed.</p>
+
+      <h3>Step 5: Return</h3>
+      <p>Once signed, your item is authenticated (NFC Tag applied where possible, or separate COA card if item texture doesn't permit adhesion), repackaged securely, and sent back to you via our own insured courier.</p>
+    `
   }
 ];

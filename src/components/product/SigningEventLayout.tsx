@@ -263,8 +263,8 @@ export function SigningEventLayout({ product }: SigningEventLayoutProps) {
                                             <li>We get it signed and post it back to you.</li>
                                         </ol>
                                         <div className="pt-3 mt-3 border-t border-stone/10">
-                                            <a href="/faq" target="_blank" rel="noopener noreferrer" className="text-gold hover:text-charcoal transition-colors font-bold flex items-center gap-1">
-                                                Read full Send-In Guide & FAQ <ArrowRight className="w-3 h-3" />
+                                            <a href="/hub/guide-to-send-in-autographs" target="_blank" rel="noopener noreferrer" className="text-gold hover:text-charcoal transition-colors font-bold flex items-center gap-1">
+                                                Read full Send-In Guide <ArrowRight className="w-3 h-3" />
                                             </a>
                                         </div>
                                     </div>

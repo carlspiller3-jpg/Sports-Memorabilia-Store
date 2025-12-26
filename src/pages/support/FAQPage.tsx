@@ -70,6 +70,18 @@ export function FAQPage() {
         {
             question: "What if my item arrives damaged?",
             answer: "While extremely rare due to our premium packaging and insured shipping, if your item arrives damaged, please contact us immediately with photos. We'll arrange a replacement or full refund, including all shipping costs. All shipments are fully insured for your protection."
+        },
+        {
+            question: "How does the Send-In Service work?",
+            answer: "You send us your own item, we get it signed by the athlete during a private session, and we return it to you authenticated. You must book a 'Send-In Slot' on the event product page first. We will then email you the secure address to post your item to."
+        },
+        {
+            question: "Is my Send-In item insured?",
+            answer: "We insure your item fully while it is in our possession and during return transit to you. However, you are responsible for insuring the item when you post it TO us. We strongly recommend using a tracked, insured service (like Royal Mail Special Delivery)."
+        },
+        {
+            question: "Can I request a specific dedication?",
+            answer: "Yes! When booking your slot, you can enter 'Signing Instructions' (e.g., 'To John', 'Sign in Silver'). We do our absolute best to accommodate these, but they are ultimately at the athlete's discretion."
         }
     ]
 
