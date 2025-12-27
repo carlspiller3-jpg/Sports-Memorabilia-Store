@@ -31,6 +31,7 @@ import { AccountPage } from "@/pages/AccountPage"
 import { KnowledgeHubPage } from "@/pages/blog/KnowledgeHubPage"
 import { ArticlePage } from "@/pages/blog/ArticlePage"
 import { ShopGate } from "@/components/auth/ShopGate"
+import { ScrollToTop } from "@/components/layout/ScrollToTop"
 
 function App() {
   return (
@@ -42,6 +43,7 @@ function App() {
         </Helmet>
         <CartProvider>
           <Router>
+            <ScrollToTop />
             <div className="min-h-screen bg-ivory text-charcoal font-sans selection:bg-gold/30 flex flex-col">
               <Header />
               <CartDrawer />
