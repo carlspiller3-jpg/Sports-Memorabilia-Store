@@ -35,7 +35,7 @@ export function Header() {
                     <a href="/" className="flex items-center">
                         <img
                             src="/logo-transparent.png"
-                            alt="SportsSigned"
+                            alt="The Sports Memorabilia Store"
                             className="h-16 w-auto object-contain"
                         />
                     </a>
