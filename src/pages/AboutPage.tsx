@@ -26,19 +26,19 @@ export function AboutPage() {
                             The New Standard
                         </h2>
                         <p className="text-lg text-charcoal/80 leading-relaxed font-light">
-                            It started with a simple question: <em>"Is this real?"</em>
+                            The sports memorabilia market has a trust problem. It is flooded with fakes, vague certificates, and items that just don't feel right.
                         </p>
                         <p className="text-lg text-charcoal/80 leading-relaxed font-light">
-                            We were fans first. Like you, we spent years hunting for pieces of history—that signed shirt from the '99 Final, the glove from the big fight. We wanted a physical link to the moments that shaped us. But the industry was broken. It was flooded with fakes, confusing paperwork, and cheap frames that focused on profit rather than preservation.
+                            We started SportsSigned because we were sick of the uncertainty. We wanted to buy items that we knew, without a doubt, were genuine. But we couldn't find a store we trusted 100%. So we built one.
                         </p>
                         <p className="text-lg text-charcoal/80 leading-relaxed font-light">
-                            We built SportsSigned to fix it. To replace doubt with certainty.
+                            Our process is simple: We cut out the middlemen and work directly with the athletes. We organize the signings. We witness the pen hitting the paper.
                         </p>
                         <p className="text-lg text-charcoal/80 leading-relaxed font-light">
-                            We stripped away the middlemen. We go directly to the source, organizing private signings with the icons themselves. We witness every signature. Then, we lock that moment in time using state-of-the-art NFC digital passports that prove authenticity forever. Finally, we frame it with museum-grade materials, because history deserves to be preserved.
+                            We don't rely on paper certificates that can be copied. We use digital technology to prove authenticity. And we frame everything properly, using materials that actually protect the item.
                         </p>
-                        <p className="text-lg text-charcoal/80 leading-relaxed font-light font-medium italic text-navy">
-                            This isn't just memorabilia. It's the new gold standard for the moments that matter.
+                        <p className="text-lg text-charcoal/80 leading-relaxed font-medium text-navy">
+                            We just built the store we always wanted to shop at.
                         </p>
                     </div>
                 </div>
