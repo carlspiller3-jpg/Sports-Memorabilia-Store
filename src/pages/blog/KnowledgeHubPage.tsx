@@ -1,16 +1,21 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { articles } from "@/data/articles";
 import { ArrowRight, BookOpen, TrendingUp, History, ShieldCheck } from "lucide-react";
 
 export function KnowledgeHubPage() {
     const navigate = useNavigate();
 
-    // Filter articles to only show published ones (Date <= Today)
-    const publishedArticles = articles.filter(article => new Date(article.date) <= new Date());
+    const [searchParams] = useSearchParams();
+    const isPreview = searchParams.get("preview") === "true";
 
-    // Use publishedArticles instead of articles for display
-    const featuredArticle = publishedArticles[0];
-    const gridArticles = publishedArticles.slice(1);
+    // Filter articles (Show all if preview mode, otherwise only published)
+    const displayArticles = isPreview
+        ? articles
+        : articles.filter(article => new Date(article.date) <= new Date());
+
+    // Use displayArticles for display
+    const featuredArticle = displayArticles[0];
+    const gridArticles = displayArticles.slice(1);
 
     const getIcon = (category: string) => {
         switch (category) {
@@ -49,6 +54,9 @@ export function KnowledgeHubPage() {
                                     <div className="flex items-center gap-2 text-gold font-bold text-sm uppercase tracking-wider mb-4">
                                         {getIcon(featuredArticle.category)}
                                         {featuredArticle.category}
+                                        {isPreview && new Date(featuredArticle.date) > new Date() && (
+                                            <span className="bg-red-500 text-white px-2 py-0.5 rounded textxs ml-2">SCHEDULED</span>
+                                        )}
                                     </div>
                                     <h2 className="font-serif text-2xl md:text-3xl text-navy mb-4 group-hover:text-gold transition-colors">
                                         {featuredArticle.title}
@@ -79,6 +87,9 @@ export function KnowledgeHubPage() {
                                     <div className="flex items-center gap-2 text-gold font-bold text-xs uppercase tracking-wider mb-3">
                                         {getIcon(article.category)}
                                         {article.category}
+                                        {isPreview && new Date(article.date) > new Date() && (
+                                            <span className="bg-red-500 text-white px-2 py-0.5 rounded text-[10px] ml-2">SCHEDULED</span>
+                                        )}
                                     </div>
                                     <h3 className="font-serif text-xl text-navy mb-3 group-hover:text-gold transition-colors">
                                         {article.title}

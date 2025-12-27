@@ -1,4 +1,4 @@
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, useSearchParams } from "react-router-dom";
 import { articles } from "@/data/articles";
 import { ArrowLeft, Calendar, User, Tag } from "lucide-react";
 import { NotFoundPage } from "../NotFoundPage";
@@ -6,10 +6,13 @@ import { NotFoundPage } from "../NotFoundPage";
 export function ArticlePage() {
     const { slug } = useParams();
     const navigate = useNavigate();
+    const [searchParams] = useSearchParams();
+    const isPreview = searchParams.get("preview") === "true";
+
     const article = articles.find((a) => a.slug === slug);
     const isFuture = article && new Date(article.date) > new Date();
 
-    if (!article || isFuture) {
+    if (!article || (isFuture && !isPreview)) {
         return <NotFoundPage />; // Or generic 404
     }
 
