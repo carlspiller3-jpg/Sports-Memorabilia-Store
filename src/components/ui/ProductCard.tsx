@@ -16,7 +16,7 @@ export function ProductCard({ title, price, image, altText, athlete, type, class
     return (
         <div className={cn("group relative bg-white border border-stone/20 rounded-sm overflow-hidden hover:shadow-xl transition-all duration-500 ease-out", className)}>
             {/* Image Container */}
-            <div className="aspect-[4/5] overflow-hidden bg-stone/5 relative">
+            <div className="aspect-[4/3] overflow-hidden bg-stone/5 relative">
                 <img
                     src={image}
                     alt={altText || title}
