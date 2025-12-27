@@ -26,10 +26,19 @@ export function AboutPage() {
                             The New Standard
                         </h2>
                         <p className="text-lg text-charcoal/80 leading-relaxed font-light">
-                            Sports Signed was established to elevate the industry. We believe that owning a piece of history should be unquestionable.
+                            It started with a simple question: <em>"Is this real?"</em>
                         </p>
                         <p className="text-lg text-charcoal/80 leading-relaxed font-light">
-                            In a market often compromised by uncertainty, we provide absolute clarity. We combine direct athlete partnerships, museum-grade preservation, and immutable blockchain verification to create the definitive collection for the modern connoisseur.
+                            We were fans first. Like you, we spent years hunting for pieces of history—that signed shirt from the '99 Final, the glove from the big fight. We wanted a physical link to the moments that shaped us. But the industry was broken. It was flooded with fakes, confusing paperwork, and cheap frames that focused on profit rather than preservation.
+                        </p>
+                        <p className="text-lg text-charcoal/80 leading-relaxed font-light">
+                            We built SportsSigned to fix it. To replace doubt with certainty.
+                        </p>
+                        <p className="text-lg text-charcoal/80 leading-relaxed font-light">
+                            We stripped away the middlemen. We go directly to the source, organizing private signings with the icons themselves. We witness every signature. Then, we lock that moment in time using state-of-the-art NFC digital passports that prove authenticity forever. Finally, we frame it with museum-grade materials, because history deserves to be preserved.
+                        </p>
+                        <p className="text-lg text-charcoal/80 leading-relaxed font-light font-medium italic text-navy">
+                            This isn't just memorabilia. It's the new gold standard for the moments that matter.
                         </p>
                     </div>
                 </div>
