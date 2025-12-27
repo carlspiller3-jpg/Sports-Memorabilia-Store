@@ -165,10 +165,10 @@ export function SigningEventLayout({ product }: SigningEventLayoutProps) {
             <div className="container mx-auto px-4 max-w-6xl -mt-10 relative z-20 pb-20">
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
 
-                    {/* Left Col: Product Image (Sticky) */}
-                    <div className="lg:col-span-5 h-fit lg:sticky lg:top-8">
+                    {/* Left Col: Product Image (Sticky) - Reduced Size */}
+                    <div className="lg:col-span-4 h-fit lg:sticky lg:top-8">
                         <div className="bg-white p-2 rounded-sm shadow-xl border border-white/20">
-                            <div className="aspect-[4/5] bg-stone-100 rounded-sm overflow-hidden relative">
+                            <div className="aspect-square bg-stone-100 rounded-sm overflow-hidden relative">
                                 <img
                                     src={product.images?.[0] || ""}
                                     alt={imageAlt}
@@ -211,7 +211,7 @@ export function SigningEventLayout({ product }: SigningEventLayoutProps) {
                     </div>
 
                     {/* Right Col: The "Configurator" */}
-                    <div className="lg:col-span-7 space-y-8 pt-10 lg:pt-0">
+                    <div className="lg:col-span-8 space-y-8 pt-10 lg:pt-0">
 
                         {/* 1. Select Item Type - Apple Style Grid */}
                         <div className="bg-white p-8 rounded-sm shadow-sm border border-stone/10 space-y-6">
