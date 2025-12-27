@@ -10,7 +10,7 @@ export function Footer() {
                         <Link to="/" className="block">
                             <img
                                 src="/logo-transparent.png"
-                                alt="The Sports Memorabilia Store"
+                                alt="Sports Memorabilia Store"
                                 className="h-16 w-auto object-contain brightness-0 invert"
                             />
                         </Link>

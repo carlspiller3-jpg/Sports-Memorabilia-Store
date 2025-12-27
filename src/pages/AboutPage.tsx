@@ -29,7 +29,7 @@ export function AboutPage() {
                             The sports memorabilia market has a trust problem. It is flooded with fakes, vague certificates, and items that just don't feel right.
                         </p>
                         <p className="text-lg text-charcoal/80 leading-relaxed font-light">
-                            We started The Sports Memorabilia Store because we were sick of the uncertainty. We wanted to buy items that we knew, without a doubt, were genuine. But we couldn't find a store we trusted 100%. So we built one.
+                            We started the Sports Memorabilia Store because we were sick of the uncertainty. We wanted to buy items that we knew, without a doubt, were genuine. But we couldn't find a store we trusted 100%. So we built one.
                         </p>
                         <p className="text-lg text-charcoal/80 leading-relaxed font-light">
                             Our process is simple: We cut out the middlemen and work directly with the athletes. We organize the signings. We witness the pen hitting the paper.

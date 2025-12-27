@@ -92,7 +92,7 @@ export function SigningEventLayout({ product }: SigningEventLayoutProps) {
                 options: [],
                 variants: [dedicationVariant],
                 tags: [],
-                vendor: "The Sports Memorabilia Store",
+                vendor: "Sports Memorabilia Store",
                 product_type: "Service",
                 status: "active" as "active",
                 created_at: new Date().toISOString(),
