@@ -38,7 +38,7 @@ export function AboutPage() {
                             We are in the room. We witness the pen hitting the paper. That is the only way to guarantee absolute authenticity.
                         </p>
                         <p className="text-lg text-charcoal/80 leading-relaxed font-light">
-                            We don't rely on paper certificates that can be copied. We use digital technology to prove authenticity. And we frame everything properly, using materials that actually protect the item.
+                            We don't rely on paper certificates that can be copied. We use digital technology to prove authenticity. We frame everything properly, using materials that actually protect the item.
                         </p>
                         <p className="text-lg text-charcoal/80 leading-relaxed font-medium text-navy">
                             We just built the store we always wanted to shop at.
