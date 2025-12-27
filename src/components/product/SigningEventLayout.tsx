@@ -28,6 +28,8 @@ export function SigningEventLayout({ product }: SigningEventLayoutProps) {
     const [selectedType, setSelectedType] = useState<string>(itemTypes[0] || "")
     const [selectedFrame, setSelectedFrame] = useState<string>("")
     const [instructions, setInstructions] = useState("")
+    const [wantsDedication, setWantsDedication] = useState(false)
+    const [dedicationText, setDedicationText] = useState("")
 
     // Find valid variants for the selected Type
     const availableVariants = useMemo(() => {
@@ -56,12 +58,49 @@ export function SigningEventLayout({ product }: SigningEventLayoutProps) {
     const handleAddToCart = () => {
         if (!selectedVariant) return
 
-        // If Send-In, add instructions as Line Item Property
-        // Explicitly cast to Record<string, string> or use conditional argument
-        if (isSendIn) {
-            addToCart(product, selectedVariant, 1, { "Signing Instructions": instructions })
-        } else {
-            addToCart(product, selectedVariant, 1)
+        const attributes: Record<string, string> = {}
+        if (isSendIn && instructions) attributes["Signing Instructions"] = instructions
+        if (wantsDedication && dedicationText) attributes["Dedication"] = dedicationText
+
+        // Add main item
+        addToCart(product, selectedVariant, 1, attributes)
+
+        // Add Dedication Fee if selected
+        if (wantsDedication) {
+            const dedicationVariant = {
+                id: "dedication-fee-variant",
+                product_id: "dedication-fee",
+                title: "Dedication Fee",
+                price: 25,
+                option1: "Dedication",
+                option2: null,
+                option3: null,
+                sku: "DEDICATION-FEE",
+                inventory_quantity: 10,
+                position: 1,
+                created_at: new Date().toISOString(),
+                updated_at: new Date().toISOString(),
+                smart_contract_address: null,
+                token_id: null
+            }
+            const dedicationProduct = {
+                id: "dedication-fee",
+                title: "Personalized Dedication Service",
+                handle: "dedication-service",
+                body_html: "Fee for personalized dedication.",
+                images: [],
+                options: [],
+                variants: [dedicationVariant],
+                tags: [],
+                vendor: "SportsSigned",
+                product_type: "Service",
+                status: "active" as "active",
+                created_at: new Date().toISOString(),
+                updated_at: new Date().toISOString()
+            }
+
+            // Small delay effectively handled by React batches, but safe enough
+            addToCart(dedicationProduct, dedicationVariant, 1)
         }
     }
 
@@ -290,12 +329,59 @@ export function SigningEventLayout({ product }: SigningEventLayoutProps) {
                             </div>
                         )}
 
+                        {/* Dedication Section (Limited Inventory) */}
+                        <div className="bg-white p-8 rounded-sm shadow-sm border border-stone/10 space-y-4 animate-in fade-in slide-in-from-bottom-5 duration-700 delay-100">
+                            <div className="flex items-center justify-between">
+                                <div>
+                                    <h3 className="font-serif text-xl font-bold text-charcoal">Add Dedication</h3>
+                                    <p className="text-xs text-navy/60">Personalize your item (e.g. "To John")</p>
+                                </div>
+                                <div className="text-right">
+                                    <span className="block font-serif text-gold font-bold text-lg">+£25</span>
+                                    <span className="inline-flex items-center gap-1 px-2 py-0.5 bg-red-100 text-red-700 text-[10px] font-bold uppercase tracking-wider rounded-full">
+                                        Only 8 Left
+                                    </span>
+                                </div>
+                            </div>
+
+                            <label className={`
+                                flex items-start gap-3 p-4 border rounded-sm cursor-pointer transition-all
+                                ${wantsDedication ? 'border-gold bg-gold/5' : 'border-stone/20 hover:border-gold/30'}
+                            `}>
+                                <input
+                                    type="checkbox"
+                                    className="mt-1 w-4 h-4 text-gold border-stone/30 rounded focus:ring-gold"
+                                    checked={wantsDedication}
+                                    onChange={(e) => setWantsDedication(e.target.checked)}
+                                />
+                                <span className="text-sm text-navy/80 selection:bg-gold/20">
+                                    Yes, I would like a specific dedication added to my item.
+                                </span>
+                            </label>
+
+                            {wantsDedication && (
+                                <div className="animate-in fade-in slide-in-from-top-2">
+                                    <input
+                                        type="text"
+                                        placeholder="Enter Name (e.g. To Michael)"
+                                        className="w-full p-3 border border-stone/20 rounded-sm focus:border-gold outline-none text-sm"
+                                        value={dedicationText}
+                                        onChange={(e) => setDedicationText(e.target.value)}
+                                        maxLength={30}
+                                    />
+                                    <p className="text-xs text-stone-400 mt-2 text-right">{dedicationText.length}/30 chars</p>
+                                </div>
+                            )}
+                        </div>
+
                         {/* 3. Checkout Action */}
                         <div className="pt-6 border-t border-stone/10">
                             <div className="flex items-center justify-between mb-6">
                                 <div>
                                     <p className="text-sm text-stone-400">Total Price</p>
-                                    <p className="text-4xl font-serif font-bold text-charcoal">£{selectedVariant?.price || "0"}</p>
+                                    <p className="text-4xl font-serif font-bold text-charcoal">
+                                        £{(selectedVariant?.price || 0) + (wantsDedication ? 25 : 0)}
+                                    </p>
                                 </div>
                                 <div className="text-right">
                                     <p className="text-xs text-stone-400">Est. Dispatch</p>
