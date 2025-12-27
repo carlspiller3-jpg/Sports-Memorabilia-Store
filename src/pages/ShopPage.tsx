@@ -148,8 +148,8 @@ export function ShopPage() {
     const productTypes = ["all", ...new Set(products.map(p => p.product_type).filter((t): t is string => t !== null))]
 
     return (
-        <div className="min-h-screen bg-ivory">
-            <PageHero 
+        <div className="min-h-screen bg-ivory pt-20">
+            <PageHero
                 title="Shop All"
                 subtitle="Authentic sports memorabilia. Professionally framed and ready to display."
                 backgroundImage="https://images.unsplash.com/photo-1486286701208-1d58e9338013?q=80&w=2070&auto=format&fit=crop"
