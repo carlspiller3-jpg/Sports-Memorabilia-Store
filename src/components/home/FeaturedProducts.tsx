@@ -67,13 +67,13 @@ export function FeaturedProducts() {
 
                 {/* Products Grid */}
                 {loading ? (
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
                         {[1, 2, 3, 4].map((i) => (
                             <div key={i} className="aspect-[3/4] bg-stone/10 animate-pulse rounded-sm" />
                         ))}
                     </div>
                 ) : (
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
                         {products.map((product) => (
                             <Link to={`/product/${product.handle}`} key={product.id} className="block">
                                 <ProductCard
