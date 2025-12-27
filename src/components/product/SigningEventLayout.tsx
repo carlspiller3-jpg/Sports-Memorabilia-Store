@@ -168,7 +168,7 @@ export function SigningEventLayout({ product }: SigningEventLayoutProps) {
                     {/* Left Col: Product Image (Sticky) - Reduced Size */}
                     <div className="lg:col-span-4 h-fit lg:sticky lg:top-8">
                         <div className="bg-white p-2 rounded-sm shadow-xl border border-white/20">
-                            <div className="aspect-square bg-stone-100 rounded-sm overflow-hidden relative">
+                            <div className="aspect-[4/3] bg-stone-100 rounded-sm overflow-hidden relative">
                                 <img
                                     src={product.images?.[0] || ""}
                                     alt={imageAlt}
