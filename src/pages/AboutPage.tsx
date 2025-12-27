@@ -32,7 +32,10 @@ export function AboutPage() {
                             We started the Sports Memorabilia Store because we were sick of the uncertainty. We wanted to buy items that we knew, without a doubt, were genuine. But we couldn't find a store we trusted 100%. So we built one.
                         </p>
                         <p className="text-lg text-charcoal/80 leading-relaxed font-light">
-                            Our process is simple: We cut out the middlemen and work directly with the athletes. We organize the signings. We witness the pen hitting the paper.
+                            Our process is straightforward: We do not buy stock from other dealers or the secondary market. We work closely with the athletes and their certified agents to arrange private signings.
+                        </p>
+                        <p className="text-lg text-charcoal/80 leading-relaxed font-light">
+                            We are in the room. We witness the pen hitting the paper. That is the only way to guarantee absolute authenticity.
                         </p>
                         <p className="text-lg text-charcoal/80 leading-relaxed font-light">
                             We don't rely on paper certificates that can be copied. We use digital technology to prove authenticity. And we frame everything properly, using materials that actually protect the item.
