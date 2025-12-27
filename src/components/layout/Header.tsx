@@ -23,7 +23,7 @@ export function Header() {
                             <a href="/" className="hover:text-gold transition-colors">Home</a>
                             <a href="/hub" className="hover:text-gold transition-colors">News</a>
                             <a href="/shop" className="hover:text-gold transition-colors">Shop</a>
-                            <a href="/collections" className="hover:text-gold transition-colors">Collections</a>
+
                             <a href="/about" className="hover:text-gold transition-colors">Our Story</a>
                             <a href="/verify" className="hover:text-gold transition-colors">Verify Authenticity</a>
                         </nav>
@@ -45,7 +45,7 @@ export function Header() {
                 <nav className="hidden md:flex items-center gap-8 text-sm font-medium text-navy/80">
                     <a href="/hub" className="hover:text-gold transition-colors">News</a>
                     <a href="/shop" className="hover:text-gold transition-colors">Shop</a>
-                    <a href="/collections" className="hover:text-gold transition-colors">Collections</a>
+
                     <a href="/about" className="hover:text-gold transition-colors">Our Story</a>
                     <a href="/verify" className="hover:text-gold transition-colors">Verify Authenticity</a>
                 </nav>
