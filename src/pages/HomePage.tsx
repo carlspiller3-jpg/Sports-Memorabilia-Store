@@ -117,8 +117,8 @@ export function HomePage() {
             </section>
 
             {/* Below the Fold Content */}
-            <AuthenticitySection />
             <PresentationSection />
+            <AuthenticitySection />
         </div>
     )
 }
