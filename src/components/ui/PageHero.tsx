@@ -5,24 +5,24 @@ interface PageHeroProps {
     compact?: boolean
 }
 
-export function PageHero({ title, subtitle, backgroundImage, compact = false }: PageHeroProps) {
-    const bgImage = backgroundImage || "https://images.unsplash.com/photo-1522778119026-d647f0565c6a?q=80&w=2070&auto=format&fit=crop"
-    
+export function PageHero({ title, subtitle, compact = false }: PageHeroProps) {
+
     return (
-        <div className={`bg-charcoal text-ivory ${compact ? 'py-8' : 'py-16 md:py-24'} relative overflow-hidden border-b border-stone/10`}>
-            <div 
-                className="absolute inset-0 opacity-20 bg-cover bg-center" 
-                style={{ backgroundImage: `url('${bgImage}')` }}
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-charcoal to-transparent" />
+        <div className={`bg-[#F9F9F7] ${compact ? 'py-12' : 'py-20 md:py-28'} relative overflow-hidden border-b border-stone/10`}>
+            {/* Background Texture/Blur - consistent with Home Hero */}
+            <div className="absolute top-0 right-0 -translate-y-1/2 translate-x-1/2 w-[500px] h-[500px] bg-gold/5 blur-[120px] rounded-full opacity-50 pointer-events-none" />
+            <div className="absolute bottom-0 left-0 translate-y-1/2 -translate-x-1/2 w-[500px] h-[500px] bg-navy/5 blur-[120px] rounded-full opacity-50 pointer-events-none" />
+
             <div className="container mx-auto px-4 relative z-10 text-center">
-                <h1 className={`${compact ? 'text-3xl md:text-4xl' : 'text-4xl md:text-5xl lg:text-6xl'} font-serif font-bold mb-${compact ? '2' : '4'}`}>
+                <h1 className={`${compact ? 'text-4xl md:text-5xl' : 'text-5xl md:text-6xl lg:text-7xl'} font-serif font-bold mb-${compact ? '3' : '6'} text-navy tracking-tight`}>
                     {title}
                 </h1>
                 {subtitle && (
-                    <p className={`${compact ? 'text-sm' : 'text-lg md:text-xl'} text-ivory/${compact ? '70' : '80'} max-w-2xl mx-auto font-light`}>
-                        {subtitle}
-                    </p>
+                    <div className="relative inline-block">
+                        <p className={`${compact ? 'text-base' : 'text-lg md:text-xl'} text-charcoal/70 max-w-2xl mx-auto font-light leading-relaxed`}>
+                            {subtitle}
+                        </p>
+                    </div>
                 )}
             </div>
         </div>
