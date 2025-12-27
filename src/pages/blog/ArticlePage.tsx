@@ -18,13 +18,19 @@ export function ArticlePage() {
                 <article className="max-w-3xl mx-auto bg-white rounded-xl shadow-sm border border-navy/5 overflow-hidden">
 
                     {/* Header Image Area */}
-                    <div className="h-64 md:h-80 bg-navy relative overflow-hidden">
+                    <div className="h-64 md:h-80 bg-navy relative overflow-hidden flex items-center justify-center">
                         <img
                             src="https://images.unsplash.com/photo-1461896836934-ffe607ba8211?q=80&w=2070&auto=format&fit=crop"
                             alt="Sports Memorabilia Details"
-                            className="w-full h-full object-cover opacity-80"
+                            className="absolute inset-0 w-full h-full object-cover opacity-60"
                         />
-                        <div className="absolute inset-0 bg-gradient-to-t from-navy/80 to-transparent" />
+                        <div className="absolute inset-0 bg-gradient-to-t from-navy/90 to-navy/30" />
+
+                        <img
+                            src="/logo-transparent.png"
+                            alt="Sports Memorabilia Store"
+                            className="relative z-10 h-20 md:h-24 w-auto object-contain brightness-0 invert opacity-90"
+                        />
                     </div>
 
                     <div className="p-8 md:p-12">
