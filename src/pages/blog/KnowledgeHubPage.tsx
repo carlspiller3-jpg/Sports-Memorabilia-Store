@@ -5,6 +5,13 @@ import { ArrowRight, BookOpen, TrendingUp, History, ShieldCheck } from "lucide-r
 export function KnowledgeHubPage() {
     const navigate = useNavigate();
 
+    // Filter articles to only show published ones (Date <= Today)
+    const publishedArticles = articles.filter(article => new Date(article.date) <= new Date());
+
+    // Use publishedArticles instead of articles for display
+    const featuredArticle = publishedArticles[0];
+    const gridArticles = publishedArticles.slice(1);
+
     const getIcon = (category: string) => {
         switch (category) {
             case "Analysis": return <TrendingUp className="w-4 h-4" />;
@@ -28,36 +35,38 @@ export function KnowledgeHubPage() {
                     </div>
 
                     {/* Featured / Hero Article (First one) */}
-                    <div
-                        className="group cursor-pointer bg-white rounded-xl shadow-sm border border-navy/5 overflow-hidden mb-12 hover:shadow-md transition-all"
-                        onClick={() => navigate(`/hub/${articles[0].slug}`)}
-                    >
-                        <div className="grid md:grid-cols-2 gap-0">
-                            <div className="bg-navy/10 h-64 md:h-auto flex items-center justify-center">
-                                {/* Placeholder Image Area */}
-                                <BookOpen className="w-16 h-16 text-navy/20" />
-                            </div>
-                            <div className="p-8 flex flex-col justify-center">
-                                <div className="flex items-center gap-2 text-gold font-bold text-sm uppercase tracking-wider mb-4">
-                                    {getIcon(articles[0].category)}
-                                    {articles[0].category}
+                    {featuredArticle && (
+                        <div
+                            className="group cursor-pointer bg-white rounded-xl shadow-sm border border-navy/5 overflow-hidden mb-12 hover:shadow-md transition-all"
+                            onClick={() => navigate(`/hub/${featuredArticle.slug}`)}
+                        >
+                            <div className="grid md:grid-cols-2 gap-0">
+                                <div className="bg-navy/10 h-64 md:h-auto flex items-center justify-center">
+                                    {/* Placeholder Image Area */}
+                                    <BookOpen className="w-16 h-16 text-navy/20" />
                                 </div>
-                                <h2 className="font-serif text-2xl md:text-3xl text-navy mb-4 group-hover:text-gold transition-colors">
-                                    {articles[0].title}
-                                </h2>
-                                <p className="text-navy/70 mb-6 line-clamp-3">
-                                    {articles[0].excerpt}
-                                </p>
-                                <span className="text-navy font-bold flex items-center gap-2 text-sm">
-                                    Read Article <ArrowRight className="w-4 h-4" />
-                                </span>
+                                <div className="p-8 flex flex-col justify-center">
+                                    <div className="flex items-center gap-2 text-gold font-bold text-sm uppercase tracking-wider mb-4">
+                                        {getIcon(featuredArticle.category)}
+                                        {featuredArticle.category}
+                                    </div>
+                                    <h2 className="font-serif text-2xl md:text-3xl text-navy mb-4 group-hover:text-gold transition-colors">
+                                        {featuredArticle.title}
+                                    </h2>
+                                    <p className="text-navy/70 mb-6 line-clamp-3">
+                                        {featuredArticle.excerpt}
+                                    </p>
+                                    <span className="text-navy font-bold flex items-center gap-2 text-sm">
+                                        Read Article <ArrowRight className="w-4 h-4" />
+                                    </span>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    )}
 
                     {/* Grid for the rest */}
                     <div className="grid md:grid-cols-2 gap-8">
-                        {articles.slice(1).map((article) => (
+                        {gridArticles.map((article) => (
                             <div
                                 key={article.id}
                                 className="group cursor-pointer bg-white rounded-xl shadow-sm border border-navy/5 overflow-hidden hover:shadow-md transition-all flex flex-col"

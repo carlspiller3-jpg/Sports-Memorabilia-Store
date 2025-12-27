@@ -308,5 +308,45 @@ export const articles: BlogPost[] = [
       <h3>Step 6: Return</h3>
       <p>Once signed, your item is authenticated (NFC Tag applied where possible, or separate COA card if item texture doesn't permit adhesion), repackaged securely, and sent back to you via our own insured courier.</p>
     `
+  },
+  {
+    id: "12",
+    title: "Market Watch: The Transfer Window Effect",
+    slug: "market-watch-transfer-window-effect",
+    date: "2026-01-17",
+    author: "Market Analyst",
+    category: "Analysis",
+    excerpt: "Does a big money move destroy the value of a signed shirt from a player's previous club? We crunch the numbers.",
+    imageUrl: "/placeholder-article-transfer.jpg",
+    content: `
+      <h2>The 'Dead' Shirt Myth</h2>
+      <p>When a hero leaves, fans burn shirts. But investors? They hold.</p>
+      
+      <h3>The 'Legacy' Lock</h3>
+      <p>When Cristiano Ronaldo left Manchester United (the first time) for Real Madrid, his United items didn't drop. They became 'Legacy' items. They represented a specific, closed chapter of history. A signed 2008 United shirt is worth significantly more than a 2012 Real Madrid shirt, simply because that era is finished and finite.</p>
+
+      <h3>The 'Villain' Dip</h3>
+      <p>However, if a player forces a move to a bitter rival (e.g., Sol Campbell to Arsenal), the market can freeze. The 'fan' demand evaporates, leaving only the 'investor' demand. This usually causes a short-term price dip (approx 15-20%) before stabilizing as historical significance takes over years later.</p>
+    `
+  },
+  {
+    id: "13",
+    title: "Trend Report: The Rise of The Lionesses",
+    slug: "trend-report-lionesses-memorabilia",
+    date: "2026-01-24",
+    author: "The Authenticator",
+    category: "Analysis",
+    excerpt: "Women's football is the fastest growing sport on earth. Here is why early-era Lionesses signatures are the smartest buy in 2026.",
+    imageUrl: "/placeholder-article-lionesses.jpg",
+    content: `
+      <h2>The Undervalued Asset Class</h2>
+      <p>In 2026, the WSL is a global powerhouse. But looking back at signed items from the 2022 Euros, we see a massive supply shock coming.</p>
+
+      <h3>Accessibility vs Scarcity</h3>
+      <p>Historically, women's players were very accessible. You could get a shirt signed over a fence easily. But as stadiums grow and security tightens, 'in-the-wild' signatures are disappearing. We are moving to a paid-signing model, just like the men's game.</p>
+
+      <h3>The Williamson / Mead Index</h3>
+      <p>Items signed by the Euro 2022 winning spine (Williamson, Mead, Russo) have outperformed the FTSE 100 over the last 3 years. Why? Because they represent a 'First Mover' moment in cultural history, not just sport.</p>
+    `
   }
 ];

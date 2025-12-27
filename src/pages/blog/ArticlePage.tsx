@@ -7,8 +7,9 @@ export function ArticlePage() {
     const { slug } = useParams();
     const navigate = useNavigate();
     const article = articles.find((a) => a.slug === slug);
+    const isFuture = article && new Date(article.date) > new Date();
 
-    if (!article) {
+    if (!article || isFuture) {
         return <NotFoundPage />; // Or generic 404
     }
 
