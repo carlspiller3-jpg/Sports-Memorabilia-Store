@@ -256,11 +256,18 @@ export function SigningEventLayout({ product }: SigningEventLayoutProps) {
                                 <div className="space-y-4 relative z-10">
                                     <div className="bg-white p-4 rounded-sm border border-stone/10 text-sm text-navy/80 leading-relaxed">
                                         <p className="font-bold mb-2">How Send-In Works:</p>
-                                        <ol className="list-decimal pl-5 space-y-1">
-                                            <li>Complete your purchase here.</li>
-                                            <li>You will receive an email with our <strong>Secure Depot Address</strong>.</li>
+                                        <ol className="list-decimal pl-5 space-y-2">
+                                            <li>Complete your purchase here to get your <strong>Order #</strong>.</li>
+                                            <li>
+                                                <strong>Label your item safely:</strong>
+                                                <ul className="list-disc pl-4 mt-1 text-xs text-navy/70 space-y-1">
+                                                    <li><strong>Photos:</strong> Write Order # lightly on the BACK in pencil.</li>
+                                                    <li><strong>Shirts/Gloves:</strong> Pin/Tie a visible tag to the item.</li>
+                                                    <li><span className="text-red-600 font-bold">WARNING:</span> Never stick tape directly on the item surface.</li>
+                                                </ul>
+                                            </li>
                                             <li>Post your item to us (Tracked & Insured).</li>
-                                            <li>We get it signed and post it back to you.</li>
+                                            <li>We sign it and ship it back.</li>
                                         </ol>
                                         <div className="pt-3 mt-3 border-t border-stone/10">
                                             <a href="/hub/guide-to-send-in-autographs" target="_blank" rel="noopener noreferrer" className="text-gold hover:text-charcoal transition-colors font-bold flex items-center gap-1">

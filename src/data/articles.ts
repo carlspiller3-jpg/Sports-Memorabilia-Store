@@ -290,13 +290,22 @@ export const articles: BlogPost[] = [
       </ul>
       </p>
 
-      <h3>Step 3: Post & Insurance</h3>
+      <h3>Step 3: Labeling (Don't Skip This!)</h3>
+      <p>We need to know the item is yours.
+      <ul class="list-disc ml-6 mt-2 space-y-2">
+        <li><strong>Photos:</strong> Gently write your Order # on the BACK in pencil. Do not use heavy pressure. Do not use stickers on the front.</li>
+        <li><strong>Shirts/Gloves:</strong> Tie a tag to the label/buttonhole/cuff with your Order #.</li>
+        <li><strong>Strict Rule:</strong> Never apply adhesive tape directly to the item's surface.</li>
+      </ul>
+      </p>
+
+      <h3>Step 4: Post & Insurance</h3>
       <p>We <strong>strongly recommend</strong> using a tracked and insured service (e.g., Royal Mail Special Delivery). We cannot be held responsible for items that go missing on their way to us.</p>
 
-      <h3>Step 4: The Signing</h3>
+      <h3>Step 5: The Signing</h3>
       <p>Our team handles your item with white gloves. We will attempt to accommodate specific requests (e.g., "Sign on the number", "Dedicate to Toom"), but these are at the athlete's discretion and cannot be 100% guaranteed.</p>
 
-      <h3>Step 5: Return</h3>
+      <h3>Step 6: Return</h3>
       <p>Once signed, your item is authenticated (NFC Tag applied where possible, or separate COA card if item texture doesn't permit adhesion), repackaged securely, and sent back to you via our own insured courier.</p>
     `
   }
