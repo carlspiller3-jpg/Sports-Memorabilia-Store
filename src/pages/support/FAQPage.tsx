@@ -49,7 +49,7 @@ export function FAQPage() {
         },
         {
             question: "Do you offer gift wrapping?",
-            answer: "All items are delivered in our signature premium packaging, which is elegant and gift-ready. If you'd like a personalized gift message included, please add a note at checkout and we'll include it with your order."
+            answer: "All items are delivered in our signature premium packaging, which is elegant and gift-ready. If you'd like a personalised gift message included, please add a note at checkout and we'll include it with your order."
         },
         {
             question: "Can I collect my order in person?",

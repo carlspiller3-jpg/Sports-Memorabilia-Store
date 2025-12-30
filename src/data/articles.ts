@@ -8,7 +8,20 @@ export interface BlogPost {
   category: "Analysis" | "History" | "Education" | "News";
   slug: string;
   imageUrl: string;
+  // SEO & Automation Fields
+  seo_title: string;
+  seo_description: string;
+  seo_keywords: string[];
 }
+
+/**
+ * CONTENT STYLE GUIDE (Automation Rules)
+ * --------------------------------------
+ * 1. Tone: Authoritative but conversational. "Smart pub talk".
+ * 2. Language: STRICT British English (colour, realised, centre, football not soccer).
+ * 3. Typography: Use variable sentence length. Avoid "AI lists". Use <h2> and <h3> for scanning.
+ * 4. SEO: Primary keyword in H1 and first 100 words. Meta description under 160 chars.
+ */
 
 export const articles: BlogPost[] = [
   {
@@ -20,6 +33,9 @@ export const articles: BlogPost[] = [
     category: "Education",
     excerpt: "Don't get stung by forgeries. We break down the 5 key signs of a fake autograph, from 'dotting' to the pen pressure test.",
     imageUrl: "/placeholder-article-1.jpg",
+    seo_title: "How to Spot Fake Signed Shirts | Authentication Guide",
+    seo_description: "Learn the expert tricks to spotting a fake autograph. Our comprehensive guide covers the dotting technique, pen pressure, and verification methods.",
+    seo_keywords: ["fake signed shirt", "autograph authentication", "sports memorabilia fakes", "signed shirt guide", "genuine autograph"],
     content: `
       <h2>The Plague of Fakes</h2>
       <p>The memorabilia market is flooded with fakes. Some estimates suggest up to 80% of "signed" items on general auction sites are largely worthless. As a buyer, your best defence is knowledge.</p>
@@ -47,6 +63,9 @@ export const articles: BlogPost[] = [
     category: "Analysis",
     excerpt: "We dive into the auction results this week to understand why certain modern shirts are skyrocketing in value.",
     imageUrl: "/placeholder-article-2.jpg",
+    seo_title: "Messi World Cup Shirt Value Analysis | Sports Memorabilia Investment",
+    seo_description: "Why did a Messi shirt sell for £5,000? We analyse the 'Goat Effect', scarcity of match-spec shirts, and future investment potential.",
+    seo_keywords: ["Messi signed shirt value", "sports memorabilia investment", "match worn vs replica", "Messi world cup shirt", "football collectibles"],
     content: `
       <h2>The "Goat" Effect</h2>
       <p>This week, a 2022 Argentina Home Shirt signed by Lionel Messi hammered at a specialist auction for over £5,000. For a modern shirt, this is exceptional. Why?</p>
@@ -70,6 +89,9 @@ export const articles: BlogPost[] = [
     category: "History",
     excerpt: "Looking back at the most famous afternoon in English football history, and the rising value of the 'Boys of 66' signatures.",
     imageUrl: "/placeholder-article-3.jpg",
+    seo_title: "1966 World Cup Final Memorabilia Value | England Squad Signatures",
+    seo_description: "A look at the rising value of autographs from the 1966 World Cup squad. Why Bobby Moore signatures are the anchor of any serious collection.",
+    seo_keywords: ["1966 World Cup signed", "Bobby Moore autograph value", "England 1966 memorabilia", "Geoff Hurst signed shirt", "football history"],
     content: `
       <h2>They Think It's All Over...</h2>
       <p>It is now!</p>
@@ -91,6 +113,9 @@ export const articles: BlogPost[] = [
     category: "Education",
     excerpt: "Why we abandoned paper certificates for blockchain technology, and why your collection's value depends on it.",
     imageUrl: "/placeholder-article-4.jpg",
+    seo_title: "Digital COA vs Paper Authenticity for Memorabilia",
+    seo_description: "Why paper Certificates of Authenticity are obsolete. Discover how NFC and blockchain technology are revolutionising sports memorabilia security.",
+    seo_keywords: ["digital COA", "blockchain authentication", "NFC sports memorabilia", "paper certificate of authenticity fake", "secure collections"],
     content: `
       <h2>The Paper Problem</h2>
       <p>For decades, the sports memorabilia industry has relied on a piece of A4 paper to prove that an item is worth thousands of pounds. This is madness.</p>
@@ -122,6 +147,9 @@ export const articles: BlogPost[] = [
     category: "Analysis",
     excerpt: "Understanding the massive value gap between a signed fan shirt and a signed player-spec shirt.",
     imageUrl: "/placeholder-article-5.jpg",
+    seo_title: "Match Worn vs Replica Shirt Investment Guide",
+    seo_description: "What is the difference between Match Worn, Player Spec, and Replica shirts? An investment guide for sports memorabilia collectors.",
+    seo_keywords: ["match worn shirt value", "player spec vs replica", "investing in football shirts", "signed shirt tiers", "sports memorabilia guide"],
     content: `
       <h2>Not All Shirts Are Created Equal</h2>
       <p>When you see a signed shirt selling for £150 and another, seemingly identical one selling for £1,500, the difference is usually in the fabric itself.</p>
@@ -138,7 +166,7 @@ export const articles: BlogPost[] = [
         </li>
         <li>
             <span class="block text-gold">Match Worn</span>
-            <span class="block text-sm font-normal text-navy/70">The Holy Grail. A shirt that has physically been on the back of the player during a game. Unwashed, these carry the dna of the match.</span>
+            <span class="block text-sm font-normal text-navy/70">The Holy Grail. A shirt that has physically been on the back of the player during a game. Unwashed, these carry the DNA of the match.</span>
         </li>
       </ol>
 
@@ -155,6 +183,9 @@ export const articles: BlogPost[] = [
     category: "History",
     excerpt: "Nev, Becks, Scholesy, Giggs, Butt, Phil. The story of the most famous academy graduates in history and their autograph legacy.",
     imageUrl: "/placeholder-article-6.jpg",
+    seo_title: "Class of 92 Signed Memorabilia | Manchester United History",
+    seo_description: "A guide to collecting Class of '92 autographs. From Beckham's ever-changing signature to the elusive Paul Scholes.",
+    seo_keywords: ["Class of 92 signed shirt", "David Beckham autograph", "Paul Scholes signed info", "Man Utd 1999 memorabilia", "collectible autographs"],
     content: `
       <h2>The Academy That Changed Everything</h2>
       <p>Manchester United's 1992 FA Youth Cup winning side didn't just win trophies; they became a global brand. Beckham, Scholes, Giggs, Neville (x2), and Butt.</p>
@@ -178,6 +209,9 @@ export const articles: BlogPost[] = [
     category: "Analysis",
     excerpt: "Forget the Ballon d'Or. Who wins the battle of the bank balance? We analyse the appreciation value of the two GOATs.",
     imageUrl: "/placeholder-article-7.jpg",
+    seo_title: "Ronaldo vs Messi Memorabilia Investment Index",
+    seo_description: "Investment analysis of Messi vs Ronaldo memorabilia. Why Messi's World Cup items are peaking and where the value lies in Ronaldo's career.",
+    seo_keywords: ["Messi signed shirt value", "Ronaldo autograph price", "investing in GOAT memorabilia", "Messi World Cup items", "CR7 signed shirt investment"],
     content: `
       <h2>The Endless Debate</h2>
       <p>On the pitch, it's a matter of taste. In the investment market, it's a matter of data.</p>
@@ -201,6 +235,9 @@ export const articles: BlogPost[] = [
     category: "Education",
     excerpt: "The sun is the enemy. How to stop your £500 shirt turning into a faded rag.",
     imageUrl: "/placeholder-article-8.jpg",
+    seo_title: "Sports Memorabilia Framing Guide | UV Protection Explained",
+    seo_description: "Protect your signed shirts from fading. Why UV-protective conservation glass is essential for sports memorabilia collectors.",
+    seo_keywords: ["framing signed shirts", "UV protection for memorabilia", "faded autograph fix", "conservation framing guide", "display sports memorabilia"],
     content: `
       <h2>The Invisible Killer</h2>
       <p>You hang your signed shirt on the wall. It looks great. Two years later, the signature has turned from sharp black to a ghostly brown. Why? UV Radiation.</p>
@@ -225,6 +262,9 @@ export const articles: BlogPost[] = [
     category: "Education",
     excerpt: "Don't know your offside from your goal kick? Here is how to buy for the football fanatic in your life without getting it wrong.",
     imageUrl: "/placeholder-article-9.jpg",
+    seo_title: "Football Memorabilia Gift Buying Guide",
+    seo_description: "The ultimate guide to buying sports memorabilia gifts. How to choose the right player, team, and era for the football fan in your life.",
+    seo_keywords: ["sports memorabilia gifts", "football fan gift ideas", "signed shirt gift guide", "best sports gifts 2026", "soccer memorabilia presents"],
     content: `
       <h2>The Fear of Getting it Wrong</h2>
       <p>Buying football gifts is high stakes. Buy a Liverpool fan a generic "football" gift and they will hate it. It has to be specific.</p>
@@ -232,7 +272,7 @@ export const articles: BlogPost[] = [
       <h3>Step 1: The Tribe</h3>
       <p>Find out exactly who they support. Not just "Football". "Arsenal". If you get this wrong, the gift is toxic.</p>
 
-      <h3>Step 2: The Erat</h3>
+      <h3>Step 2: The Era</h3>
       <p>How old are they?
       <ul class="list-disc ml-6">
         <li><strong>Under 20:</strong> Buy current players (Saka, Haaland, Bellingham).</li>
@@ -254,15 +294,18 @@ export const articles: BlogPost[] = [
     category: "Analysis",
     excerpt: "Nostalgia is the biggest driver of price. The kids of the 90s now have money, and they want their childhood back.",
     imageUrl: "/placeholder-article-10.jpg",
+    seo_title: "The Boom in 1990s Football Memorabilia | Investment Analysis",
+    seo_description: "Why signatures from 1990s Premier League icons are skyrocketing in value. The 30-year nostalgia cycle explained for collectors.",
+    seo_keywords: ["90s football memorabilia", "Premier League nostalgia", "investing in 90s autographs", "Cantona signed shirt", "nostalgia cycle collectibles"],
     content: `
       <h2>The 30-Year Rule</h2>
       <p>Collectibles markets operate on a 30-year nostalgia cycle. When a generation reaches their peak earning years (35-50), they start buying back the toys and heroes of their youth.</p>
 
       <h3>The Premier League Boom</h3>
-      <p>The 90s was the birth of the Premier League. The kits were baggy, the collars were huge, and the personalities were massive capable (Cantona, Gazza, Wright). These items have a cult status that modern, clinical football lacks.</p>
+      <p>The 90s was the birth of the Premier League. The kits were baggy, the collars were huge, and the personalities were massive (Cantona, Gazza, Wright). These items have a cult status that modern, clinical football lacks.</p>
 
       <h3>The Scarcity</h3>
-      <p>In the 90s, organized signing sessions were rare. Most signatures were obtained "in the wild" (outside training grounds). This makes verifying them harder, but finding a pristine, verified example incredibly valuable.</p>
+      <p>In the 90s, organised signing sessions were rare. Most signatures were obtained "in the wild" (outside training grounds). This makes verifying them harder, but finding a pristine, verified example incredibly valuable.</p>
     `
   },
   {
@@ -274,6 +317,9 @@ export const articles: BlogPost[] = [
     category: "Education",
     excerpt: "Everything you need to know about our Send-In service. How to pack, what to send, and how to ensure your item returns safely signed.",
     imageUrl: "/placeholder-article-sendin.jpg",
+    seo_title: "How to Send Your Item for Autographing | Send-In Guide",
+    seo_description: "Complete guide to our Autograph Send-In Service. Learn how to pack, label, and insure your personal items for signing events.",
+    seo_keywords: ["send in autograph service", "get my shirt signed", "autograph signing event packing", "sports memorabilia signing service", "fan mail guide"],
     content: `
       <h2>Turn Your Own Item into a Legend</h2>
       <p>Have a shirt you've owned for years? A photo you took yourself? Our Send-In Service allows you to get your personal items signed by the world's biggest athletes.</p>
@@ -294,7 +340,7 @@ export const articles: BlogPost[] = [
       <p>We need to know the item is yours.
       <ul class="list-disc ml-6 mt-2 space-y-2">
         <li><strong>Photos:</strong> Gently write your Order # on the BACK in pencil. Do not use heavy pressure. Do not use stickers on the front.</li>
-        <li><strong>Shirts/Gloves:</strong> Tie a tag to the label/buttonhole/cuff with your Order #.</li>
+        <li><strong>Shirts:</strong> Fold neatly and place in a waterproof bag inside a padded envelope/box.</li>
         <li><strong>Strict Rule:</strong> Never apply adhesive tape directly to the item's surface.</li>
       </ul>
       </p>
@@ -318,6 +364,9 @@ export const articles: BlogPost[] = [
     category: "Analysis",
     excerpt: "Does a big money move destroy the value of a signed shirt from a player's previous club? We crunch the numbers.",
     imageUrl: "/placeholder-article-transfer.jpg",
+    seo_title: "Transfer Window Impact on Memorabilia Value | Market Watch",
+    seo_description: "Does a player transfer affect the value of their old shirts? We analyse the 'Legacy Lock' vs the 'Villain Dip' in sports investments.",
+    seo_keywords: ["football transfer market value", "Ronaldo Man Utd shirt value", "sports memorabilia investment tips", "signed shirt transfer value", "player transfers"],
     content: `
       <h2>The 'Dead' Shirt Myth</h2>
       <p>When a hero leaves, fans burn shirts. But investors? They hold.</p>
@@ -326,7 +375,7 @@ export const articles: BlogPost[] = [
       <p>When Cristiano Ronaldo left Manchester United (the first time) for Real Madrid, his United items didn't drop. They became 'Legacy' items. They represented a specific, closed chapter of history. A signed 2008 United shirt is worth significantly more than a 2012 Real Madrid shirt, simply because that era is finished and finite.</p>
 
       <h3>The 'Villain' Dip</h3>
-      <p>However, if a player forces a move to a bitter rival (e.g., Sol Campbell to Arsenal), the market can freeze. The 'fan' demand evaporates, leaving only the 'investor' demand. This usually causes a short-term price dip (approx 15-20%) before stabilizing as historical significance takes over years later.</p>
+      <p>However, if a player forces a move to a bitter rival (e.g., Sol Campbell to Arsenal), the market can freeze. The 'fan' demand evaporates, leaving only the 'investor' demand. This usually causes a short-term price dip (approx 15-20%) before stabilising as historical significance takes over years later.</p>
     `
   },
   {
@@ -338,6 +387,9 @@ export const articles: BlogPost[] = [
     category: "Analysis",
     excerpt: "Women's football is the fastest growing sport on earth. Here is why early-era Lionesses signatures are the smartest buy in 2026.",
     imageUrl: "/placeholder-article-lionesses.jpg",
+    seo_title: "Investing in Lionesses Memorabilia | Women's Football Growth",
+    seo_description: "Why early-era Lionesses signatures are undervalued. A trend report on the booming market for women's football memorabilia.",
+    seo_keywords: ["Lionesses signed shirt", "women's football memorabilia", "investment in women's sports", "Leah Williamson autograph", "Beth Mead signed"],
     content: `
       <h2>The Undervalued Asset Class</h2>
       <p>In 2026, the WSL is a global powerhouse. But looking back at signed items from the 2022 Euros, we see a massive supply shock coming.</p>
@@ -347,6 +399,29 @@ export const articles: BlogPost[] = [
 
       <h3>The Williamson / Mead Index</h3>
       <p>Items signed by the Euro 2022 winning spine (Williamson, Mead, Russo) have outperformed the FTSE 100 over the last 3 years. Why? Because they represent a 'First Mover' moment in cultural history, not just sport.</p>
+    `
+  },
+  {
+    id: "14",
+    title: "The Ally Pally Effect: Darts Memorabilia Hitting the Bullseye",
+    slug: "ally-pally-darts-memorabilia-boom",
+    date: "2025-12-29",
+    author: "Market Analyst",
+    category: "News",
+    excerpt: "As the 2026 World Championship reaches its climax, we look at why the flight of the dart is matching the flight of the market.",
+    imageUrl: "/placeholder-article-darts.jpg",
+    seo_title: "PDC World Darts Championship Memorabilia Boom | 2026 Trends",
+    seo_description: "The 2026 World Darts Championship is driving a massive boom in memorabilia. Discover why 'Match Used' darts and flights are the new gold standard.",
+    seo_keywords: ["darts memorabilia", "PDC World Championship signed", "Luke Littler signed shirt", "investing in darts", "match used darts value"],
+    content: `
+      <h2>Stand Up If You Love The Darts</h2>
+      <p>With the 2026 World Championship at Alexandra Palace currently gripping the nation, we are seeing a massive spike in inquiries for darts memorabilia.</p>
+
+      <h3>The "Littler" Legacy</h3>
+      <p>Following the explosion of interest in 2024, darts has firmly established itself as a tier-1 collectibles market. We are seeing match-used flights and signed shirts from the "New Era" of superstars commanding prices that rival Premier League footballers.</p>
+
+      <h3>What to Buy?</h3>
+      <p>For investors, <strong>Match Used</strong> is king. A set of darts actually thrown on the Ally Pally stage is the ultimate prize. For casual collectors, signed replica shirts from the finalists offer a great entry point into a sport that is only getting bigger.</p>
     `
   }
 ];

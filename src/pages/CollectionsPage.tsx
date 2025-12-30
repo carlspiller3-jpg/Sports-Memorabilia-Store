@@ -55,7 +55,7 @@ export function CollectionsPage() {
                 <meta name="description" content="Explore our curated collections of authentic sports memorabilia. From Liverpool Legends to Premier League icons." />
             </Helmet>
 
-            <PageHero 
+            <PageHero
                 title="Collections"
                 subtitle="Browse authentic memorabilia organised by team, league, and item type."
                 backgroundImage="https://images.unsplash.com/photo-1624880357913-a8539238245b?q=80&w=2070&auto=format&fit=crop"
