@@ -3,6 +3,7 @@ import { Link } from "react-router-dom"
 import { TrustIndicators } from "./TrustIndicators"
 
 export function Hero() {
+  // Trigger Vercel Build - Force Update
   return (
     <section className="relative w-full min-h-screen flex flex-col justify-between">
       {/* Background Image */}
