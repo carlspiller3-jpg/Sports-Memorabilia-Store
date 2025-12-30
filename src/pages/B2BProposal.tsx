@@ -163,12 +163,20 @@ export function B2BProposal() {
 
             <style>{`
         @media print {
+            @page { 
+                margin: 0; 
+                size: auto;
+            }
             body { 
                 background: white; 
+                margin: 0;
                 -webkit-print-color-adjust: exact !important;
                 print-color-adjust: exact !important;
             }
-            .no-print { display: none; }
+            /* Hide absolute everything except the content container */
+            header, footer, nav, .no-print, [data-cart-trigger] { 
+                display: none !important; 
+            }
         }
       `}</style>
         </div >

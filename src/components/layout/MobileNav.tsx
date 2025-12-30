@@ -26,7 +26,7 @@ export function MobileNav() {
     }
 
     return (
-        <nav className="md:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-stone/10 z-50 safe-area-bottom">
+        <nav className="md:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-stone/10 z-50 safe-area-bottom print:hidden">
             <div className="flex justify-around items-center h-16">
                 {navItems.map((item) => {
                     const isActive = location.pathname === item.href
@@ -37,9 +37,8 @@ export function MobileNav() {
                             <button
                                 key={item.label}
                                 onClick={handleCartClick}
-                                className={`flex flex-col items-center gap-1 p-2 min-w-[60px] transition-colors ${
-                                    isActive ? "text-gold" : "text-navy/60"
-                                }`}
+                                className={`flex flex-col items-center gap-1 p-2 min-w-[60px] transition-colors ${isActive ? "text-gold" : "text-navy/60"
+                                    }`}
                             >
                                 <div className="relative">
                                     <Icon className="w-6 h-6" />
@@ -58,9 +57,8 @@ export function MobileNav() {
                         <Link
                             key={item.label}
                             to={item.href}
-                            className={`flex flex-col items-center gap-1 p-2 min-w-[60px] transition-colors ${
-                                isActive ? "text-gold" : "text-navy/60"
-                            }`}
+                            className={`flex flex-col items-center gap-1 p-2 min-w-[60px] transition-colors ${isActive ? "text-gold" : "text-navy/60"
+                                }`}
                         >
                             <div className="relative">
                                 <Icon className="w-6 h-6" />
