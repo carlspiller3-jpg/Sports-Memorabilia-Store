@@ -29,12 +29,12 @@ export function B2BProposal() {
                 className="mx-auto bg-white w-[210mm] min-h-[297mm] shadow-2xl print:shadow-none print:w-full print:h-full print:m-0 flex flex-col relative overflow-hidden"
             >
                 {/* Header Section */}
-                <div className="bg-navy px-12 py-16 text-white relative overflow-hidden print:break-inside-avoid">
+                <div className="bg-navy px-12 py-10 text-white relative overflow-hidden print:break-inside-avoid">
                     {/* Background Pattern */}
                     <div className="absolute top-0 right-0 w-64 h-64 bg-gold/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
 
                     <div className="relative z-10">
-                        <div className="flex justify-between items-start mb-12">
+                        <div className="flex justify-between items-start mb-8">
                             <img
                                 src="/logo-transparent.png"
                                 alt="Sports Memorabilia Store"
@@ -47,7 +47,7 @@ export function B2BProposal() {
                             </div>
                         </div>
 
-                        <h1 className="font-serif text-5xl font-bold leading-tight mb-6">
+                        <h1 className="font-serif text-4xl font-bold leading-tight mb-4">
                             Authentic. Rare. <br />
                             <span className="text-gold">Legendary.</span>
                         </h1>
@@ -59,10 +59,10 @@ export function B2BProposal() {
                 </div>
 
                 {/* Main Content */}
-                <div className="px-12 py-12 flex-1 text-charcoal text-justify">
+                <div className="px-12 py-8 flex-1 text-charcoal text-justify">
 
                     {/* The Problem & Solution */}
-                    <div className="grid grid-cols-2 gap-12 mb-12">
+                    <div className="grid grid-cols-2 gap-8 mb-8">
                         <div>
                             <h3 className="text-gold font-bold uppercase tracking-wider text-xs mb-3">The Issue</h3>
                             <h2 className="font-serif text-2xl text-navy mb-4 font-bold">Most of it is fake.</h2>
@@ -87,13 +87,13 @@ export function B2BProposal() {
 
                     {/* Framed Example Image */}
                     {/* Framed Example Showcase */}
-                    <div className="mb-12 flex flex-row items-center gap-8">
+                    <div className="mb-8 flex flex-row items-center gap-6">
                         {/* Image - Left Aligned */}
                         <div className="shrink-0">
                             <img
                                 src="/boardroom-framed-cropped.png"
                                 alt="Framed memorabilia in boardroom"
-                                className="h-56 w-auto rounded-xl shadow-2xl border border-navy/10"
+                                className="h-48 w-auto rounded-xl shadow-2xl border border-navy/10"
                             />
                         </div>
 
@@ -106,12 +106,12 @@ export function B2BProposal() {
                         </div>
                     </div>
 
-                    <hr className="border-gray-200 mb-12" />
+                    <hr className="border-gray-200 mb-8" />
 
                     {/* Opportunities */}
-                    <h2 className="font-serif text-3xl text-navy mb-8 font-bold">What we offer</h2>
+                    <h2 className="font-serif text-2xl text-navy mb-6 font-bold">What we offer</h2>
 
-                    <div className="space-y-8">
+                    <div className="space-y-4">
                         {/* Item 1 */}
                         <div className="flex gap-6 items-start p-6 bg-ivory rounded-lg border border-stone/20 print:border-gray-300">
                             <div className="p-3 bg-navy text-gold rounded-full shrink-0">
@@ -141,7 +141,7 @@ export function B2BProposal() {
                 </div>
 
                 {/* Footer */}
-                <div className="bg-navy text-white px-12 py-8 mt-auto print:break-inside-avoid">
+                <div className="bg-navy text-white px-12 py-6 mt-auto print:break-inside-avoid">
                     <div className="flex justify-between items-end">
                         <div>
                             <h4 className="font-serif text-lg mb-4">Contact</h4>
