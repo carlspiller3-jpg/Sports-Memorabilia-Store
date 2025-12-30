@@ -10,7 +10,7 @@ export function B2BProposal() {
     };
 
     return (
-        <div className="min-h-screen bg-stone/10 pt-28 pb-12 print:p-0 print:bg-white">
+        <div className="min-h-screen bg-stone/10 pt-24 pb-12 print:p-0 print:bg-white print-proposal-root">
             {/* Control Bar - Hidden when printing */}
             <div className="container mx-auto px-4 mb-8 flex flex-col md:flex-row justify-between items-center gap-4 print:hidden">
                 <div>
@@ -26,11 +26,11 @@ export function B2BProposal() {
             {/* A4 Page Container */}
             <div
                 ref={contentRef}
-                className="mx-auto bg-white w-[210mm] shadow-2xl print:shadow-none print:w-full print:m-0 flex flex-col relative overflow-hidden print:max-h-[296mm]"
-                style={{ height: '296mm' }}
+                className="mx-auto bg-white w-[210mm] shadow-2xl print:shadow-none print:w-full print:m-0 flex flex-col relative overflow-hidden b2b-print-container"
+                style={{ height: '297mm' }}
             >
                 {/* Header Section */}
-                <div className="bg-navy px-12 pt-4 pb-16 text-white relative flex-shrink-0 overflow-hidden print:break-inside-avoid">
+                <div className="bg-navy px-12 pt-3 pb-6 text-white relative flex-shrink-0 overflow-hidden print:break-inside-avoid shadow-lg">
                     {/* Background Pattern */}
                     <div className="absolute top-0 right-0 w-64 h-64 bg-gold/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
 
@@ -52,7 +52,7 @@ export function B2BProposal() {
                             Authentic. Rare. <br />
                             <span className="text-gold">Legendary.</span>
                         </h1>
-                        <p className="text-base text-white/80 max-w-lg leading-relaxed font-light">
+                        <p className="text-sm text-white/80 max-w-lg leading-relaxed font-light">
                             We source the best. You gift the best. <br />
                             The only source for verifiable, authentic sports memorabilia.
                         </p>
@@ -60,10 +60,10 @@ export function B2BProposal() {
                 </div>
 
                 {/* Main Content */}
-                <div className="px-12 py-6 flex-1 text-charcoal text-justify">
+                <div className="px-12 py-3 flex-1 text-charcoal text-justify relative min-h-0 overflow-hidden">
 
                     {/* The Problem & Solution */}
-                    <div className="grid grid-cols-2 gap-6 mb-4">
+                    <div className="grid grid-cols-2 gap-6 mb-3">
                         <div>
                             <h3 className="text-gold font-bold uppercase tracking-wider text-xs mb-3">The Issue</h3>
                             <h2 className="font-serif text-2xl text-navy mb-4 font-bold">Most of it is fake.</h2>
@@ -88,13 +88,13 @@ export function B2BProposal() {
 
                     {/* Framed Example Image */}
                     {/* Framed Example Showcase */}
-                    <div className="mb-6 flex flex-row items-center gap-6">
+                    <div className="mb-3 flex flex-row items-center gap-6 bg-stone/5 p-3 rounded-xl">
                         {/* Image - Left Aligned */}
                         <div className="shrink-0">
                             <img
                                 src="/boardroom-framed-cropped.png"
                                 alt="Framed memorabilia in boardroom"
-                                className="h-40 w-auto rounded-xl shadow-2xl border border-navy/10"
+                                className="h-28 w-auto rounded-lg shadow-xl border border-navy/10"
                             />
                         </div>
 
@@ -107,34 +107,32 @@ export function B2BProposal() {
                         </div>
                     </div>
 
-                    <hr className="border-gray-200 mb-6" />
+                    <hr className="border-gray-200 mb-2" />
 
-                    {/* Opportunities */}
-                    <h2 className="font-serif text-xl text-navy mb-4 font-bold">What we offer</h2>
-
-                    <div className="space-y-3">
+                    {/* Opportunities - Side by Side Grid */}
+                    <div className="grid grid-cols-2 gap-4">
                         {/* Item 1 */}
-                        <div className="flex gap-4 items-start p-4 bg-ivory rounded-lg border border-stone/20 print:border-gray-300">
-                            <div className="p-3 bg-navy text-gold rounded-full shrink-0">
-                                <Building2 className="w-6 h-6" />
+                        <div className="flex gap-3 items-start p-3 bg-ivory rounded-lg border border-stone/20 print:border-gray-300">
+                            <div className="p-2 bg-navy text-gold rounded-full shrink-0">
+                                <Building2 className="w-4 h-4" />
                             </div>
                             <div>
-                                <h3 className="font-serif text-xl text-navy font-bold mb-2">Corporate Gifting</h3>
-                                <p className="text-sm text-gray-600 leading-relaxed mb-3">
-                                    A hamper gets eaten and forgotten. A signed masterpiece stays on the wall forever. Make a real impact with your VIP clients.
+                                <h3 className="font-serif text-base text-navy font-bold mb-1">Corporate Gifting</h3>
+                                <p className="text-[12px] text-gray-600 leading-tight">
+                                    A hamper gets eaten and forgotten. A signed masterpiece stays on the wall forever.
                                 </p>
                             </div>
                         </div>
 
                         {/* Item 2 */}
-                        <div className="flex gap-4 items-start p-4 bg-ivory rounded-lg border border-stone/20 print:border-gray-300">
-                            <div className="p-3 bg-navy text-gold rounded-full shrink-0">
-                                <TrendingUp className="w-6 h-6" />
+                        <div className="flex gap-3 items-start p-3 bg-ivory rounded-lg border border-stone/20 print:border-gray-300">
+                            <div className="p-2 bg-navy text-gold rounded-full shrink-0">
+                                <TrendingUp className="w-4 h-4" />
                             </div>
                             <div>
-                                <h3 className="font-serif text-xl text-navy font-bold mb-2">The Vault</h3>
-                                <p className="text-sm text-gray-600 leading-relaxed mb-3">
-                                    For investment. Highly sought-after signed pieces are alternative assets that hold value. We give our partners first refusal on stock that never hits the website.
+                                <h3 className="font-serif text-base text-navy font-bold mb-1">The Vault</h3>
+                                <p className="text-[12px] text-gray-600 leading-tight">
+                                    Alternative assets that hold value. We give our partners first refusal on stock.
                                 </p>
                             </div>
                         </div>
@@ -142,21 +140,20 @@ export function B2BProposal() {
                 </div>
 
                 {/* Footer */}
-                <div className="bg-navy text-white px-12 py-3 mt-auto flex-shrink-0 print:break-inside-avoid">
-                    <div className="flex justify-between items-end">
+                <div className="bg-navy text-white px-12 py-1 mt-auto flex-shrink-0 print:break-inside-avoid">
+                    <div className="flex justify-between items-center h-16">
                         <div>
-                            <h4 className="font-serif text-lg mb-4">Contact</h4>
-                            <div className="space-y-1 text-sm text-gray-400">
+                            <div className="flex space-x-4 text-[11px] text-gray-400">
                                 <p>rhys@sportssigned.com</p>
                                 <p>sportssigned.com</p>
                             </div>
                         </div>
                         <div className="text-right">
-                            <div className="inline-flex items-center space-x-2 border border-white/20 px-3 py-1 rounded-full bg-white/5 mb-2">
-                                <ShieldCheck className="w-4 h-4 text-gold" />
-                                <span className="text-xs tracking-wider">LIFETIME AUTHENTICITY GUARANTEE</span>
+                            <div className="inline-flex items-center space-x-2 border border-white/20 px-2 py-0.5 rounded-full bg-white/5 mb-1">
+                                <ShieldCheck className="w-3 h-3 text-gold" />
+                                <span className="text-[9px] tracking-wider uppercase">Lifetime Authenticity Guarantee</span>
                             </div>
-                            <p className="text-[10px] text-gray-500 uppercase tracking-widest">Confidential - For Business Partners Only</p>
+                            <p className="text-[8px] text-gray-500 uppercase tracking-widest">Confidential - Business Partners Only</p>
                         </div>
                     </div>
                 </div>
@@ -168,34 +165,30 @@ export function B2BProposal() {
                 margin: 0 !important; 
                 size: A4 portrait !important;
             }
-            html, body {
-                height: 100vh !important;
-                margin: 0 !important;
-                padding: 0 !important;
-                overflow: hidden !important;
+            body {
+                visibility: hidden !important;
+                background: white !important;
                 -webkit-print-color-adjust: exact !important;
                 print-color-adjust: exact !important;
-            }
-            /* Targeted hide of site-wide layout elements */
-            header, footer, nav, aside, 
-            [role="navigation"], 
-            #mobile-nav, [data-cart-trigger],
-            [class*="fixed"], [class*="sticky"],
-            [class*="Badge"], [class*="Notification"],
-            [class*="CartDrawer"], [class*="Overlay"],
-            .no-print { 
-                display: none !important; 
-                opacity: 0 !important;
-                visibility: hidden !important;
-            }
-            /* Ensure the proposal container and its children are visible and fit */
-            .min-h-screen {
-                display: block !important;
-                padding: 0 !important;
                 margin: 0 !important;
-                height: 100vh !important;
+                padding: 0 !important;
+            }
+            .b2b-print-container {
+                visibility: visible !important;
+                position: absolute !important;
+                left: 0 !important;
+                top: 0 !important;
+                width: 210mm !important;
+                height: 297mm !important;
+                margin: 0 !important;
+                padding: 0 !important;
                 overflow: hidden !important;
                 background: white !important;
+                box-shadow: none !important;
+            }
+            /* Extra safety to ensure no ghost pages or artifacts */
+            header, footer, nav, aside, .no-print {
+                display: none !important;
             }
         }
       `}</style>
