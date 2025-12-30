@@ -74,13 +74,11 @@ export function B2BProposal() {
                             <h3 className="text-gold font-bold uppercase tracking-wider text-xs mb-3">The Solution</h3>
                             <h2 className="font-serif text-2xl text-navy mb-4 font-bold">Uncompromising Quality</h2>
                             <ul className="space-y-3">
-                                <li className="flex items-start gap-3 text-sm text-gray-700">
-                                    <ShieldCheck className="w-5 h-5 text-gold shrink-0" />
-                                    <span><strong>100% Authenticated:</strong> Every item comes with undeniable proof of authenticity via NFC & Blockchain technology.</span>
+                                <li className="text-sm text-gray-700">
+                                    <strong>100% Authenticated:</strong> Every item comes with undeniable proof of authenticity via NFC & Blockchain technology.
                                 </li>
-                                <li className="flex items-start gap-3 text-sm text-gray-700">
-                                    <Building2 className="w-5 h-5 text-gold shrink-0" />
-                                    <span><strong>Premium Framing:</strong> Professional bespoke mounting with UV-protective glass for lifetime preservation.</span>
+                                <li className="text-sm text-gray-700">
+                                    <strong>Premium Framing:</strong> Professional bespoke mounting with UV-protective glass for lifetime preservation.
                                 </li>
                             </ul>
                         </div>
