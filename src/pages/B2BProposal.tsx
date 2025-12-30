@@ -88,11 +88,12 @@ export function B2BProposal() {
 
 
                     {/* Framed Example Image */}
-                    <div className="mb-12 rounded-xl overflow-hidden shadow-2xl border border-navy/10">
+                    {/* Framed Example Image */}
+                    <div className="mb-12 flex justify-center">
                         <img
                             src="/boardroom-framed-cropped.png"
                             alt="Framed memorabilia in boardroom"
-                            className="w-full h-56 object-cover object-[50%_35%]"
+                            className="h-56 w-auto rounded-xl shadow-2xl border border-navy/10"
                         />
                     </div>
 
