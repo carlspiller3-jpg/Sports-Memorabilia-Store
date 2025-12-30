@@ -26,11 +26,11 @@ export function B2BProposal() {
             {/* A4 Page Container */}
             <div
                 ref={contentRef}
-                className="mx-auto bg-white w-[210mm] shadow-2xl print:shadow-none print:w-full print:m-0 flex flex-col relative overflow-hidden"
+                className="mx-auto bg-white w-[210mm] shadow-2xl print:shadow-none print:w-full print:m-0 flex flex-col relative overflow-hidden print:max-h-[297mm]"
                 style={{ height: '297mm' }}
             >
                 {/* Header Section */}
-                <div className="bg-navy px-12 py-6 text-white relative overflow-hidden print:break-inside-avoid">
+                <div className="bg-navy px-12 pt-6 pb-10 text-white relative overflow-hidden print:break-inside-avoid">
                     {/* Background Pattern */}
                     <div className="absolute top-0 right-0 w-64 h-64 bg-gold/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
 
@@ -166,13 +166,13 @@ export function B2BProposal() {
         @media print {
             @page { 
                 margin: 0 !important; 
-                size: a4 portrait !important;
+                size: A4 portrait !important;
             }
             html, body {
-                height: 100% !important;
+                height: 100vh !important;
                 margin: 0 !important;
                 padding: 0 !important;
-                background: white !important;
+                overflow: hidden !important;
                 -webkit-print-color-adjust: exact !important;
                 print-color-adjust: exact !important;
             }
@@ -187,12 +187,13 @@ export function B2BProposal() {
                 opacity: 0 !important;
                 visibility: hidden !important;
             }
-            /* Ensure the proposal container and its children are visible */
+            /* Ensure the proposal container and its children are visible and fit */
             .min-h-screen {
                 display: block !important;
                 padding: 0 !important;
                 margin: 0 !important;
-                height: auto !important;
+                height: 100vh !important;
+                overflow: hidden !important;
             }
         }
       `}</style>
