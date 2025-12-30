@@ -1,9 +1,10 @@
 import { Button } from "@/components/ui/Button"
 import { Link } from "react-router-dom"
+import { TrustIndicators } from "./TrustIndicators"
 
 export function Hero() {
   return (
-    <section className="relative w-full h-full overflow-hidden flex flex-col">
+    <section className="relative w-full min-h-screen flex flex-col">
       {/* Background Image */}
       <div className="absolute inset-0">
         <img
@@ -16,7 +17,7 @@ export function Hero() {
       </div>
 
       {/* Content */}
-      <div className="relative h-full container mx-auto px-4 flex flex-col justify-center pb-12 pt-20 md:pt-0 md:pb-0">
+      <div className="relative flex-1 container mx-auto px-4 flex flex-col justify-center pb-12 pt-20 md:pt-0 md:pb-0">
         <div className="max-w-2xl space-y-8 animate-in fade-in slide-in-from-bottom-8 duration-1000">
           {/* Trust Badge */}
           <div className="inline-flex items-center space-x-2 rounded-full border border-white/20 bg-white/10 backdrop-blur-sm px-4 py-2 text-sm font-medium text-white w-fit">
@@ -51,6 +52,11 @@ export function Hero() {
             </Link>
           </div>
         </div>
+      </div>
+
+      {/* Trust Indicators - Restored Value Proposition */}
+      <div className="relative z-10 w-full">
+        <TrustIndicators />
       </div>
     </section>
   )
