@@ -88,6 +88,9 @@ function App() {
                   <Route path="/hub" element={<KnowledgeHubPage />} />
                   <Route path="/hub/:slug" element={<ArticlePage />} />
 
+                  {/* PDF Generation Routes */}
+                  <Route path="/b2b-proposal" element={<B2BProposal />} />
+
                   <Route path="*" element={<NotFoundPage />} />
                 </Routes>
               </main>
