@@ -120,51 +120,51 @@ export function WaitlistModal() {
                 onClick={handleClose}
             />
 
-            <div className="relative w-full max-w-lg bg-white border border-navy/10 rounded-xl shadow-2xl animate-in zoom-in-95 duration-300 max-h-[85vh] overflow-y-auto">
+            <div className="relative w-full max-w-lg bg-white border border-navy/10 rounded-xl shadow-2xl animate-in zoom-in-95 duration-300 max-h-[80vh] overflow-y-auto flex flex-col">
                 {/* Decorative Header */}
-                <div className="bg-navy p-5 text-center border-b border-gold/20 sticky top-0 z-10">
-                    <div className="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center mx-auto mb-3">
-                        <Lock className="w-5 h-5 text-gold" />
+                <div className="bg-navy p-4 text-center border-b border-gold/20 sticky top-0 z-10 shrink-0">
+                    <div className="w-8 h-8 bg-white/10 rounded-full flex items-center justify-center mx-auto mb-2">
+                        <Lock className="w-4 h-4 text-gold" />
                     </div>
-                    <h2 className="font-serif text-2xl text-white mb-1">
+                    <h2 className="font-serif text-xl text-white mb-0.5">
                         The Vault is Locked
                     </h2>
-                    <p className="text-white/60 text-xs">
+                    <p className="text-white/60 text-[10px] uppercase tracking-wider">
                         Next Drop: <span className="text-gold font-bold">January 2026</span>
                     </p>
                     <button
                         onClick={handleClose}
-                        className="absolute top-3 right-3 p-2 bg-white/10 rounded-full text-white/50 hover:text-white transition-colors"
+                        className="absolute top-3 right-3 p-1.5 bg-white/10 rounded-full text-white/50 hover:text-white transition-colors"
                         aria-label="Close"
                     >
                         <X className="w-4 h-4" />
                     </button>
                 </div>
 
-                <div className="p-6">
+                <div className="p-5 overflow-y-auto">
                     {!isSuccess ? (
                         <>
-                            <p className="text-navy/70 text-center mb-6 leading-relaxed">
+                            <p className="text-navy/70 text-center mb-4 text-sm leading-relaxed">
                                 Join the <strong>Priority Access List</strong> to receive your password 48 hours before the public.
                             </p>
 
-                            <form onSubmit={handleSubmit} className="space-y-4">
+                            <form onSubmit={handleSubmit} className="space-y-3">
                                 {/* Email Input */}
                                 <div>
-                                    <label className="block text-xs font-bold text-navy/50 uppercase tracking-wider mb-2">Email Address</label>
+                                    <label className="block text-[10px] font-bold text-navy/50 uppercase tracking-wider mb-1">Email Address</label>
                                     <input
                                         type="email"
                                         value={email}
                                         onChange={(e) => setEmail(e.target.value)}
                                         placeholder="you@example.com"
-                                        className="w-full px-5 py-3 rounded-lg bg-ivory border border-navy/10 text-navy placeholder:text-navy/30 focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold"
+                                        className="w-full px-4 py-2.5 rounded-lg bg-ivory border border-navy/10 text-navy text-sm placeholder:text-navy/30 focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold"
                                         required
                                     />
                                 </div>
 
                                 {/* Autocomplete Interest Input */}
                                 <div className="relative" ref={wrapperRef}>
-                                    <label className="block text-xs font-bold text-navy/50 uppercase tracking-wider mb-2">My Main Interest</label>
+                                    <label className="block text-[10px] font-bold text-navy/50 uppercase tracking-wider mb-1">My Main Interest</label>
                                     <div className="relative">
                                         <input
                                             type="text"
@@ -172,10 +172,10 @@ export function WaitlistModal() {
                                             onChange={handleInterestChange}
                                             onFocus={() => setShowSuggestions(true)}
                                             placeholder="e.g. Football, Boxing, F1..."
-                                            className="w-full px-5 py-3 pl-10 rounded-lg bg-ivory border border-navy/10 text-navy placeholder:text-navy/30 focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold"
+                                            className="w-full px-4 py-2.5 pl-9 rounded-lg bg-ivory border border-navy/10 text-navy text-sm placeholder:text-navy/30 focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold"
                                             required
                                         />
-                                        <Search className="absolute left-3 top-3.5 w-4 h-4 text-navy/30" />
+                                        <Search className="absolute left-3 top-3 w-4 h-4 text-navy/30" />
                                     </div>
 
                                     {/* Suggestions Dropdown */}
@@ -186,7 +186,7 @@ export function WaitlistModal() {
                                                     key={suggestion}
                                                     type="button"
                                                     onClick={() => selectSuggestion(suggestion)}
-                                                    className="w-full text-left px-5 py-2 text-sm text-navy hover:bg-ivory hover:text-gold transition-colors"
+                                                    className="w-full text-left px-4 py-2 text-sm text-navy hover:bg-ivory hover:text-gold transition-colors"
                                                 >
                                                     {suggestion}
                                                 </button>
@@ -197,19 +197,19 @@ export function WaitlistModal() {
 
                                 {/* Referral Code Input (Optional) */}
                                 <div>
-                                    <label className="block text-xs font-bold text-navy/50 uppercase tracking-wider mb-2">Referral Code (Optional)</label>
+                                    <label className="block text-[10px] font-bold text-navy/50 uppercase tracking-wider mb-1">Referral Code (Optional)</label>
                                     <input
                                         type="text"
                                         value={referralCode}
                                         onChange={(e) => setReferralCode(e.target.value.toUpperCase())}
                                         placeholder="e.g. VIP-1234"
-                                        className="w-full px-5 py-3 rounded-lg bg-ivory border border-navy/10 text-navy placeholder:text-navy/30 focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold tracking-widest"
+                                        className="w-full px-4 py-2.5 rounded-lg bg-ivory border border-navy/10 text-navy text-sm placeholder:text-navy/30 focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold tracking-widest"
                                     />
                                 </div>
 
                                 <Button
                                     type="submit"
-                                    className="w-full h-14 bg-gold hover:bg-gold/90 text-navy font-bold text-lg mt-4 shadow-lg shadow-gold/10"
+                                    className="w-full h-12 bg-gold hover:bg-gold/90 text-navy font-bold text-base mt-2 shadow-lg shadow-gold/10"
                                     disabled={isSubmitting}
                                 >
                                     {isSubmitting ? "Unlocking..." : "Secure Priority Access"}

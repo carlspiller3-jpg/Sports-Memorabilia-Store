@@ -5,7 +5,7 @@ import { TrustIndicators } from "./TrustIndicators"
 export function Hero() {
   // Trigger Vercel Build - Force Update
   return (
-    <section className="relative w-full min-h-screen flex flex-col justify-between">
+    <section className="relative w-full h-[100dvh] min-h-[600px] flex flex-col justify-between overflow-hidden">
       {/* Background Image */}
       <div className="absolute inset-0">
         <img
@@ -18,36 +18,36 @@ export function Hero() {
       </div>
 
       {/* Content */}
-      <div className="relative flex-1 container mx-auto px-4 flex flex-col justify-center pb-8 pt-12 md:pt-0">
-        <div className="max-w-2xl space-y-6 animate-in fade-in slide-in-from-bottom-8 duration-1000">
+      <div className="relative flex-1 container mx-auto px-4 flex flex-col justify-center pb-4 pt-16 md:pt-0">
+        <div className="max-w-2xl space-y-4 animate-in fade-in slide-in-from-bottom-8 duration-1000">
           {/* Trust Badge */}
-          <div className="inline-flex items-center space-x-2 rounded-full border border-white/20 bg-white/10 backdrop-blur-sm px-4 py-2 text-sm font-medium text-white w-fit">
-            <svg className="h-4 w-4 text-gold" fill="currentColor" viewBox="0 0 20 20">
+          <div className="inline-flex items-center space-x-2 rounded-full border border-white/20 bg-white/10 backdrop-blur-sm px-3 py-1.5 text-xs font-medium text-white w-fit">
+            <svg className="h-3.5 w-3.5 text-gold" fill="currentColor" viewBox="0 0 20 20">
               <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
             </svg>
             <span>100% Certified Authentic</span>
           </div>
 
           {/* Headline */}
-          <h1 className="font-serif text-4xl sm:text-6xl lg:text-7xl font-bold tracking-tight text-white leading-tight">
+          <h1 className="font-serif text-3xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-white leading-tight">
             Authentic. Rare. <br />
             <span className="text-gold">Legendary.</span>
           </h1>
 
           {/* Subheadline */}
-          <p className="text-base sm:text-xl text-white/80 max-w-xl leading-relaxed">
+          <p className="text-sm sm:text-lg text-white/80 max-w-xl leading-relaxed">
             The premier destination for authentic signed sports memorabilia. Explore a curated selection of verified artifacts from the world's greatest sporting legends.
           </p>
 
           {/* CTA Buttons */}
-          <div className="flex flex-col sm:flex-row gap-3 pt-2">
+          <div className="flex flex-col sm:flex-row gap-3 pt-1">
             <Link to="/shop">
-              <Button size="lg" className="h-12 sm:h-14 px-8 text-base sm:text-lg font-bold bg-gold hover:bg-gold/90 text-charcoal w-full sm:w-auto shadow-lg shadow-gold/20">
+              <Button size="lg" className="h-11 sm:h-12 px-6 text-sm sm:text-base font-bold bg-gold hover:bg-gold/90 text-charcoal w-full sm:w-auto shadow-lg shadow-gold/20">
                 Shop Collection
               </Button>
             </Link>
             <Link to="/verify">
-              <Button size="lg" variant="outline" className="h-12 sm:h-14 px-8 text-base sm:text-lg font-bold border-white text-white hover:bg-white hover:text-charcoal w-full sm:w-auto backdrop-blur-sm bg-white/5">
+              <Button size="lg" variant="outline" className="h-11 sm:h-12 px-6 text-sm sm:text-base font-bold border-white text-white hover:bg-white hover:text-charcoal w-full sm:w-auto backdrop-blur-sm bg-white/5">
                 Verify Authenticity
               </Button>
             </Link>
@@ -56,7 +56,7 @@ export function Hero() {
       </div>
 
       {/* Trust Indicators - Restored Value Proposition */}
-      <div className="relative z-10 w-full mb-0">
+      <div className="relative z-10 w-full mb-0 shrink-0">
         <TrustIndicators />
       </div>
     </section>
