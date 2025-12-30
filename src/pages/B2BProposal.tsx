@@ -53,13 +53,13 @@ export function B2BProposal() {
                         </h1>
                         <p className="text-lg text-white/80 max-w-lg leading-relaxed font-light">
                             We source the best. You gift the best. <br />
-                            The only source for verifiable, authentic sports history.
+                            The only source for verifiable, authentic sports memorabilia.
                         </p>
                     </div>
                 </div>
 
                 {/* Main Content */}
-                <div className="px-12 py-12 flex-1 text-charcoal">
+                <div className="px-12 py-12 flex-1 text-charcoal text-justify">
 
                     {/* The Problem & Solution */}
                     <div className="grid grid-cols-2 gap-12 mb-12">
@@ -76,7 +76,7 @@ export function B2BProposal() {
                             <ul className="space-y-3">
                                 <li className="flex items-start gap-3 text-sm text-gray-700">
                                     <ShieldCheck className="w-5 h-5 text-gold shrink-0" />
-                                    <span><strong>100% Authenticated:</strong> Every item comes with immutable proof of authenticity via NFC & Blockchain technology.</span>
+                                    <span><strong>100% Authenticated:</strong> Every item comes with undeniable proof of authenticity via NFC & Blockchain technology.</span>
                                 </li>
                                 <li className="flex items-start gap-3 text-sm text-gray-700">
                                     <Building2 className="w-5 h-5 text-gold shrink-0" />
@@ -122,7 +122,7 @@ export function B2BProposal() {
                 </div>
 
                 {/* Footer */}
-                <div className="bg-charcoal text-white px-12 py-8 mt-auto print:break-inside-avoid">
+                <div className="bg-charcoal print:bg-navy text-white px-12 py-8 mt-auto print:break-inside-avoid">
                     <div className="flex justify-between items-end">
                         <div>
                             <h4 className="font-serif text-lg mb-4">Contact</h4>
