@@ -21,10 +21,11 @@ export function WaitlistModal() {
 
     useEffect(() => {
         const timer = setTimeout(() => {
-            const hasSeen = localStorage.getItem("waitlist_seen");
-            if (!hasSeen) {
-                setIsOpen(true);
-            }
+            // Force modal to show every time for now (User Request)
+            // const hasSeen = localStorage.getItem("waitlist_seen");
+            // if (!hasSeen) {
+            setIsOpen(true);
+            // }
         }, 2000);
 
         // Close suggestions on click outside
