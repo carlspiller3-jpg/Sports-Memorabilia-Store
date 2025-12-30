@@ -52,7 +52,8 @@ export function B2BProposal() {
                             <span className="text-gold">Legendary.</span>
                         </h1>
                         <p className="text-lg text-white/80 max-w-lg leading-relaxed font-light">
-                            The premier destination for authenticated sports artifacts. Elevating corporate spaces and client relationships through history.
+                            We source the best. You gift the best. <br />
+                            The only source for verifiable, authentic sports history.
                         </p>
                     </div>
                 </div>
@@ -63,10 +64,10 @@ export function B2BProposal() {
                     {/* The Problem & Solution */}
                     <div className="grid grid-cols-2 gap-12 mb-12">
                         <div>
-                            <h3 className="text-gold font-bold uppercase tracking-wider text-xs mb-3">The Challenge</h3>
-                            <h2 className="font-serif text-2xl text-navy mb-4 font-bold">The Trust Deficit</h2>
+                            <h3 className="text-gold font-bold uppercase tracking-wider text-xs mb-3">The Issue</h3>
+                            <h2 className="font-serif text-2xl text-navy mb-4 font-bold">Most of it is fake.</h2>
                             <p className="text-sm leading-relaxed text-gray-600">
-                                The sports memorabilia market is plagued by forgeries and low-quality presentation. Corporate buyers and interior designers often struggle to find pieces that offer both guaranteed authenticity and the premium aesthetic required for a luxury boardroom or high-end office.
+                                The memorabilia market is full of fakes and cheap presentations. Sending a client a "signed" shirt that turns out to be a knock-off, or comes in a flimsy plastic frame, damages your brand instead of building it.
                             </p>
                         </div>
                         <div>
@@ -88,7 +89,7 @@ export function B2BProposal() {
                     <hr className="border-gray-200 mb-12" />
 
                     {/* Opportunities */}
-                    <h2 className="font-serif text-3xl text-navy mb-8 font-bold">Partnership Opportunities</h2>
+                    <h2 className="font-serif text-3xl text-navy mb-8 font-bold">What we offer</h2>
 
                     <div className="space-y-8">
                         {/* Item 1 */}
@@ -97,11 +98,11 @@ export function B2BProposal() {
                                 <Building2 className="w-6 h-6" />
                             </div>
                             <div>
-                                <h3 className="font-serif text-xl text-navy font-bold mb-2">Corporate Gifting & Concierge</h3>
+                                <h3 className="font-serif text-xl text-navy font-bold mb-2">Corporate Gifting</h3>
                                 <p className="text-sm text-gray-600 leading-relaxed mb-3">
-                                    Forget generic hampers. Gift a piece of history. A signed Tyson Fury glove or a Messi shirt creates a lasting emotional connection with your VIP clients.
+                                    A hamper gets eaten and forgotten. A signed Tyson Fury glove stays on the wall forever. Make a real impact with your VIP clients.
                                 </p>
-                                <p className="text-xs font-bold text-navy uppercase tracking-wider">Access to volume discounts & custom plaques</p>
+                                <p className="text-xs font-bold text-navy uppercase tracking-wider">Volume discounts & custom plaques available</p>
                             </div>
                         </div>
 
@@ -111,11 +112,10 @@ export function B2BProposal() {
                                 <TrendingUp className="w-6 h-6" />
                             </div>
                             <div>
-                                <h3 className="font-serif text-xl text-navy font-bold mb-2">Investment Portfolios</h3>
+                                <h3 className="font-serif text-xl text-navy font-bold mb-2">The Vault</h3>
                                 <p className="text-sm text-gray-600 leading-relaxed mb-3">
-                                    For wealth managers and investment groups. Unique, high-value items (e.g., match-worn kits) are alternative assets that naturally appreciate in value.
+                                    For investment. Match-worn kits and ultra-rare pieces are alternative assets that hold value. We give our partners first refusal on stock that never hits the website.
                                 </p>
-                                <p className="text-xs font-bold text-navy uppercase tracking-wider">Priority access to "The Vault" off-market inventory</p>
                             </div>
                         </div>
                     </div>
@@ -125,11 +125,10 @@ export function B2BProposal() {
                 <div className="bg-charcoal text-white px-12 py-8 mt-auto print:break-inside-avoid">
                     <div className="flex justify-between items-end">
                         <div>
-                            <h4 className="font-serif text-lg mb-4">Contact Us</h4>
+                            <h4 className="font-serif text-lg mb-4">Contact</h4>
                             <div className="space-y-1 text-sm text-gray-400">
-                                <p>partnerships@sportsmemorabilia.store</p>
-                                <p>+44 (0) 20 7123 4567</p>
-                                <p>www.sportsmemorabilia.store</p>
+                                <p>rhys@sportssigned.com</p>
+                                <p>sportssigned.com</p>
                             </div>
                         </div>
                         <div className="text-right">
