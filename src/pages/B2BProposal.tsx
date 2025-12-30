@@ -169,29 +169,30 @@ export function B2BProposal() {
                 size: a4 portrait !important;
             }
             html, body {
-                height: 100vh !important;
+                height: 100% !important;
                 margin: 0 !important;
                 padding: 0 !important;
-                overflow: hidden !important;
+                background: white !important;
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
             }
-            /* NUCLEAR HIDE: Target everything that isn't the main content */
-            body > *:not(.min-h-screen),
+            /* Targeted hide of site-wide layout elements */
             header, footer, nav, aside, 
             [role="navigation"], 
-            [class*="fixed"], [class*="sticky"],
             #mobile-nav, [data-cart-trigger],
-            [class*="badge"], [class*="Notification"],
-            div[class*="Sheet"], div[class*="Mobile"], 
+            [class*="fixed"], [class*="sticky"],
+            [class*="Badge"], [class*="Notification"],
             .no-print { 
                 display: none !important; 
                 opacity: 0 !important;
                 visibility: hidden !important;
             }
+            /* Ensure the proposal container and its children are visible */
             .min-h-screen {
-                height: 100vh !important;
+                display: block !important;
                 padding: 0 !important;
                 margin: 0 !important;
-                background: white !important;
+                height: auto !important;
             }
         }
       `}</style>
