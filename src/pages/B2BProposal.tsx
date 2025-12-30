@@ -92,7 +92,7 @@ export function B2BProposal() {
                         <img
                             src="/boardroom-framed.png"
                             alt="Framed memorabilia in boardroom"
-                            className="w-full h-64 object-cover object-center"
+                            className="w-full h-auto"
                         />
                     </div>
 
@@ -123,7 +123,7 @@ export function B2BProposal() {
                             <div>
                                 <h3 className="font-serif text-xl text-navy font-bold mb-2">The Vault</h3>
                                 <p className="text-sm text-gray-600 leading-relaxed mb-3">
-                                    For investment. Ultra-rare pieces and limited editions are alternative assets that hold value. We give our partners first refusal on stock that never hits the website.
+                                    For investment. Highly sought-after signed pieces are alternative assets that hold value. We give our partners first refusal on stock that never hits the website.
                                 </p>
                             </div>
                         </div>
