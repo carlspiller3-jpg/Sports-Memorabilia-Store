@@ -120,28 +120,28 @@ export function WaitlistModal() {
                 onClick={handleClose}
             />
 
-            <div className="relative w-full max-w-lg bg-white border border-navy/10 rounded-xl shadow-2xl animate-in zoom-in-95 duration-300 max-h-[90vh] overflow-y-auto">
+            <div className="relative w-full max-w-lg bg-white border border-navy/10 rounded-xl shadow-2xl animate-in zoom-in-95 duration-300 max-h-[85vh] overflow-y-auto">
                 {/* Decorative Header */}
-                <div className="bg-navy p-6 text-center border-b border-gold/20 sticky top-0 z-10">
-                    <div className="w-12 h-12 bg-white/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                        <Lock className="w-6 h-6 text-gold" />
+                <div className="bg-navy p-5 text-center border-b border-gold/20 sticky top-0 z-10">
+                    <div className="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center mx-auto mb-3">
+                        <Lock className="w-5 h-5 text-gold" />
                     </div>
-                    <h2 className="font-serif text-2xl sm:text-3xl text-white mb-2">
+                    <h2 className="font-serif text-2xl text-white mb-1">
                         The Vault is Locked
                     </h2>
-                    <p className="text-white/60 text-sm">
+                    <p className="text-white/60 text-xs">
                         Next Drop: <span className="text-gold font-bold">January 2026</span>
                     </p>
                     <button
                         onClick={handleClose}
-                        className="absolute top-4 right-4 p-2 bg-white/10 rounded-full text-white/50 hover:text-white transition-colors"
+                        className="absolute top-3 right-3 p-2 bg-white/10 rounded-full text-white/50 hover:text-white transition-colors"
                         aria-label="Close"
                     >
-                        <X className="w-5 h-5" />
+                        <X className="w-4 h-4" />
                     </button>
                 </div>
 
-                <div className="p-8">
+                <div className="p-6">
                     {!isSuccess ? (
                         <>
                             <p className="text-navy/70 text-center mb-6 leading-relaxed">
