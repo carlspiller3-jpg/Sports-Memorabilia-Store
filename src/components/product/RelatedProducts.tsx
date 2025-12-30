@@ -2,8 +2,7 @@ import { useEffect, useState } from "react"
 import { ProductCard } from "@/components/ui/ProductCard"
 import { supabase } from "@/lib/supabase"
 import type { Product } from "@/types/schema"
-import { PLACEHOLDER_PRODUCTS } from "@/lib/placeholder-data"
-import { PLACEHOLDER_IMAGES } from "@/data/placeholders"
+import { PLACEHOLDER_PRODUCTS, PLACEHOLDER_IMAGES } from "@/lib/placeholder-data"
 import { generateImageAlt } from "@/lib/seo"
 
 interface RelatedProductsProps {

@@ -8,8 +8,7 @@ import { supabase } from "@/lib/supabase"
 import type { Product } from "@/types/schema"
 
 
-import { PLACEHOLDER_PRODUCTS } from "@/lib/placeholder-data"
-import { PLACEHOLDER_IMAGES } from "@/data/placeholders"
+import { PLACEHOLDER_PRODUCTS, PLACEHOLDER_IMAGES } from "@/lib/placeholder-data"
 import { useCart } from "@/context/CartContext"
 import {
     generateSEOTitle,

@@ -6,7 +6,7 @@ import { ShoppingBag, Trash2 } from "lucide-react"
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from "@/components/ui/Sheet"
 import { Button } from "@/components/ui/Button"
 import { useCart } from "@/context/CartContext"
-import { PLACEHOLDER_IMAGES } from "@/data/placeholders"
+import { PLACEHOLDER_IMAGES } from "@/lib/placeholder-data"
 
 export function CartDrawer() {
     const { items, isOpen, closeCart, removeFromCart, cartTotal, checkout, updateQuantity } = useCart()
@@ -16,7 +16,7 @@ export function CartDrawer() {
     const getImage = (productId: string) => {
         return PLACEHOLDER_IMAGES[productId] || "https://images.unsplash.com/photo-1515523110800-9415d13b84a8?q=80&w=1974&auto=format&fit=crop"
     }
-    
+
     const handleCheckout = async () => {
         setIsCheckingOut(true)
         await checkout()
@@ -64,16 +64,16 @@ export function CartDrawer() {
                                     </div>
                                     <div className="flex items-center justify-between mt-2">
                                         <div className="flex items-center border border-stone/20 rounded-md">
-                                            <button 
+                                            <button
                                                 className="px-2 py-1 text-stone-500 hover:bg-stone/5"
                                                 onClick={() => updateQuantity(item.id, item.quantity - 1)}
                                             >
                                                 -
                                             </button>
                                             <span className="px-2 text-sm font-medium text-charcoal">{item.quantity}</span>
-                                            <button 
+                                            <button
                                                 className="px-2 py-1 text-stone-500 hover:bg-stone/5"
-                                                 onClick={() => updateQuantity(item.id, item.quantity + 1)}
+                                                onClick={() => updateQuantity(item.id, item.quantity + 1)}
                                             >
                                                 +
                                             </button>
@@ -110,8 +110,8 @@ export function CartDrawer() {
                                 <span>£{cartTotal.toFixed(2)}</span>
                             </div>
                         </div>
-                        <Button 
-                            className="w-full h-12 text-lg shadow-lg shadow-gold/20" 
+                        <Button
+                            className="w-full h-12 text-lg shadow-lg shadow-gold/20"
                             onClick={handleCheckout}
                             disabled={isCheckingOut}
                         >

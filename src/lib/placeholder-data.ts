@@ -479,3 +479,11 @@ export const PLACEHOLDER_PRODUCTS: Product[] = [
     ...commonFields('cricket-2', 'Signed Virat Kohli Shirt')
   }
 ]
+
+export const PLACEHOLDER_IMAGES: Record<string, string> = PLACEHOLDER_PRODUCTS.reduce((acc, product) => {
+  if (product.images && product.images.length > 0) {
+    acc[product.id] = product.images[0];
+  }
+  return acc;
+}, {} as Record<string, string>);
+
