@@ -32,6 +32,7 @@ import { KnowledgeHubPage } from "@/pages/blog/KnowledgeHubPage"
 import { ArticlePage } from "@/pages/blog/ArticlePage"
 import { ShopGate } from "@/components/auth/ShopGate"
 import { ScrollToTop } from "@/components/layout/ScrollToTop"
+import { B2BProposal } from "@/pages/B2BProposal"
 
 function App() {
   return (
