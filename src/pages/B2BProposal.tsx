@@ -30,7 +30,7 @@ export function B2BProposal() {
                 style={{ height: '297mm' }}
             >
                 {/* Header Section */}
-                <div className="bg-navy px-12 pt-3 pb-6 text-white relative flex-shrink-0 overflow-hidden print:break-inside-avoid shadow-lg">
+                <div className="bg-navy px-12 pt-8 pb-12 text-white relative flex-shrink-0 overflow-hidden print:break-inside-avoid shadow-lg">
                     {/* Background Pattern */}
                     <div className="absolute top-0 right-0 w-64 h-64 bg-gold/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
 
@@ -48,11 +48,7 @@ export function B2BProposal() {
                             </div>
                         </div>
 
-                        <h1 className="font-serif text-3xl font-bold leading-tight mb-3">
-                            Authentic. Rare. <br />
-                            <span className="text-gold">Legendary.</span>
-                        </h1>
-                        <p className="text-sm text-white/80 max-w-lg leading-relaxed font-light">
+                        <p className="text-base text-white/80 max-w-lg leading-relaxed font-light">
                             We source the best. You gift the best. <br />
                             The only source for verifiable, authentic sports memorabilia.
                         </p>
@@ -60,10 +56,10 @@ export function B2BProposal() {
                 </div>
 
                 {/* Main Content */}
-                <div className="px-12 py-3 flex-1 text-charcoal text-justify relative min-h-0 overflow-hidden">
+                <div className="px-12 py-8 flex-1 text-charcoal text-justify relative min-h-0 overflow-hidden">
 
                     {/* The Problem & Solution */}
-                    <div className="grid grid-cols-2 gap-6 mb-3">
+                    <div className="grid grid-cols-2 gap-8 mb-8">
                         <div>
                             <h3 className="text-gold font-bold uppercase tracking-wider text-xs mb-3">The Issue</h3>
                             <h2 className="font-serif text-2xl text-navy mb-4 font-bold">Most of it is fake.</h2>
@@ -88,13 +84,13 @@ export function B2BProposal() {
 
                     {/* Framed Example Image */}
                     {/* Framed Example Showcase */}
-                    <div className="mb-3 flex flex-row items-center gap-6 bg-stone/5 p-3 rounded-xl">
+                    <div className="mb-8 flex flex-row items-center gap-8 bg-stone/5 p-6 rounded-xl">
                         {/* Image - Left Aligned */}
                         <div className="shrink-0">
                             <img
                                 src="/boardroom-framed-cropped.png"
                                 alt="Framed memorabilia in boardroom"
-                                className="h-28 w-auto rounded-lg shadow-xl border border-navy/10"
+                                className="h-40 w-auto rounded-xl shadow-2xl border border-navy/10"
                             />
                         </div>
 
@@ -107,32 +103,31 @@ export function B2BProposal() {
                         </div>
                     </div>
 
-                    <hr className="border-gray-200 mb-2" />
+                    <hr className="border-gray-200 mb-8" />
 
-                    {/* Opportunities - Side by Side Grid */}
-                    <div className="grid grid-cols-2 gap-4">
+                    <div className="space-y-4">
                         {/* Item 1 */}
-                        <div className="flex gap-3 items-start p-3 bg-ivory rounded-lg border border-stone/20 print:border-gray-300">
-                            <div className="p-2 bg-navy text-gold rounded-full shrink-0">
-                                <Building2 className="w-4 h-4" />
+                        <div className="flex gap-4 items-start p-4 bg-ivory rounded-lg border border-stone/20 print:border-gray-300">
+                            <div className="p-3 bg-navy text-gold rounded-full shrink-0">
+                                <Building2 className="w-5 h-5" />
                             </div>
                             <div>
-                                <h3 className="font-serif text-base text-navy font-bold mb-1">Corporate Gifting</h3>
-                                <p className="text-[12px] text-gray-600 leading-tight">
-                                    A hamper gets eaten and forgotten. A signed masterpiece stays on the wall forever.
+                                <h3 className="font-serif text-lg text-navy font-bold mb-1">Corporate Gifting</h3>
+                                <p className="text-sm text-gray-600 leading-relaxed">
+                                    A hamper gets eaten and forgotten. A signed masterpiece stays on the wall forever. Make a real impact with your VIP clients.
                                 </p>
                             </div>
                         </div>
 
                         {/* Item 2 */}
-                        <div className="flex gap-3 items-start p-3 bg-ivory rounded-lg border border-stone/20 print:border-gray-300">
-                            <div className="p-2 bg-navy text-gold rounded-full shrink-0">
-                                <TrendingUp className="w-4 h-4" />
+                        <div className="flex gap-4 items-start p-4 bg-ivory rounded-lg border border-stone/20 print:border-gray-300">
+                            <div className="p-3 bg-navy text-gold rounded-full shrink-0">
+                                <TrendingUp className="w-5 h-5" />
                             </div>
                             <div>
-                                <h3 className="font-serif text-base text-navy font-bold mb-1">The Vault</h3>
-                                <p className="text-[12px] text-gray-600 leading-tight">
-                                    Alternative assets that hold value. We give our partners first refusal on stock.
+                                <h3 className="font-serif text-lg text-navy font-bold mb-1">The Vault</h3>
+                                <p className="text-sm text-gray-600 leading-relaxed">
+                                    Highly sought-after signed pieces are alternative assets that hold value. We give our partners first refusal on stock that never hits the website.
                                 </p>
                             </div>
                         </div>
@@ -140,20 +135,21 @@ export function B2BProposal() {
                 </div>
 
                 {/* Footer */}
-                <div className="bg-navy text-white px-12 py-1 mt-auto flex-shrink-0 print:break-inside-avoid">
-                    <div className="flex justify-between items-center h-16">
+                <div className="bg-navy text-white px-12 py-4 mt-auto flex-shrink-0 print:break-inside-avoid">
+                    <div className="flex justify-between items-end">
                         <div>
-                            <div className="flex space-x-4 text-[11px] text-gray-400">
+                            <h4 className="font-serif text-lg mb-4">Contact</h4>
+                            <div className="space-y-1 text-sm text-gray-400">
                                 <p>rhys@sportssigned.com</p>
                                 <p>sportssigned.com</p>
                             </div>
                         </div>
                         <div className="text-right">
-                            <div className="inline-flex items-center space-x-2 border border-white/20 px-2 py-0.5 rounded-full bg-white/5 mb-1">
-                                <ShieldCheck className="w-3 h-3 text-gold" />
-                                <span className="text-[9px] tracking-wider uppercase">Lifetime Authenticity Guarantee</span>
+                            <div className="inline-flex items-center space-x-2 border border-white/20 px-3 py-1 rounded-full bg-white/5 mb-2">
+                                <ShieldCheck className="w-4 h-4 text-gold" />
+                                <span className="text-xs tracking-wider">LIFETIME AUTHENTICITY GUARANTEE</span>
                             </div>
-                            <p className="text-[8px] text-gray-500 uppercase tracking-widest">Confidential - Business Partners Only</p>
+                            <p className="text-[10px] text-gray-500 uppercase tracking-widest">Confidential - For Business Partners Only</p>
                         </div>
                     </div>
                 </div>
