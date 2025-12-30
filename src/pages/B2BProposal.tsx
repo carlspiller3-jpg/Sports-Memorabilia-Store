@@ -12,11 +12,14 @@ export function B2BProposal() {
     return (
         <div className="min-h-screen bg-stone/10 py-12 print:p-0 print:bg-white">
             {/* Control Bar - Hidden when printing */}
-            <div className="container mx-auto px-4 mb-8 flex justify-between items-center print:hidden">
-                <h1 className="text-2xl font-serif text-navy">B2B Proposition Preview</h1>
-                <Button onClick={handlePrint} className="bg-navy text-white hover:bg-navy/90 gap-2">
+            <div className="container mx-auto px-4 mb-8 flex flex-col md:flex-row justify-between items-center gap-4 print:hidden">
+                <div>
+                    <h1 className="text-2xl font-serif text-navy">B2B Proposition Preview</h1>
+                    <p className="text-sm text-navy/60 mt-1">Click the button, then select <strong>"Save as PDF"</strong> in the destination menu.</p>
+                </div>
+                <Button onClick={handlePrint} className="bg-navy text-white hover:bg-navy/90 gap-2 shadow-xl shadow-navy/20">
                     <Download className="w-4 h-4" />
-                    Save as PDF
+                    Print / Save as PDF
                 </Button>
             </div>
 
@@ -49,7 +52,7 @@ export function B2BProposal() {
                             <span className="text-gold">Legendary.</span>
                         </h1>
                         <p className="text-lg text-white/80 max-w-lg leading-relaxed font-light">
-                            The premier destination for museum-grade, verified sports artifacts. Elevating corporate spaces and client relationships through history.
+                            The premier destination for authenticated sports artifacts. Elevating corporate spaces and client relationships through history.
                         </p>
                     </div>
                 </div>
@@ -72,11 +75,11 @@ export function B2BProposal() {
                             <ul className="space-y-3">
                                 <li className="flex items-start gap-3 text-sm text-gray-700">
                                     <ShieldCheck className="w-5 h-5 text-gold shrink-0" />
-                                    <span><strong>Blockchain Verified:</strong> Immutable proof of authenticity via NFC & Blockchain technology.</span>
+                                    <span><strong>100% Authenticated:</strong> Every item comes with immutable proof of authenticity via NFC & Blockchain technology.</span>
                                 </li>
                                 <li className="flex items-start gap-3 text-sm text-gray-700">
                                     <Building2 className="w-5 h-5 text-gold shrink-0" />
-                                    <span><strong>Museum Framing:</strong> UV-protective glass and bespoke mounting for gallery-ready presentation.</span>
+                                    <span><strong>Premium Framing:</strong> Professional bespoke mounting with UV-protective glass for lifetime preservation.</span>
                                 </li>
                             </ul>
                         </div>
