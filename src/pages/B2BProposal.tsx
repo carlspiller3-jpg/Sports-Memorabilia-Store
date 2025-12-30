@@ -86,6 +86,16 @@ export function B2BProposal() {
                         </div>
                     </div>
 
+
+                    {/* Framed Example Image */}
+                    <div className="mb-12 rounded-xl overflow-hidden shadow-2xl border border-navy/10">
+                        <img
+                            src="/boardroom-framed.png"
+                            alt="Framed memorabilia in boardroom"
+                            className="w-full h-64 object-cover object-center"
+                        />
+                    </div>
+
                     <hr className="border-gray-200 mb-12" />
 
                     {/* Opportunities */}
@@ -100,9 +110,8 @@ export function B2BProposal() {
                             <div>
                                 <h3 className="font-serif text-xl text-navy font-bold mb-2">Corporate Gifting</h3>
                                 <p className="text-sm text-gray-600 leading-relaxed mb-3">
-                                    A hamper gets eaten and forgotten. A signed Tyson Fury glove stays on the wall forever. Make a real impact with your VIP clients.
+                                    A hamper gets eaten and forgotten. A signed masterpiece stays on the wall forever. Make a real impact with your VIP clients.
                                 </p>
-                                <p className="text-xs font-bold text-navy uppercase tracking-wider">Volume discounts & custom plaques available</p>
                             </div>
                         </div>
 
@@ -114,7 +123,7 @@ export function B2BProposal() {
                             <div>
                                 <h3 className="font-serif text-xl text-navy font-bold mb-2">The Vault</h3>
                                 <p className="text-sm text-gray-600 leading-relaxed mb-3">
-                                    For investment. Match-worn kits and ultra-rare pieces are alternative assets that hold value. We give our partners first refusal on stock that never hits the website.
+                                    For investment. Ultra-rare pieces and limited editions are alternative assets that hold value. We give our partners first refusal on stock that never hits the website.
                                 </p>
                             </div>
                         </div>
@@ -122,7 +131,7 @@ export function B2BProposal() {
                 </div>
 
                 {/* Footer */}
-                <div className="bg-charcoal print:bg-navy text-white px-12 py-8 mt-auto print:break-inside-avoid">
+                <div className="bg-navy text-white px-12 py-8 mt-auto print:break-inside-avoid">
                     <div className="flex justify-between items-end">
                         <div>
                             <h4 className="font-serif text-lg mb-4">Contact</h4>
@@ -152,6 +161,6 @@ export function B2BProposal() {
             .no-print { display: none; }
         }
       `}</style>
-        </div>
+        </div >
     );
 }
