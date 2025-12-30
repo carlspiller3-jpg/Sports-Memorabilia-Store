@@ -5,7 +5,7 @@ import { TrustIndicators } from "./TrustIndicators"
 export function Hero() {
   // Trigger Vercel Build - Force Update
   return (
-    <section className="relative w-full h-[100dvh] flex flex-col overflow-hidden">
+    <section className="relative w-full h-[85vh] min-h-[550px] flex flex-col overflow-hidden">
       {/* Background Image */}
       <div className="absolute inset-0">
         <img
@@ -18,7 +18,7 @@ export function Hero() {
       </div>
 
       {/* Content */}
-      <div className="relative flex-1 container mx-auto px-4 flex flex-col justify-center h-full pb-24 md:pb-0">
+      <div className="relative flex-1 container mx-auto px-4 flex flex-col justify-center h-full pb-20 md:pb-0">
         <div className="max-w-2xl space-y-4 animate-in fade-in slide-in-from-bottom-8 duration-1000">
           {/* Trust Badge */}
           <div className="inline-flex items-center space-x-2 rounded-full border border-white/20 bg-white/10 backdrop-blur-sm px-3 py-1.5 text-xs font-medium text-white w-fit">
