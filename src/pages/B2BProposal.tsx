@@ -88,13 +88,24 @@ export function B2BProposal() {
 
 
                     {/* Framed Example Image */}
-                    {/* Framed Example Image */}
-                    <div className="mb-8 flex justify-center">
-                        <img
-                            src="/boardroom-framed-cropped.png"
-                            alt="Framed memorabilia in boardroom"
-                            className="w-3/4 h-auto rounded-xl shadow-2xl border border-navy/10"
-                        />
+                    {/* Framed Example Showcase */}
+                    <div className="mb-12 flex flex-row items-center gap-8">
+                        {/* Image - Left Aligned */}
+                        <div className="shrink-0">
+                            <img
+                                src="/boardroom-framed-cropped.png"
+                                alt="Framed memorabilia in boardroom"
+                                className="h-56 w-auto rounded-xl shadow-2xl border border-navy/10"
+                            />
+                        </div>
+
+                        {/* Text - Right Side */}
+                        <div>
+                            <h3 className="font-serif text-xl text-navy font-bold mb-3">Elevate Your Space</h3>
+                            <p className="text-sm text-gray-600 leading-relaxed text-justify">
+                                Make a lasting impression. Whether it's the boardroom or the reception area, our authentic memorabilia creates a talking point that commands respect and celebrates excellence. It's not just decoration; it's a statement of success.
+                            </p>
+                        </div>
                     </div>
 
                     <hr className="border-gray-200 mb-12" />
