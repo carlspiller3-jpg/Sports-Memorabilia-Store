@@ -26,32 +26,33 @@ export function B2BProposal() {
             {/* A4 Page Container */}
             <div
                 ref={contentRef}
-                className="mx-auto bg-white w-[210mm] min-h-[297mm] shadow-2xl print:shadow-none print:w-full print:h-full print:m-0 flex flex-col relative overflow-hidden"
+                className="mx-auto bg-white w-[210mm] shadow-2xl print:shadow-none print:w-full print:m-0 flex flex-col relative overflow-hidden"
+                style={{ height: '297mm' }}
             >
                 {/* Header Section */}
-                <div className="bg-navy px-12 py-10 text-white relative overflow-hidden print:break-inside-avoid">
+                <div className="bg-navy px-12 py-6 text-white relative overflow-hidden print:break-inside-avoid">
                     {/* Background Pattern */}
                     <div className="absolute top-0 right-0 w-64 h-64 bg-gold/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
 
                     <div className="relative z-10">
-                        <div className="flex justify-between items-start mb-8">
+                        <div className="flex justify-between items-start mb-6">
                             <img
                                 src="/logo-transparent.png"
                                 alt="Sports Memorabilia Store"
-                                className="h-20 w-auto invert brightness-0 grayscale-0" // Using invert to make logo white if needed, or adjust based on actual logo
+                                className="h-16 w-auto invert brightness-0 grayscale-0" // Using invert to make logo white if needed, or adjust based on actual logo
                                 style={{ filter: "brightness(0) invert(1)" }}
                             />
                             <div className="text-right">
-                                <p className="text-gold font-bold uppercase tracking-widest text-sm">Corporate Partnerships</p>
-                                <p className="text-white/60 text-sm mt-1">2025/26 Season</p>
+                                <p className="text-gold font-bold uppercase tracking-widest text-[10px]">Corporate Partnerships</p>
+                                <p className="text-white/60 text-[10px] mt-1">2025/26 Season</p>
                             </div>
                         </div>
 
-                        <h1 className="font-serif text-4xl font-bold leading-tight mb-4">
+                        <h1 className="font-serif text-3xl font-bold leading-tight mb-3">
                             Authentic. Rare. <br />
                             <span className="text-gold">Legendary.</span>
                         </h1>
-                        <p className="text-lg text-white/80 max-w-lg leading-relaxed font-light">
+                        <p className="text-base text-white/80 max-w-lg leading-relaxed font-light">
                             We source the best. You gift the best. <br />
                             The only source for verifiable, authentic sports memorabilia.
                         </p>
@@ -59,10 +60,10 @@ export function B2BProposal() {
                 </div>
 
                 {/* Main Content */}
-                <div className="px-12 py-8 flex-1 text-charcoal text-justify">
+                <div className="px-12 py-6 flex-1 text-charcoal text-justify">
 
                     {/* The Problem & Solution */}
-                    <div className="grid grid-cols-2 gap-8 mb-8">
+                    <div className="grid grid-cols-2 gap-6 mb-4">
                         <div>
                             <h3 className="text-gold font-bold uppercase tracking-wider text-xs mb-3">The Issue</h3>
                             <h2 className="font-serif text-2xl text-navy mb-4 font-bold">Most of it is fake.</h2>
@@ -87,13 +88,13 @@ export function B2BProposal() {
 
                     {/* Framed Example Image */}
                     {/* Framed Example Showcase */}
-                    <div className="mb-8 flex flex-row items-center gap-6">
+                    <div className="mb-6 flex flex-row items-center gap-6">
                         {/* Image - Left Aligned */}
                         <div className="shrink-0">
                             <img
                                 src="/boardroom-framed-cropped.png"
                                 alt="Framed memorabilia in boardroom"
-                                className="h-48 w-auto rounded-xl shadow-2xl border border-navy/10"
+                                className="h-40 w-auto rounded-xl shadow-2xl border border-navy/10"
                             />
                         </div>
 
@@ -106,14 +107,14 @@ export function B2BProposal() {
                         </div>
                     </div>
 
-                    <hr className="border-gray-200 mb-8" />
+                    <hr className="border-gray-200 mb-6" />
 
                     {/* Opportunities */}
-                    <h2 className="font-serif text-2xl text-navy mb-6 font-bold">What we offer</h2>
+                    <h2 className="font-serif text-xl text-navy mb-4 font-bold">What we offer</h2>
 
-                    <div className="space-y-4">
+                    <div className="space-y-3">
                         {/* Item 1 */}
-                        <div className="flex gap-6 items-start p-6 bg-ivory rounded-lg border border-stone/20 print:border-gray-300">
+                        <div className="flex gap-4 items-start p-4 bg-ivory rounded-lg border border-stone/20 print:border-gray-300">
                             <div className="p-3 bg-navy text-gold rounded-full shrink-0">
                                 <Building2 className="w-6 h-6" />
                             </div>
@@ -126,7 +127,7 @@ export function B2BProposal() {
                         </div>
 
                         {/* Item 2 */}
-                        <div className="flex gap-6 items-start p-6 bg-ivory rounded-lg border border-stone/20 print:border-gray-300">
+                        <div className="flex gap-4 items-start p-4 bg-ivory rounded-lg border border-stone/20 print:border-gray-300">
                             <div className="p-3 bg-navy text-gold rounded-full shrink-0">
                                 <TrendingUp className="w-6 h-6" />
                             </div>
@@ -141,7 +142,7 @@ export function B2BProposal() {
                 </div>
 
                 {/* Footer */}
-                <div className="bg-navy text-white px-12 py-6 mt-auto print:break-inside-avoid">
+                <div className="bg-navy text-white px-12 py-3 mt-auto print:break-inside-avoid">
                     <div className="flex justify-between items-end">
                         <div>
                             <h4 className="font-serif text-lg mb-4">Contact</h4>
@@ -164,18 +165,33 @@ export function B2BProposal() {
             <style>{`
         @media print {
             @page { 
-                margin: 0; 
-                size: auto;
+                margin: 0 !important; 
+                size: a4 portrait !important;
             }
-            body { 
-                background: white; 
-                margin: 0;
-                -webkit-print-color-adjust: exact !important;
-                print-color-adjust: exact !important;
+            html, body {
+                height: 100vh !important;
+                margin: 0 !important;
+                padding: 0 !important;
+                overflow: hidden !important;
             }
-            /* Hide absolute everything except the content container */
-            header, footer, nav, .no-print, [data-cart-trigger] { 
+            /* NUCLEAR HIDE: Target everything that isn't the main content */
+            body > *:not(.min-h-screen),
+            header, footer, nav, aside, 
+            [role="navigation"], 
+            [class*="fixed"], [class*="sticky"],
+            #mobile-nav, [data-cart-trigger],
+            [class*="badge"], [class*="Notification"],
+            div[class*="Sheet"], div[class*="Mobile"], 
+            .no-print { 
                 display: none !important; 
+                opacity: 0 !important;
+                visibility: hidden !important;
+            }
+            .min-h-screen {
+                height: 100vh !important;
+                padding: 0 !important;
+                margin: 0 !important;
+                background: white !important;
             }
         }
       `}</style>
