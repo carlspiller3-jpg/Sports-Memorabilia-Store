@@ -10,7 +10,7 @@ export function B2BProposal() {
     };
 
     return (
-        <div className="min-h-screen bg-stone/10 py-12 print:p-0 print:bg-white">
+        <div className="min-h-screen bg-stone/10 pt-28 pb-12 print:p-0 print:bg-white">
             {/* Control Bar - Hidden when printing */}
             <div className="container mx-auto px-4 mb-8 flex flex-col md:flex-row justify-between items-center gap-4 print:hidden">
                 <div>
