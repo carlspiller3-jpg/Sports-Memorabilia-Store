@@ -43,6 +43,13 @@
             text-transform: uppercase;
         }
 
+        h2,
+        h3 {
+            font-family: 'Georgia', serif;
+            color: #1C273A;
+            margin-bottom: 15px;
+        }
+
         p {
             font-size: 16px;
             line-height: 1.6;
@@ -51,24 +58,14 @@
             text-align: left;
         }
 
-        .text-center {
-            text-align: center !important;
-        }
-
         .gold-text {
             color: #C6A664;
             font-weight: 700;
         }
 
-        .small-text {
-            font-size: 11px;
-            color: #888;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            margin-bottom: 20px;
-            display: block;
-            font-weight: 600;
-            text-align: center;
+        a {
+            color: #C6A664;
+            text-decoration: underline;
         }
 
         /* Elements */
@@ -85,40 +82,9 @@
             margin: 0 auto;
         }
 
-        /* Password Box - The Hero of this email */
-        .password-box {
-            background-color: #1C273A;
-            color: #ffffff;
-            padding: 30px;
-            margin: 30px 0;
-            border-radius: 4px;
-            text-align: center;
-            border: 1px solid #C6A664;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-        }
-
-        .password-label {
-            display: block;
-            font-size: 12px;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            margin-bottom: 10px;
-            color: #D9D5CD;
-        }
-
-        .password-code {
-            font-family: monospace;
-            font-size: 32px;
-            color: #C6A664;
-            letter-spacing: 4px;
-            font-weight: bold;
-            display: block;
-            margin-bottom: 5px;
-        }
-
         .btn {
-            background-color: #C6A664;
-            color: #1C273A !important;
+            background-color: #1C273A;
+            color: #ffffff !important;
             padding: 18px 40px;
             text-decoration: none;
             font-weight: bold;
@@ -130,11 +96,9 @@
             border-radius: 0;
         }
 
-        .countdown-note {
-            font-size: 12px;
-            color: #888;
-            margin-top: 15px;
-            font-style: italic;
+        .btn:hover {
+            background-color: #C6A664;
+            color: #1C273A !important;
         }
 
         /* Footer */
@@ -153,10 +117,19 @@
             margin: 0;
             text-align: center;
         }
+
+        .footer a {
+            color: #C6A664;
+            text-decoration: none;
+        }
     </style>
 </head>
 
 <body>
+    <!--
+      GMAIL INBOX PLACEMENT SCHEMA (Microdata Version)
+      Bypasses "Invalid Script" errors while sending the same signal to Google.
+    -->
     <div itemscope itemtype="http://schema.org/EmailMessage" style="display:none;">
         <meta itemprop="description" content="Your account status confirmation" />
         <div itemprop="potentialAction" itemscope itemtype="http://schema.org/ViewAction">
@@ -171,10 +144,10 @@
     </div>
 
     <div style="display:none; max-height:0px; max-width:0px; opacity:0; overflow:hidden;">
-        <!-- HIDDEN PREHEADER TEXT PADDING -->
         &nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;
         &nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;
     </div>
+
     <div class="wrapper">
         <div class="container">
             <div class="content">
@@ -185,29 +158,14 @@
                 </div>
 
                 <!-- Main Headline -->
-                <h1><span class="gold-text">Access Granted.</span></h1>
+                <h1><span class="gold-text">HEADLINE GOES HERE</span></h1>
 
                 <!-- Body Text -->
-                <p>The wait is over.</p>
+                <p>Dear Subscriber,</p>
+                <p>Write your email content here.</p>
 
-                <p>As promised, your priority subscription gives you a <strong>48-hour head start</strong> on our
-                    exclusive pre-order drop. We have secured a strictly limited number of pieces, and the store is
-                    currently locked to the general public.</p>
-
-                <p>We are proud to announce our first signing is with none other than <strong>Chris Eubank</strong>.</p>
-
-                <p>Known for his eccentricity, iron chin, and world championship reign, these signed items capture the
-                    essence of a true British sporting icon. Stock is strictly limited.</p>
-
-                <!-- Password Feature -->
-                <div class="password-box">
-                    <span class="password-label">Your Priority Access Code</span>
-                    <span class="password-code">LEGENDS26</span>
-                    <a href="https://sportssigned.com/password" class="btn">Enter The Store</a>
-                </div>
-
-                <p class="text-center"><em>Public access begins in 48 hours.</em></p>
-
+                <!-- Button -->
+                <a href="https://sportssigned.com" class="btn">Call to Action</a>
             </div>
 
             <!-- Footer -->

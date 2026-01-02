@@ -20,6 +20,25 @@ export function HomePage() {
                 <meta property="og:description" content="Luxury gifting experiences people are proud to give. Authenticated sports memorabilia with premium framing." />
                 <meta property="og:type" content="website" />
                 <meta name="twitter:card" content="summary_large_image" />
+                <script type="application/ld+json">
+                    {`
+                        {
+                            "@context": "http://schema.org",
+                            "@type": "OnlineStore",
+                            "name": "Sports Memorabilia Store",
+                            "url": "https://www.sportssigned.com",
+                            "logo": "https://www.sportssigned.com/logo-transparent.png",
+                            "description": "Premium authenticated sports memorabilia with professional framing. Every piece comes with NFC digital authentication and lifetime guarantee.",
+                            "image": "https://www.sportssigned.com/og-image.jpg",
+                            "priceRange": "£££",
+                            "address": {
+                                "@type": "PostalAddress",
+                                "addressCountry": "GB",
+                                "addressLocality": "London"
+                            }
+                        }
+                    `}
+                </script>
             </Helmet>
 
             {/* Above the Fold: Hero + Trust Bar */}
