@@ -1,4 +1,4 @@
-import { Mail, Phone, MapPin, Send } from "lucide-react"
+import { Mail, Send } from "lucide-react"
 import { Button } from "@/components/ui/Button"
 
 export function ContactPage() {
@@ -14,42 +14,15 @@ export function ContactPage() {
                     {/* Contact Info */}
                     <div className="space-y-8">
                         <div className="bg-white p-8 rounded-sm shadow-sm border border-stone/10 space-y-6">
-                            <h2 className="text-2xl font-serif font-bold text-charcoal">Get in Touch</h2>
-                            <div className="space-y-6">
-                                <div className="flex items-start gap-4">
-                                    <div className="w-10 h-10 bg-gold/10 rounded-full flex items-center justify-center shrink-0">
-                                        <Mail className="w-5 h-5 text-gold" />
-                                    </div>
-                                    <div>
-                                        <h3 className="font-bold text-charcoal">Email Us</h3>
-                                        <p className="text-navy/60 text-sm mb-1">For general inquiries and support</p>
-                                        <a href="mailto:support@thesportsmemorabiliastore.com" className="text-gold hover:underline font-medium">support@thesportsmemorabiliastore.com</a>
-                                    </div>
+                            <h2 className="text-2xl font-serif font-bold text-charcoal mb-6">Get in Touch</h2>
+                            <div className="flex flex-col items-center text-center space-y-4">
+                                <div className="w-16 h-16 bg-gold/10 rounded-full flex items-center justify-center">
+                                    <Mail className="w-8 h-8 text-gold" />
                                 </div>
-
-                                <div className="flex items-start gap-4">
-                                    <div className="w-10 h-10 bg-gold/10 rounded-full flex items-center justify-center shrink-0">
-                                        <Phone className="w-5 h-5 text-gold" />
-                                    </div>
-                                    <div>
-                                        <h3 className="font-bold text-charcoal">Call Us</h3>
-                                        <p className="text-navy/60 text-sm mb-1">Mon-Fri, 9am - 5pm GMT</p>
-                                        <a href="tel:+442012345678" className="text-gold hover:underline font-medium">+44 20 1234 5678</a>
-                                    </div>
-                                </div>
-
-                                <div className="flex items-start gap-4">
-                                    <div className="w-10 h-10 bg-gold/10 rounded-full flex items-center justify-center shrink-0">
-                                        <MapPin className="w-5 h-5 text-gold" />
-                                    </div>
-                                    <div>
-                                        <h3 className="font-bold text-charcoal">Visit Us</h3>
-                                        <p className="text-navy/60 text-sm">
-                                            123 Stadium Way<br />
-                                            London, UK<br />
-                                            SW1A 1AA
-                                        </p>
-                                    </div>
+                                <div>
+                                    <h3 className="font-bold text-charcoal text-lg">Email Us</h3>
+                                    <p className="text-navy/60 mb-2">For general inquiries and support</p>
+                                    <a href="mailto:support@sportssigned.com" className="text-gold hover:underline font-medium text-lg">support@sportssigned.com</a>
                                 </div>
                             </div>
                         </div>
