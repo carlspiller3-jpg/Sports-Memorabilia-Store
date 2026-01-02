@@ -18,7 +18,7 @@ export function Hero() {
       </div>
 
       {/* Content */}
-      <div className="relative flex-1 container mx-auto px-4 flex flex-col justify-center h-full pb-20 md:pb-0">
+      <div className="relative flex-1 container mx-auto px-4 flex flex-col justify-center h-full pb-20 md:pb-0 mt-12 md:mt-24">
         <div className="max-w-2xl space-y-4 animate-in fade-in slide-in-from-bottom-8 duration-1000">
           {/* Trust Badge */}
           <div className="inline-flex items-center space-x-2 rounded-full border border-white/20 bg-white/10 backdrop-blur-sm px-3 py-1.5 text-xs font-medium text-white w-fit">
@@ -29,13 +29,13 @@ export function Hero() {
           </div>
 
           {/* Headline */}
-          <h1 className="font-serif text-3xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-white leading-tight">
+          <h1 className="font-serif text-4xl sm:text-6xl lg:text-7xl font-bold tracking-tight text-white leading-tight">
             Authentic. Rare. <br />
             <span className="text-gold">Legendary.</span>
           </h1>
 
           {/* Subheadline */}
-          <p className="text-sm sm:text-lg text-white/80 max-w-xl leading-relaxed">
+          <p className="text-base sm:text-xl text-white/80 max-w-xl leading-relaxed">
             The premier destination for authentic signed sports memorabilia. Explore a curated selection of verified pieces from the world's greatest sporting legends.
           </p>
 
