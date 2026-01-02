@@ -1,13 +1,14 @@
 ```
 import { useState, useEffect } from 'react';
 import { supabase } from '@/lib/supabaseClient';
-import { Plus, Search, Phone, Mail, FileText, Trash2, Save, X, User } from 'lucide-react';
+import { Plus, Search, Phone, Mail, FileText, Trash2, Save, X, User, Lock, Send, LogOut, Loader2 } from 'lucide-react';
 import { Helmet } from 'react-helmet-async';
 
 // Types
 interface Note {
     date: string;
     content: string;
+    author?: string; // Optional: track who wrote it
 }
 
 interface Contact {

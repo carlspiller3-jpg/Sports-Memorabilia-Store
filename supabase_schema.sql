@@ -39,11 +39,12 @@ create table public.crm_contacts (
 -- Enable RLS
 alter table public.crm_contacts enable row level security;
 
--- Allow public access for now (Simplest for "easy to use" team tool without auth implementation)
--- Ideally this should be authenticated, but based on current request:
-create policy "Allow public all"
+-- Allow Authenticated Users Only (GDPR Compliance: Strict Access Control)
+-- Only users who have been invited/created in Supabase Auth can access this table.
+create policy "Allow authenticated all"
   on public.crm_contacts
   for all
+  to authenticated
   using (true)
   with check (true);
 
