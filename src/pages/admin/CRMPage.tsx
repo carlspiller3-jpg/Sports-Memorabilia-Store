@@ -173,7 +173,7 @@ export function CRMPage() {
     });
 
     return (
-        <div className="min-h-screen bg-ivory text-charcoal p-6 md:p-12">
+        <div className="min-h-screen bg-ivory text-charcoal pt-24 pb-12 px-4 md:pt-32 md:pb-12 md:px-12">
             <div className="max-w-7xl mx-auto">
 
                 {/* Header */}
