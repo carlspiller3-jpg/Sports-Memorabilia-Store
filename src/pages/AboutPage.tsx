@@ -27,21 +27,19 @@ export function AboutPage() {
                 <div className="container mx-auto px-4 relative z-10">
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
                         <div className="space-y-6 pt-2">
-                            <span className="text-gold font-bold tracking-widest text-sm uppercase">The Vision</span>
+                            <span className="text-gold font-bold tracking-widest text-sm uppercase">The Philosophy</span>
                             <h2 className="text-4xl md:text-5xl font-serif font-bold text-navy leading-tight">
                                 Restoring Trust to <br />
                                 <span className="italic text-charcoal/80">The Beautiful Game.</span>
                             </h2>
                             <p className="text-lg text-charcoal/70 leading-relaxed font-light">
-                                The memorabilia industry has a trust problem. Fakes are everywhere, and certificates of authenticity are often meaningless.
-                                <br /><br />
-                                <strong>We built this store to fix that.</strong>
+                                Trust is the currency of history. In an industry often diluted by uncertainty, <strong>Sports Signed</strong> stands as the absolute authority.
                             </p>
                             <p className="text-lg text-charcoal/70 leading-relaxed font-light">
-                                Our approach is simple: absolute proof. We don't guess, and we don't take risks. We only stock items where we can trace the provenance directly to the source.
+                                We do not deal in probability. We deal in proof. By strictly controlling the chain of custody—from the athlete's hand to the collector's wall—we eliminate doubt entirely.
                             </p>
                             <p className="text-lg text-charcoal/70 leading-relaxed font-light">
-                                We wanted to build the store we always wanted to shop at—a place where you can buy a piece of sporting history and know, 100%, that it is the real deal.
+                                This is not just a marketplace. It is the new global standard for provenance.
                             </p>
                         </div>
                         <div className="relative mt-4 lg:mt-0">
