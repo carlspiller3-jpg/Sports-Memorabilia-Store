@@ -22,7 +22,7 @@ export function Header() {
         return () => window.removeEventListener("scroll", handleScroll)
     }, [])
 
-    const headerBg = isHome && !scrolled ? "bg-transparent border-transparent text-white" : "bg-ivory border-navy/5 text-navy shadow-sm"
+    const headerBg = "bg-ivory border-navy/5 text-navy shadow-sm"
 
     return (
         <header className={`fixed top-0 left-0 right-0 z-[100] transition-all duration-300 border-b py-4 print:hidden ${headerBg}`}>
