@@ -360,7 +360,7 @@ export function CRMPage() {
                     </div>
                 </div>
 
-                {/* Main Grid */}
+                {/* Main List View */}
                 {contacts.length === 0 && !loading ? (
                     <div className="text-center py-24 bg-white rounded-xl border border-dashed border-navy/10">
                         <div className="w-16 h-16 bg-ivory rounded-full flex items-center justify-center mx-auto mb-4">
@@ -371,53 +371,72 @@ export function CRMPage() {
                         <button onClick={() => setIsAdding(true)} className="text-gold font-bold hover:underline">Add Contact Now</button>
                     </div>
                 ) : (
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div className="flex flex-col gap-3">
+                        {/* Optional Header Row */}
+                        <div className="hidden md:flex px-4 py-2 text-[10px] font-bold text-charcoal/40 uppercase tracking-widest gap-4">
+                            <div className="w-2"></div>
+                            <div className="flex-1">Name / Role</div>
+                            <div className="flex-1">Company</div>
+                            <div className="flex-1">Contact</div>
+                            <div className="w-32 text-right">Status / Activity</div>
+                        </div>
+
                         {loading ? (
-                            [1, 2, 3].map(i => (
-                                <div key={i} className="h-48 bg-gray-100 rounded-lg animate-pulse" />
+                            [1, 2, 3, 4, 5].map(i => (
+                                <div key={i} className="h-20 bg-gray-100 rounded-lg animate-pulse" />
                             ))
                         ) : filteredContacts.map(contact => (
                             <div
                                 key={contact.id}
                                 onClick={() => setSelectedContact(contact)}
-                                className="bg-white p-6 rounded-xl shadow-sm border border-navy/5 hover:shadow-xl hover:-translate-y-1 hover:border-gold/30 transition-all cursor-pointer group relative overflow-hidden"
+                                className="bg-white p-4 rounded-lg shadow-sm border border-navy/5 hover:border-gold/50 hover:shadow-md transition-all cursor-pointer group flex flex-col md:flex-row md:items-center gap-4 relative overflow-hidden"
                             >
-                                <div className="absolute top-0 right-0 p-4 opacity-0 group-hover:opacity-100 transition-opacity">
-                                    <div className="bg-ivory p-2 rounded-full shadow-sm text-navy">
-                                        <FileText className="w-4 h-4" />
+                                {/* Left Status Border */}
+                                <div className={`absolute left-0 top-0 bottom-0 w-1.5 ${contact.status === 'HOT' ? 'bg-red-500' :
+                                        contact.status === 'WARM' ? 'bg-orange-400' :
+                                            'bg-blue-400'
+                                    }`} />
+
+                                {/* Name & Role */}
+                                <div className="flex-1 min-w-0 pl-3">
+                                    <h3 className="font-serif text-lg text-navy font-bold truncate group-hover:text-gold transition-colors">{contact.name}</h3>
+                                    <p className="text-xs text-charcoal/60 truncate uppercase tracking-wider font-bold">{contact.role}</p>
+                                </div>
+
+                                {/* Company */}
+                                <div className="flex-1 min-w-0 pl-3 md:pl-0">
+                                    <div className="flex items-center gap-2 text-sm text-charcoal/80 font-medium">
+                                        <span className="hidden md:inline text-charcoal/30">@</span> {contact.company_name}
                                     </div>
                                 </div>
 
-                                <div className="flex justify-between items-start mb-4">
-                                    <div className={`px-3 py-1 rounded-full text-[10px] font-bold tracking-widest uppercase border ${contact.status === 'HOT' ? 'bg-red-50 text-red-600 border-red-100' :
-                                        contact.status === 'WARM' ? 'bg-orange-50 text-orange-600 border-orange-100' :
-                                            'bg-blue-50 text-blue-600 border-blue-100'
+                                {/* Contact Info */}
+                                <div className="flex-1 min-w-0 hidden md:block space-y-1">
+                                    {contact.contact_email && (
+                                        <div className="flex items-center gap-2 text-xs text-charcoal/60 truncate">
+                                            <Mail className="w-3 h-3 text-gold" /> {contact.contact_email}
+                                        </div>
+                                    )}
+                                    {contact.contact_number && (
+                                        <div className="flex items-center gap-2 text-xs text-charcoal/60 truncate">
+                                            <Phone className="w-3 h-3 text-gold" /> {contact.contact_number}
+                                        </div>
+                                    )}
+                                </div>
+
+                                {/* Right Side: Badge & Notes */}
+                                <div className="flex items-center justify-between md:justify-end gap-4 w-full md:w-auto pl-3 md:pl-0 mt-2 md:mt-0 border-t md:border-t-0 border-navy/5 pt-2 md:pt-0">
+                                    <span className={`px-3 py-1 rounded-full text-[10px] font-bold tracking-widest uppercase border ${contact.status === 'HOT' ? 'bg-red-50 text-red-600 border-red-100' :
+                                            contact.status === 'WARM' ? 'bg-orange-50 text-orange-600 border-orange-100' :
+                                                'bg-blue-50 text-blue-600 border-blue-100'
                                         }`}>
                                         {contact.status}
-                                    </div>
-                                </div>
-
-                                <h3 className="font-serif text-xl text-navy group-hover:text-gold transition-colors mb-1 truncate">{contact.name}</h3>
-                                <p className="text-sm font-medium text-charcoal/70 mb-6 truncate">{contact.role} <span className="text-charcoal/40">at</span> {contact.company_name}</p>
-
-                                <div className="space-y-3">
-                                    <div className="flex items-center gap-3 text-sm text-charcoal/60 bg-ivory p-2 rounded border border-navy/5">
-                                        <Phone className="w-4 h-4 text-gold" />
-                                        <span className="truncate">{contact.contact_number || 'N/A'}</span>
-                                    </div>
-                                    <div className="flex items-center gap-3 text-sm text-charcoal/60 bg-ivory p-2 rounded border border-navy/5">
-                                        <Mail className="w-4 h-4 text-gold" />
-                                        <span className="truncate">{contact.contact_email || 'N/A'}</span>
-                                    </div>
-                                </div>
-
-                                {/* Footer Stats */}
-                                <div className="mt-6 pt-4 border-t border-navy/5 flex justify-between items-center text-xs text-charcoal/40 font-mono">
-                                    <span>Created: {new Date(contact.created_at).toLocaleDateString()}</span>
-                                    <span className="flex items-center gap-1">
-                                        <FileText className="w-3 h-3" />
-                                        {(contact.notes || []).length} Notes
                                     </span>
+
+                                    <div className="flex items-center gap-1.5 text-xs text-charcoal/40 font-mono min-w-[60px] justify-end group-hover:text-navy transition-colors">
+                                        <FileText className="w-3 h-3" />
+                                        {(contact.notes || []).length}
+                                    </div>
                                 </div>
                             </div>
                         ))}
