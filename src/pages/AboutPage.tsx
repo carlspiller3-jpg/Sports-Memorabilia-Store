@@ -33,12 +33,15 @@ export function AboutPage() {
                                 <span className="italic text-charcoal/80">The Beautiful Game.</span>
                             </h2>
                             <p className="text-lg text-charcoal/70 leading-relaxed font-light">
-                                For too long, the sports memorabilia market has been shadowed by doubt. Fakes, vague certificates, and questionable histories have tainted the passion of collecting.
+                                The memorabilia industry has a trust problem. Fakes are everywhere, and certificates of authenticity are often meaningless.
                                 <br /><br />
-                                <strong>We believe that owning a piece of history should feel as electric as the moment itself.</strong>
+                                <strong>We built this store to fix that.</strong>
                             </p>
                             <p className="text-lg text-charcoal/70 leading-relaxed font-light">
-                                We founded the Sports Memorabilia Store with a singular obsession: <strong>Certainty</strong>. We wanted to build the sanctuary we always wished existed—a place where a fan could purchase a signed Messi shirt or a framed Gerrard photo and know, without a shadow of a doubt, that it is the real deal.
+                                Our approach is simple: absolute proof. We don't guess, and we don't take risks. We only stock items where we can trace the provenance directly to the source.
+                            </p>
+                            <p className="text-lg text-charcoal/70 leading-relaxed font-light">
+                                We wanted to build the store we always wanted to shop at—a place where you can buy a piece of sporting history and know, 100%, that it is the real deal.
                             </p>
                         </div>
                         <div className="relative mt-4 lg:mt-0">
