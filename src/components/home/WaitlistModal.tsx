@@ -118,15 +118,15 @@ export function WaitlistModal() {
     if (!isOpen) return null;
 
     return (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 overflow-y-auto">
             <div
-                className="absolute inset-0 bg-navy/95 backdrop-blur-sm"
+                className="fixed inset-0 bg-navy/95 backdrop-blur-sm"
                 onClick={handleClose}
             />
 
-            <div className="relative w-full max-w-lg bg-white border border-navy/10 rounded-xl shadow-2xl animate-in zoom-in-95 duration-300 max-h-[80vh] overflow-y-auto flex flex-col">
+            <div className="relative w-full max-w-lg bg-white border border-navy/10 rounded-xl shadow-2xl animate-in zoom-in-95 duration-300 flex flex-col my-auto max-h-[calc(100vh-2rem)]">
                 {/* Decorative Header */}
-                <div className="bg-navy p-4 text-center border-b border-gold/20 sticky top-0 z-10 shrink-0">
+                <div className="bg-navy p-4 text-center border-b border-gold/20 shrink-0 rounded-t-xl">
                     <div className="w-8 h-8 bg-white/10 rounded-full flex items-center justify-center mx-auto mb-2">
                         <Lock className="w-4 h-4 text-gold" />
                     </div>
@@ -145,7 +145,7 @@ export function WaitlistModal() {
                     </button>
                 </div>
 
-                <div className="p-5 overflow-y-auto">
+                <div className="p-5 overflow-y-auto overscroll-contain">
                     {!isSuccess ? (
                         <>
                             <p className="text-navy/70 text-center mb-4 text-sm leading-relaxed">
