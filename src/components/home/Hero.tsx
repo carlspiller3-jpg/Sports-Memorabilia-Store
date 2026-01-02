@@ -36,7 +36,7 @@ export function Hero() {
 
           {/* Subheadline */}
           <p className="text-sm sm:text-lg text-white/80 max-w-xl leading-relaxed">
-            The premier destination for authentic signed sports memorabilia. Explore a curated selection of verified artifacts from the world's greatest sporting legends.
+            The premier destination for authentic signed sports memorabilia. Explore a curated selection of verified pieces from the world's greatest sporting legends.
           </p>
 
           {/* CTA Buttons */}
