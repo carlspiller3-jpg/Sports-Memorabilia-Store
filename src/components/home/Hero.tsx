@@ -1,11 +1,11 @@
 import { Button } from "@/components/ui/Button"
 import { Link } from "react-router-dom"
-import { TrustIndicators } from "./TrustIndicators"
+
 
 export function Hero() {
   // Trigger Vercel Build - Force Update
   return (
-    <section className="relative w-full h-[calc(100vh-6rem)] min-h-[550px] flex flex-col overflow-hidden">
+    <section className="relative w-full h-full min-h-[500px] flex flex-col overflow-hidden">
       {/* Background Image */}
       <div className="absolute inset-0">
         <img
@@ -18,7 +18,7 @@ export function Hero() {
       </div>
 
       {/* Content */}
-      <div className="relative flex-1 container mx-auto px-4 flex flex-col justify-end h-full pb-20 md:pb-40">
+      <div className="relative flex-1 container mx-auto px-4 flex flex-col justify-end h-full pb-12 md:pb-24">
         <div className="max-w-2xl space-y-4 animate-in fade-in slide-in-from-bottom-8 duration-1000">
           {/* Trust Badge */}
           <div className="inline-flex items-center space-x-2 rounded-full border border-white/20 bg-white/10 backdrop-blur-sm px-3 py-1.5 text-xs font-medium text-white w-fit">
@@ -53,11 +53,6 @@ export function Hero() {
             </Link>
           </div>
         </div>
-      </div>
-
-      {/* Trust Indicators - Forced to Bottom */}
-      <div className="absolute bottom-0 left-0 right-0 z-20 w-full">
-        <TrustIndicators />
       </div>
     </section>
   )

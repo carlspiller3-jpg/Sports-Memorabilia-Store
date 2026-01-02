@@ -6,6 +6,8 @@ import { PresentationSection } from "@/components/home/PresentationSection"
 import { WaitlistModal } from "@/components/home/WaitlistModal"
 
 
+import { TrustIndicators } from "@/components/home/TrustIndicators"
+
 export function HomePage() {
     return (
         <div className="min-h-screen">
@@ -46,6 +48,7 @@ export function HomePage() {
                 <div className="flex-1 min-h-0 relative">
                     <Hero />
                 </div>
+                <TrustIndicators />
             </div>
 
             {/* Below the Fold Content */}
