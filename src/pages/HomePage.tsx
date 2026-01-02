@@ -23,7 +23,7 @@ export function HomePage() {
             </Helmet>
 
             {/* Above the Fold: Hero + Trust Bar */}
-            <div className="pt-[80px] min-h-screen lg:h-screen flex flex-col justify-between">
+            <div className="min-h-screen lg:h-screen flex flex-col justify-between">
                 <div className="flex-1 min-h-0 relative">
                     <Hero />
                 </div>
