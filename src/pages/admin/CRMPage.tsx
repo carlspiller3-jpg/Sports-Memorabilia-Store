@@ -350,8 +350,8 @@ export function CRMPage() {
                                 key={status}
                                 onClick={() => setFilterStatus(status as any)}
                                 className={`px-6 py-2 rounded-md text-sm font-bold tracking-wide transition-all ${filterStatus === status
-                                        ? 'bg-navy text-white shadow-md'
-                                        : 'text-charcoal/50 hover:text-navy hover:bg-white'
+                                    ? 'bg-navy text-white shadow-md'
+                                    : 'text-charcoal/50 hover:text-navy hover:bg-white'
                                     }`}
                             >
                                 {status}
@@ -390,8 +390,8 @@ export function CRMPage() {
 
                                 <div className="flex justify-between items-start mb-4">
                                     <div className={`px-3 py-1 rounded-full text-[10px] font-bold tracking-widest uppercase border ${contact.status === 'HOT' ? 'bg-red-50 text-red-600 border-red-100' :
-                                            contact.status === 'WARM' ? 'bg-orange-50 text-orange-600 border-orange-100' :
-                                                'bg-blue-50 text-blue-600 border-blue-100'
+                                        contact.status === 'WARM' ? 'bg-orange-50 text-orange-600 border-orange-100' :
+                                            'bg-blue-50 text-blue-600 border-blue-100'
                                         }`}>
                                         {contact.status}
                                     </div>
@@ -514,8 +514,8 @@ export function CRMPage() {
 
             {/* Detail / Edit Modal - Full Screen Style Overlay */}
             {selectedContact && (
-                <div className="fixed inset-0 z-[200] flex items-center justify-center bg-navy/60 backdrop-blur-md p-2 md:p-8 animate-in fade-in duration-200">
-                    <div className="bg-ivory rounded-2xl shadow-2xl w-full max-w-6xl h-full md:h-[85vh] flex flex-col md:flex-row overflow-hidden border border-white/10">
+                <div className="fixed inset-0 z-[1000] flex items-center justify-center bg-navy/60 backdrop-blur-md p-4 pt-24 animate-in fade-in duration-200">
+                    <div className="bg-ivory rounded-2xl shadow-2xl w-full max-w-6xl h-full max-h-[85vh] flex flex-col md:flex-row overflow-hidden border border-white/10">
 
                         {/* Left: Details (Static/Editable) */}
                         <div className="w-full md:w-[350px] bg-white border-r border-navy/10 flex flex-col h-full z-10 shadow-lg">
@@ -587,7 +587,7 @@ export function CRMPage() {
                             </div>
 
                             <div className="p-4 border-t border-navy/10 bg-gray-50 flex gap-2">
-                                <button onClick={handleUpdateContact} className="flex-1 bg-navy text-white py-3 rounded-lg text-sm font-bold hover:bg-navy/90 transition-colors shadow-sm">
+                                <button onClick={() => { handleUpdateContact(); setSelectedContact(null); }} className="flex-1 bg-navy text-white py-3 rounded-lg text-sm font-bold hover:bg-navy/90 transition-colors shadow-sm">
                                     Save Changes
                                 </button>
                                 <button onClick={() => handleDeleteContact(selectedContact.id)} className="p-3 text-red-500 hover:bg-red-50 rounded-lg transition-colors" title="Delete Contact">
