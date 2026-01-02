@@ -60,7 +60,7 @@ export function AboutPage() {
                         </div>
                     </div>
                 </div>
-
+            </section>
         </div>
     )
 }
