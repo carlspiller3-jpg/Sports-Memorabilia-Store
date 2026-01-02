@@ -5,7 +5,7 @@ import { TrustIndicators } from "./TrustIndicators"
 export function Hero() {
   // Trigger Vercel Build - Force Update
   return (
-    <section className="relative w-full h-screen min-h-[550px] flex flex-col overflow-hidden">
+    <section className="relative w-full h-[calc(100vh-6rem)] min-h-[550px] flex flex-col overflow-hidden">
       {/* Background Image */}
       <div className="absolute inset-0">
         <img
