@@ -1,4 +1,3 @@
-```
 import { useState, useEffect } from 'react';
 import { supabase } from '@/lib/supabaseClient';
 import { Plus, Search, Phone, Mail, FileText, Trash2, Save, X, User, Lock, Send, LogOut, Loader2 } from 'lucide-react';
@@ -8,7 +7,7 @@ import { Helmet } from 'react-helmet-async';
 interface Note {
     date: string;
     content: string;
-    author?: string; // Optional: track who wrote it
+    author?: string;
 }
 
 interface Contact {
@@ -19,49 +18,59 @@ interface Contact {
     contact_number: string;
     contact_email: string;
     status: 'COLD' | 'WARM' | 'HOT';
-    notes: Note[];
+    notes: Note[] | null;
     created_at: string;
 }
 
 export function CRMPage() {
+    // Session State
+    const [session, setSession] = useState<any>(null);
+    const [authLoading, setAuthLoading] = useState(true);
+
+    // Data State
     const [contacts, setContacts] = useState<Contact[]>([]);
     const [loading, setLoading] = useState(true);
     const [searchTerm, setSearchTerm] = useState('');
     const [filterStatus, setFilterStatus] = useState<'ALL' | 'COLD' | 'WARM' | 'HOT'>('ALL');
+
+    // UI State
     const [selectedContact, setSelectedContact] = useState<Contact | null>(null);
     const [isAdding, setIsAdding] = useState(false);
 
-    // Security State
-    const [isUnlocked, setIsUnlocked] = useState(false);
-    const [passwordInput, setPasswordInput] = useState('');
-    const [authError, setAuthError] = useState(false);
+    // Login Form State
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [loginError, setLoginError] = useState('');
+    const [loggingIn, setLoggingIn] = useState(false);
 
-    // Form State
+    // Form State (Add)
     const [formData, setFormData] = useState<Partial<Contact>>({
         status: 'COLD',
         notes: []
     });
+
+    // Form State (Note)
     const [newNote, setNewNote] = useState('');
 
     useEffect(() => {
-        // Check session
-        if (sessionStorage.getItem('crm_unlocked') === 'true') {
-            setIsUnlocked(true);
-            fetchContacts();
-        }
-    }, []);
+        // 1. Check active session
+        supabase.auth.getSession().then(({ data: { session } }) => {
+            setSession(session);
+            if (session) fetchContacts();
+            setAuthLoading(false);
+        });
 
-    const handleUnlock = (e: React.FormEvent) => {
-        e.preventDefault();
-        // Simple password protection - Change this to something secure!
-        if (passwordInput === 'ADMIN2026') {
-            setIsUnlocked(true);
-            sessionStorage.setItem('crm_unlocked', 'true');
-            fetchContacts();
-        } else {
-            setAuthError(true);
-        }
-    };
+        // 2. Listen for changes
+        const {
+            data: { subscription },
+        } = supabase.auth.onAuthStateChange((_event, session) => {
+            setSession(session);
+            if (session) fetchContacts();
+            setAuthLoading(false);
+        });
+
+        return () => subscription.unsubscribe();
+    }, []);
 
     const fetchContacts = async () => {
         setLoading(true);
@@ -73,10 +82,35 @@ export function CRMPage() {
         if (error) {
             console.error('Error fetching contacts:', error);
         } else {
-            // Parse notes if they are stored as JSONB, usually comes as object/array automatically
-            setContacts(data || []);
+            // Ensure notes is always an array for local usage
+            const parsedData = data?.map(c => ({
+                ...c,
+                notes: c.notes || []
+            })) || [];
+            setContacts(parsedData);
         }
         setLoading(false);
+    };
+
+    const handleLogin = async (e: React.FormEvent) => {
+        e.preventDefault();
+        setLoggingIn(true);
+        setLoginError('');
+
+        const { error } = await supabase.auth.signInWithPassword({
+            email,
+            password,
+        });
+
+        if (error) {
+            setLoginError(error.message);
+        }
+        setLoggingIn(false);
+    };
+
+    const handleLogout = async () => {
+        await supabase.auth.signOut();
+        setContacts([]);
     };
 
     const handleSaveContact = async () => {
@@ -119,17 +153,14 @@ export function CRMPage() {
                 company_name: selectedContact.company_name,
                 contact_number: selectedContact.contact_number,
                 contact_email: selectedContact.contact_email,
-                status: selectedContact.status,
-                notes: selectedContact.notes
+                status: selectedContact.status
             })
             .eq('id', selectedContact.id);
 
         if (error) {
             alert('Error updating contact: ' + error.message);
         } else {
-            // Optimistic update locally or re-fetch
-            fetchContacts(); // rigorous
-            // Keep selected open?
+            fetchContacts();
         }
     };
 
@@ -152,368 +183,511 @@ export function CRMPage() {
     const addNote = async () => {
         if (!newNote.trim() || !selectedContact) return;
 
-        // specific format requested: "01/01 - notes..."
-        // We will store it as a structured object { date: "01/01", content: "..." } for flexibility,
-        // but the UI will display it as requested.
         const now = new Date();
-        const day = String(now.getDate()).padStart(2, '0');
-        const month = String(now.getMonth() + 1).padStart(2, '0');
-        const dateStr = `${ day }/${month}`;
+        const dateStr = now.toLocaleDateString('en-GB', {
+            day: '2-digit',
+            month: '2-digit',
+            hour: '2-digit',
+            minute: '2-digit'
+        }); // e.g. 02/01 14:30
 
-// Check if we already have a note for today? No, just append.
-// Actually, user example: "01/01 - contacted".
-// I'll create a text string or object?
-// Let's stick to object for better data structure, but render as text.
+        const noteObj: Note = {
+            date: dateStr,
+            content: newNote,
+            author: session?.user?.email || 'Unknown'
+        };
 
-const noteObj: Note = { date: dateStr, content: newNote };
+        const currentNotes = Array.isArray(selectedContact.notes) ? selectedContact.notes : [];
+        const updatedNotes = [...currentNotes, noteObj];
 
-const updatedNotes = [...(selectedContact.notes || []), noteObj];
+        // Optimistic Update
+        const updatedContact = { ...selectedContact, notes: updatedNotes };
+        setSelectedContact(updatedContact);
+        setNewNote('');
 
-// Update local state first
-const updatedContact = { ...selectedContact, notes: updatedNotes };
-setSelectedContact(updatedContact);
-setNewNote('');
+        // Persist
+        const { error } = await supabase
+            .from('crm_contacts')
+            .update({ notes: updatedNotes })
+            .eq('id', selectedContact.id);
 
-// Persist
-const { error } = await supabase
-    .from('crm_contacts')
-    .update({ notes: updatedNotes })
-    .eq('id', selectedContact.id);
-
-if (error) {
-    console.error("Failed to save note", error);
-    alert("Failed to save note");
-} else {
-    // Update main list too
-    setContacts(contacts.map(c => c.id === updatedContact.id ? updatedContact : c));
-}
+        if (error) {
+            console.error("Failed to save note", error);
+            alert("Failed to save note. Please check your connection.");
+        } else {
+            // Update main list in background
+            setContacts(prev => prev.map(c => c.id === updatedContact.id ? updatedContact : c));
+        }
     };
 
-const filteredContacts = contacts.filter(c => {
-    const matchesSearch = c.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        c.company_name.toLowerCase().includes(searchTerm.toLowerCase());
-    const matchesFilter = filterStatus === 'ALL' || c.status === filterStatus;
-    return matchesSearch && matchesFilter;
-});
+    const filteredContacts = contacts.filter(c => {
+        const matchesSearch = c.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            c.company_name.toLowerCase().includes(searchTerm.toLowerCase());
+        const matchesFilter = filterStatus === 'ALL' || c.status === filterStatus;
+        return matchesSearch && matchesFilter;
+    });
 
-if (!isUnlocked) {
-    return (
-        <div className="min-h-screen bg-ivory flex flex-col items-center justify-center p-4">
-            <Helmet>
-                <title>Restricted Access</title>
-                <meta name="robots" content="noindex, nofollow" />
-            </Helmet>
-            <div className="bg-white p-8 rounded-lg shadow-xl max-w-md w-full border border-navy/10 text-center">
-                <div className="w-16 h-16 bg-navy rounded-full flex items-center justify-center mx-auto mb-6">
-                    <User className="w-8 h-8 text-gold" />
-                </div>
-                <h1 className="font-serif text-2xl text-navy mb-2">Team Access Only</h1>
-                <p className="text-charcoal/60 mb-6 text-sm">Please enter the admin password to access the CRM.</p>
-
-                <form onSubmit={handleUnlock} className="space-y-4">
-                    <input
-                        type="password"
-                        placeholder="Password"
-                        value={passwordInput}
-                        onChange={(e) => {
-                            setPasswordInput(e.target.value);
-                            setAuthError(false);
-                        }}
-                        className="w-full p-3 bg-ivory border border-navy/10 rounded focus:outline-none focus:border-gold text-center tracking-widest"
-                    />
-                    {authError && <p className="text-red-500 text-xs">Incorrect password</p>}
-                    <button type="submit" className="w-full bg-navy text-white font-bold py-3 rounded hover:bg-navy/90 transition-colors">
-                        Unlock
-                    </button>
-                </form>
+    if (authLoading) {
+        return (
+            <div className="min-h-screen bg-ivory flex items-center justify-center">
+                <Loader2 className="w-8 h-8 animate-spin text-navy" />
             </div>
-        </div>
-    );
-}
+        );
+    }
 
-return (
-    <div className="min-h-screen bg-ivory text-charcoal pt-24 pb-12 px-4 md:pt-32 md:pb-12 md:px-12">
-        <Helmet>
-            <title>Team CRM</title>
-            <meta name="robots" content="noindex, nofollow" />
-        </Helmet>
-        <div className="max-w-7xl mx-auto">
-
-            {/* Header */}
-            <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
-                <div>
-                    <h1 className="font-serif text-4xl text-navy mb-2">Team CRM</h1>
-                    <p className="text-charcoal/60">Manage your contacts and relationships simply.</p>
-                </div>
-                <button
-                    onClick={() => setIsAdding(true)}
-                    className="bg-gold hover:bg-gold/90 text-ivory px-6 py-3 rounded-md font-medium flex items-center gap-2 transition-colors shadow-lg"
-                >
-                    <Plus className="w-5 h-5" />
-                    Add New Contact
-                </button>
-            </div>
-
-            {/* Filters */}
-            <div className="bg-white p-4 rounded-lg shadow-sm border border-navy/5 mb-8 flex flex-col md:flex-row gap-4">
-                <div className="relative flex-1">
-                    <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-charcoal/40 w-5 h-5" />
-                    <input
-                        type="text"
-                        placeholder="Search contacts..."
-                        value={searchTerm}
-                        onChange={(e) => setSearchTerm(e.target.value)}
-                        className="w-full pl-10 pr-4 py-2 bg-ivory border border-navy/10 rounded focus:outline-none focus:border-gold"
-                    />
-                </div>
-                <div className="flex gap-2 bg-ivory p-1 rounded border border-navy/10">
-                    {['ALL', 'COLD', 'WARM', 'HOT'].map((status) => (
-                        <button
-                            key={status}
-                            onClick={() => setFilterStatus(status as any)}
-                            className={`px-4 py-1.5 rounded text-sm font-medium transition-colors ${filterStatus === status
-                                ? 'bg-navy text-white shadow-sm'
-                                : 'text-charcoal/60 hover:text-navy hover:bg-black/5'
-                                }`}
-                        >
-                            {status}
-                        </button>
-                    ))}
-                </div>
-            </div>
-
-            {/* Main Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {loading ? (
-                    <p>Loading contacts...</p>
-                ) : filteredContacts.map(contact => (
-                    <div
-                        key={contact.id}
-                        onClick={() => setSelectedContact(contact)}
-                        className="bg-white p-6 rounded-lg shadow-sm border border-navy/5 hover:shadow-md hover:border-gold/30 transition-all cursor-pointer group"
-                    >
-                        <div className="flex justify-between items-start mb-4">
-                            <div className={`px-3 py-1 rounded-full text-xs font-bold tracking-wider ${contact.status === 'HOT' ? 'bg-red-100 text-red-700' :
-                                contact.status === 'WARM' ? 'bg-orange-100 text-orange-700' :
-                                    'bg-blue-100 text-blue-700'
-                                }`}>
-                                {contact.status}
-                            </div>
-                            <div className="text-xs text-charcoal/40 font-mono">
-                                {new Date(contact.created_at).toLocaleDateString()}
-                            </div>
-                        </div>
-
-                        <h3 className="font-serif text-xl text-navy group-hover:text-gold transition-colors mb-1">{contact.name}</h3>
-                        <p className="text-sm font-medium text-charcoal/70 mb-4">{contact.role} @ {contact.company_name}</p>
-
-                        <div className="space-y-2 text-sm text-charcoal/60">
-                            <div className="flex items-center gap-2">
-                                <Phone className="w-4 h-4" />
-                                {contact.contact_number || 'No number'}
-                            </div>
-                            <div className="flex items-center gap-2">
-                                <Mail className="w-4 h-4" />
-                                {contact.contact_email || 'No email'}
-                            </div>
-                        </div>
-
-                        {/* Preview latest note if any */}
-                        {contact.notes && contact.notes.length > 0 && (
-                            <div className="mt-4 pt-4 border-t border-navy/5">
-                                <p className="text-xs text-charcoal/50 italic truncate">
-                                    Latest: {contact.notes[contact.notes.length - 1].date} - {contact.notes[contact.notes.length - 1].content}
-                                </p>
-                            </div>
-                        )}
+    if (!session) {
+        return (
+            <div className="min-h-screen bg-ivory flex flex-col items-center justify-center p-4">
+                <Helmet>
+                    <title>Team Login</title>
+                    <meta name="robots" content="noindex, nofollow" />
+                </Helmet>
+                <div className="bg-white p-8 md:p-12 rounded-lg shadow-xl max-w-md w-full border border-navy/10 text-center">
+                    <div className="w-16 h-16 bg-navy rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg shadow-navy/20">
+                        <Lock className="w-7 h-7 text-gold" />
                     </div>
-                ))}
-            </div>
-        </div>
+                    <h1 className="font-serif text-3xl text-navy mb-2">Team Access</h1>
+                    <p className="text-charcoal/60 mb-8 text-sm leading-relaxed">
+                        Secure CRM Login. <br /> Please use your administrative credentials.
+                    </p>
 
-        {/* Add Contact Modal */}
-        {isAdding && (
-            <div className="fixed inset-0 z-50 flex items-center justify-center bg-navy/20 backdrop-blur-sm p-4">
-                <div className="bg-white p-8 rounded-lg shadow-2xl w-full max-w-md animate-fade-in">
-                    <div className="flex justify-between items-center mb-6">
-                        <h2 className="font-serif text-2xl text-navy">Add New Contact</h2>
-                        <button onClick={() => setIsAdding(false)}><X className="w-6 h-6 text-charcoal/50 hover:text-navy" /></button>
-                    </div>
-
-                    <div className="space-y-4">
-                        <div className="grid grid-cols-2 gap-4">
+                    <form onSubmit={handleLogin} className="space-y-4 text-left">
+                        <div>
+                            <label className="block text-xs font-bold text-navy uppercase tracking-widest mb-1">Email</label>
                             <input
-                                placeholder="Name"
-                                className="p-3 bg-ivory border border-navy/10 rounded w-full"
-                                value={formData.name || ''}
-                                onChange={e => setFormData({ ...formData, name: e.target.value })}
-                            />
-                            <input
-                                placeholder="Role"
-                                className="p-3 bg-ivory border border-navy/10 rounded w-full"
-                                value={formData.role || ''}
-                                onChange={e => setFormData({ ...formData, role: e.target.value })}
-                            />
-                        </div>
-                        <input
-                            placeholder="Company Name"
-                            className="p-3 bg-ivory border border-navy/10 rounded w-full"
-                            value={formData.company_name || ''}
-                            onChange={e => setFormData({ ...formData, company_name: e.target.value })}
-                        />
-                        <div className="grid grid-cols-2 gap-4">
-                            <input
-                                placeholder="Phone"
-                                className="p-3 bg-ivory border border-navy/10 rounded w-full"
-                                value={formData.contact_number || ''}
-                                onChange={e => setFormData({ ...formData, contact_number: e.target.value })}
-                            />
-                            <input
-                                placeholder="Email"
-                                className="p-3 bg-ivory border border-navy/10 rounded w-full"
-                                value={formData.contact_email || ''}
-                                onChange={e => setFormData({ ...formData, contact_email: e.target.value })}
+                                type="email"
+                                required
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
+                                className="w-full p-3 bg-ivory border border-navy/10 rounded focus:outline-none focus:border-gold transition-colors"
+                                placeholder="name@sportssigned.com"
                             />
                         </div>
                         <div>
-                            <label className="block text-sm font-medium text-charcoal/60 mb-1">Status</label>
-                            <select
-                                className="w-full p-3 bg-ivory border border-navy/10 rounded"
-                                value={formData.status}
-                                onChange={(e) => setFormData({ ...formData, status: e.target.value as any })}
-                            >
-                                <option value="COLD">COLD</option>
-                                <option value="WARM">WARM</option>
-                                <option value="HOT">HOT</option>
-                            </select>
+                            <label className="block text-xs font-bold text-navy uppercase tracking-widest mb-1">Password</label>
+                            <input
+                                type="password"
+                                required
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
+                                className="w-full p-3 bg-ivory border border-navy/10 rounded focus:outline-none focus:border-gold transition-colors"
+                                placeholder="••••••••"
+                            />
                         </div>
 
+                        {loginError && (
+                            <div className="p-3 bg-red-50 text-red-600 text-xs rounded border border-red-100 flex items-center gap-2">
+                                <X className="w-3 h-3" />
+                                {loginError}
+                            </div>
+                        )}
+
                         <button
-                            onClick={handleSaveContact}
-                            className="w-full bg-navy text-white py-3 rounded font-bold hover:bg-navy/90 mt-4"
+                            type="submit"
+                            disabled={loggingIn}
+                            className="w-full bg-navy text-white font-bold py-4 rounded hover:bg-navy/90 transition-all flex justify-center items-center gap-2 mt-4"
                         >
-                            Save Contact
+                            {loggingIn ? <Loader2 className="w-4 h-4 animate-spin" /> : 'Sign In'}
+                        </button>
+                    </form>
+                </div>
+            </div>
+        );
+    }
+
+    return (
+        <div className="min-h-screen bg-ivory text-charcoal pt-24 pb-12 px-4 md:pt-32 md:pb-12 md:px-12">
+            <Helmet>
+                <title>Team CRM | Authenticated</title>
+                <meta name="robots" content="noindex, nofollow" />
+            </Helmet>
+
+            <div className="max-w-7xl mx-auto">
+                {/* Header */}
+                <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-8 gap-4 border-b border-navy/5 pb-8">
+                    <div>
+                        <div className="flex items-center gap-3 mb-2">
+                            <h1 className="font-serif text-4xl text-navy">Team CRM</h1>
+                            <span className="px-2 py-0.5 bg-green-100 text-green-700 text-[10px] font-bold tracking-widest rounded-full uppercase border border-green-200">
+                                Secure
+                            </span>
+                        </div>
+                        <p className="text-charcoal/60">Welcome back. You are logged in as <span className="text-navy font-semibold">{session.user.email}</span>.</p>
+                    </div>
+                    <div className="flex gap-3">
+                        <button
+                            onClick={handleLogout}
+                            className="bg-white border border-navy/10 text-charcoal/70 px-4 py-3 rounded-md font-medium flex items-center gap-2 hover:bg-red-50 hover:text-red-600 hover:border-red-100 transition-colors"
+                        >
+                            <LogOut className="w-4 h-4" />
+                            Logout
+                        </button>
+                        <button
+                            onClick={() => setIsAdding(true)}
+                            className="bg-gold hover:bg-gold/90 text-ivory px-6 py-3 rounded-md font-medium flex items-center gap-2 transition-colors shadow-lg shadow-gold/20"
+                        >
+                            <Plus className="w-5 h-5" />
+                            Add Contact
                         </button>
                     </div>
                 </div>
-            </div>
-        )}
 
-        {/* Detail / Edit Modal */}
-        {selectedContact && (
-            <div className="fixed inset-0 z-50 flex items-center justify-center bg-navy/20 backdrop-blur-sm p-4">
-                <div className="bg-white p-0 rounded-lg shadow-2xl w-full max-w-4xl h-[80vh] flex overflow-hidden animate-fade-in">
-
-                    {/* Left: Details */}
-                    <div className="w-1/3 bg-ivory p-8 border-r border-navy/10 overflow-y-auto">
-                        <h2 className="font-serif text-2xl text-navy mb-1">{selectedContact.name}</h2>
+                {/* Filters */}
+                <div className="bg-white p-4 rounded-xl shadow-sm border border-navy/5 mb-8 flex flex-col md:flex-row gap-4 items-center">
+                    <div className="relative flex-1 w-full">
+                        <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-charcoal/40 w-5 h-5" />
                         <input
-                            className="bg-transparent border-b border-navy/10 w-full mb-6 font-medium text-charcoal/70 focus:outline-none focus:border-gold"
-                            value={selectedContact.role}
-                            onChange={(e) => setSelectedContact({ ...selectedContact, role: e.target.value })}
+                            type="text"
+                            placeholder="Search contacts by name or company..."
+                            value={searchTerm}
+                            onChange={(e) => setSearchTerm(e.target.value)}
+                            className="w-full pl-10 pr-4 py-3 bg-ivory border border-navy/10 rounded-lg focus:outline-none focus:border-gold transition-all"
                         />
+                    </div>
+                    <div className="flex gap-2 w-full md:w-auto bg-ivory p-1.5 rounded-lg border border-navy/10 overflow-x-auto">
+                        {['ALL', 'COLD', 'WARM', 'HOT'].map((status) => (
+                            <button
+                                key={status}
+                                onClick={() => setFilterStatus(status as any)}
+                                className={`px-6 py-2 rounded-md text-sm font-bold tracking-wide transition-all ${filterStatus === status
+                                        ? 'bg-navy text-white shadow-md'
+                                        : 'text-charcoal/50 hover:text-navy hover:bg-white'
+                                    }`}
+                            >
+                                {status}
+                            </button>
+                        ))}
+                    </div>
+                </div>
 
-                        <div className="space-y-6">
+                {/* Main Grid */}
+                {contacts.length === 0 && !loading ? (
+                    <div className="text-center py-24 bg-white rounded-xl border border-dashed border-navy/10">
+                        <div className="w-16 h-16 bg-ivory rounded-full flex items-center justify-center mx-auto mb-4">
+                            <User className="w-8 h-8 text-charcoal/20" />
+                        </div>
+                        <h3 className="font-serif text-xl text-navy mb-2">No Contacts Found</h3>
+                        <p className="text-charcoal/50 mb-6">Get started by adding your first lead.</p>
+                        <button onClick={() => setIsAdding(true)} className="text-gold font-bold hover:underline">Add Contact Now</button>
+                    </div>
+                ) : (
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        {loading ? (
+                            [1, 2, 3].map(i => (
+                                <div key={i} className="h-48 bg-gray-100 rounded-lg animate-pulse" />
+                            ))
+                        ) : filteredContacts.map(contact => (
+                            <div
+                                key={contact.id}
+                                onClick={() => setSelectedContact(contact)}
+                                className="bg-white p-6 rounded-xl shadow-sm border border-navy/5 hover:shadow-xl hover:-translate-y-1 hover:border-gold/30 transition-all cursor-pointer group relative overflow-hidden"
+                            >
+                                <div className="absolute top-0 right-0 p-4 opacity-0 group-hover:opacity-100 transition-opacity">
+                                    <div className="bg-ivory p-2 rounded-full shadow-sm text-navy">
+                                        <FileText className="w-4 h-4" />
+                                    </div>
+                                </div>
+
+                                <div className="flex justify-between items-start mb-4">
+                                    <div className={`px-3 py-1 rounded-full text-[10px] font-bold tracking-widest uppercase border ${contact.status === 'HOT' ? 'bg-red-50 text-red-600 border-red-100' :
+                                            contact.status === 'WARM' ? 'bg-orange-50 text-orange-600 border-orange-100' :
+                                                'bg-blue-50 text-blue-600 border-blue-100'
+                                        }`}>
+                                        {contact.status}
+                                    </div>
+                                </div>
+
+                                <h3 className="font-serif text-xl text-navy group-hover:text-gold transition-colors mb-1 truncate">{contact.name}</h3>
+                                <p className="text-sm font-medium text-charcoal/70 mb-6 truncate">{contact.role} <span className="text-charcoal/40">at</span> {contact.company_name}</p>
+
+                                <div className="space-y-3">
+                                    <div className="flex items-center gap-3 text-sm text-charcoal/60 bg-ivory p-2 rounded border border-navy/5">
+                                        <Phone className="w-4 h-4 text-gold" />
+                                        <span className="truncate">{contact.contact_number || 'N/A'}</span>
+                                    </div>
+                                    <div className="flex items-center gap-3 text-sm text-charcoal/60 bg-ivory p-2 rounded border border-navy/5">
+                                        <Mail className="w-4 h-4 text-gold" />
+                                        <span className="truncate">{contact.contact_email || 'N/A'}</span>
+                                    </div>
+                                </div>
+
+                                {/* Footer Stats */}
+                                <div className="mt-6 pt-4 border-t border-navy/5 flex justify-between items-center text-xs text-charcoal/40 font-mono">
+                                    <span>Created: {new Date(contact.created_at).toLocaleDateString()}</span>
+                                    <span className="flex items-center gap-1">
+                                        <FileText className="w-3 h-3" />
+                                        {(contact.notes || []).length} Notes
+                                    </span>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                )}
+            </div>
+
+            {/* Add Contact Modal */}
+            {isAdding && (
+                <div className="fixed inset-0 z-[200] flex items-center justify-center bg-navy/40 backdrop-blur-sm p-4 animate-in fade-in duration-200">
+                    <div className="bg-white p-8 rounded-xl shadow-2xl w-full max-w-lg relative border border-white/20">
+                        <button onClick={() => setIsAdding(false)} className="absolute top-4 right-4 p-2 hover:bg-gray-100 rounded-full transition-colors">
+                            <X className="w-5 h-5 text-charcoal/50" />
+                        </button>
+
+                        <h2 className="font-serif text-2xl text-navy mb-6">Add New Contact</h2>
+
+                        <div className="space-y-4">
+                            <div className="grid grid-cols-2 gap-4">
+                                <div>
+                                    <label className="text-[10px] font-bold text-charcoal/50 uppercase tracking-widest mb-1 block">Full Name</label>
+                                    <input
+                                        placeholder="e.g. John Smith"
+                                        className="p-3 bg-ivory border border-navy/10 rounded w-full focus:border-gold focus:outline-none"
+                                        value={formData.name || ''}
+                                        onChange={e => setFormData({ ...formData, name: e.target.value })}
+                                    />
+                                </div>
+                                <div>
+                                    <label className="text-[10px] font-bold text-charcoal/50 uppercase tracking-widest mb-1 block">Role / Job Title</label>
+                                    <input
+                                        placeholder="e.g. CEO"
+                                        className="p-3 bg-ivory border border-navy/10 rounded w-full focus:border-gold focus:outline-none"
+                                        value={formData.role || ''}
+                                        onChange={e => setFormData({ ...formData, role: e.target.value })}
+                                    />
+                                </div>
+                            </div>
+
                             <div>
-                                <label className="text-xs font-bold text-charcoal/40 uppercase tracking-widest block mb-2">Company</label>
+                                <label className="text-[10px] font-bold text-charcoal/50 uppercase tracking-widest mb-1 block">Company</label>
                                 <input
-                                    className="w-full p-2 bg-white border border-navy/10 rounded"
-                                    value={selectedContact.company_name}
-                                    onChange={(e) => setSelectedContact({ ...selectedContact, company_name: e.target.value })}
+                                    placeholder="e.g. Acme Corp"
+                                    className="p-3 bg-ivory border border-navy/10 rounded w-full focus:border-gold focus:outline-none"
+                                    value={formData.company_name || ''}
+                                    onChange={e => setFormData({ ...formData, company_name: e.target.value })}
                                 />
                             </div>
+
+                            <div className="grid grid-cols-2 gap-4">
+                                <div>
+                                    <label className="text-[10px] font-bold text-charcoal/50 uppercase tracking-widest mb-1 block">Phone</label>
+                                    <input
+                                        placeholder="+44..."
+                                        className="p-3 bg-ivory border border-navy/10 rounded w-full focus:border-gold focus:outline-none"
+                                        value={formData.contact_number || ''}
+                                        onChange={e => setFormData({ ...formData, contact_number: e.target.value })}
+                                    />
+                                </div>
+                                <div>
+                                    <label className="text-[10px] font-bold text-charcoal/50 uppercase tracking-widest mb-1 block">Email</label>
+                                    <input
+                                        placeholder="john@acme.com"
+                                        className="p-3 bg-ivory border border-navy/10 rounded w-full focus:border-gold focus:outline-none"
+                                        value={formData.contact_email || ''}
+                                        onChange={e => setFormData({ ...formData, contact_email: e.target.value })}
+                                    />
+                                </div>
+                            </div>
+
                             <div>
-                                <label className="text-xs font-bold text-charcoal/40 uppercase tracking-widest block mb-2">Status</label>
+                                <label className="text-[10px] font-bold text-charcoal/50 uppercase tracking-widest mb-1 block">Initial Status</label>
                                 <select
-                                    className="w-full p-2 bg-white border border-navy/10 rounded"
-                                    value={selectedContact.status}
-                                    onChange={(e) => setSelectedContact({ ...selectedContact, status: e.target.value as any })}
+                                    className="w-full p-3 bg-ivory border border-navy/10 rounded focus:border-gold focus:outline-none"
+                                    value={formData.status}
+                                    onChange={(e) => setFormData({ ...formData, status: e.target.value as any })}
                                 >
-                                    <option value="COLD">COLD</option>
-                                    <option value="WARM">WARM</option>
-                                    <option value="HOT">HOT</option>
+                                    <option value="COLD">COLD (No contact)</option>
+                                    <option value="WARM">WARM (In conversation)</option>
+                                    <option value="HOT">HOT (Closing / Urgent)</option>
                                 </select>
                             </div>
-                            <div>
-                                <label className="text-xs font-bold text-charcoal/40 uppercase tracking-widest block mb-2">Contact Info</label>
-                                <input
-                                    className="w-full p-2 bg-white border border-navy/10 rounded mb-2"
-                                    value={selectedContact.contact_number}
-                                    onChange={(e) => setSelectedContact({ ...selectedContact, contact_number: e.target.value })}
-                                    placeholder="Phone"
-                                />
-                                <input
-                                    className="w-full p-2 bg-white border border-navy/10 rounded"
-                                    value={selectedContact.contact_email}
-                                    onChange={(e) => setSelectedContact({ ...selectedContact, contact_email: e.target.value })}
-                                    placeholder="Email"
-                                />
-                            </div>
 
-                            <div className="pt-8 flex gap-2">
-                                <button onClick={handleUpdateContact} className="flex-1 bg-navy text-white py-2 rounded text-sm font-bold flex justify-center items-center gap-2 hover:bg-navy/90">
-                                    <Save className="w-4 h-4" /> Save
-                                </button>
-                                <button onClick={() => handleDeleteContact(selectedContact.id)} className="flex-1 bg-red-50 text-red-600 border border-red-100 py-2 rounded text-sm font-bold flex justify-center items-center gap-2 hover:bg-red-100">
-                                    <Trash2 className="w-4 h-4" /> Delete
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-
-                    {/* Right: Notes */}
-                    <div className="w-2/3 bg-white p-8 flex flex-col">
-                        <div className="flex justify-between items-center mb-6">
-                            <h3 className="font-serif text-xl text-navy flex items-center gap-2">
-                                <FileText className="w-5 h-5 text-gold" />
-                                Activity Log
-                            </h3>
-                            <button onClick={() => setSelectedContact(null)}>
-                                <X className="w-6 h-6 text-charcoal/30 hover:text-navy" />
+                            <button
+                                onClick={handleSaveContact}
+                                className="w-full bg-navy text-white py-4 rounded font-bold hover:bg-navy/90 mt-4 transition-transform active:scale-[0.98]"
+                            >
+                                Create Contact Record
                             </button>
                         </div>
+                    </div>
+                </div>
+            )}
 
-                        <div className="flex-1 overflow-y-auto space-y-4 mb-6 pr-2 scrollbar-custom">
-                            {selectedContact.notes && selectedContact.notes.length === 0 && (
-                                <div className="text-center bg-ivory p-8 rounded border border-dashed border-navy/10 text-charcoal/40">
-                                    No notes yet. Start tracking your interactions!
-                                </div>
-                            )}
-                            {selectedContact.notes?.map((note, idx) => (
-                                <div key={idx} className="flex gap-4">
-                                    <div className="min-w-[60px] text-xs font-bold text-gold pt-1">
-                                        {note.date}
-                                    </div>
-                                    <div className="bg-ivory p-3 rounded-lg border border-navy/5 flex-1 text-sm text-charcoal leading-relaxed">
-                                        {note.content}
-                                    </div>
-                                </div>
-                            ))}
-                        </div>
+            {/* Detail / Edit Modal - Full Screen Style Overlay */}
+            {selectedContact && (
+                <div className="fixed inset-0 z-[200] flex items-center justify-center bg-navy/60 backdrop-blur-md p-2 md:p-8 animate-in fade-in duration-200">
+                    <div className="bg-ivory rounded-2xl shadow-2xl w-full max-w-6xl h-full md:h-[85vh] flex flex-col md:flex-row overflow-hidden border border-white/10">
 
-                        <div className="mt-auto">
-                            <div className="flex gap-2">
+                        {/* Left: Details (Static/Editable) */}
+                        <div className="w-full md:w-[350px] bg-white border-r border-navy/10 flex flex-col h-full z-10 shadow-lg">
+                            <div className="p-6 border-b border-navy/5 bg-navy/5">
+                                <div className="text-[10px] font-bold text-charcoal/40 uppercase tracking-widest mb-2">Lead Profile</div>
                                 <input
-                                    className="flex-1 bg-ivory border border-navy/10 rounded px-4 focus:outline-none focus:border-gold transition-colors"
-                                    placeholder="Type a note (e.g. 'Had a call regarding pricing...')"
-                                    value={newNote}
-                                    onChange={(e) => setNewNote(e.target.value)}
-                                    onKeyDown={(e) => e.key === 'Enter' && addNote()}
+                                    className="font-serif text-2xl text-navy bg-transparent border-none p-0 focus:ring-0 w-full font-bold placeholder:text-navy/30"
+                                    value={selectedContact.name}
+                                    onChange={(e) => setSelectedContact({ ...selectedContact, name: e.target.value })}
                                 />
-                                <button
-                                    onClick={addNote}
-                                    className="bg-gold text-white px-6 py-3 rounded font-bold hover:bg-gold/90"
-                                >
-                                    Send
+                                <input
+                                    className="text-sm font-medium text-charcoal/60 bg-transparent border-none p-0 focus:ring-0 w-full mt-1"
+                                    value={selectedContact.role}
+                                    onChange={(e) => setSelectedContact({ ...selectedContact, role: e.target.value })}
+                                />
+                            </div>
+
+                            <div className="p-6 space-y-6 overflow-y-auto flex-1">
+                                <div className="space-y-4">
+                                    <div>
+                                        <label className="text-[10px] font-bold text-charcoal/40 uppercase tracking-widest block mb-1">Company</label>
+                                        <div className="flex items-center gap-2 bg-ivory p-2 rounded border border-navy/5">
+                                            <User className="w-4 h-4 text-gold" />
+                                            <input
+                                                className="w-full bg-transparent text-sm focus:outline-none"
+                                                value={selectedContact.company_name}
+                                                onChange={(e) => setSelectedContact({ ...selectedContact, company_name: e.target.value })}
+                                            />
+                                        </div>
+                                    </div>
+
+                                    <div>
+                                        <label className="text-[10px] font-bold text-charcoal/40 uppercase tracking-widest block mb-1">Status</label>
+                                        <select
+                                            className="w-full p-2 bg-ivory border border-navy/5 rounded text-sm font-bold text-navy"
+                                            value={selectedContact.status}
+                                            onChange={(e) => setSelectedContact({ ...selectedContact, status: e.target.value as any })}
+                                        >
+                                            <option value="COLD">COLD</option>
+                                            <option value="WARM">WARM</option>
+                                            <option value="HOT">HOT</option>
+                                        </select>
+                                    </div>
+
+                                    <div className="pt-4 border-t border-navy/5">
+                                        <label className="text-[10px] font-bold text-charcoal/40 uppercase tracking-widest block mb-2">Contact Details</label>
+                                        <div className="space-y-2">
+                                            <div className="flex items-center gap-2 bg-ivory p-2 rounded border border-navy/5">
+                                                <Phone className="w-4 h-4 text-charcoal/40" />
+                                                <input
+                                                    className="w-full bg-transparent text-sm focus:outline-none"
+                                                    value={selectedContact.contact_number}
+                                                    onChange={(e) => setSelectedContact({ ...selectedContact, contact_number: e.target.value })}
+                                                    placeholder="Add phone..."
+                                                />
+                                            </div>
+                                            <div className="flex items-center gap-2 bg-ivory p-2 rounded border border-navy/5">
+                                                <Mail className="w-4 h-4 text-charcoal/40" />
+                                                <input
+                                                    className="w-full bg-transparent text-sm focus:outline-none"
+                                                    value={selectedContact.contact_email}
+                                                    onChange={(e) => setSelectedContact({ ...selectedContact, contact_email: e.target.value })}
+                                                    placeholder="Add email..."
+                                                />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div className="p-4 border-t border-navy/10 bg-gray-50 flex gap-2">
+                                <button onClick={handleUpdateContact} className="flex-1 bg-navy text-white py-3 rounded-lg text-sm font-bold hover:bg-navy/90 transition-colors shadow-sm">
+                                    Save Changes
+                                </button>
+                                <button onClick={() => handleDeleteContact(selectedContact.id)} className="p-3 text-red-500 hover:bg-red-50 rounded-lg transition-colors" title="Delete Contact">
+                                    <Trash2 className="w-5 h-5" />
                                 </button>
                             </div>
                         </div>
+
+                        {/* Right: Activity Feed (The "Notes" Section) */}
+                        <div className="flex-1 flex flex-col h-full bg-ivory/50">
+                            {/* Feed Header */}
+                            <div className="p-6 border-b border-navy/5 bg-white flex justify-between items-center sticky top-0 z-20">
+                                <div>
+                                    <h3 className="font-serif text-xl text-navy flex items-center gap-2">
+                                        Activity & Notes
+                                        <span className="bg-gold/10 text-gold text-xs px-2 py-1 rounded-full font-sans font-bold">
+                                            {(selectedContact.notes || []).length}
+                                        </span>
+                                    </h3>
+                                </div>
+                                <button onClick={() => setSelectedContact(null)} className="p-2 hover:bg-gray-100 rounded-full transition-colors">
+                                    <X className="w-6 h-6 text-charcoal" />
+                                </button>
+                            </div>
+
+                            {/* Feed Content */}
+                            <div className="flex-1 overflow-y-auto p-6 md:p-8 custom-scrollbar">
+                                <div className="max-w-3xl mx-auto space-y-6">
+                                    {(!selectedContact.notes || selectedContact.notes.length === 0) && (
+                                        <div className="text-center py-12 opacity-50">
+                                            <FileText className="w-12 h-12 mx-auto mb-3 text-charcoal/20" />
+                                            <p>No activity recorded yet.</p>
+                                        </div>
+                                    )}
+
+                                    {/* Timeline items */}
+                                    {selectedContact.notes?.map((note, idx) => (
+                                        <div key={idx} className="flex gap-4 group">
+                                            <div className="flex flex-col items-center">
+                                                <div className="w-2 h-2 bg-gold rounded-full mt-2 ring-4 ring-ivory" />
+                                                <div className="w-0.5 flex-1 bg-navy/10 my-1 group-last:hidden" />
+                                            </div>
+                                            <div className="flex-1 pb-6">
+                                                <div className="bg-white p-5 rounded-xl border border-navy/5 shadow-sm active:scale-[0.99] transition-transform">
+                                                    <p className="text-navy text-base leading-relaxed whitespace-pre-wrap">{note.content}</p>
+                                                    <div className="flex items-center gap-2 mt-3 pt-3 border-t border-gray-100">
+                                                        <span className="text-[10px] font-bold text-charcoal/40 uppercase tracking-widest">
+                                                            {note.date}
+                                                        </span>
+                                                        {note.author && (
+                                                            <>
+                                                                <span className="text-[10px] text-charcoal/20">•</span>
+                                                                <span className="text-[10px] font-bold text-gold uppercase tracking-widest">{note.author}</span>
+                                                            </>
+                                                        )}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+
+                            {/* Note Input */}
+                            <div className="p-6 bg-white border-t border-navy/5">
+                                <div className="max-w-3xl mx-auto flex gap-4">
+                                    <div className="flex-1 relative">
+                                        <textarea
+                                            className="w-full bg-ivory border border-navy/10 rounded-xl p-4 pr-12 text-sm focus:border-gold focus:outline-none focus:ring-2 focus:ring-gold/10 transition-all resize-none shadow-inner"
+                                            rows={3}
+                                            placeholder="Type a new note, call summary, or update..."
+                                            value={newNote}
+                                            onChange={(e) => setNewNote(e.target.value)}
+                                            onKeyDown={(e) => {
+                                                if (e.key === 'Enter' && !e.shiftKey) {
+                                                    e.preventDefault();
+                                                    addNote();
+                                                }
+                                            }}
+                                        />
+                                        <div className="absolute bottom-3 right-3 text-[10px] text-charcoal/30 font-bold uppercase tracking-widest">
+                                            Press Enter to save
+                                        </div>
+                                    </div>
+                                    <button
+                                        onClick={addNote}
+                                        disabled={!newNote.trim()}
+                                        className="bg-gold text-white px-6 rounded-xl font-bold hover:bg-gold/90 disabled:opacity-50 disabled:cursor-not-allowed transition-all shadow-lg shadow-gold/20 flex flex-col items-center justify-center gap-1"
+                                    >
+                                        <Send className="w-5 h-5" />
+                                        <span className="text-[10px] uppercase tracking-widest">Post</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
-
                 </div>
-            </div>
-        )}
+            )}
 
-    </div>
-);
+        </div>
+    );
 }
