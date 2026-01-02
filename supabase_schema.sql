@@ -22,3 +22,28 @@ create policy "Read access restricted"
   on public.newsletter_subscribers
   for select
   using (false);
+
+-- CRM Contacts Table
+create table public.crm_contacts (
+  id uuid default gen_random_uuid() primary key,
+  created_at timestamp with time zone default timezone('utc'::text, now()) not null,
+  name text not null,
+  role text,
+  company_name text,
+  contact_number text,
+  contact_email text,
+  status text check (status in ('COLD', 'WARM', 'HOT')),
+  notes jsonb default '[]'::jsonb
+);
+
+-- Enable RLS
+alter table public.crm_contacts enable row level security;
+
+-- Allow public access for now (Simplest for "easy to use" team tool without auth implementation)
+-- Ideally this should be authenticated, but based on current request:
+create policy "Allow public all"
+  on public.crm_contacts
+  for all
+  using (true)
+  with check (true);
+

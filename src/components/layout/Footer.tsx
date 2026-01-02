@@ -9,9 +9,9 @@ export function Footer() {
                     <div className="space-y-4">
                         <Link to="/" className="block">
                             <img
-                                src="/logo-transparent.png"
+                                src="/logo-white-text.png"
                                 alt="Sports Memorabilia Store"
-                                className="h-16 w-auto object-contain brightness-0 invert"
+                                className="h-16 w-auto object-contain"
                             />
                         </Link>
                         <p className="text-white/60 text-sm leading-relaxed">

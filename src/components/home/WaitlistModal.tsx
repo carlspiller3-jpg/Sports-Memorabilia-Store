@@ -75,20 +75,24 @@ export function WaitlistModal() {
                 }
             } else {
                 // 3. Trigger Email API
-                const emailRes = await fetch('/api/send-email', {
+                // Direct connection to Custom Server for testing
+                const emailRes = await fetch('http://127.0.0.1:3003/api/send-email', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ email })
+                    body: JSON.stringify({
+                        email,
+                        interest,
+                        referralCode: referralCode ? referralCode.toUpperCase() : undefined
+                    })
                 });
 
                 if (!emailRes.ok) {
-                    const errorData = await emailRes.json();
-                    console.error("Email API Failed:", errorData);
-                    alert(`DEBUG ERROR: Lead saved, but Email failed.\nReason: ${JSON.stringify(errorData)}`);
-                } else {
-                    setIsOpen(false);
-                    setIsSuccess(true); // Corrected from setShowSuccess to setIsSuccess
+                    const errText = await emailRes.text();
+                    throw new Error(errText || 'Failed to send email');
                 }
+
+                setIsOpen(false);
+                setIsSuccess(true); // Corrected from setShowSuccess to setIsSuccess
             }
 
 

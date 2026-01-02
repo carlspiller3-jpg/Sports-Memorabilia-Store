@@ -1,25 +1,38 @@
 from PIL import Image
-import sys
 
-def remove_black_background(input_path, output_path):
-    try:
-        img = Image.open(input_path)
-        img = img.convert("RGBA")
-        datas = img.getdata()
+def process_logo(input_path, output_path):
+    img = Image.open(input_path).convert("RGBA")
+    datas = img.getdata()
 
-        newData = []
-        for item in datas:
-            # Check for black (allow some tolerance if needed, e.g. < 15)
-            if item[0] < 15 and item[1] < 15 and item[2] < 15:
-                newData.append((0, 0, 0, 0))
-            else:
-                newData.append(item)
+    new_data = []
+    for item in datas:
+        # item is (R, G, B, A)
+        r, g, b, a = item
+        
+        if a == 0:
+            new_data.append(item)
+            continue
 
-        img.putdata(newData)
-        img.save(output_path, "PNG")
-        print(f"Successfully processed {input_path} to {output_path}")
-    except Exception as e:
-        print(f"Error processing image: {e}")
+        # Check if it's "dark" (likely the navy text)
+        # Gold pixels have higher R and G values than B.
+        # Navy text has very low values for all.
+        
+        # Simple threshold: if brightness is low, it's text.
+        # But we must be careful not to catch the dark parts of the gold gradient.
+        # Gold is generally yellower: R > B and G > B.
+        
+        brightness = (r + g + b) / 3
+        
+        if brightness < 100: # This should catch the navy text (#1c273a is ~42 brightness)
+            # Change to white
+            new_data.append((255, 255, 255, a))
+        else:
+            # Keep original (gold)
+            new_data.append(item)
 
-if __name__ == "__main__":
-    remove_black_background("public/logo-new.png", "public/logo-transparent.png")
+    img.putdata(new_data)
+    img.save(output_path, "PNG")
+
+process_logo("c:/Users/carls/.gemini/antigravity/Scratch/sports-memorabilia-store/public/logo-transparent.png", 
+             "c:/Users/carls/.gemini/antigravity/Scratch/sports-memorabilia-store/public/logo-white-text.png")
+print("Logo processed successfully!")

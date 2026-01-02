@@ -33,6 +33,7 @@ import { ArticlePage } from "@/pages/blog/ArticlePage"
 import { ShopGate } from "@/components/auth/ShopGate"
 import { ScrollToTop } from "@/components/layout/ScrollToTop"
 import { B2BProposal } from "@/pages/B2BProposal"
+import { CRMPage } from "@/pages/admin/CRMPage"
 
 function App() {
   return (
@@ -89,8 +90,13 @@ function App() {
                   <Route path="/hub" element={<KnowledgeHubPage />} />
                   <Route path="/hub/:slug" element={<ArticlePage />} />
 
+
+
                   {/* PDF Generation Routes */}
                   <Route path="/b2b-proposal" element={<B2BProposal />} />
+
+                  {/* Internal Tools */}
+                  <Route path="/crm" element={<CRMPage />} />
 
                   <Route path="*" element={<NotFoundPage />} />
                 </Routes>

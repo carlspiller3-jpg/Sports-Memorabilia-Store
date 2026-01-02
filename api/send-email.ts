@@ -20,7 +20,7 @@ export default async function handler(req: any, res: any) {
         }
 
 
-        const { email, interest } = req.body;
+        const { email, interest, referralCode: referredByCode } = req.body;
 
         if (!email) {
             return res.status(400).json({ error: 'Missing email address' });
@@ -55,7 +55,8 @@ export default async function handler(req: any, res: any) {
                                     attributes: {
                                         email: email,
                                         properties: {
-                                            referral_code: referralCode,
+                                            own_referral_code: referralCode,
+                                            referred_by: referredByCode || '',
                                             interest: interest || 'General',
                                             source: 'Website Waitlist'
                                         }
@@ -74,6 +75,93 @@ export default async function handler(req: any, res: any) {
                     }
                 })
             });
+
+            // 2. Update Referrer Count (If referredByCode exists)
+            if (referredByCode) {
+                const KLAVIYO_PRIVATE_KEY = "pk_adab87e0e1a4a0bd25c294e0764edd71dd";
+
+                try {
+                    // A. Find Referrer Profile
+                    const searchUrl = `https://a.klaviyo.com/api/profiles/?filter=equals(properties.own_referral_code,"${referredByCode}")`;
+                    const searchRes = await fetch(searchUrl, {
+                        method: 'GET',
+                        headers: {
+                            'Authorization': `Klaviyo-API-Key ${KLAVIYO_PRIVATE_KEY}`,
+                            'revision': '2024-02-15',
+                            'accept': 'application/json'
+                        }
+                    });
+
+                    const searchData = await searchRes.json();
+
+                    if (searchData.data && searchData.data.length > 0) {
+                        const referrerProfile = searchData.data[0];
+                        const referrerId = referrerProfile.id;
+                        const currentCount = Number(referrerProfile.attributes.properties.referral_count) || 0;
+                        const newCount = currentCount + 1;
+
+                        console.log(`Found referrer ${referrerId}. Updating count: ${currentCount} -> ${newCount}`);
+
+                        // B. Update Referrer Profile (+1)
+                        await fetch(`https://a.klaviyo.com/api/profiles/${referrerId}/`, {
+                            method: 'PATCH',
+                            headers: {
+                                'Authorization': `Klaviyo-API-Key ${KLAVIYO_PRIVATE_KEY}`,
+                                'revision': '2024-02-15',
+                                'content-type': 'application/json',
+                                'accept': 'application/json'
+                            },
+                            body: JSON.stringify({
+                                data: {
+                                    type: 'profile',
+                                    id: referrerId,
+                                    attributes: {
+                                        properties: {
+                                            referral_count: newCount
+                                        }
+                                    }
+                                }
+                            })
+                        });
+
+                        // C. Trigger "Referral Success" Event (To Send Email)
+                        await fetch(`https://a.klaviyo.com/api/events/`, {
+                            method: 'POST',
+                            headers: {
+                                'Authorization': `Klaviyo-API-Key ${KLAVIYO_PRIVATE_KEY}`,
+                                'revision': '2024-02-15',
+                                'content-type': 'application/json',
+                                'accept': 'application/json'
+                            },
+                            body: JSON.stringify({
+                                data: {
+                                    type: 'event',
+                                    attributes: {
+                                        profile: {
+                                            data: {
+                                                type: 'profile',
+                                                id: referrerId
+                                            }
+                                        },
+                                        metric: {
+                                            name: 'Referral Success'
+                                        },
+                                        properties: {
+                                            new_total_entries: newCount,
+                                            referred_email: email
+                                        }
+                                    }
+                                }
+                            })
+                        });
+                        console.log("Referral logic complete.");
+                    } else {
+                        console.log("Referrer code not found:", referredByCode);
+                    }
+                } catch (refErr) {
+                    console.error("Referral Logic Error:", refErr);
+                }
+            }
             console.log("Klaviyo Sync Success");
         } catch (kErr) {
             console.error("Klaviyo Sync Failed:", kErr);
