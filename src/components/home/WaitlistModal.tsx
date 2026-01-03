@@ -247,5 +247,6 @@ export function WaitlistModal() {
                     </div>
                 </div>
             </div>
-            );
+        </div>
+    );
 }
