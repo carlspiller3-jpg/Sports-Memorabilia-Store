@@ -106,14 +106,14 @@ export function WaitlistModal() {
     if (!isOpen) return null;
 
     return (
-        <div className="fixed inset-0 z-50 overflow-y-auto">
+        <div className="fixed inset-0 z-50 h-[100dvh] w-screen overflow-hidden">
             <div
                 className="fixed inset-0 bg-navy/95 backdrop-blur-sm"
                 onClick={handleClose}
             />
 
-            <div className="flex min-h-full justify-center p-4 text-center sm:p-0">
-                <div className="relative w-full max-w-lg bg-white border border-navy/10 rounded-xl shadow-2xl animate-in zoom-in-95 duration-300 my-8 sm:my-auto text-left">
+            <div className="relative flex h-full w-full flex-col items-center pt-[15dvh] sm:justify-center sm:pt-0 p-4">
+                <div className="relative w-full max-w-lg bg-white border border-navy/10 rounded-xl shadow-2xl animate-in zoom-in-95 duration-300 text-left">
 
                     <div className="bg-navy p-3 text-center border-b border-gold/20 rounded-t-xl relative">
                         <div className="w-8 h-8 bg-white/10 rounded-full flex items-center justify-center mx-auto mb-2">
