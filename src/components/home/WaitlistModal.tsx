@@ -127,7 +127,7 @@ export function WaitlistModal() {
 
             {/* Scrollable Container */}
             <div className="flex min-h-full justify-center p-4 text-center sm:p-0">
-                <div className="relative w-full max-w-lg bg-white border border-navy/10 rounded-xl shadow-2xl animate-in zoom-in-95 duration-300 my-auto text-left">
+                <div className="relative w-full max-w-lg bg-white border border-navy/10 rounded-xl shadow-2xl animate-in zoom-in-95 duration-300 my-8 sm:my-auto text-left">
 
                     {/* Decorative Header */}
                     <div className="bg-navy p-4 text-center border-b border-gold/20 rounded-t-xl relative">
