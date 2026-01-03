@@ -34,6 +34,7 @@ import { ShopGate } from "@/components/auth/ShopGate"
 import { ScrollToTop } from "@/components/layout/ScrollToTop"
 import { B2BProposal } from "@/pages/B2BProposal"
 import { CRMPage } from "@/pages/admin/CRMPage"
+import { AssetDemoPage } from "@/pages/AssetDemoPage"
 
 function App() {
   return (
@@ -99,6 +100,9 @@ function App() {
                   <Route path="/crm" element={<CRMPage />} />
 
                   <Route path="*" element={<NotFoundPage />} />
+
+                  {/* Demo Routes */}
+                  <Route path="/asset/demo" element={<AssetDemoPage />} />
                 </Routes>
               </main>
               <Footer />
