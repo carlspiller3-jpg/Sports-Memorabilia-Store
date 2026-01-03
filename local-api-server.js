@@ -63,6 +63,41 @@ const server = http.createServer(async (req, res) => {
                 }
                 console.log(`[API] Klaviyo Subscribe Success`);
 
+                // 1.5 FAILSAVE: Trigger "Joined Waitlist" Event for the new user
+                // This ensures we can trigger a Flow immediately even if List Opt-in is double-confirm.
+                const eventRes = await fetch(`https://a.klaviyo.com/api/events/`, {
+                    method: 'POST',
+                    headers: { 'Authorization': `Klaviyo-API-Key ${KLAVIYO_PRIVATE_KEY}`, 'revision': '2024-02-15', 'content-type': 'application/json' },
+                    body: JSON.stringify({
+                        data: {
+                            type: 'event',
+                            attributes: {
+                                profile: {
+                                    data: {
+                                        type: 'profile',
+                                        attributes: {
+                                            email: email
+                                        }
+                                    }
+                                },
+                                metric: {
+                                    name: 'Joined Waitlist'
+                                },
+                                properties: {
+                                    interest: interest,
+                                    my_referral_code: newReferralCode
+                                }
+                            }
+                        }
+                    })
+                });
+
+                if (eventRes.ok) {
+                    console.log(`[API] Triggered 'Joined Waitlist' event for ${email}`);
+                } else {
+                    console.error(`[API] Failed to trigger event: ${await eventRes.text()}`);
+                }
+
                 // 2. Increment Logic (Only if code provided)
                 if (referredByCode) {
                     // ... (Increment logic same as before, keeping it brief for stability)

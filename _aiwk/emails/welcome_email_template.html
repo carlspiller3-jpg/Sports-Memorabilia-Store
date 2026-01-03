@@ -176,85 +176,66 @@
         &nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;
         &nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;
     </div>
-    <div class="wrapper">
-        <div class="container">
-            <div class="content">
-                <!-- Logo -->
-                <div class="logo-container">
-                    <!-- Using the trusted remote URL for the transparent logo as requested -->
-                    <img src="https://sportssigned.com/logo-transparent.png" alt="SPORTS MEMORABILIA STORE"
-                        class="logo-img">
-                </div>
 
-                <!-- Main Headline -->
-                <h1><span class="gold-text">You are on the List.</span></h1>
+    <div
+        style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; color: #333333; line-height: 1.6;">
 
-                <!-- Body Text -->
-                <p>Thank you for signing up. You have secured your place for our launch.</p>
-
-                <p>Our store is designed to secure the rarest pieces before they hit the open market. Our inaugural
-                    collection is strictly limited, and we expect the most exclusive items to move quickly.</p>
-
-                <p><strong>As an early subscriber, you get priority access.</strong></p>
-
-                <div class="infobox">
-                    <p style="text-transform: uppercase; font-size: 13px; letter-spacing: 1px; color: #1C273A;">Your
-                        Benefits:</p>
-                    <ul style="padding-left: 20px; margin: 0;">
-                        <li><strong>48-Hour Head Start:</strong> We email you on Saturday. We email everyone else on
-                            Monday. If you see something you want, you have two days to claim it.</li>
-                        <li><strong>Guaranteed Send-In Slots:</strong> When we announce a signing, you can book your
-                            slot immediately. No lottery, no waiting.</li>
-                        <li><strong>First to Know:</strong> You will hear about new athlete signings before we post on
-                            social media.</li>
-                    </ul>
-                </div>
-
-                <div class="referral-box">
-                    <p
-                        style="color: #C6A664; font-weight: bold; text-transform: uppercase; text-align: center; margin-bottom: 10px;">
-                        Witness our first ever signing</p>
-                    <p style="font-size: 14px; margin-bottom: 10px; text-align: center; color: #D9D5CD;">This is a
-                        momentous occasion—a strictly closed-door event. To celebrate our launch, we are giving away
-                        <strong>two VIP passes</strong> to one lucky subscriber.
-                    </p>
-                    <p style="font-size: 14px; margin-bottom: 10px; text-align: center; color: #D9D5CD;">Invite friends
-                        using your unique code. Every verified referral grants you one entry into the free draw to
-                        <strong>attend in person, meet the athlete, and witness history being made.</strong>
-                    </p>
-                    <div style="text-align: center;">
-                        <span class="referral-code">
-                            {% if person %}
-                            {{ person.own_referral_code|default:'VIP-CODE-PENDING' }}
-                            {% else %}
-                            VIP-CODE-PREVIEW
-                            {% endif %}
-                        </span>
-                    </div>
-                    <p
-                        style="font-size: 10px; color: #ffffff; opacity: 0.5; margin-top: 15px; text-align: center; line-height: 1.4;">
-                        *Terms: Prize grants event access only. Winner responsible for all travel & accommodation. 18+
-                        Only.
-                    </p>
-                </div>
-
-                <p style="font-weight: bold; margin-top: 30px;">Store launch: January 2026.<br>We'll be in touch.</p>
-
-                <!-- Button -->
-                <a href="https://sportssigned.com" class="btn">Return to Homepage</a>
-            </div>
-
-            <!-- Footer -->
-            <div class="footer">
-                <p>&copy; 2025 Sports Memorabilia Store Limited.<br>
-                    London, United Kingdom</p>
-                <br>
-                <p>Authenticity Guaranteed.</p>
-                <p style="margin-top: 20px; font-size: 10px;">
-                    {% manage_preferences %} | {% unsubscribe %}
-                </p>
-            </div>
+        <!-- Minimal Logo -->
+        <div style="margin-bottom: 30px; text-align: left;">
+            <img src="https://sportssigned.com/logo-transparent.png" alt="Sports Signed" width="150"
+                style="display: block; max-width: 150px;">
         </div>
+
+        <p style="font-size: 16px;">You are on the list.</p>
+
+        <p style="font-size: 16px;">Thank you for signing up. You have secured your place for our launch.</p>
+
+        <p style="font-size: 16px;">Our store is designed to secure the rarest pieces before they hit the open market.
+            Our inaugural collection is strictly limited, and we expect the most exclusive items to move quickly.</p>
+
+        <p style="font-size: 16px; font-weight: bold;">As an early subscriber, you get priority access.</p>
+
+        <!-- Benefits List (Simple) -->
+        <ul style="font-size: 16px; color: #333333; padding-left: 20px;">
+            <li style="margin-bottom: 10px;"><strong>48-Hour Head Start:</strong> We email you on Saturday. We email
+                everyone else on Monday.</li>
+            <li style="margin-bottom: 10px;"><strong>Guaranteed Send-In Slots:</strong> When we announce a signing, you
+                can book your slot immediately. No lottery, no waiting.</li>
+            <li style="margin-bottom: 10px;"><strong>First to Know:</strong> You will hear about new athlete signings
+                before we post on social media.</li>
+        </ul>
+
+        <!-- Referral Section (Minimal) -->
+        <div
+            style="margin: 40px 0; padding: 20px; border: 1px dashed #cccccc; background-color: #fafafa; border-radius: 8px;">
+            <p style="font-size: 18px; font-weight: bold; margin-top: 0; color: #111;">Witness Our First Ever Signing
+            </p>
+            <p style="font-size: 15px;">To celebrate our launch, we are giving away <strong>two VIP passes</strong> to
+                one lucky subscriber.</p>
+            <p style="font-size: 15px;">Invite friends using your unique code. Every verified referral grants you one
+                entry into the free draw to attend in person.</p>
+
+            <div
+                style="background-color: #f0f0f0; margin: 20px 0; padding: 15px; text-align: center; font-family: monospace; font-size: 20px; letter-spacing: 2px; font-weight: bold; border-radius: 4px;">
+                {% if person %}
+                {{ person.own_referral_code|default:'VIP-CODE-PENDING' }}
+                {% else %}
+                VIP-CODE-PREVIEW
+                {% endif %}
+            </div>
+
+            <p style="font-size: 11px; font-style: italic; color: #888; text-align: center; margin-bottom: 0;">*Winner
+                responsible for travel. 18+ Only.</p>
+        </div>
+
+        <p style="font-size: 16px;">Store launch: January 2026.<br>We'll be in touch.</p>
+
+        <div
+            style="margin-top: 40px; padding-top: 20px; border-top: 1px solid #eeeeee; font-size: 12px; color: #999999; text-align: center;">
+            <p>Sports Memorabilia Store Limited.<br>London, United Kingdom</p>
+            <p>{% manage_preferences %} | {% unsubscribe %}</p>
+        </div>
+
     </div>
 </body>
 
