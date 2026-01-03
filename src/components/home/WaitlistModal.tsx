@@ -126,8 +126,8 @@ export function WaitlistModal() {
             />
 
             {/* Scrollable Container */}
-            <div className="flex min-h-full items-center justify-center p-4">
-                <div className="relative w-full max-w-lg bg-white border border-navy/10 rounded-xl shadow-2xl animate-in zoom-in-95 duration-300">
+            <div className="flex min-h-full justify-center p-4 text-center sm:p-0">
+                <div className="relative w-full max-w-lg bg-white border border-navy/10 rounded-xl shadow-2xl animate-in zoom-in-95 duration-300 my-auto text-left">
 
                     {/* Decorative Header */}
                     <div className="bg-navy p-4 text-center border-b border-gold/20 rounded-t-xl relative">
@@ -152,27 +152,27 @@ export function WaitlistModal() {
                     <div className="p-5">
                         {!isSuccess ? (
                             <>
-                                <p className="text-navy/70 text-center mb-4 text-sm leading-relaxed">
+                                <p className="text-navy/70 text-center mb-3 text-sm leading-relaxed">
                                     Join the <strong>Priority Access List</strong> to receive your password 48 hours before the public.
                                 </p>
 
-                                <form onSubmit={handleSubmit} className="space-y-3">
+                                <form onSubmit={handleSubmit} className="space-y-2">
                                     {/* Email Input */}
                                     <div>
-                                        <label className="block text-[10px] font-bold text-navy/50 uppercase tracking-wider mb-1">Email Address</label>
+                                        <label className="block text-[10px] font-bold text-navy/50 uppercase tracking-wider mb-0.5">Email Address</label>
                                         <input
                                             type="email"
                                             value={email}
                                             onChange={(e) => setEmail(e.target.value)}
                                             placeholder="you@example.com"
-                                            className="w-full px-4 py-2.5 rounded-lg bg-ivory border border-navy/10 text-navy text-sm placeholder:text-navy/30 focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold"
+                                            className="w-full px-4 py-2 rounded-lg bg-ivory border border-navy/10 text-navy text-sm placeholder:text-navy/30 focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold"
                                             required
                                         />
                                     </div>
 
                                     {/* Autocomplete Interest Input */}
                                     <div className="relative" ref={wrapperRef}>
-                                        <label className="block text-[10px] font-bold text-navy/50 uppercase tracking-wider mb-1">My Main Interest</label>
+                                        <label className="block text-[10px] font-bold text-navy/50 uppercase tracking-wider mb-0.5">My Main Interest</label>
                                         <div className="relative">
                                             <input
                                                 type="text"
@@ -180,10 +180,10 @@ export function WaitlistModal() {
                                                 onChange={handleInterestChange}
                                                 onFocus={() => setShowSuggestions(true)}
                                                 placeholder="e.g. Football, Boxing, F1..."
-                                                className="w-full px-4 py-2.5 pl-9 rounded-lg bg-ivory border border-navy/10 text-navy text-sm placeholder:text-navy/30 focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold"
+                                                className="w-full px-4 py-2 pl-9 rounded-lg bg-ivory border border-navy/10 text-navy text-sm placeholder:text-navy/30 focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold"
                                                 required
                                             />
-                                            <Search className="absolute left-3 top-3 w-4 h-4 text-navy/30" />
+                                            <Search className="absolute left-3 top-2.5 w-4 h-4 text-navy/30" />
                                         </div>
 
                                         {/* Suggestions Dropdown */}
@@ -205,13 +205,13 @@ export function WaitlistModal() {
 
                                     {/* Referral Code Input (Optional) */}
                                     <div>
-                                        <label className="block text-[10px] font-bold text-navy/50 uppercase tracking-wider mb-1">Referral Code (Optional)</label>
+                                        <label className="block text-[10px] font-bold text-navy/50 uppercase tracking-wider mb-0.5">Referral Code (Optional)</label>
                                         <input
                                             type="text"
                                             value={referralCode}
                                             onChange={(e) => setReferralCode(e.target.value.toUpperCase())}
                                             placeholder="e.g. VIP-1234"
-                                            className="w-full px-4 py-2.5 rounded-lg bg-ivory border border-navy/10 text-navy text-sm placeholder:text-navy/30 focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold tracking-widest"
+                                            className="w-full px-4 py-2 rounded-lg bg-ivory border border-navy/10 text-navy text-sm placeholder:text-navy/30 focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold tracking-widest"
                                         />
                                     </div>
 
