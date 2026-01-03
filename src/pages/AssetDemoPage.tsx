@@ -92,7 +92,7 @@ export function AssetDemoPage() {
                             </div>
                         </div>
                         <p className="text-[9px] text-white/30 mt-4 leading-relaxed border-t border-white/5 pt-2">
-                            *Data Source: Aggregated public sales records (eBay, Goldin, Sotheby's) for items of matching grade/authenticity. This data is historical and factual, not a guarantee of future value or a formal appraisal.
+                            *Data Source: Aggregated historical sales from eBay, Catawiki, Goldin, & Etsy. Collectibles are generally unregulated assets in the UK. This data is provided as a factual price guide only and does not constitute financial advice.
                         </p>
 
                         {/* Fake Trend Line */}
@@ -155,8 +155,8 @@ export function AssetDemoPage() {
                         <div className="relative">
                             <div className="absolute -left-[21px] top-1 w-3 h-3 rounded-full bg-gold border-[3px] border-navy shadow-[0_0_0_2px_rgba(255,255,255,0.1)]" />
                             <div className="flex flex-col">
-                                <span className="text-white text-sm font-medium">Acquired by You</span>
-                                <span className="text-white/40 text-xs">Dec 12, 2023 • Online Store</span>
+                                <span className="text-white text-sm font-medium">Acquired by Private Collector</span>
+                                <span className="text-white/40 text-xs">Dec 12, 2023 • Verified Transaction</span>
                             </div>
                         </div>
                         {/* Event 2 */}
