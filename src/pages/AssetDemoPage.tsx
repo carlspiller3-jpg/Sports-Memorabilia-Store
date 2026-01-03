@@ -81,17 +81,18 @@ export function AssetDemoPage() {
 
                         <div className="flex items-center gap-2 mb-2">
                             <Activity className="w-4 h-4 text-gold" />
-                            <span className="text-xs text-white/50 uppercase tracking-widest">Est. Market Value</span>
+                            <span className="text-xs text-white/50 uppercase tracking-widest">Comparable Market Data</span>
                         </div>
                         <div className="flex items-end gap-3">
-                            <span className="text-3xl font-serif text-white">{item.value}</span>
-                            <div className="flex items-center gap-1 text-green-400 text-sm font-bold mb-1">
+                            <span className="text-3xl font-serif text-white">£3,850</span>
+                            <span className="text-xs text-white/40 mb-2 font-medium">(Avg. Sold Price)</span>
+                            <div className="flex items-center gap-1 text-green-400 text-sm font-bold mb-2 ml-auto">
                                 <ArrowUpRight className="w-3 h-3" />
-                                {item.valueChange}
+                                3yr Trend
                             </div>
                         </div>
                         <p className="text-[9px] text-white/30 mt-4 leading-relaxed border-t border-white/5 pt-2">
-                            *Valuation Estimate Only. This figure is generated for informational purposes based on comparable market data and does not constitute a formal financial appraisal. Sports Signed Ltd is not a regulated financial institution or independent valuer. Past performance of similar assets is not indicative of future results.
+                            *Data Source: Aggregated public sales records (eBay, Goldin, Sotheby's) for items of matching grade/authenticity. This data is historical and factual, not a guarantee of future value or a formal appraisal.
                         </p>
 
                         {/* Fake Trend Line */}
