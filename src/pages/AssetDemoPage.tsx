@@ -129,15 +129,15 @@ export function AssetDemoPage() {
                             {graphData.map((data, i) => (
                                 <div
                                     key={i}
-                                    className="relative flex-1 group/bar cursor-pointer"
+                                    className="relative flex-1 group/bar cursor-pointer h-full flex items-end"
                                     onMouseEnter={() => setHoveredStat({ price: data.price, date: data.date })}
                                 >
                                     <div
-                                        className="w-full bg-gold/50 group-hover/bar:bg-gold transition-all duration-300 rounded-t-sm"
+                                        className="w-full bg-gold/50 group-hover/bar:bg-gold transition-all duration-300 rounded-t-sm relative z-10"
                                         style={{ height: `${data.h}%` }}
                                     />
                                     {/* Hover glow effect */}
-                                    <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-4 h-full bg-gold/10 blur-xl opacity-0 group-hover/bar:opacity-100 transition-opacity pointer-events-none" />
+                                    <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-full h-full bg-gold/5 blur-md opacity-0 group-hover/bar:opacity-100 transition-opacity pointer-events-none" />
                                 </div>
                             ))}
                         </div>
