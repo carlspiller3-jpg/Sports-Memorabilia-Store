@@ -118,130 +118,134 @@ export function WaitlistModal() {
     if (!isOpen) return null;
 
     return (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 overflow-y-auto">
+        <div className="fixed inset-0 z-50 overflow-y-auto">
+            {/* Backdrop */}
             <div
                 className="fixed inset-0 bg-navy/95 backdrop-blur-sm"
                 onClick={handleClose}
             />
 
-            <div className="relative w-full max-w-lg bg-white border border-navy/10 rounded-xl shadow-2xl animate-in zoom-in-95 duration-300 flex flex-col my-auto max-h-[calc(100vh-2rem)]">
-                {/* Decorative Header */}
-                <div className="bg-navy p-4 text-center border-b border-gold/20 shrink-0 rounded-t-xl">
-                    <div className="w-8 h-8 bg-white/10 rounded-full flex items-center justify-center mx-auto mb-2">
-                        <Lock className="w-4 h-4 text-gold" />
+            {/* Scrollable Container */}
+            <div className="flex min-h-full items-center justify-center p-4">
+                <div className="relative w-full max-w-lg bg-white border border-navy/10 rounded-xl shadow-2xl animate-in zoom-in-95 duration-300">
+
+                    {/* Decorative Header */}
+                    <div className="bg-navy p-4 text-center border-b border-gold/20 rounded-t-xl relative">
+                        <div className="w-8 h-8 bg-white/10 rounded-full flex items-center justify-center mx-auto mb-2">
+                            <Lock className="w-4 h-4 text-gold" />
+                        </div>
+                        <h2 className="font-serif text-xl text-white mb-0.5">
+                            The Vault is Locked
+                        </h2>
+                        <p className="text-white/60 text-[10px] uppercase tracking-wider">
+                            Next Drop: <span className="text-gold font-bold">January 2026</span>
+                        </p>
+                        <button
+                            onClick={handleClose}
+                            className="absolute top-3 right-3 p-1.5 bg-white/10 rounded-full text-white/50 hover:text-white transition-colors"
+                            aria-label="Close"
+                        >
+                            <X className="w-4 h-4" />
+                        </button>
                     </div>
-                    <h2 className="font-serif text-xl text-white mb-0.5">
-                        The Vault is Locked
-                    </h2>
-                    <p className="text-white/60 text-[10px] uppercase tracking-wider">
-                        Next Drop: <span className="text-gold font-bold">January 2026</span>
-                    </p>
-                    <button
-                        onClick={handleClose}
-                        className="absolute top-3 right-3 p-1.5 bg-white/10 rounded-full text-white/50 hover:text-white transition-colors"
-                        aria-label="Close"
-                    >
-                        <X className="w-4 h-4" />
-                    </button>
-                </div>
 
-                <div className="p-5 overflow-y-auto overscroll-contain">
-                    {!isSuccess ? (
-                        <>
-                            <p className="text-navy/70 text-center mb-4 text-sm leading-relaxed">
-                                Join the <strong>Priority Access List</strong> to receive your password 48 hours before the public.
-                            </p>
+                    <div className="p-5">
+                        {!isSuccess ? (
+                            <>
+                                <p className="text-navy/70 text-center mb-4 text-sm leading-relaxed">
+                                    Join the <strong>Priority Access List</strong> to receive your password 48 hours before the public.
+                                </p>
 
-                            <form onSubmit={handleSubmit} className="space-y-3">
-                                {/* Email Input */}
-                                <div>
-                                    <label className="block text-[10px] font-bold text-navy/50 uppercase tracking-wider mb-1">Email Address</label>
-                                    <input
-                                        type="email"
-                                        value={email}
-                                        onChange={(e) => setEmail(e.target.value)}
-                                        placeholder="you@example.com"
-                                        className="w-full px-4 py-2.5 rounded-lg bg-ivory border border-navy/10 text-navy text-sm placeholder:text-navy/30 focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold"
-                                        required
-                                    />
-                                </div>
-
-                                {/* Autocomplete Interest Input */}
-                                <div className="relative" ref={wrapperRef}>
-                                    <label className="block text-[10px] font-bold text-navy/50 uppercase tracking-wider mb-1">My Main Interest</label>
-                                    <div className="relative">
+                                <form onSubmit={handleSubmit} className="space-y-3">
+                                    {/* Email Input */}
+                                    <div>
+                                        <label className="block text-[10px] font-bold text-navy/50 uppercase tracking-wider mb-1">Email Address</label>
                                         <input
-                                            type="text"
-                                            value={interest}
-                                            onChange={handleInterestChange}
-                                            onFocus={() => setShowSuggestions(true)}
-                                            placeholder="e.g. Football, Boxing, F1..."
-                                            className="w-full px-4 py-2.5 pl-9 rounded-lg bg-ivory border border-navy/10 text-navy text-sm placeholder:text-navy/30 focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold"
+                                            type="email"
+                                            value={email}
+                                            onChange={(e) => setEmail(e.target.value)}
+                                            placeholder="you@example.com"
+                                            className="w-full px-4 py-2.5 rounded-lg bg-ivory border border-navy/10 text-navy text-sm placeholder:text-navy/30 focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold"
                                             required
                                         />
-                                        <Search className="absolute left-3 top-3 w-4 h-4 text-navy/30" />
                                     </div>
 
-                                    {/* Suggestions Dropdown */}
-                                    {showSuggestions && filteredSuggestions.length > 0 && (
-                                        <div className="absolute z-10 w-full mt-1 bg-white border border-navy/10 rounded-lg shadow-lg max-h-40 overflow-y-auto">
-                                            {filteredSuggestions.map((suggestion) => (
-                                                <button
-                                                    key={suggestion}
-                                                    type="button"
-                                                    onClick={() => selectSuggestion(suggestion)}
-                                                    className="w-full text-left px-4 py-2 text-sm text-navy hover:bg-ivory hover:text-gold transition-colors"
-                                                >
-                                                    {suggestion}
-                                                </button>
-                                            ))}
+                                    {/* Autocomplete Interest Input */}
+                                    <div className="relative" ref={wrapperRef}>
+                                        <label className="block text-[10px] font-bold text-navy/50 uppercase tracking-wider mb-1">My Main Interest</label>
+                                        <div className="relative">
+                                            <input
+                                                type="text"
+                                                value={interest}
+                                                onChange={handleInterestChange}
+                                                onFocus={() => setShowSuggestions(true)}
+                                                placeholder="e.g. Football, Boxing, F1..."
+                                                className="w-full px-4 py-2.5 pl-9 rounded-lg bg-ivory border border-navy/10 text-navy text-sm placeholder:text-navy/30 focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold"
+                                                required
+                                            />
+                                            <Search className="absolute left-3 top-3 w-4 h-4 text-navy/30" />
                                         </div>
-                                    )}
-                                </div>
 
-                                {/* Referral Code Input (Optional) */}
-                                <div>
-                                    <label className="block text-[10px] font-bold text-navy/50 uppercase tracking-wider mb-1">Referral Code (Optional)</label>
-                                    <input
-                                        type="text"
-                                        value={referralCode}
-                                        onChange={(e) => setReferralCode(e.target.value.toUpperCase())}
-                                        placeholder="e.g. VIP-1234"
-                                        className="w-full px-4 py-2.5 rounded-lg bg-ivory border border-navy/10 text-navy text-sm placeholder:text-navy/30 focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold tracking-widest"
-                                    />
-                                </div>
+                                        {/* Suggestions Dropdown */}
+                                        {showSuggestions && filteredSuggestions.length > 0 && (
+                                            <div className="absolute z-10 w-full mt-1 bg-white border border-navy/10 rounded-lg shadow-lg max-h-40 overflow-y-auto">
+                                                {filteredSuggestions.map((suggestion) => (
+                                                    <button
+                                                        key={suggestion}
+                                                        type="button"
+                                                        onClick={() => selectSuggestion(suggestion)}
+                                                        className="w-full text-left px-4 py-2 text-sm text-navy hover:bg-ivory hover:text-gold transition-colors"
+                                                    >
+                                                        {suggestion}
+                                                    </button>
+                                                ))}
+                                            </div>
+                                        )}
+                                    </div>
 
-                                <Button
-                                    type="submit"
-                                    className="w-full h-12 bg-gold hover:bg-gold/90 text-navy font-bold text-base mt-2 shadow-lg shadow-gold/10"
-                                    disabled={isSubmitting}
-                                >
-                                    {isSubmitting ? "Unlocking..." : "Secure Priority Access"}
-                                </Button>
-                                <button
-                                    type="button"
-                                    onClick={handleClose}
-                                    className="w-full py-3 text-sm text-navy/50 font-medium hover:text-navy underline-offset-4 hover:underline"
-                                >
-                                    No thanks, I'll just browse
-                                </button>
-                            </form>
-                            <p className="mt-2 text-xs text-center text-navy/30">We respect your privacy.</p>
-                        </>
-                    ) : (
-                        <div className="text-center py-8">
-                            <div className="w-16 h-16 bg-green-100 text-green-600 rounded-full flex items-center justify-center mx-auto mb-6 animate-in zoom-in">
-                                <ChevronRight className="w-8 h-8" />
+                                    {/* Referral Code Input (Optional) */}
+                                    <div>
+                                        <label className="block text-[10px] font-bold text-navy/50 uppercase tracking-wider mb-1">Referral Code (Optional)</label>
+                                        <input
+                                            type="text"
+                                            value={referralCode}
+                                            onChange={(e) => setReferralCode(e.target.value.toUpperCase())}
+                                            placeholder="e.g. VIP-1234"
+                                            className="w-full px-4 py-2.5 rounded-lg bg-ivory border border-navy/10 text-navy text-sm placeholder:text-navy/30 focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold tracking-widest"
+                                        />
+                                    </div>
+
+                                    <Button
+                                        type="submit"
+                                        className="w-full h-12 bg-gold hover:bg-gold/90 text-navy font-bold text-base mt-2 shadow-lg shadow-gold/10"
+                                        disabled={isSubmitting}
+                                    >
+                                        {isSubmitting ? "Unlocking..." : "Secure Priority Access"}
+                                    </Button>
+                                    <button
+                                        type="button"
+                                        onClick={handleClose}
+                                        className="w-full py-3 text-sm text-navy/50 font-medium hover:text-navy underline-offset-4 hover:underline"
+                                    >
+                                        No thanks, I'll just browse
+                                    </button>
+                                </form>
+                                <p className="mt-2 text-xs text-center text-navy/30">We respect your privacy.</p>
+                            </>
+                        ) : (
+                            <div className="text-center py-8">
+                                <div className="w-16 h-16 bg-green-100 text-green-600 rounded-full flex items-center justify-center mx-auto mb-6 animate-in zoom-in">
+                                    <ChevronRight className="w-8 h-8" />
+                                </div>
+                                <h3 className="font-serif text-2xl text-navy mb-2">Access Secured</h3>
+                                <p className="text-navy/60">
+                                    You are on the list for <strong>{interest}</strong> updates.<br />
+                                    Watch your inbox in January.
+                                </p>
                             </div>
-                            <h3 className="font-serif text-2xl text-navy mb-2">Access Secured</h3>
-                            <p className="text-navy/60">
-                                You are on the list for <strong>{interest}</strong> updates.<br />
-                                Watch your inbox in January.
-                            </p>
-                        </div>
-                    )}
+                        )}
+                    </div>
                 </div>
             </div>
-        </div>
-    );
+            );
 }
