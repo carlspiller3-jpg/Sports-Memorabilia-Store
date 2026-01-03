@@ -90,8 +90,8 @@ export function AssetDemoPage() {
                                 {item.valueChange}
                             </div>
                         </div>
-                        <p className="text-[10px] text-white/30 mt-2">
-                            *Estimated based on recent auction sales of similar grade items.
+                        <p className="text-[9px] text-white/30 mt-4 leading-relaxed border-t border-white/5 pt-2">
+                            *Valuation Estimate Only. This figure is generated for informational purposes based on comparable market data and does not constitute a formal financial appraisal. Sports Signed Ltd is not a regulated financial institution or independent valuer. Past performance of similar assets is not indicative of future results.
                         </p>
 
                         {/* Fake Trend Line */}
