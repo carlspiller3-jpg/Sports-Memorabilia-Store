@@ -14,6 +14,7 @@ export function WaitlistModal() {
     const [interest, setInterest] = useState("");
     const [referralCode, setReferralCode] = useState("");
     const [showSuggestions, setShowSuggestions] = useState(false);
+    const [showReferralInput, setShowReferralInput] = useState(false);
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [isSuccess, setIsSuccess] = useState(false);
 
@@ -21,14 +22,9 @@ export function WaitlistModal() {
 
     useEffect(() => {
         const timer = setTimeout(() => {
-            // Force modal to show every time for now (User Request)
-            // const hasSeen = localStorage.getItem("waitlist_seen");
-            // if (!hasSeen) {
             setIsOpen(true);
-            // }
         }, 2000);
 
-        // Close suggestions on click outside
         function handleClickOutside(event: MouseEvent) {
             if (wrapperRef.current && !wrapperRef.current.contains(event.target as Node)) {
                 setShowSuggestions(false);
@@ -74,8 +70,6 @@ export function WaitlistModal() {
                     throw error;
                 }
             } else {
-                // 3. Trigger Email API
-                // Direct connection to Custom Server for testing
                 const emailRes = await fetch('http://127.0.0.1:3003/api/send-email', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
@@ -86,15 +80,11 @@ export function WaitlistModal() {
                     })
                 });
 
-                if (!emailRes.ok) {
-                    const errText = await emailRes.text();
-                    throw new Error(errText || 'Failed to send email');
-                }
+                if (!emailRes.ok) throw new Error('Failed to send email');
 
                 setIsOpen(false);
-                setIsSuccess(true); // Corrected from setShowSuccess to setIsSuccess
+                setIsSuccess(true);
             }
-
 
             setTimeout(() => {
                 handleClose();
@@ -102,14 +92,12 @@ export function WaitlistModal() {
 
         } catch (err) {
             console.error("Error saving email:", err);
-            // In a real app we might show a toast error, but for the modal let's fail silently or alert
             alert("Something went wrong. Please try again.");
         } finally {
             setIsSubmitting(false);
         }
     };
 
-    // Filter suggestions based on input
     const filteredSuggestions = SUGGESTIONS.filter(item =>
         item.toLowerCase().includes(interest.toLowerCase()) &&
         item.toLowerCase() !== interest.toLowerCase()
@@ -119,18 +107,15 @@ export function WaitlistModal() {
 
     return (
         <div className="fixed inset-0 z-50 overflow-y-auto">
-            {/* Backdrop */}
             <div
                 className="fixed inset-0 bg-navy/95 backdrop-blur-sm"
                 onClick={handleClose}
             />
 
-            {/* Scrollable Container */}
             <div className="flex min-h-full justify-center p-4 text-center sm:p-0">
                 <div className="relative w-full max-w-lg bg-white border border-navy/10 rounded-xl shadow-2xl animate-in zoom-in-95 duration-300 my-8 sm:my-auto text-left">
 
-                    {/* Decorative Header */}
-                    <div className="bg-navy p-4 text-center border-b border-gold/20 rounded-t-xl relative">
+                    <div className="bg-navy p-3 text-center border-b border-gold/20 rounded-t-xl relative">
                         <div className="w-8 h-8 bg-white/10 rounded-full flex items-center justify-center mx-auto mb-2">
                             <Lock className="w-4 h-4 text-gold" />
                         </div>
@@ -149,15 +134,14 @@ export function WaitlistModal() {
                         </button>
                     </div>
 
-                    <div className="p-5">
+                    <div className="p-4 sm:p-5">
                         {!isSuccess ? (
                             <>
-                                <p className="text-navy/70 text-center mb-3 text-sm leading-relaxed">
+                                <p className="text-navy/70 text-center mb-3 text-xs sm:text-sm leading-relaxed">
                                     Join the <strong>Priority Access List</strong> to receive your password 48 hours before the public.
                                 </p>
 
                                 <form onSubmit={handleSubmit} className="space-y-2">
-                                    {/* Email Input */}
                                     <div>
                                         <label className="block text-[10px] font-bold text-navy/50 uppercase tracking-wider mb-0.5">Email Address</label>
                                         <input
@@ -170,7 +154,6 @@ export function WaitlistModal() {
                                         />
                                     </div>
 
-                                    {/* Autocomplete Interest Input */}
                                     <div className="relative" ref={wrapperRef}>
                                         <label className="block text-[10px] font-bold text-navy/50 uppercase tracking-wider mb-0.5">My Main Interest</label>
                                         <div className="relative">
@@ -186,7 +169,6 @@ export function WaitlistModal() {
                                             <Search className="absolute left-3 top-2.5 w-4 h-4 text-navy/30" />
                                         </div>
 
-                                        {/* Suggestions Dropdown */}
                                         {showSuggestions && filteredSuggestions.length > 0 && (
                                             <div className="absolute z-10 w-full mt-1 bg-white border border-navy/10 rounded-lg shadow-lg max-h-40 overflow-y-auto">
                                                 {filteredSuggestions.map((suggestion) => (
@@ -203,16 +185,28 @@ export function WaitlistModal() {
                                         )}
                                     </div>
 
-                                    {/* Referral Code Input (Optional) */}
-                                    <div>
-                                        <label className="block text-[10px] font-bold text-navy/50 uppercase tracking-wider mb-0.5">Referral Code (Optional)</label>
-                                        <input
-                                            type="text"
-                                            value={referralCode}
-                                            onChange={(e) => setReferralCode(e.target.value.toUpperCase())}
-                                            placeholder="e.g. VIP-1234"
-                                            className="w-full px-4 py-2 rounded-lg bg-ivory border border-navy/10 text-navy text-sm placeholder:text-navy/30 focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold tracking-widest"
-                                        />
+                                    <div className="pt-1">
+                                        {!showReferralInput ? (
+                                            <button
+                                                type="button"
+                                                onClick={() => setShowReferralInput(true)}
+                                                className="text-gold text-xs hover:text-gold/80 hover:underline font-medium"
+                                            >
+                                                + Have a referral code?
+                                            </button>
+                                        ) : (
+                                            <div className="animate-in fade-in slide-in-from-top-2 duration-200">
+                                                <label className="block text-[10px] font-bold text-navy/50 uppercase tracking-wider mb-0.5">Referral Code</label>
+                                                <input
+                                                    type="text"
+                                                    value={referralCode}
+                                                    onChange={(e) => setReferralCode(e.target.value.toUpperCase())}
+                                                    placeholder="e.g. VIP-1234"
+                                                    className="w-full px-4 py-2 rounded-lg bg-ivory border border-navy/10 text-navy text-sm placeholder:text-navy/30 focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold tracking-widest"
+                                                    autoFocus
+                                                />
+                                            </div>
+                                        )}
                                     </div>
 
                                     <Button
@@ -225,12 +219,11 @@ export function WaitlistModal() {
                                     <button
                                         type="button"
                                         onClick={handleClose}
-                                        className="w-full py-3 text-sm text-navy/50 font-medium hover:text-navy underline-offset-4 hover:underline"
+                                        className="w-full py-2 text-xs text-navy/40 font-medium hover:text-navy underline-offset-4 hover:underline"
                                     >
                                         No thanks, I'll just browse
                                     </button>
                                 </form>
-                                <p className="mt-2 text-xs text-center text-navy/30">We respect your privacy.</p>
                             </>
                         ) : (
                             <div className="text-center py-8">
