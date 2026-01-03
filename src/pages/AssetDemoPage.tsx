@@ -1,7 +1,7 @@
 
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { Copy, Share2, ShieldCheck, Download, ExternalLink, Activity, ArrowUpRight, Lock, CheckCircle } from "lucide-react";
+import { Copy, Share2, ShieldCheck, Download, ExternalLink, Activity, ArrowUpRight, Lock, CheckCircle, X } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { motion } from "framer-motion";
 
