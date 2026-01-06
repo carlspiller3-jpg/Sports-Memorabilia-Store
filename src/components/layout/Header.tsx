@@ -5,22 +5,11 @@ import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/Sheet"
 import { useCart } from "@/context/CartContext"
 import { useAuth } from "@/context/AuthContext"
 import { useLocation } from "react-router-dom"
-import { useEffect, useState } from "react"
 
 export function Header() {
     const { openCart, cartCount } = useCart()
     const { user } = useAuth()
     const location = useLocation()
-    const [scrolled, setScrolled] = useState(false)
-    const isHome = location.pathname === "/"
-
-    useEffect(() => {
-        const handleScroll = () => {
-            setScrolled(window.scrollY > 50)
-        }
-        window.addEventListener("scroll", handleScroll)
-        return () => window.removeEventListener("scroll", handleScroll)
-    }, [])
 
     const headerBg = "bg-ivory border-navy/5 text-navy shadow-sm"
 
@@ -33,14 +22,21 @@ export function Header() {
                             <Menu className="w-5 h-5" />
                         </button>
                     </SheetTrigger>
-                    <SheetContent side="left">
-                        <nav className="flex flex-col gap-6 mt-8 text-lg font-medium text-navy">
+                    <SheetContent side="left" className="bg-ivory border-r border-stone/10">
+                        <nav className="flex flex-col gap-6 mt-8 text-xl font-medium text-navy uppercase tracking-wider">
                             <a href="/" className="hover:text-gold transition-colors">Home</a>
-                            <a href="/hub" className="hover:text-gold transition-colors">News</a>
-                            <a href="/shop" className="hover:text-gold transition-colors">Shop</a>
 
-                            <a href="/about" className="hover:text-gold transition-colors">Our Story</a>
-                            <a href="/verify" className="hover:text-gold transition-colors">Verify Authenticity</a>
+                            <div className="h-px bg-stone/10 my-1" />
+
+                            <a href="/shop/football" className="hover:text-gold transition-colors font-bold">Football</a>
+                            <a href="/shop/boxing" className="hover:text-gold transition-colors font-bold">Boxing</a>
+                            <a href="/shop/f1" className="hover:text-gold transition-colors font-bold">F1</a>
+                            <a href="/drops" className="text-gold hover:text-charcoal transition-colors font-black">Drops</a>
+
+                            <div className="h-px bg-stone/10 my-1" />
+
+                            <a href="/verify" className="text-base text-navy/70 hover:text-navy transition-colors">Verify Authenticity</a>
+                            <a href="/about" className="text-base text-navy/70 hover:text-navy transition-colors">About Us</a>
                         </nav>
                     </SheetContent>
                 </Sheet>
@@ -57,12 +53,13 @@ export function Header() {
                 </div>
 
                 {/* Desktop Nav */}
-                <nav className="hidden md:flex items-center gap-8 text-sm font-medium opacity-90">
-                    <a href="/hub" className="hover:text-gold transition-colors">News</a>
-                    <a href="/shop" className="hover:text-gold transition-colors">Shop</a>
-
-                    <a href="/about" className="hover:text-gold transition-colors">Our Story</a>
-                    <a href="/verify" className="hover:text-gold transition-colors">Verify Authenticity</a>
+                <nav className="hidden md:flex items-center gap-10 text-xs font-bold uppercase tracking-widest text-navy">
+                    <a href="/shop/football" className="hover:text-gold transition-colors">Football</a>
+                    <a href="/shop/boxing" className="hover:text-gold transition-colors">Boxing</a>
+                    <a href="/shop/f1" className="hover:text-gold transition-colors">F1</a>
+                    <a href="/drops" className="hover:text-gold transition-colors">Drops</a>
+                    <a href="/verify" className="hover:text-gold transition-colors opacity-70">Verify</a>
+                    <a href="/about" className="hover:text-gold transition-colors opacity-70">About</a>
                 </nav>
 
                 {/* Actions */}

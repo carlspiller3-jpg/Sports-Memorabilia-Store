@@ -57,34 +57,43 @@ export function WaitlistModal() {
         setIsSubmitting(true);
 
         try {
+            // 1. Create Profile & Generate Code in Klaviyo (via Local API)
+            const emailRes = await fetch('http://127.0.0.1:3003/api/send-email', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    email,
+                    interest,
+                    referralCode: referralCode ? referralCode.toUpperCase() : undefined
+                })
+            });
+
+            if (!emailRes.ok) throw new Error('Failed to create profile');
+
+            const data = await emailRes.json();
+            const newOwnCode = data.referralCode;
+
+            // 2. Insert into Supabase (Log but don't fail if DB error)
             const { error } = await supabase
                 .from('newsletter_subscribers')
                 .insert([
-                    { email, interest, referral_code: referralCode }
+                    {
+                        email,
+                        interest,
+                        referral_code: referralCode ? referralCode.toUpperCase() : null, // The code they USED
+                        own_referral_code: newOwnCode // The code they GOT
+                    }
                 ]);
 
             if (error) {
-                if (error.code === '23505') { // Unique violation (already subscribed)
-                    console.log("Already subscribed");
-                } else {
-                    throw error;
+                console.error("Supabase Insert Error:", error);
+                if (error.code === '23505') {
+                    console.log("Already subscribed to DB");
                 }
-            } else {
-                const emailRes = await fetch('http://127.0.0.1:3003/api/send-email', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        email,
-                        interest,
-                        referralCode: referralCode ? referralCode.toUpperCase() : undefined
-                    })
-                });
-
-                if (!emailRes.ok) throw new Error('Failed to send email');
-
-                setIsOpen(false);
-                setIsSuccess(true);
             }
+
+            setIsOpen(false);
+            setIsSuccess(true);
 
             setTimeout(() => {
                 handleClose();
@@ -138,7 +147,7 @@ export function WaitlistModal() {
                         {!isSuccess ? (
                             <>
                                 <p className="text-navy/70 text-center mb-3 text-xs sm:text-sm leading-relaxed">
-                                    Join the <strong>Priority Access List</strong> to receive your password 48 hours before the public.
+                                    Join the <strong>Priority Access List</strong> to get notified 48 hours before the public.
                                 </p>
 
                                 <form onSubmit={handleSubmit} className="space-y-2">

@@ -8,6 +8,7 @@ import { VerifyPage } from "@/pages/VerifyPage"
 import { ShopPage } from "@/pages/ShopPage"
 import { ProductPage } from "@/pages/ProductPage"
 import { CollectionsPage } from "@/pages/CollectionsPage"
+import { DropsPage } from "@/pages/DropsPage"
 import { CheckoutPage } from "./pages/CheckoutPage"
 import { DebugPage } from "./pages/DebugPage"
 import { CartProvider } from "@/context/CartContext"
@@ -58,6 +59,12 @@ function App() {
                       <ShopPage />
                     </ShopGate>
                   } />
+                  <Route path="/shop/:category" element={
+                    <ShopGate>
+                      <ShopPage />
+                    </ShopGate>
+                  } />
+                  <Route path="/drops" element={<DropsPage />} />
                   <Route path="/collections" element={
                     <ShopGate>
                       <CollectionsPage />

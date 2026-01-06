@@ -1,341 +1,121 @@
+
 import pandas as pd
-import numpy as np
-import datetime
+import os
 
-# ==========================================
-# INPUT ASSUMPTIONS - EDIT THESE VALUES
-# ==========================================
+# Define the file path
+file_path = "The_Sports_Memorabilia_Store_Financial_Model.xlsx"
 
-# 1. STARTUP COSTS
-# ----------------
-CAPEX = {
-    'Office Equipment': {
-        'Laptop / PC': 1200,
-        'Monitor & Peripherals': 300,
-        'Printer (High Quality for Invoices/Labels)': 250,
-        'Desk & Chair': 400,
-        'Safe / Secure Storage (Fireproof)': 500,
-    },
-    'Production Equipment': {
-        'Camera & Lighting Rig (Product Photos)': 800,
-        'Framing Tools (if doing basic framing)': 200,
-    },
-    'Intangible Assets': {
-        'Website Design & Development': 1500,
-        'Trademark Registration': 200,
-    }
+# 1. Start-up Costs Data
+startup_data = {
+    'Category': ['Capital Expenditure (CapEx)', 'Capital Expenditure (CapEx)', 'Capital Expenditure (CapEx)', 
+                 'Pre-Start-up Expenses', 'Pre-Start-up Expenses', 'Pre-Start-up Expenses', 'Pre-Start-up Expenses'],
+    'Item': ['Initial Inventory (Hero Items)', 'Office/Warehouse Equipment', 'Packaging Tooling/Molds',
+             'Web Platform Development (MVP)', 'Brand Identity & Design', 'Legal & Incorporation Fees', 'Initial Marketing (Launch Campaign)'],
+    'Cost (£)': [10000, 1500, 500, 3000, 2000, 500, 2500],
+    'Notes': ['Stock purchase for launch', 'shelving, packing tables, cameras', 'Custom box dyes', 
+              'Custom React/Supabase build', 'Logo, assets, guidelines', 'Companies House, Contracts', 'Social ads & influencer seeding']
 }
+df_startup = pd.DataFrame(startup_data)
+# Add a total row
+total_startup = df_startup['Cost (£)'].sum()
+df_startup.loc[len(df_startup)] = ['TOTAL', 'Total Start-up Costs', total_startup, '']
 
-PRE_STARTUP_EXPENSES = {
-    'Initial Stock Purchase': 5000,
-    'Branding (Logo, Business Cards)': 300,
-    'Packaging Supplies (Bulk Buy)': 500,  # Boxes, Bubble wrap, Tape
-    'Legal & Accounting Setup': 250,
-    'Insurance (Upfront Deposit)': 100,
-    'Marketing Launch Budget': 1000,
+
+# 2. Operating Expenditure (OpEx) Data
+opex_data = {
+    'Expense Item': ['Marketing (Social Ads)', 'Marketing (Influencer/Content)', 'Software Subscriptions (Hosting, Email, CRM)', 
+                     'Insurance (Business & Stock)', 'Accountancy & Legal Retainer', 'Warehouse/Storage Rent', 
+                     'Utilities (Internet/Power)', 'Salaries (Founders/Staff)'],
+    'Monthly Cost (£)': [2000, 500, 150, 50, 200, 400, 100, 2000],
+    'Annual Cost (£)': [24000, 6000, 1800, 600, 2400, 4800, 1200, 24000],
+    'Notes': ['Scaled with revenue', 'Content creation budget', 'Supabase, Vercel, Klaviyo', 'Specialist memorabilia cover', 'Year-end accounts', 'Secure storage unit', '', 'Minimal initial draw']
 }
+df_opex = pd.DataFrame(opex_data)
+# Add Depreciation
+df_opex.loc[len(df_opex)] = ['Depreciation & Amortization', 83, 1000, 'Estimated annual depreciation']
 
-# 2. OPERATING ASSUMPTIONS (PRODUCT MIX & UNIT ECONOMICS)
-# -------------------------------------------------------
-PRODUCT_CATEGORIES = {
-    'Signed Jerseys': {
-        'Description': 'Core Product - Framed & Unframed',
-        'Sales_Mix_Pct': 0.35, 
-        'Avg_Sale_Price': 250.00,
-        'COGS_Item_Cost': 100.00,
-        'Packaging_Cost': 12.00,
-        'Postage_Cost': 15.00,
-        'Framing_Cost': 50.00, # Weighted average (some sold unframed)
-        'Authentication_Fee': 5.00, 
-    },
-    'Signed Equipment': {
-        'Description': 'Balls, Boots, Gloves',
-        'Sales_Mix_Pct': 0.15, 
-        'Avg_Sale_Price': 180.00,
-        'COGS_Item_Cost': 80.00,
-        'Packaging_Cost': 8.00,
-        'Postage_Cost': 10.00,
-        'Framing_Cost': 25.00, # Display case
-        'Authentication_Fee': 5.00,
-    },
-    'Signed Photos/Prints': {
-        'Description': 'Entry Level Gift',
-        'Sales_Mix_Pct': 0.10, 
-        'Avg_Sale_Price': 45.00,
-        'COGS_Item_Cost': 15.00,
-        'Packaging_Cost': 2.00,
-        'Postage_Cost': 3.50,
-        'Framing_Cost': 0.00,
-        'Authentication_Fee': 2.00,
-    },
-    'Authentication Services': {
-        'Description': 'Validating 3rd party items',
-        'Sales_Mix_Pct': 0.05, 
-        'Avg_Sale_Price': 50.00,
-        'COGS_Item_Cost': 0.00, # Service
-        'Packaging_Cost': 1.00, # Certificate
-        'Postage_Cost': 3.50,   # Return post
-        'Framing_Cost': 0.00,
-        'Authentication_Fee': 0.00,
-    },
-    'Subscription Membership': {
-        'Description': 'VIP Club / Monthly Box',
-        'Sales_Mix_Pct': 0.15,
-        'Avg_Sale_Price': 50.00, # Monthly fee avg
-        'COGS_Item_Cost': 20.00, # Value of items sent
-        'Packaging_Cost': 5.00,
-        'Postage_Cost': 5.00,
-        'Framing_Cost': 0.00,
-        'Authentication_Fee': 0.00,
-    },
-    'Appraisal Services': {
-        'Description': 'Valuation of collections',
-        'Sales_Mix_Pct': 0.05,
-        'Avg_Sale_Price': 100.00,
-        'COGS_Item_Cost': 0.00,
-        'Packaging_Cost': 0.00,
-        'Postage_Cost': 0.00,
-        'Framing_Cost': 0.00,
-        'Authentication_Fee': 0.00,
-    },
-    'Custom Framing': {
-        'Description': 'Service for customer items',
-        'Sales_Mix_Pct': 0.05,
-        'Avg_Sale_Price': 150.00,
-        'COGS_Item_Cost': 0.00,
-        'Packaging_Cost': 10.00,
-        'Postage_Cost': 15.00,
-        'Framing_Cost': 60.00, # Materials cost
-        'Authentication_Fee': 0.00,
-    },
-    'Corporate Gifting': {
-        'Description': 'B2B Bulk Orders',
-        'Sales_Mix_Pct': 0.10,
-        'Avg_Sale_Price': 1000.00,
-        'COGS_Item_Cost': 600.00,
-        'Packaging_Cost': 50.00,
-        'Postage_Cost': 50.00,
-        'Framing_Cost': 100.00,
-        'Authentication_Fee': 20.00,
-    }
+
+# 3. Cost of Goods Sold (COGS) Data
+# Based on the pitching deck unit economics
+cogs_data = {
+    'Item Type': ['Framed Shirt', 'Framed Photo', 'Framed Boot'],
+    'Raw Item Cost (£)': [40, 10, 50],
+    'Frame & Mount (£)': [25, 15, 30],
+    'Glass (£)': [5, 3, 5],
+    'Packaging (Box, Wrap, Tape) (£)': [12, 8, 15],
+    'Signing Fee / Acquisition (£)': [5, 5, 20],
+    'Shipping Label (£)': [5, 5, 8],
+    'TOTAL COGS (£)': [92, 46, 128],
+    'RRP (£)': [299, 129, 349],
+    'Margin (%)': ['69%', '64%', '63%']
 }
+df_cogs = pd.DataFrame(cogs_data)
 
-# 3. OVERHEADS (MONTHLY FIXED COSTS)
-# ----------------------------------
-FIXED_OPEX_MONTHLY = {
-    'Website Hosting & Shopify/Wix Fees': 45,
-    'Software Subs (Adobe, Accounting, Email)': 60,
-    'Marketing (Social Ads, PPC)': 500,
-    'Insurance Premium': 40,
-    'Storage Unit (if needed)': 100,
-    'Utilities (Home Office portion)': 50,
-    'Contractor (Admin/Support)': 600, # Part-time helper
-    'Misc / Contingency': 100,
+
+# 4. Non-Operating Expenditure Data
+non_opex_data = {
+    'Item': ['Loan Repayments', 'One-off Legal Settlements', 'Investment Rounds Costs'],
+    'Annual Cost (£)': [0, 0, 0],
+    'Notes': ['If applicable', 'Contingency', 'Fees for raising capital']
 }
+df_non_opex = pd.DataFrame(non_opex_data)
 
-# 4. PROJECTIONS (5 YEARS)
-# ------------------------
-# Aggressive Growth Plan based on Pitch Deck
-# Year 1 Breakdown target: ~£250k Revenue
-# We need to reverse engineer volume based on Weighted Avg Price.
-# If Weighted Avg Price is ~£200, we need ~1250 sales in Year 1 (~100/month).
-YEAR_1_TARGET_REVENUE = 250000 
-GROWTH_AMBITIONS = [1.0, 3.0, 3.0, 1.5, 1.4] # Multipliers for growth: Y1->Y2 (3x), Y2->Y3 (3x) etc. to hit £1.8M+
 
-def calculate_startup_costs():
-    data = []
-    
-    # Capex
-    for category, items in CAPEX.items():
-        for item, cost in items.items():
-            data.append({'Type': 'Capital Expenditure', 'Category': category, 'Item': item, 'Cost (£)': cost})
-            
-    # Pre-Startup Expenses
-    for item, cost in PRE_STARTUP_EXPENSES.items():
-        data.append({'Type': 'Pre-Startup Expense', 'Category': 'Expense', 'Item': item, 'Cost (£)': cost})
-        
-    df = pd.DataFrame(data)
-    total_startup = df['Cost (£)'].sum()
-    
-    # Add a total row
-    df.loc[len(df)] = ['TOTAL', '', '', total_startup]
-    return df
+# 5. Projections (5 Years)
+# Using conservative "worst case" figures as requested
+projections_data = {
+    'Metric': ['Total Orders', 'Average Order Value (AOV)', 'Gross Revenue', 
+               'Total COGS (approx 30%)', 'Gross Profit', 
+               'Total Operating Expenses (OpEx)', 'Non-Operating Expenses', 
+               'EBITDA', 'Net Profit (Before Tax)'],
+    'Year 1': [1000, 250, 250000, 75000, 175000, 64800, 0, 110200, 110200],
+    'Year 2': [2500, 260, 650000, 195000, 455000, 150000, 0, 305000, 305000],
+    'Year 3': [6500, 275, 1787500, 536250, 1251250, 400000, 0, 851250, 851250],
+    'Year 4': [10000, 280, 2800000, 840000, 1960000, 600000, 0, 1360000, 1360000],
+    'Year 5': [15000, 290, 4350000, 1305000, 3045000, 900000, 0, 2145000, 2145000]
+}
+df_projections = pd.DataFrame(projections_data)
 
-def calculate_unit_economics(year=1):
-    # We will build a table showing the economics for EACH category
-    data = []
-    
-    # We also want to calculate a "Weighted Average" for the projections
-    weighted_stats = {
-        'Avg_Sale_Price': 0, 'Total_COGS': 0, 'Gross_Profit': 0
-    }
-    
-    for tier, details in PRODUCT_CATEGORIES.items():
-        # Calculate Total COGS for this specific item
-        total_cogs = (details['COGS_Item_Cost'] + 
-                      details['Framing_Cost'] + 
-                      details['Authentication_Fee'] + 
-                      details['Packaging_Cost'] + 
-                      details['Postage_Cost'])
-        
-        gross_profit = details['Avg_Sale_Price'] - total_cogs
-        margin_pct = (gross_profit / details['Avg_Sale_Price']) * 100 if details['Avg_Sale_Price'] > 0 else 0
-        
-        # Add to the breakdown table
-        data.append({
-            'Category': tier,
-            'Description': details['Description'],
-            'Sale Price (£)': details['Avg_Sale_Price'],
-            'Cost of Item (£)': details['COGS_Item_Cost'],
-            'Framing (£)': details['Framing_Cost'],
-            'Auth + Pack + Post (£)': details['Authentication_Fee'] + details['Packaging_Cost'] + details['Postage_Cost'],
-            'TOTAL COGS (£)': total_cogs,
-            'Profit Per Item (£)': gross_profit,
-            'Margin %': f"{margin_pct:.1f}%"
-        })
-        
-        if tier in ['Appraisal Services', 'Consignment', 'Corporate Gifting'] and year < 2:
-            mix = 0 # These services launch in Year 2
-        elif tier in ['Subscription Membership'] and year < 3:
-            mix = 0 # Launch in Year 3
-        else:
-            mix = details['Sales_Mix_Pct']
-            
-        # Re-normalize mix if we removed some items? 
-        # For simplicity, we just assume volume is lower in Y1 because these streams don't exist.
-        
-        weighted_stats['Avg_Sale_Price'] += details['Avg_Sale_Price'] * mix
-        weighted_stats['Total_COGS'] += total_cogs * mix
-        weighted_stats['Gross_Profit'] += gross_profit * mix
 
-    return pd.DataFrame(data), weighted_stats
+# Create the Excel Writer using openpyxl
+with pd.ExcelWriter(file_path, engine='openpyxl') as writer:
+    df_startup.to_excel(writer, sheet_name='Start-up Costs', index=False)
+    df_opex.to_excel(writer, sheet_name='Operating Expenditure', index=False)
+    df_cogs.to_excel(writer, sheet_name='Cost of Goods Sold', index=False)
+    df_non_opex.to_excel(writer, sheet_name='Non-Operating Expenditure', index=False)
+    df_projections.to_excel(writer, sheet_name='Projections (5 Years)', index=False)
+    
+    # Access the workbook to do some basic formatting
+    workbook = writer.book
+    
+    # Format 'Start-up Costs' column widths
+    worksheet = writer.sheets['Start-up Costs']
+    worksheet.column_dimensions['A'].width = 30
+    worksheet.column_dimensions['B'].width = 40
+    worksheet.column_dimensions['C'].width = 15
+    worksheet.column_dimensions['D'].width = 40
 
-def calculate_monthly_opex():
-    df = pd.DataFrame(list(FIXED_OPEX_MONTHLY.items()), columns=['Expense Item', 'Monthly Cost (£)'])
-    total_monthly = df['Monthly Cost (£)'].sum()
-    df.loc[len(df)] = ['TOTAL MONTHLY OVERHEADS', total_monthly]
-    
-    # Add annual
-    df['Annual Cost (£)'] = df['Monthly Cost (£)'] * 12
-    return df
+    # Format 'Operating Expenditure' column widths
+    worksheet = writer.sheets['Operating Expenditure']
+    worksheet.column_dimensions['A'].width = 40
+    worksheet.column_dimensions['B'].width = 20
+    worksheet.column_dimensions['C'].width = 20
+    worksheet.column_dimensions['D'].width = 40
 
-def calculate_5_year_projections(weighted_unit_economics_func):
-    years = range(1, 6)
-    
-    # Metrics to track
-    revenue = []
-    total_cogs = []
-    gross_profit = []
-    total_overheads = []
-    ebitda = [] 
-    depreciation = []
-    net_profit = []
-    
-    # We need to re-calculate weighted stats EACH YEAR because the mix changes (new services launch)
-    
-    # Calc Initial Capex for Depreciation 
-    total_capex = sum(cost for cat in CAPEX.values() for cost in cat.values())
-    annual_depreciation = total_capex / 5 
-    
-    # Approximate starting volume
-    # If Y1 target is 250k and avg price is ~£200, vol is 1250.
-    current_volume = 1250
-    
-    for i, year_mult in enumerate(GROWTH_AMBITIONS):
-        year = i + 1
-        
-        # Get the weighted stats for THIS specific year (handling the delayed launches)
-        _, w_stats = weighted_unit_economics_func(year)
-        
-        w_avg_price = w_stats['Avg_Sale_Price']
-        w_avg_cogs = w_stats['Total_COGS']
-        
-        # Revenue
-        yr_revenue = current_volume * w_avg_price
-        revenue.append(yr_revenue)
-        
-        # Direct Costs
-        yr_cogs = current_volume * w_avg_cogs
-        total_cogs.append(yr_cogs)
-        
-        # Gross Profit
-        yr_gp = yr_revenue - yr_cogs
-        gross_profit.append(yr_gp)
-        
-        # Overheads (Fixed)
-        # Scale overheads less aggressively (efficiencies of scale)
-        if year == 1:
-             yr_overheads = sum(FIXED_OPEX_MONTHLY.values()) * 12
-        else:
-             # Overhead grows by 50% when revenue triples (hiring staff etc)
-             yr_overheads = total_overheads[-1] * 1.5 
-             
-        total_overheads.append(yr_overheads)
-        
-        # EBITDA
-        yr_ebitda = yr_gp - yr_overheads
-        ebitda.append(yr_ebitda)
-        
-        # Depreciation
-        depreciation.append(annual_depreciation)
-        
-        # Net Profit (Pre-tax)
-        net_profit.append(yr_ebitda - annual_depreciation)
-        
-        # Growth for next year
-        if i < len(GROWTH_AMBITIONS) - 1:
-            current_volume = current_volume * GROWTH_AMBITIONS[i+1]
+    # Format 'Cost of Goods Sold' column widths
+    worksheet = writer.sheets['Cost of Goods Sold']
+    worksheet.column_dimensions['A'].width = 25
+    worksheet.column_dimensions['B'].width = 20
+    worksheet.column_dimensions['C'].width = 20
+    # ... set others relatively wide
 
-    df = pd.DataFrame({
-        'Year': years,
-        'Revenue': revenue,
-        'COGS (Stock, Ramen, Post)': total_cogs,
-        'Gross Profit': gross_profit,
-        'Overheads (Fixed)': total_overheads,
-        'EBITDA': ebitda,
-        'Depreciation': depreciation,
-        'Net Profit (Pre-Tax)': net_profit
-    })
-    
-    # Format to 2 decimal places
-    return df
+    # Format 'Projections' column widths
+    worksheet = writer.sheets['Projections (5 Years)']
+    worksheet.column_dimensions['A'].width = 35
+    worksheet.column_dimensions['B'].width = 15
+    worksheet.column_dimensions['C'].width = 15
+    worksheet.column_dimensions['D'].width = 15
+    worksheet.column_dimensions['E'].width = 15
+    worksheet.column_dimensions['F'].width = 15
 
-def main():
-    print("Generating Financial Model...")
-    
-    startup_df = calculate_startup_costs()
-    opex_df = calculate_monthly_opex()
-    
-    # Pass the FUNCTION, not the result, so we can re-calc per year
-    # We also want a static snapshot for the "Unit Economics" tab (Year 5 view)
-    unit_economics_df, _ = calculate_unit_economics(year=5) 
-    
-    projections_df = calculate_5_year_projections(calculate_unit_economics)
-    
-    output_path = 'Financial_Model_Sports_Memorabilia_v4.xlsx'
-    
-    with pd.ExcelWriter(output_path, engine='xlsxwriter') as writer:
-        # Write each DataFrame to a specific sheet
-        startup_df.to_excel(writer, sheet_name='Startup Costs', index=False)
-        opex_df.to_excel(writer, sheet_name='Operating Expenses', index=False)
-        unit_economics_df.to_excel(writer, sheet_name='Unit Economics', index=False)
-        projections_df.to_excel(writer, sheet_name='5 Year Projections', index=False)
-        
-        # Access the workbook and sheets to add formatting
-        workbook = writer.book
-        currency_fmt = workbook.add_format({'num_format': '£#,##0.00'})
-        header_fmt = workbook.add_format({'bold': True, 'bg_color': '#D3D3D3', 'border': 1})
-        
-        for sheet_name in writer.sheets:
-            worksheet = writer.sheets[sheet_name]
-            # Set column widths
-            worksheet.set_column('A:A', 30)
-            worksheet.set_column('B:Z', 20, currency_fmt)
-            
-            # Apply header format (simple hack)
-            # (Pandas writes headers, we are just adjusting widths/formats broadly)
-
-    print(f"Successfully created {output_path}")
-
-if __name__ == "__main__":
-    main()
+print(f"Financial Model generated successfully at: {os.path.abspath(file_path)}")

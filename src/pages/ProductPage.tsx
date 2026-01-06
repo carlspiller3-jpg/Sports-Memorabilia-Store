@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react"
 import { useParams } from "react-router-dom"
 import { Helmet } from "react-helmet-async"
-import { ShieldCheck, Truck, Package, Star, ZoomIn, CheckCircle } from "lucide-react"
+import { ShieldCheck, Truck, Package, ZoomIn, AlertTriangle } from "lucide-react"
 import { Button } from "@/components/ui/Button"
 import { TrustBadge } from "@/components/ui/TrustBadge"
 import { supabase } from "@/lib/supabase"
@@ -23,7 +23,6 @@ import {
 } from "@/lib/seo"
 import { RelatedProducts } from "@/components/product/RelatedProducts"
 import { fetchProductByHandle } from "@/lib/shopify"
-import { ReviewList } from "@/components/reviews/ReviewList"
 import { SigningEventLayout } from "@/components/product/SigningEventLayout"
 
 export function ProductPage() {
@@ -264,12 +263,6 @@ export function ProductPage() {
                             </h1>
                             <div className="flex items-center gap-6">
                                 <span className="text-3xl font-medium text-gold font-serif">£{selectedVariant?.price}</span>
-                                <div className="flex items-center gap-1 text-sm text-navy/60 bg-white px-3 py-1 rounded-full border border-stone/10 shadow-sm">
-                                    <Star className="w-4 h-4 fill-gold text-gold" />
-                                    <span className="font-bold text-charcoal">5.0</span>
-                                    <span className="text-stone-400">|</span>
-                                    <span>12 verified reviews</span>
-                                </div>
                             </div>
                         </div>
 
@@ -298,76 +291,93 @@ export function ProductPage() {
                             </div>
                         )}
 
+                        {/* Urgency / Low Stock Warning */}
+                        {selectedVariant?.inventory_quantity !== undefined && selectedVariant.inventory_quantity > 0 && selectedVariant.inventory_quantity < 5 && (
+                            <div className="flex items-center gap-2 text-amber-600 bg-amber-50 px-3 py-2 rounded-sm border border-amber-100 mb-4 animate-pulse">
+                                <AlertTriangle className="w-4 h-4 fill-amber-600 text-white" />
+                                <span className="text-sm font-bold">Only {selectedVariant.inventory_quantity} left in stock - Order soon.</span>
+                            </div>
+                        )}
+
                         {/* Actions */}
-                        <div className="space-y-4 pt-4">
+                        <div className="space-y-4 pt-1">
                             <Button
                                 size="lg"
                                 onClick={handleAddToCart}
-                                className="w-full text-lg h-14 shadow-lg shadow-gold/20 hover:shadow-gold/30 transition-shadow"
+                                className="w-full text-lg h-14 shadow-lg shadow-gold/20 hover:shadow-gold/30 transition-shadow bg-charcoal text-white hover:bg-charcoal/90"
                             >
                                 Add to Cart
                             </Button>
 
                             {/* Payment Icons */}
-                            <div className="flex justify-center gap-4 opacity-60 grayscale hover:grayscale-0 transition-all duration-500">
-                                <div className="h-6 w-10 bg-stone/20 rounded" /> {/* Placeholder for Visa */}
-                                <div className="h-6 w-10 bg-stone/20 rounded" /> {/* Placeholder for Mastercard */}
-                                <div className="h-6 w-10 bg-stone/20 rounded" /> {/* Placeholder for Apple Pay */}
+                            <div className="flex justify-center flex-wrap gap-2 opacity-60 grayscale hover:grayscale-0 transition-all duration-500 text-[10px] text-stone-500">
+                                <span className="flex items-center gap-1 border px-2 py-1 rounded"><ShieldCheck className="w-3 h-3" /> Secure Checkout</span>
+                                <span className="flex items-center gap-1 border px-2 py-1 rounded"><Truck className="w-3 h-3" /> Fast Shipping</span>
                             </div>
                         </div>
 
-                        {/* Trust Signals - Upgraded */}
-                        <div className="grid grid-cols-1 gap-4 pt-6">
-                            <div className="flex items-start gap-4 p-4 bg-white border border-stone/10 rounded-sm shadow-sm hover:shadow-md transition-shadow">
-                                <div className="p-2 bg-gold/10 rounded-full text-gold">
+                        {/* Certification & Provenance - EXPANDED TRINITY */}
+                        <div className="grid grid-cols-1 gap-0 border border-stone/20 rounded-lg overflow-hidden divide-y divide-stone/20 bg-white shadow-sm mt-8">
+
+                            {/* 1. Digital Authentication */}
+                            <div className="flex items-start gap-5 p-5 hover:bg-stone/5 transition-colors">
+                                <div className="flex-shrink-0 h-12 w-12 bg-blue-50/50 rounded-full flex items-center justify-center text-blue-700">
                                     <ShieldCheck className="w-6 h-6" />
                                 </div>
-                                <div>
-                                    <h4 className="font-bold text-charcoal text-sm">Lifetime Authenticity Guarantee</h4>
-                                    <p className="text-xs text-navy/70 mt-1">Every item comes with our proprietary NFC Tag technology for digital verification.</p>
+                                <div className="pt-1">
+                                    <h4 className="font-bold text-charcoal text-base">Digitally Authenticated</h4>
+                                    <p className="text-sm text-navy/70 mt-1 leading-relaxed">
+                                        Verified via our exclusive <strong>NFC Tag Technology</strong>.
+                                        Scan the item with your phone to access the immutable digital record and signing proof.
+                                    </p>
+                                    <div className="mt-3 flex gap-2">
+                                        <div className="bg-stone-100 text-[10px] px-2 py-1 rounded-sm border border-stone-200 font-mono text-stone-600">NFC Verified</div>
+                                        <div className="bg-stone-100 text-[10px] px-2 py-1 rounded-sm border border-stone-200 font-mono text-stone-600">Tamper Proof</div>
+                                    </div>
                                 </div>
                             </div>
 
-                            <div className="flex items-start gap-4 p-4 bg-white border border-stone/10 rounded-sm shadow-sm hover:shadow-md transition-shadow">
-                                <div className="p-2 bg-gold/10 rounded-full text-gold">
-                                    <Truck className="w-6 h-6" />
+                            {/* 2. Photo Proof / Provenance */}
+                            <div className="flex items-start gap-5 p-5 hover:bg-stone/5 transition-colors">
+                                <div className="flex-shrink-0 h-12 w-12 bg-purple-50/50 rounded-full flex items-center justify-center text-purple-700">
+                                    <span className="font-bold font-mono text-lg mb-1">((•))</span>
                                 </div>
-                                <div>
-                                    <h4 className="font-bold text-charcoal text-sm">Insured & Tracked Delivery</h4>
-                                    <p className="text-xs text-navy/70 mt-1">Fully insured shipping with real-time tracking updates to your door.</p>
+                                <div className="pt-1">
+                                    <h4 className="font-bold text-charcoal text-base">Signing Session Provenance</h4>
+                                    <p className="text-sm text-navy/70 mt-1 leading-relaxed">
+                                        Obtained directly from exclusive private signing sessions. We guarantee the provenance of every item we sell.
+                                    </p>
                                 </div>
                             </div>
 
-                            <div className="flex items-start gap-4 p-4 bg-white border border-stone/10 rounded-sm shadow-sm hover:shadow-md transition-shadow">
-                                <div className="p-2 bg-gold/10 rounded-full text-gold">
+                            {/* 3. Delivery */}
+                            <div className="flex items-start gap-5 p-5 hover:bg-stone/5 transition-colors">
+                                <div className="flex-shrink-0 h-12 w-12 bg-green-50/50 rounded-full flex items-center justify-center text-green-700">
                                     <Package className="w-6 h-6" />
                                 </div>
-                                <div>
-                                    <h4 className="font-bold text-charcoal text-sm">Premium Presentation</h4>
-                                    <p className="text-xs text-navy/70 mt-1">Delivered in our signature premium packaging, ready for gifting or display.</p>
+                                <div className="pt-1">
+                                    <h4 className="font-bold text-charcoal text-base">Premium Presentation</h4>
+                                    <p className="text-sm text-navy/70 mt-1 leading-relaxed">
+                                        Arrives in our signature matte-black luxury packaging. Framed items are protected in custom crates for insured worldwide delivery.
+                                    </p>
                                 </div>
                             </div>
                         </div>
 
                         {/* Description */}
-                        <div className="space-y-4 pt-6">
-                            <h3 className="font-serif text-xl font-bold text-charcoal border-b border-stone/10 pb-2">Product Details</h3>
-                            <div className="prose prose-sm text-navy/80 leading-relaxed">
-                                <p>{product.body_html}</p>
-                                <ul className="list-none space-y-2 pl-0 mt-4">
-                                    <li className="flex items-center gap-2">
-                                        <CheckCircle className="w-4 h-4 text-gold" />
-                                        <span>Hand signed by <strong>{product.tags?.[2] || "the athlete"}</strong></span>
-                                    </li>
-                                    <li className="flex items-center gap-2">
-                                        <CheckCircle className="w-4 h-4 text-gold" />
-                                        <span>Includes <strong>NFC Digital Authentication</strong></span>
-                                    </li>
-                                    <li className="flex items-center gap-2">
-                                        <CheckCircle className="w-4 h-4 text-gold" />
-                                        <span>Premium framing options available</span>
-                                    </li>
-                                </ul>
+                        <div className="space-y-4 pt-8">
+                            <h3 className="font-serif text-xl font-bold text-charcoal border-b border-stone/10 pb-2">Product Description</h3>
+                            <div className="prose prose-sm text-navy/80 leading-relaxed max-w-none">
+                                <div dangerouslySetInnerHTML={{ __html: product.body_html || '' }} />
+
+                                <div className="bg-ivory p-4 rounded-lg border border-gold/20 mt-6 relative overflow-hidden">
+                                    <div className="absolute top-0 right-0 w-16 h-16 bg-gold/10 rounded-bl-full -mr-8 -mt-8"></div>
+                                    <h5 className="font-serif font-bold text-gold mb-2 relative z-10">Collector's Note</h5>
+                                    <p className="text-xs text-charcoal/80 relative z-10">
+                                        "A fantastic investment piece. {product.title} represents a significant moment in sporting history.
+                                        With the included NFC authentication, the value is protected for future generations."
+                                    </p>
+                                </div>
                             </div>
                         </div>
 
@@ -418,10 +428,10 @@ export function ProductPage() {
                 </div>
             </div>
 
-            {/* Reviews Section */}
-            <div className="container mx-auto px-4">
+            {/* Reviews Section REMOVED */}
+            {/* <div className="container mx-auto px-4">
                 <ReviewList productHandle={product.handle} />
-            </div>
+            </div> */}
 
 
             {/* Related Products */}

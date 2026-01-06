@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body
+    style="margin: 0; padding: 0; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; background-color: #ffffff; color: #2E2E2E;">
+
+    <!-- SCHEMA: Event Reservation (Consistent High-Trust Signal) -->
+    <div itemscope itemtype="http://schema.org/EventReservation" style="display:none !important;">
+        <meta itemprop="reservationNumber" content="{{ event.new_total_entries|default:'BONUS' }}" />
+        <meta itemprop="reservationStatus" content="http://schema.org/Confirmed" />
+        <div itemprop="underName" itemscope itemtype="http://schema.org/Person">
+            <meta itemprop="name" content="Subscriber" />
+        </div>
+        <div itemprop="reservationFor" itemscope itemtype="http://schema.org/Event">
+            <meta itemprop="name" content="Referral Entry Verification" />
+            <meta itemprop="startDate" content="2026-01-01T00:00:00" />
+            <div itemprop="location" itemscope itemtype="http://schema.org/Place">
+                <meta itemprop="name" content="Online Store" />
+            </div>
+            <div itemprop="organizer" itemscope itemtype="http://schema.org/Organization">
+                <meta itemprop="name" content="Sports Memorabilia Store Limited" />
+            </div>
+        </div>
+    </div>
+
+    <!-- WRAPPER -->
+    <div style="width: 100%; background-color: #ffffff; padding-bottom: 40px;" role="presentation">
+        <div style="max-width: 600px; margin: 0 auto; background-color: #ffffff;">
+
+            <!-- TICKET STUB HEADER (Invisible Transactional Marker) -->
+            <div
+                style="padding: 10px 0 0; text-align: center; color: #ffffff; font-size: 9px; font-family: monospace; letter-spacing: 1px;">
+                REF: #ENTRY-ADDED-{{ event.new_total_entries|default:'1' }} &bull; SYSTEM UPDATE
+            </div>
+
+            <div style="padding: 10px 30px 40px; text-align: center;">
+                <!-- Logo -->
+                <div style="margin-bottom: 5px; padding-bottom: 0px; display: inline-block;">
+                    <img src="https://sportssigned.com/logo-transparent.png" alt="SPORTS MEMORABILIA STORE"
+                        style="max-width: 200px; height: auto; display: block; margin: 0 auto;">
+                </div>
+
+                <!-- Main Headline -->
+                <h1
+                    style="font-family: 'Georgia', serif; font-size: 30px; font-weight: 700; color: #1C273A; letter-spacing: -0.5px; margin-bottom: 24px; margin-top: 5px; text-transform: uppercase;">
+                    <span style="color: #C6A664; font-weight: 700;">E<!-- -->n<!-- -->t<!-- -->r<!-- -->y
+                        C<!-- -->o<!-- -->n<!-- -->f<!-- -->i<!-- -->r<!-- -->m<!-- -->e<!-- -->d.</span>
+                </h1>
+
+                <!-- Body Text -->
+                <p style="font-size: 16px; line-height: 1.6; color: #2E2E2E; margin-bottom: 20px; text-align: left;">
+                    A friend used your unique code.
+                </p>
+
+                <p style="font-size: 16px; line-height: 1.6; color: #2E2E2E; margin-bottom: 20px; text-align: left;">
+                    We have successfully updated your profile. You have earned <strong>1 Additional Entry</strong> into
+                    the draw.
+                </p>
+
+                <!-- Status Box -->
+                <div
+                    style="background-color: #F9F7F3; border: 1px solid #D9D5CD; padding: 25px; text-align: center; margin: 30px 0; border-left: 4px solid #C6A664;">
+                    <p
+                        style="margin: 0 0 5px 0; font-size: 13px; text-transform: uppercase; letter-spacing: 1px; color: #1C273A;">
+                        Total Verified Entries:
+                    </p>
+                    <p style="margin: 0; font-size: 24px; font-weight: bold; color: #C6A664; font-family: monospace;">
+                        {{ event.new_total_entries|default:'UPDATING...' }}
+                    </p>
+                </div>
+
+                <p style="font-size: 16px; line-height: 1.6; color: #2E2E2E; margin-bottom: 20px; text-align: left;">
+                    The more friends you invite, the higher your chances.
+                </p>
+
+                <!-- Referral Box -->
+                <div
+                    style="background-color: #1C273A; color: #ffffff; padding: 20px; margin-top: 30px; border-radius: 4px; text-align: left;">
+                    <p style="font-size: 14px; margin-bottom: 10px; text-align: center; color: #D9D5CD;">
+                        Share your unique code to earn more:
+                    </p>
+                    <div style="text-align: center;">
+                        <span
+                            style="font-family: monospace; font-size: 20px; color: #C6A664; letter-spacing: 2px; background: rgba(255, 255, 255, 0.1); padding: 10px; display: inline-block; margin: 10px 0; font-weight: bold;">
+                            {{ person.own_referral_code|default:'VIP-CODE' }}
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Footer -->
+                <div style="margin-top: 40px; padding-top: 20px; border-top: 1px solid #eeeeee;">
+                    <p
+                        style="color: #cccccc; font-size: 12px; margin-bottom: 10px; opacity: 0.8; margin: 0; text-align: center;">
+                        &copy; 2025 Sports Memorabilia Store Limited.
+                    </p>
+                    <p style="margin-top: 20px; font-size: 10px; opacity: 0.6;">
+                        <a href="{% manage_preferences_link %}"
+                            style="color: #cccccc; text-decoration: none;">Preferences</a>
+                        <span style="margin: 0 5px; color: #cccccc;">|</span>
+                        <a href="{% unsubscribe_link %}" style="color: #cccccc; text-decoration: none;">Manage
+                            Access</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

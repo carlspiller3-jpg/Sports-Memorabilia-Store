@@ -1,6 +1,6 @@
 
 import { useState, useEffect, useMemo } from "react"
-import { useSearchParams } from "react-router-dom"
+import { useSearchParams, useParams } from "react-router-dom"
 import { SlidersHorizontal, ChevronDown, Search } from "lucide-react"
 import { ProductCard } from "@/components/ui/ProductCard"
 import { Button } from "@/components/ui/Button"
@@ -13,6 +13,7 @@ import { generateImageAlt } from "@/lib/seo"
 import { fetchAllProducts } from "@/lib/shopify"
 
 export function ShopPage() {
+    const { category } = useParams<{ category: string }>()
     const [searchParams, setSearchParams] = useSearchParams()
     const [products, setProducts] = useState<Product[]>([])
     // filteredProducts is now derived via useMemo
@@ -24,6 +25,16 @@ export function ShopPage() {
     const [selectedSport, setSelectedSport] = useState<string>("all")
     const [selectedTeam, setSelectedTeam] = useState<string>("all")
     const [priceRange, setPriceRange] = useState<string>("all")
+
+    // Sync URL category to Filter State
+    useEffect(() => {
+        if (category) {
+            const sportName = category.toLowerCase() === 'f1' ? 'F1' : category.charAt(0).toUpperCase() + category.slice(1);
+            setSelectedSport(sportName);
+        } else {
+            setSelectedSport("all");
+        }
+    }, [category]);
 
     // Derived data for filters
     const sports = ["Football", "Boxing", "Rugby", "Cricket", "Tennis", "F1"]
@@ -149,7 +160,7 @@ export function ShopPage() {
     return (
         <div className="min-h-screen bg-ivory pt-20">
             <PageHero
-                title="Shop All"
+                title={category ? (category.toLowerCase() === 'f1' ? 'Shop F1' : `Shop ${category.charAt(0).toUpperCase() + category.slice(1)}`) : "Shop All"}
                 subtitle="Authentic sports memorabilia. Professionally framed and ready to display."
                 backgroundImage="https://images.unsplash.com/photo-1486286701208-1d58e9338013?q=80&w=2070&auto=format&fit=crop"
                 compact
@@ -341,11 +352,52 @@ export function ShopPage() {
 
                 {/* Empty State */}
                 {!loading && filteredProducts.length === 0 && (
-                    <div className="text-center py-20">
-                        <p className="text-navy/60 text-lg">No products found matching your criteria.</p>
-                        <Button variant="outline" className="mt-4" onClick={() => { setSearchQuery(""); setSortBy("featured"); setSelectedType("all"); setSelectedSport("all"); setSelectedTeam("all"); setPriceRange("all"); }}>
-                            Reset Filters
-                        </Button>
+                    <div className="max-w-xl mx-auto text-center py-20 px-4">
+                        {searchQuery ? (
+                            <>
+                                <div className="w-16 h-16 bg-stone/5 rounded-full flex items-center justify-center mx-auto mb-6">
+                                    <Search className="w-8 h-8 text-navy/40" />
+                                </div>
+                                <h2 className="text-2xl font-serif text-charcoal mb-2">No results found</h2>
+                                <p className="text-navy/60 mb-8">We couldn't find anything matching "{searchQuery}".</p>
+                                <Button variant="outline" onClick={() => { setSearchQuery(""); setSortBy("featured"); setSelectedType("all"); setSelectedSport("all"); setSelectedTeam("all"); setPriceRange("all"); }}>
+                                    Clear Search
+                                </Button>
+                            </>
+                        ) : (
+                            <div className="bg-white border border-stone/20 rounded-lg shadow-sm p-8 md:p-12">
+                                <div className="w-12 h-12 bg-gold/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                                    <span className="text-xl">🔔</span>
+                                </div>
+                                <h2 className="text-2xl font-serif text-charcoal mb-3">Out of Stock</h2>
+                                <p className="text-navy/70 mb-6">
+                                    {selectedSport !== 'all' ? `We are currently out of authentic ${selectedSport} memorabilia.` : 'We are currently out of stock for this selection.'}
+                                    <br />
+                                    Join our list to be the first to know when new items arrive.
+                                </p>
+
+                                <form className="max-w-sm mx-auto flex gap-2" action="https://manage.kmail-lists.com/subscriptions/subscribe?a=VMkY3E&g=Rxs6x7" method="POST" target="_blank">
+                                    <input
+                                        type="email"
+                                        name="email"
+                                        placeholder="Enter your email"
+                                        className="flex-1 px-4 py-3 bg-stone-50 border border-stone/20 rounded-sm focus:outline-none focus:border-gold text-sm"
+                                        required
+                                    />
+                                    <Button type="submit" className="bg-navy hover:bg-gold text-white px-6">
+                                        Notify Me
+                                    </Button>
+                                </form>
+                                <div className="mt-8 pt-6 border-t border-stone/10">
+                                    <button
+                                        onClick={() => { setSelectedType("all"); setSelectedSport("all"); setSelectedTeam("all"); setPriceRange("all"); }}
+                                        className="text-sm text-navy/40 hover:text-navy underline"
+                                    >
+                                        View all other items
+                                    </button>
+                                </div>
+                            </div>
+                        )}
                     </div>
                 )}
             </div>
