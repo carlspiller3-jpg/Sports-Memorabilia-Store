@@ -194,28 +194,6 @@ export function AccountPage() {
                                     </div>
                                 </div>
 
-                                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                                    <div className="bg-white border border-stone/10 p-6 rounded-sm text-center">
-                                        <Users className="w-8 h-8 text-gold mx-auto mb-4" />
-                                        <p className="text-2xl font-bold text-charcoal">3</p>
-                                        <p className="text-xs text-navy/40 uppercase tracking-wider font-bold">Total Referrals</p>
-                                    </div>
-                                    <div className="bg-white border border-stone/10 p-6 rounded-sm md:col-span-2">
-                                        <div className="flex justify-between items-end mb-4">
-                                            <div>
-                                                <p className="text-xs text-navy/40 uppercase tracking-wider font-bold mb-1">Next Milestone</p>
-                                                <h4 className="font-serif font-bold text-charcoal">48-Hour Early Access</h4>
-                                            </div>
-                                            <p className="text-sm font-bold text-gold">3/5 Referrals</p>
-                                        </div>
-                                        <div className="w-full h-2 bg-stone/10 rounded-full overflow-hidden">
-                                            <div className="h-full bg-gold transition-all duration-1000" style={{ width: '60%' }}></div>
-                                        </div>
-                                        <p className="text-[10px] text-navy/40 mt-3 italic">
-                                            *Unlock early access to the January Drop by inviting 2 more collectors.
-                                        </p>
-                                    </div>
-                                </div>
 
                                 <div className="bg-white border border-stone/10 p-8 rounded-sm">
                                     <h3 className="font-serif text-xl font-bold text-charcoal mb-6 text-center">How It Works</h3>
