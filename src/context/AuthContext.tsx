@@ -149,10 +149,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
             return await login(email, pass);
         }
 
-        if (data === null) {
-            return { success: false, error: 'Shopify Configuration Error: Missing API keys in server environment.' };
-        }
-
         const error = data?.data?.customerCreate?.customerUserErrors?.[0]?.message || 'Failed to create account. Please ensure your email is unique and password is at least 6 characters.';
         return { success: false, error };
     };
