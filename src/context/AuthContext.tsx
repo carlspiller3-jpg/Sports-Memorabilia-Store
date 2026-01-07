@@ -12,6 +12,8 @@ export interface CustomerProfile {
     orders: any[]
     addresses: any[]
     defaultAddress: any
+    ownReferralCode?: string
+    referralCount?: number
 }
 
 interface User {
@@ -54,10 +56,49 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
     const fetchProfile = async (token: string) => {
         const { CUSTOMER_QUERY } = await import('@/lib/shopify');
+        const { supabase } = await import('@/lib/supabaseClient');
         const data = await shopifyFetch(CUSTOMER_QUERY, { customerAccessToken: token });
 
         if (data?.data?.customer) {
             const c = data.data.customer;
+            const email = c.email;
+
+            // Fetch Referral Data from Supabase
+            let ownReferralCode = '';
+            let referralCount = 0;
+
+            const { data: subData } = await supabase
+                .from('newsletter_subscribers')
+                .select('own_referral_code, referral_count')
+                .eq('email', email)
+                .single();
+
+            if (subData) {
+                ownReferralCode = subData.own_referral_code || '';
+                referralCount = subData.referral_count || 0;
+            } else {
+                // If no record, generate a deterministic code (consistent with API)
+                const cleanEmail = email.replace(/[^a-zA-Z0-9]/g, '').toUpperCase();
+                // We use a simple hash of the email for deterministic but unique-looking suffix
+                const hash = email.split('').reduce((acc: number, char: string) => acc + char.charCodeAt(0), 0);
+                const uniqueSuffix = hash.toString(36).toUpperCase().padStart(4, 'X');
+                ownReferralCode = `VIP-${cleanEmail.substring(0, 3)}-${uniqueSuffix}`;
+
+                // Create the record in Supabase so it's ready
+                try {
+                    await supabase
+                        .from('newsletter_subscribers')
+                        .insert([{
+                            email,
+                            own_referral_code: ownReferralCode,
+                            interest: 'Account Signup',
+                            referral_count: 0
+                        }]);
+                } catch (e) {
+                    console.error('Error creating referral record:', e);
+                }
+            }
+
             setUser({
                 token,
                 profile: {
@@ -66,7 +107,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
                     email: c.email,
                     defaultAddress: c.defaultAddress,
                     addresses: c.addresses?.edges?.map((e: any) => e.node) || [],
-                    orders: c.orders?.edges?.map((e: any) => e.node) || []
+                    orders: c.orders?.edges?.map((e: any) => e.node) || [],
+                    ownReferralCode,
+                    referralCount
                 }
             });
         }

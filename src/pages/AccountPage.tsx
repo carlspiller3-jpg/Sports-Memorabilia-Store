@@ -4,7 +4,7 @@ import { useAuth } from '@/context/AuthContext'
 import { Button } from '@/components/ui/Button'
 import { PageHero } from '@/components/ui/PageHero'
 import { Helmet } from 'react-helmet-async'
-import { Package, User as UserIcon, LogOut, LayoutDashboard, Gem, MapPin, Gift, Copy } from 'lucide-react'
+import { Package, User as UserIcon, LogOut, LayoutDashboard, Gem, MapPin, Gift, Copy, Check, Users } from 'lucide-react'
 import { OrderHistory } from '@/components/account/OrderHistory'
 import { AddressBook } from '@/components/account/AddressBook'
 import { CollectionGallery } from '@/components/account/CollectionGallery'
@@ -18,6 +18,19 @@ export function AccountPage() {
     const navigate = useNavigate()
     const [activeTab, setActiveTab] = useState<Tab>('overview')
     const [showTradeIn, setShowTradeIn] = useState(false)
+    const [copiedCode, setCopiedCode] = useState(false)
+    const [copiedLink, setCopiedLink] = useState(false)
+
+    const copyToClipboard = (text: string, type: 'code' | 'link') => {
+        navigator.clipboard.writeText(text)
+        if (type === 'code') {
+            setCopiedCode(true)
+            setTimeout(() => setCopiedCode(false), 2000)
+        } else {
+            setCopiedLink(true)
+            setTimeout(() => setCopiedLink(false), 2000)
+        }
+    }
 
     useEffect(() => {
         if (!isLoading && !user) {
@@ -123,21 +136,15 @@ export function AccountPage() {
                                     </div>
                                     <div className="bg-white border border-stone/10 p-6 rounded-sm">
                                         <h3 className="font-serif text-lg text-charcoal mb-4 flex items-center gap-2">
-                                            <Package className="w-4 h-4 text-gold" /> Recent Activity
+                                            <Users className="w-4 h-4 text-gold" /> Referrals
                                         </h3>
-                                        {profile?.orders && profile.orders.length > 0 ? (
-                                            <div className="space-y-3">
-                                                <p className="text-sm text-navy/70">
-                                                    Last order <span className="font-bold">#{profile.orders[0].orderNumber}</span>
-                                                </p>
-                                                <p className="text-xs text-navy/40">
-                                                    {new Date(profile.orders[0].processedAt).toLocaleDateString()}
-                                                </p>
-                                                <Button variant="link" className="h-auto p-0 text-gold" onClick={() => setActiveTab('orders')}>View Details</Button>
+                                        <div className="flex items-center justify-between">
+                                            <div>
+                                                <p className="text-3xl font-bold">{profile?.referralCount || 0}</p>
+                                                <p className="text-navy/40 text-sm mt-1">Friends invited</p>
                                             </div>
-                                        ) : (
-                                            <p className="text-sm text-navy/40">No recent activity.</p>
-                                        )}
+                                            <Button variant="outline" size="sm" onClick={() => setActiveTab('rewards')}>Invite More</Button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -175,18 +182,25 @@ export function AccountPage() {
                                             <div className="space-y-2">
                                                 <label className="text-[10px] font-bold text-gold uppercase tracking-widest">Your Private Code</label>
                                                 <div className="bg-white/10 border border-white/20 p-4 rounded-sm flex items-center justify-between">
-                                                    <span className="font-mono text-xl tracking-tighter text-white">VIP-CARL-4XSBA</span>
-                                                    <button className="text-gold hover:text-white transition-colors">
-                                                        <Copy className="w-5 h-5" />
+                                                    <span className="font-mono text-xl tracking-tighter text-white">{profile?.ownReferralCode || 'GENERATING...'}</span>
+                                                    <button
+                                                        onClick={() => copyToClipboard(profile?.ownReferralCode || '', 'code')}
+                                                        className="text-gold hover:text-white transition-colors flex items-center gap-1"
+                                                    >
+                                                        {copiedCode ? <Check className="w-4 h-4" /> : <Copy className="w-5 h-5" />}
                                                     </button>
                                                 </div>
                                             </div>
                                             <div className="space-y-2">
                                                 <label className="text-[10px] font-bold text-gold uppercase tracking-widest">Shareable Link</label>
                                                 <div className="bg-white/10 border border-white/20 p-4 rounded-sm flex items-center justify-between">
-                                                    <span className="text-sm truncate mr-4 text-white/60">sportssigned.com?ref=VIP...</span>
-                                                    <Button size="sm" className="bg-gold text-navy hover:bg-white h-8 text-xs px-3">
-                                                        Copy Link
+                                                    <span className="text-sm truncate mr-4 text-white/60">sportssigned.com?ref={profile?.ownReferralCode}</span>
+                                                    <Button
+                                                        size="sm"
+                                                        className={`${copiedLink ? 'bg-green-500 hover:bg-green-600' : 'bg-gold text-navy hover:bg-white'} h-8 text-xs px-3 transition-colors`}
+                                                        onClick={() => copyToClipboard(`https://sportssigned.com?ref=${profile?.ownReferralCode}`, 'link')}
+                                                    >
+                                                        {copiedLink ? 'Copied!' : 'Copy Link'}
                                                     </Button>
                                                 </div>
                                             </div>
