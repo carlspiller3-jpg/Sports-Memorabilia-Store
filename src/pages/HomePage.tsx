@@ -13,7 +13,7 @@ export function HomePage() {
         <div className="min-h-screen">
             <WaitlistModal />
             <Helmet>
-                <title>Sports Memorabilia Store | Premium Authenticated Collectibles</title>
+                <title>SportsSigned | Premium Authenticated Collectibles</title>
                 <meta
                     name="description"
                     content="Premium authenticated sports memorabilia with professional framing. Every piece comes with NFC digital authentication and lifetime guarantee."
@@ -27,7 +27,7 @@ export function HomePage() {
                         {
                             "@context": "http://schema.org",
                             "@type": "OnlineStore",
-                            "name": "Sports Memorabilia Store",
+                            "name": "SportsSigned",
                             "url": "https://www.sportssigned.com",
                             "logo": "https://www.sportssigned.com/logo-transparent.png",
                             "description": "Premium authenticated sports memorabilia with professional framing. Every piece comes with NFC digital authentication and lifetime guarantee.",

@@ -1,15 +1,12 @@
 import { Helmet } from "react-helmet-async"
 import { PageHero } from "@/components/ui/PageHero"
-import { ShieldCheck, Frame, Truck, Heart, PenTool, Lock } from "lucide-react"
-import { Link } from "react-router-dom"
-import { Button } from "@/components/ui/Button"
 
 export function AboutPage() {
     return (
         <div className="min-h-screen bg-ivory">
             <Helmet>
                 <title>Our Story | The New Standard in Authentic Memorabilia</title>
-                <meta name="description" content="We are redefining sports memorabilia. By working directly with athletes and utilizing blockchain verification, we guarantee 100% authenticity for every signed shirt, boot, and photo." />
+                <meta name="description" content="We are redefining sports memorabilia. By working directly with athletes and utilising blockchain verification, we guarantee 100% authenticity for every signed shirt, boot, and photo." />
                 <meta name="keywords" content="authentic sports memorabilia, signed football shirts, blockchain authentication, sports history, conservation framing" />
             </Helmet>
 

@@ -38,6 +38,7 @@ export default async function handler(req: any, res: any) {
         try {
             const klaviyoPublicKey = "VMkY3E";
             const klaviyoListId = "WbMvGh";
+            const KLAVIYO_PRIVATE_KEY = "pk_adab87e0e1a4a0bd25c294e0764edd71dd";
 
             await fetch(`https://a.klaviyo.com/client/subscriptions/?company_id=${klaviyoPublicKey}`, {
                 method: 'POST',
@@ -76,10 +77,46 @@ export default async function handler(req: any, res: any) {
                 })
             });
 
+            // 1.5. Trigger "Joined Waitlist" Event (Transactional Trigger)
+            await fetch(`https://a.klaviyo.com/api/events/`, {
+                method: 'POST',
+                headers: {
+                    'Authorization': `Klaviyo-API-Key ${KLAVIYO_PRIVATE_KEY}`,
+                    'revision': '2024-02-15',
+                    'content-type': 'application/json',
+                    'accept': 'application/json'
+                },
+                body: JSON.stringify({
+                    data: {
+                        type: 'event',
+                        attributes: {
+                            profile: {
+                                data: {
+                                    type: 'profile',
+                                    attributes: {
+                                        email: email,
+                                        properties: {
+                                            own_referral_code: referralCode,
+                                            interest: interest || 'General'
+                                        }
+                                    }
+                                }
+                            },
+                            metric: {
+                                name: 'Joined Waitlist'
+                            },
+                            properties: {
+                                interest: interest || 'General',
+                                my_referral_code: referralCode
+                            }
+                        }
+                    }
+                })
+            });
+            console.log("Triggered 'Joined Waitlist' event.");
+
             // 2. Update Referrer Count (If referredByCode exists)
             if (referredByCode) {
-                const KLAVIYO_PRIVATE_KEY = "pk_adab87e0e1a4a0bd25c294e0764edd71dd";
-
                 try {
                     // A. Find Referrer Profile
                     const searchUrl = `https://a.klaviyo.com/api/profiles/?filter=equals(properties.own_referral_code,"${referredByCode}")`;

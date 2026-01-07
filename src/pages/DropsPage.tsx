@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react"
 import { PageHero } from "@/components/ui/PageHero"
-import { Button } from "@/components/ui/Button"
+import { WaitlistSignup } from "@/components/ui/WaitlistSignup"
 import { supabase } from "@/lib/supabase"
 import type { Product } from "@/types/schema"
 import { ProductCard } from "@/components/ui/ProductCard"
@@ -68,28 +68,14 @@ export function DropsPage() {
                         <div className="w-16 h-16 bg-gold/10 rounded-full flex items-center justify-center mx-auto mb-6">
                             <span className="text-2xl">🔔</span>
                         </div>
-                        <h2 className="text-3xl font-serif text-charcoal mb-4">No Active Drops</h2>
+                        <h3 className="text-3xl font-serif text-charcoal mb-4">No Active Drops</h3>
                         <p className="text-navy/70 text-lg mb-8">
                             We are constantly sourcing new authentic items.
                             <br />
                             Join our list to be the first to know when new inventory is available.
                         </p>
 
-                        <form className="max-w-md mx-auto flex gap-2" action="https://manage.kmail-lists.com/subscriptions/subscribe?a=VMkY3E&g=Rxs6x7" method="POST" target="_blank">
-                            <input
-                                type="email"
-                                name="email"
-                                placeholder="Enter your email"
-                                className="flex-1 px-4 py-3 bg-stone-50 border border-stone/20 rounded-sm focus:outline-none focus:border-gold"
-                                required
-                            />
-                            <Button type="submit" className="bg-navy hover:bg-gold text-white px-8">
-                                Notify Me
-                            </Button>
-                        </form>
-                        <p className="text-xs text-stone-400 mt-4">
-                            We respect your inbox. Unsubscribe at any time.
-                        </p>
+                        <WaitlistSignup />
                     </div>
                 )}
             </div>

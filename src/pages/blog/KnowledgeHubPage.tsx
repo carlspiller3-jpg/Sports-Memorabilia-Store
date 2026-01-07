@@ -35,7 +35,7 @@ export function KnowledgeHubPage() {
                     <div className="text-center mb-16">
                         <h1 className="font-serif text-4xl md:text-5xl text-navy mb-4">The Knowledge Hub</h1>
                         <p className="text-navy/60 text-lg max-w-2xl mx-auto">
-                            Expert analysis, authenticity guides, and collecting history from the team at the Sports Memorabilia Store.
+                            Expert analysis, authenticity guides, and collecting history from the team at SportsSigned.
                         </p>
                     </div>
 
@@ -46,9 +46,12 @@ export function KnowledgeHubPage() {
                             onClick={() => navigate(`/hub/${featuredArticle.slug}`)}
                         >
                             <div className="grid md:grid-cols-2 gap-0">
-                                <div className="bg-navy/10 h-64 md:h-auto flex items-center justify-center">
-                                    {/* Placeholder Image Area */}
-                                    <BookOpen className="w-16 h-16 text-navy/20" />
+                                <div className="h-64 md:h-auto overflow-hidden">
+                                    <img
+                                        src={featuredArticle.imageUrl}
+                                        alt={featuredArticle.title}
+                                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                                    />
                                 </div>
                                 <div className="p-8 flex flex-col justify-center">
                                     <div className="flex items-center gap-2 text-gold font-bold text-sm uppercase tracking-wider mb-4">
@@ -80,8 +83,12 @@ export function KnowledgeHubPage() {
                                 className="group cursor-pointer bg-white rounded-xl shadow-sm border border-navy/5 overflow-hidden hover:shadow-md transition-all flex flex-col"
                                 onClick={() => navigate(`/hub/${article.slug}`)}
                             >
-                                <div className="h-48 bg-navy/5 flex items-center justify-center">
-                                    <BookOpen className="w-12 h-12 text-navy/20" />
+                                <div className="h-48 overflow-hidden">
+                                    <img
+                                        src={article.imageUrl}
+                                        alt={article.title}
+                                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                                    />
                                 </div>
                                 <div className="p-6 flex-1 flex flex-col">
                                     <div className="flex items-center gap-2 text-gold font-bold text-xs uppercase tracking-wider mb-3">

@@ -263,7 +263,7 @@ export function ChatWidget() {
             </div>
             <button
               onClick={() => setIsOpen(false)}
-              className="p-2 hover:bg-white/10 rounded-full transition-colours"
+              className="p-2 hover:bg-white/10 rounded-full transition-colors"
               aria-label="Close chat"
             >
               <X className="w-5 h-5" />
@@ -335,7 +335,7 @@ export function ChatWidget() {
             </div>
             <button
               onClick={() => setIsOpen(false)}
-              className="p-2 hover:bg-white/10 rounded-full transition-colours"
+              className="p-2 hover:bg-white/10 rounded-full transition-colors"
               aria-label="Close chat"
             >
               <X className="w-5 h-5" />

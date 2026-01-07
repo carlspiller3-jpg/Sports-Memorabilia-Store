@@ -23,7 +23,7 @@ const server = http.createServer(async (req, res) => {
 
                 // Generate Code
                 const cleanEmail = email.replace(/[^a-zA-Z0-9]/g, '').toUpperCase();
-                const uniqueSuffix = Math.random().toString(36).substring(2, 7).toUpperCase();
+                const uniqueSuffix = Buffer.from(email).toString('base64').replace(/[^A-Z0-9]/g, '').substring(0, 5);
                 const newReferralCode = `VIP-${cleanEmail.substring(0, 3)}-${uniqueSuffix}`;
                 console.log(`[API] Generated Code for ${email}: ${newReferralCode}`);
 

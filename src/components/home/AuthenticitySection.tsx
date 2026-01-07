@@ -46,7 +46,7 @@ const authenticityFeatures = [
     },
     {
         title: "Lifetime Guarantee",
-        description: "We guarantee the authenticity of every item for life. If proven non-authentic by a recognized third-party authenticator, we provide a full refund including shipping costs.",
+        description: "We guarantee the authenticity of every item for life. If proven non-authentic by a recognised third-party authenticator, we provide a full refund including shipping costs.",
         icon: (
             <svg className="h-8 w-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path

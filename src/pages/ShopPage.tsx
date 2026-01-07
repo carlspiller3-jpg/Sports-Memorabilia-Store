@@ -11,6 +11,7 @@ import type { Product } from "@/types/schema"
 import { PLACEHOLDER_PRODUCTS, PLACEHOLDER_IMAGES } from "@/lib/placeholder-data"
 import { generateImageAlt } from "@/lib/seo"
 import { fetchAllProducts } from "@/lib/shopify"
+import { WaitlistSignup } from "@/components/ui/WaitlistSignup"
 
 export function ShopPage() {
     const { category } = useParams<{ category: string }>()
@@ -182,7 +183,7 @@ export function ShopPage() {
                                 placeholder="Search..."
                                 value={searchQuery}
                                 onChange={(e) => setSearchQuery(e.target.value)}
-                                className="w-full pl-9 pr-4 py-2 bg-white border border-stone/20 rounded-sm text-sm focus:outline-none focus:border-gold/50 transition-colours"
+                                className="w-full pl-9 pr-4 py-2 bg-white border border-stone/20 rounded-sm text-sm focus:outline-none focus:border-gold/50 transition-colors"
                             />
                         </div>
 
@@ -318,9 +319,9 @@ export function ShopPage() {
                                 <ChevronDown className="w-4 h-4" />
                             </Button>
                             <div className="absolute right-0 top-full mt-2 w-48 bg-white border border-stone/20 rounded-sm shadow-xl hidden group-hover:block z-30 animate-in fade-in slide-in-from-top-2 duration-200">
-                                <button onClick={() => setSortBy('featured')} className="block w-full text-left px-4 py-3 hover:bg-stone/5 text-sm transition-colours border-b border-stone/5">Featured</button>
-                                <button onClick={() => setSortBy('price-asc')} className="block w-full text-left px-4 py-3 hover:bg-stone/5 text-sm transition-colours border-b border-stone/5">Price: Low to High</button>
-                                <button onClick={() => setSortBy('price-desc')} className="block w-full text-left px-4 py-3 hover:bg-stone/5 text-sm transition-colours">Price: High to Low</button>
+                                <button onClick={() => setSortBy('featured')} className="block w-full text-left px-4 py-3 hover:bg-stone/5 text-sm transition-colors border-b border-stone/5">Featured</button>
+                                <button onClick={() => setSortBy('price-asc')} className="block w-full text-left px-4 py-3 hover:bg-stone/5 text-sm transition-colors border-b border-stone/5">Price: Low to High</button>
+                                <button onClick={() => setSortBy('price-desc')} className="block w-full text-left px-4 py-3 hover:bg-stone/5 text-sm transition-colors">Price: High to Low</button>
                             </div>
                         </div>
                     </div>
@@ -376,18 +377,7 @@ export function ShopPage() {
                                     Join our list to be the first to know when new items arrive.
                                 </p>
 
-                                <form className="max-w-sm mx-auto flex gap-2" action="https://manage.kmail-lists.com/subscriptions/subscribe?a=VMkY3E&g=Rxs6x7" method="POST" target="_blank">
-                                    <input
-                                        type="email"
-                                        name="email"
-                                        placeholder="Enter your email"
-                                        className="flex-1 px-4 py-3 bg-stone-50 border border-stone/20 rounded-sm focus:outline-none focus:border-gold text-sm"
-                                        required
-                                    />
-                                    <Button type="submit" className="bg-navy hover:bg-gold text-white px-6">
-                                        Notify Me
-                                    </Button>
-                                </form>
+                                <WaitlistSignup interest={selectedSport !== 'all' ? selectedSport : 'Shop Filtering'} />
                                 <div className="mt-8 pt-6 border-t border-stone/10">
                                     <button
                                         onClick={() => { setSelectedType("all"); setSelectedSport("all"); setSelectedTeam("all"); setPriceRange("all"); }}

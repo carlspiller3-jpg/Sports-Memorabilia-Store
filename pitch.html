@@ -439,6 +439,159 @@
         .cogs-breakdown-row:last-child {
             border-bottom: none;
         }
+
+        /* --- Mobile Optimization --- */
+        @media (max-width: 1024px) {
+            :root {
+                --slide-width: 95vw;
+                --slide-height: auto;
+            }
+
+            body {
+                padding-top: 20px;
+                padding-bottom: 20px;
+            }
+
+            .slide {
+                min-width: 0;
+                min-height: 0;
+                max-width: none;
+                max-height: none;
+                width: var(--slide-width);
+                height: var(--slide-height);
+                flex-direction: column !important;
+                margin-bottom: 30px;
+            }
+
+            .slide::after {
+                bottom: 15px;
+                right: 20px;
+                font-size: 0.6rem;
+            }
+
+            .editorial-line {
+                top: 15px !important;
+                bottom: 15px !important;
+                left: 15px !important;
+                right: 15px !important;
+            }
+
+            .layout-split {
+                flex-direction: column !important;
+            }
+
+            .split-content {
+                padding: 40px 25px !important;
+                border-right: none !important;
+                border-bottom: 1px solid var(--border-light);
+                width: 100%;
+                box-sizing: border-box;
+            }
+
+            .split-image {
+                min-height: 300px;
+                width: 100%;
+                order: -1;
+                /* Image on top for most slides */
+            }
+
+            /* Exception: Title slide should have content first or image first? Usually image first looks better on mobile top */
+
+            .layout-grid {
+                display: flex !important;
+                flex-direction: column !important;
+                padding: 40px 25px !important;
+                gap: 30px !important;
+            }
+
+            .col-half,
+            .col-third,
+            .col-quarter {
+                grid-column: span 12 !important;
+                width: 100%;
+            }
+
+            h1 {
+                font-size: 2.4rem !important;
+                margin-bottom: 1rem !important;
+            }
+
+            h2 {
+                font-size: 1.8rem !important;
+                margin-bottom: 1rem !important;
+            }
+
+            h3 {
+                font-size: 0.8rem !important;
+                letter-spacing: 1px !important;
+            }
+
+            p {
+                font-size: 1rem !important;
+            }
+
+            .logo-mark {
+                position: relative !important;
+                top: 0 !important;
+                left: 0 !important;
+                margin-bottom: 20px !important;
+                width: 100px !important;
+            }
+
+            .stat-card[style*="display: flex"] {
+                flex-direction: column !important;
+                align-items: stretch !important;
+                gap: 15px !important;
+            }
+
+            /* Target the dividers in the flex stat card */
+            .stat-card[style*="display: flex"]>div[style*="width: 1px"] {
+                width: 100% !important;
+                height: 1px !important;
+            }
+
+            .clean-table th {
+                font-size: 0.7rem !important;
+                padding: 10px 5px !important;
+            }
+
+            .clean-table td {
+                font-size: 0.95rem !important;
+                padding: 15px 5px !important;
+            }
+
+            /* Team cards layout */
+            .team-card {
+                padding: 0 !important;
+                margin-bottom: 10px;
+            }
+
+            .pyramid-level {
+                flex-direction: row !important;
+                padding: 12px !important;
+                gap: 10px !important;
+            }
+
+            .pyramid-level .value {
+                font-size: 1rem !important;
+                width: 60px !important;
+            }
+
+            .ask-grid {
+                grid-template-columns: 1fr !important;
+                gap: 20px !important;
+            }
+
+            /* Ensure image in layout-split is handled correctly */
+            .layout-split>.split-image {
+                order: 1;
+                /* By default contents first for split then image below */
+            }
+
+            /* But title slide and others might want image on top - handled by CSS order in HTML if needed, 
+               but for now let's just make it consistent. Usually text then image is standard for web, 
+               but image then text is standard for 'cards'. I'll stick to contents then image. */
+        }
     </style>
 </head>
 
@@ -877,7 +1030,7 @@
             <h1 class="font-serif" style="font-size: 5rem; margin: 20px 0; color: var(--primary-navy);">£10,000</h1>
             <p style="font-size: 1.5rem; color: var(--accent-gold); font-weight: bold;">FOR 5% EQUITY</p>
 
-            <div style="margin-top: 40px; display: grid; grid-template-columns: 1fr 1fr; gap: 30px;">
+            <div class="ask-grid" style="margin-top: 40px; display: grid; grid-template-columns: 1fr 1fr; gap: 30px;">
                 <div>
                     <strong style="display: block; color: var(--accent-gold); font-size: 1.2rem;">50%</strong>
                     <span style="font-size: 0.9rem; color: var(--primary-navy);">Athlete Procurement</span>

@@ -2,8 +2,8 @@
 
 ## 1. Executive Summary: Operational Status
 - **Technical Infrastructure**: 🟢 **Healthy** (Vercel, Shopify SDK, Supabase, React + Vite)
-- **Email/Deliverability**: 🟡 **At Risk** (Postmaster pending, Welcome flow in Promotions)
-- **Growth Loops**: 🔴 **Inactive** (Referral logic exists but UI is missing)
+- **Email/Deliverability**: 🟢 **Healthy** (Postmaster verified, SPF/DKIM/DMARC active)
+- **Growth Loops**: 🟢 **Active** (Dynamic referral codes and counts live in Account section)
 - **Legal/Compliance**: 🟡 **Partial** (ICO registration pending)
 
 ---
@@ -11,18 +11,18 @@
 ## 2. Priority Task List
 
 ### 🔴 Immediate (Mission Critical)
-1. **[MARKETING] Referral Dashboard**: Build the missing UI for the "Rewards" tab in the Customer Account page so users can actually find and copy their referral links.
-2. **[TECHNICAL] Google Postmaster**: Finalize the DNS/CNAME/Meta-tag verification once GoDaddy propagation is complete.
-3. **[COPY] UK English Sweep**: Audit all user-facing strings to ensure consistency (e.g., 'Modelling' not 'Modeling', 'Centred' not 'Centered').
+- [x] 1. **[MARKETING] Referral Dashboard**: ✅ **Complete** (Dynamic UI built for "Rewards" / "Overview" tabs with copy-to-clipboard functionality)
+- [x] 2. **[TECHNICAL] Google Postmaster**: ✅ **Complete** (Domain ownership verified; deliverability data now active)
+- [x] 3. **[COPY] UK English Sweep**: ✅ **Complete** (All user-facing strings audited for UK English consistency; CSS classes preserved)
 
 ### 🟡 High Priority (Revenue & Growth)
-4. **[SHOP] Native Waitlist System**: Update the 'Drops' page to use a native in-app signup rather than redirecting to a Klaviyo external URL.
-5. **[EMAIL] Primary Inbox Strategy**: Convert the Welcome Email flow to its transactional template version to bypass "Promotions" tabs.
+- [x] 4. **[SHOP] Native Waitlist System**: ✅ **Complete** (Updated 'Drops' and 'Shop' pages to use a native in-app signup via custom `WaitlistSignup` component)
+- [x] 5. **[EMAIL] Primary Inbox Strategy**: ✅ **Complete** (Updated API to trigger 'Joined Waitlist' event, allowing for event-based transactional flows)
 
 ### 🟢 Medium Priority (Operations & Polishing)
-6. **[ADMIN] CRM Professionalization**: Replace native browser `confirm()` alerts with custom branded modals for contact management.
-7. **[LEGAL] ICO Fee Verification**: Confirm registration status with the Information Commissioner's Office.
-8. **[UX] Mobile App Readiness**: Final review of Capacitor configuration for future iOS/Android store submission.
+- [x] 6. **[ADMIN] CRM Professionalization**: ✅ **Complete** (Native browser `confirm()` alerts replaced with custom branded modals)
+- [ ] 7. **[LEGAL] ICO Fee Verification**: Confirm registration status with the Information Commissioner's Office.
+- [ ] 8. **[UX] Mobile App Readiness**: Final review of Capacitor configuration for future iOS/Android store submission.
 
 ---
 

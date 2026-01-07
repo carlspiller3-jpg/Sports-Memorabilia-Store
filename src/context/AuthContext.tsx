@@ -79,9 +79,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
             } else {
                 // If no record, generate a deterministic code (consistent with API)
                 const cleanEmail = email.replace(/[^a-zA-Z0-9]/g, '').toUpperCase();
-                // We use a simple hash of the email for deterministic but unique-looking suffix
-                const hash = email.split('').reduce((acc: number, char: string) => acc + char.charCodeAt(0), 0);
-                const uniqueSuffix = hash.toString(36).toUpperCase().padStart(4, 'X');
+                // Use deterministic Base64-based suffix (matching API)
+                const uniqueSuffix = btoa(email).replace(/[^A-Z0-9]/g, '').substring(0, 5);
                 ownReferralCode = `VIP-${cleanEmail.substring(0, 3)}-${uniqueSuffix}`;
 
                 // Create the record in Supabase so it's ready
