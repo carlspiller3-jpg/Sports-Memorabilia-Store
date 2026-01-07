@@ -9,66 +9,41 @@
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&display=swap');
 
         :root {
-            /* Luxury Palette */
             --bg-color: #fdfcf8;
-            /* Lighter, warmer ivory */
             --bg-gradient-start: #ffffff;
             --bg-gradient-end: #f2f0e9;
             --primary-navy: #101c2e;
-            /* Deep Royal Navy */
             --accent-gold: #bfa15f;
-            /* Muted metallic gold */
             --text-main: #2b2b2b;
             --text-muted: #666666;
             --card-bg: rgba(255, 255, 255, 0.85);
-            /* Frosty glass effect */
             --border-light: rgba(191, 161, 95, 0.25);
-            --slide-width: 297mm;
-            --slide-height: 210mm;
-        }
-
-        @page {
-            size: A4 landscape;
-            margin: 0;
         }
 
         body {
             margin: 0;
             padding: 0;
             font-family: 'Inter', sans-serif;
-            background-color: #dcddd1;
-            /* Contrast backdrop for preview */
+            background-color: var(--bg-color);
             color: var(--text-main);
-            -webkit-print-color-adjust: exact;
-            print-color-adjust: exact;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding-top: 50px;
-            padding-bottom: 50px;
+            display: block;
             counter-reset: slide-counter;
         }
 
-        /* Base Slide Layout (Luxury Card Stock) */
+        /* Slide - Mobile First */
         .slide {
-            width: var(--slide-width);
-            height: var(--slide-height);
-            min-width: var(--slide-width);
-            min-height: var(--slide-height);
-            max-width: var(--slide-width);
-            max-height: var(--slide-height);
-            box-sizing: border-box;
+            width: 100%;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
             position: relative;
             overflow: hidden;
-            display: flex;
-            flex-shrink: 0;
             background: radial-gradient(circle at center, var(--bg-gradient-start) 0%, var(--bg-gradient-end) 100%);
-            margin-bottom: 50px;
-            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.12), 0 0 2px rgba(0, 0, 0, 0.05);
+            border-bottom: 1px solid var(--border-light);
             counter-increment: slide-counter;
+            box-sizing: border-box;
         }
 
-        /* Luxury "Grain" Texture Overlay */
         .slide::before {
             content: "";
             position: absolute;
@@ -79,12 +54,11 @@
             z-index: 0;
         }
 
-        /* Editorial "Frame" Border (The 'Classy' Touch) */
         .slide::after {
             content: counter(slide-counter);
             position: absolute;
-            bottom: 30px;
-            right: 40px;
+            bottom: 20px;
+            right: 20px;
             font-size: 0.7rem;
             letter-spacing: 2px;
             color: var(--accent-gold);
@@ -93,69 +67,12 @@
             z-index: 100;
         }
 
-        /* Inner Content Wrapper to sit above texture */
-        .slide>* {
-            position: relative;
-            z-index: 2;
-        }
-
-        /* Decorative Editorial Lines */
         .editorial-line {
             position: absolute;
-            top: 30px;
-            bottom: 30px;
-            left: 30px;
-            right: 30px;
+            inset: 20px;
             border: 1px solid var(--border-light);
             pointer-events: none;
             z-index: 1;
-        }
-
-        /* Print Override */
-        @media print {
-            body {
-                background: none;
-                display: block;
-                padding: 0;
-            }
-
-            .slide {
-                width: 100%;
-                height: 100vh;
-                margin: 0;
-                box-shadow: none;
-                page-break-after: always;
-                border: none;
-            }
-
-            .editorial-line {
-                border-color: #ddd;
-            }
-        }
-
-        /* Utility Classes */
-        .padding-standard {
-            padding: 60px 80px;
-        }
-
-        .text-gold {
-            color: var(--accent-gold);
-        }
-
-        .text-muted {
-            color: var(--text-muted);
-        }
-
-        .text-white {
-            color: #ffffff;
-        }
-
-        .text-navy {
-            color: var(--primary-navy);
-        }
-
-        .font-serif {
-            font-family: 'Playfair Display', serif;
         }
 
         h1,
@@ -168,23 +85,21 @@
 
         h1 {
             font-family: 'Playfair Display', serif;
-            font-size: 4rem;
+            font-size: 2.5rem;
             font-weight: 600;
-            letter-spacing: -1px;
-            margin-bottom: 2rem;
+            margin-bottom: 1.5rem;
         }
 
         h2 {
             font-family: 'Playfair Display', serif;
-            font-size: 2.8rem;
+            font-size: 1.8rem;
             font-weight: 500;
             margin-bottom: 1.5rem;
-            letter-spacing: -0.5px;
         }
 
         h3 {
             font-family: 'Inter', sans-serif;
-            font-size: 0.9rem;
+            font-size: 0.8rem;
             font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 2px;
@@ -193,11 +108,10 @@
         }
 
         p {
-            font-size: 1.05rem;
-            line-height: 1.7;
+            font-size: 1rem;
+            line-height: 1.6;
             color: var(--text-muted);
-            margin-bottom: 1.5rem;
-            max-width: 65ch;
+            margin-bottom: 1.2rem;
         }
 
         strong {
@@ -205,239 +119,205 @@
             font-weight: 700;
         }
 
-        .logo-mark {
-            position: absolute;
-            top: 50px;
-            left: 50px;
-            width: 140px;
-            z-index: 10;
-        }
-
-        /* --- Layouts --- */
-
-        /* 1. Split Screen (Refined) */
+        /* Layouts */
         .layout-split {
             display: flex;
+            flex-direction: column;
             width: 100%;
             height: 100%;
         }
 
         .split-content {
             flex: 1;
-            padding: 90px;
+            padding: 50px 24px;
             display: flex;
             flex-direction: column;
             justify-content: center;
-            border-right: 1px solid var(--border-light);
             z-index: 2;
-            background: rgba(255, 255, 255, 0.4);
+            box-sizing: border-box;
         }
 
         .split-image {
             flex: 1;
+            min-height: 350px;
             background-size: cover;
             background-position: center;
             position: relative;
+            order: -1;
         }
 
-        .split-image::after {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(45deg, rgba(16, 28, 46, 0.2) 0%, rgba(16, 28, 46, 0) 100%);
-        }
-
-        /* 2. Grid Layout (Refined) */
         .layout-grid {
-            display: grid;
-            grid-template-columns: repeat(12, 1fr);
-            gap: 40px;
-            padding: 90px;
+            display: block;
+            padding: 50px 24px;
             width: 100%;
-            align-content: center;
+            box-sizing: border-box;
         }
 
-        .col-full {
-            grid-column: span 12;
-        }
-
-        .col-half {
-            grid-column: span 6;
-        }
-
-        .col-third {
-            grid-column: span 4;
-        }
-
+        .col-full,
+        .col-half,
+        .col-third,
         .col-quarter {
-            grid-column: span 3;
+            width: 100%;
+            margin-bottom: 30px;
         }
 
-        /* Component: Stat Card */
+        /* Components */
         .stat-card {
-            background: #ffffff;
-            border: 1px solid rgba(0, 0, 0, 0.03);
-            padding: 40px 30px;
-            border-radius: 2px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
-            transition: transform 0.4s ease, box-shadow 0.4s ease;
-            position: relative;
-            overflow: hidden;
+            background: #fff;
+            padding: 30px 20px;
+            border-radius: 4px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            margin-bottom: 20px;
         }
 
-        .stat-card::top {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 3px;
-            background: var(--accent-gold);
+        .clean-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .clean-table th {
+            text-align: left;
+            color: var(--accent-gold);
+            font-size: 0.7rem;
+            letter-spacing: 1px;
+            padding: 10px 0;
+            border-bottom: 1px solid var(--primary-navy);
+        }
+
+        .clean-table td {
+            padding: 15px 0;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+            font-size: 1rem;
+            font-family: 'Playfair Display', serif;
         }
 
         .team-card {
             text-align: center;
-            padding: 20px;
-            transition: opacity 0.3s;
+        }
+
+        .team-avatar-wrapper {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin: 0 auto 15px auto;
         }
 
         .team-avatar {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            object-position: center;
-            /* Filter removed for cleaner look, or re-add if desired */
-            /* filter: grayscale(100%) contrast(1.1); */
-            transition: all 0.5s ease;
+            filter: grayscale(100%);
+            transition: transform 0.3s;
         }
 
         .team-avatar-wrapper:hover .team-avatar {
-            /* filter: grayscale(0%) contrast(1); */
-            transform: scale(1.45);
-            /* slightly more zoom on hover if desired */
+            transform: scale(1.1);
+            filter: grayscale(0%);
         }
 
-        .team-name {
+        .gold-line {
+            width: 60px;
+            height: 3px;
+            background-color: var(--accent-gold);
+            margin: 25px 0;
+        }
+
+        .hero-text {
+            font-size: 1.1rem;
+            max-width: 500px;
+        }
+
+        .font-serif {
             font-family: 'Playfair Display', serif;
-            font-size: 1.3rem;
-            font-weight: 600;
-            color: var(--primary-navy);
-            margin-bottom: 5px;
         }
 
-        .team-role {
-            color: var(--text-muted);
-            font-size: 0.8rem;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-        }
-
-        .market-pyramid-container {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-            margin-top: 30px;
-        }
-
-        .pyramid-level {
-            padding: 15px;
-            border-left: 4px solid var(--primary-navy);
-            background: rgba(16, 28, 46, 0.05);
-            display: flex;
-            align-items: center;
-            gap: 20px;
-        }
-
-        .pyramid-level.som {
-            background: var(--accent-gold);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-        }
-
-        .pyramid-level.som .label,
-        .pyramid-level.som .value,
-        .pyramid-level.som .desc {
-            color: var(--primary-navy);
-        }
-
-        .pyramid-level .label {
-            font-weight: bold;
-            width: 40px;
-            color: var(--primary-navy);
-        }
-
-        .pyramid-level .value {
-            font-weight: bold;
-            font-size: 1.2rem;
-            width: 80px;
-            text-align: right;
-            color: var(--primary-navy);
-        }
-
-        .pyramid-level .desc {
-            font-size: 0.9rem;
-            color: var(--text-muted);
-        }
-
-        /* Component: Minimal Table */
-        .clean-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 30px;
-        }
-
-        .clean-table th {
-            text-align: left;
+        .text-gold {
             color: var(--accent-gold);
-            font-size: 0.8rem;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            padding: 20px 0;
-            border-bottom: 1px solid var(--primary-navy);
         }
 
-        .clean-table td {
-            padding: 25px 0;
-            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-            font-size: 1.15rem;
-            color: var(--text-main);
-            font-family: 'Playfair Display', serif;
-        }
+        /* --- DESKTOP OVERRIDES (A4 Landscape) --- */
+        @media (min-width: 1100px) {
+            body {
+                background-color: #dcddd1;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                padding: 50px 0;
+            }
 
-        .cogs-tooltip {
-            visibility: hidden;
-            width: 200px;
-            background-color: var(--primary-navy);
-            color: #fff;
-            text-align: left;
-            border-radius: 4px;
-            padding: 12px;
-            position: absolute;
-            z-index: 10;
-            bottom: 100%;
-            left: 20px;
-            opacity: 0;
-            transition: opacity 0.3s;
-            font-size: 0.75rem;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-            pointer-events: none;
-            font-weight: normal;
-            line-height: 1.4;
-        }
+            .slide {
+                width: 297mm;
+                height: 210mm;
+                min-width: 297mm;
+                min-height: 210mm;
+                max-width: 297mm;
+                max-height: 210mm;
+                margin-bottom: 50px;
+                flex-direction: row;
+                border-bottom: none;
+                box-shadow: 0 30px 60px rgba(0, 0, 0, 0.12);
+            }
 
-        .cogs-row:hover .cogs-tooltip {
-            visibility: visible;
-            opacity: 1;
-        }
+            .slide::after {
+                bottom: 30px;
+                right: 40px;
+            }
 
-        .cogs-breakdown-row {
-            display: flex;
-            justify-content: space-between;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            padding: 2px 0;
-        }
+            .editorial-line {
+                inset: 30px;
+            }
 
-        .cogs-breakdown-row:last-child {
-            border-bottom: none;
+            h1 {
+                font-size: 4rem;
+            }
+
+            h2 {
+                font-size: 2.8rem;
+            }
+
+            p {
+                font-size: 1.05rem;
+            }
+
+            .layout-split {
+                flex-direction: row;
+            }
+
+            .split-content {
+                padding: 90px;
+                border-right: 1px solid var(--border-light);
+                background: rgba(255, 255, 255, 0.4);
+            }
+
+            .split-image {
+                order: 0;
+                min-height: auto;
+            }
+
+            .layout-grid {
+                display: grid;
+                grid-template-columns: repeat(12, 1fr);
+                gap: 40px;
+                padding: 90px;
+                align-content: center;
+            }
+
+            .col-full {
+                grid-column: span 12;
+            }
+
+            .col-half {
+                grid-column: span 6;
+            }
+
+            .col-third {
+                grid-column: span 4;
+            }
+
+            .col-quarter {
+                grid-column: span 3;
+            }
         }
     </style>
 </head>
@@ -450,13 +330,11 @@
         <div class="split-content">
             <img src="logo-transparent.png" alt="The Sports Memorabilia Store"
                 style="width: 150px; margin-bottom: 40px;">
-            <h1 class="font-serif"
-                style="font-size: 4rem; line-height: 1.1; margin-bottom: 20px; color: var(--primary-navy);">
-                Authentic Moments.<br>Signed Forever.</h1>
+            <h1 class="font-serif">Authentic Moments.<br>Signed Forever.</h1>
             <p class="text-gold" style="font-size: 1.2rem; letter-spacing: 2px; text-transform: uppercase;">Premium
                 Sports Memorabilia</p>
-            <div style="width: 60px; height: 3px; background-color: var(--accent-gold); margin: 30px 0;"></div>
-            <p style="font-size: 1.1rem; line-height: 1.6; color: var(--text-muted); max-width: 500px;">
+            <div class="gold-line"></div>
+            <p class="hero-text">
                 We connect fans to their heroes through exceptional, athlete-signed products delivered in high-end,
                 luxury packaging.
             </p>
@@ -535,7 +413,7 @@
     </section>
 
     <!-- Slide 4: The Team -->
-    <section class="slide layout-grid" style="padding-top: 50px; row-gap: 15px; position: relative;">
+    <section class="slide layout-grid">
         <div class="editorial-line"></div>
         <div
             style="grid-column: 1 / -1; text-align: center; margin-bottom: 10px; display: flex; flex-direction: column; align-items: center; position: relative; width: 100%;">
