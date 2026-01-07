@@ -24,8 +24,8 @@ interface User {
 
 interface AuthContextType {
     user: User | null
-    login: (email: string, pass: string) => Promise<boolean>
-    register: (first: string, last: string, email: string, pass: string) => Promise<boolean>
+    login: (email: string, pass: string) => Promise<{ success: boolean, error?: string }>
+    register: (first: string, last: string, email: string, pass: string) => Promise<{ success: boolean, error?: string }>
     logout: () => void
     isLoading: boolean
     refreshProfile: () => Promise<void>
@@ -55,7 +55,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     const fetchProfile = async (token: string) => {
         const { CUSTOMER_QUERY } = await import('@/lib/shopify');
         const data = await shopifyFetch(CUSTOMER_QUERY, { customerAccessToken: token });
-        
+
         if (data?.data?.customer) {
             const c = data.data.customer;
             setUser({
@@ -80,8 +80,11 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     };
 
     async function shopifyFetch(query: string, variables: any = {}) {
-        if (!domain || !storefrontAccessToken) return null;
-        
+        if (!domain || !storefrontAccessToken) {
+            console.error('Shopify Auth Error: Missing Domain or Access Token in Environment Variables');
+            return null;
+        }
+
         try {
             const res = await fetch(`https://${domain}/api/2024-01/graphql.json`, {
                 method: 'POST',
@@ -112,20 +115,18 @@ export function AuthProvider({ children }: { children: ReactNode }) {
                 }
             }
         `;
-        
+
         const data = await shopifyFetch(query, { input: { email, password: pass } });
-        
+
         if (data?.data?.customerAccessTokenCreate?.customerAccessToken?.accessToken) {
             const token = data.data.customerAccessTokenCreate.customerAccessToken.accessToken;
             localStorage.setItem('shopify_customer_token', token);
-            setUser({ email, token }); // We don't have name yet, but that's fine
-            return true;
+            setUser({ email, token });
+            return { success: true };
         }
-        
-        if (data?.data?.customerAccessTokenCreate?.customerUserErrors?.length) {
-            alert(data.data.customerAccessTokenCreate.customerUserErrors[0].message);
-        }
-        return false;
+
+        const error = data?.data?.customerAccessTokenCreate?.customerUserErrors?.[0]?.message || 'Invalid email or password';
+        return { success: false, error };
     };
 
     const register = async (firstName: string, lastName: string, email: string, pass: string) => {
@@ -145,22 +146,19 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         const data = await shopifyFetch(query, { input: { firstName, lastName, email, password: pass } });
 
         if (data?.data?.customerCreate?.customer?.id) {
-            // Auto login after register
             return await login(email, pass);
         }
 
-        if (data?.data?.customerCreate?.customerUserErrors?.length) {
-            alert(data.data.customerCreate.customerUserErrors[0].message);
-        }
-        return false;
+        const error = data?.data?.customerCreate?.customerUserErrors?.[0]?.message || 'Failed to create account. Please ensure your email is unique and password is at least 6 characters.';
+        return { success: false, error };
     };
 
     const addAddress = async (address: any) => {
         if (!user?.token) return false;
         const { CUSTOMER_ADDRESS_CREATE } = await import('@/lib/shopify');
-        const data = await shopifyFetch(CUSTOMER_ADDRESS_CREATE, { 
+        const data = await shopifyFetch(CUSTOMER_ADDRESS_CREATE, {
             customerAccessToken: user.token,
-            address 
+            address
         });
 
         if (data?.data?.customerAddressCreate?.customerAddress?.id) {
@@ -176,9 +174,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     const deleteAddress = async (id: string) => {
         if (!user?.token) return false;
         const { CUSTOMER_ADDRESS_DELETE } = await import('@/lib/shopify');
-        const data = await shopifyFetch(CUSTOMER_ADDRESS_DELETE, { 
+        const data = await shopifyFetch(CUSTOMER_ADDRESS_DELETE, {
             customerAccessToken: user.token,
-            id 
+            id
         });
 
         if (data?.data?.customerAddressDelete?.deletedCustomerAddressId) {
@@ -191,12 +189,12 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     const updateAddress = async (id: string, address: any) => {
         if (!user?.token) return false;
         const { CUSTOMER_ADDRESS_UPDATE } = await import('@/lib/shopify');
-        const data = await shopifyFetch(CUSTOMER_ADDRESS_UPDATE, { 
+        const data = await shopifyFetch(CUSTOMER_ADDRESS_UPDATE, {
             customerAccessToken: user.token,
             id,
-            address 
+            address
         });
-        
+
         if (data?.data?.customerAddressUpdate?.customerAddress?.id) {
             await refreshProfile();
             return true;

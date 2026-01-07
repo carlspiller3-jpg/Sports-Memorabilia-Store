@@ -20,11 +20,11 @@ export function LoginPage() {
         setLoading(true)
 
         try {
-            const success = await login(email, password)
-            if (success) {
+            const result = await login(email, password)
+            if (result.success) {
                 navigate('/account')
             } else {
-                setError('Invalid email or password.')
+                setError(result.error || 'Invalid email or password.')
             }
         } catch {
             setError('An error occurred. Please try again.')
@@ -35,11 +35,11 @@ export function LoginPage() {
 
     return (
         <div className="min-h-screen bg-ivory pb-20">
-             <Helmet>
+            <Helmet>
                 <title>Login | Sports Memorabilia Store</title>
             </Helmet>
-            <PageHero 
-                title="Welcome Back" 
+            <PageHero
+                title="Welcome Back"
                 subtitle="Sign in to your account to view orders and manage authentications."
                 backgroundImage="https://images.unsplash.com/photo-1516738901171-8eb4fc13bd20?q=80&w=2070&auto=format&fit=crop"
                 compact
@@ -48,7 +48,7 @@ export function LoginPage() {
             <div className="container mx-auto px-4 py-12">
                 <div className="max-w-md mx-auto bg-white p-8 rounded-sm shadow-sm border border-stone/10">
                     <h2 className="text-2xl font-serif font-bold text-charcoal mb-6">Sign In</h2>
-                    
+
                     {error && (
                         <div className="bg-red-50 text-red-600 p-3 rounded-sm text-sm mb-6 border border-red-100">
                             {error}
@@ -58,8 +58,8 @@ export function LoginPage() {
                     <form onSubmit={handleSubmit} className="space-y-4">
                         <div className="space-y-2">
                             <label className="text-sm font-bold text-navy uppercase tracking-wider">Email</label>
-                            <input 
-                                type="email" 
+                            <input
+                                type="email"
                                 required
                                 value={email}
                                 onChange={(e) => setEmail(e.target.value)}
@@ -69,8 +69,8 @@ export function LoginPage() {
                         </div>
                         <div className="space-y-2">
                             <label className="text-sm font-bold text-navy uppercase tracking-wider">Password</label>
-                            <input 
-                                type="password" 
+                            <input
+                                type="password"
                                 required
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)}
@@ -79,8 +79,8 @@ export function LoginPage() {
                             />
                         </div>
 
-                        <Button 
-                            className="w-full h-12 text-lg mt-6" 
+                        <Button
+                            className="w-full h-12 text-lg mt-6"
                             disabled={loading}
                         >
                             {loading ? 'Signing In...' : 'Sign In'}

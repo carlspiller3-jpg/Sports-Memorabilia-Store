@@ -22,10 +22,11 @@ export function RegisterPage() {
         setLoading(true)
 
         try {
-            const success = await register(firstName, lastName, email, password)
-            if (success) {
+            const result = await register(firstName, lastName, email, password)
+            if (result.success) {
                 navigate('/account')
             } else {
+                setError(result.error || 'Failed to create account')
                 setLoading(false)
             }
         } catch (error) {
@@ -36,11 +37,11 @@ export function RegisterPage() {
 
     return (
         <div className="min-h-screen bg-ivory pb-20">
-             <Helmet>
+            <Helmet>
                 <title>Register | Sports Memorabilia Store</title>
             </Helmet>
-            <PageHero 
-                title="Create Account" 
+            <PageHero
+                title="Create Account"
                 subtitle="Join our exclusive community of collectors. Track orders and access early verifications."
                 backgroundImage="https://images.unsplash.com/photo-1516738901171-8eb4fc13bd20?q=80&w=2070&auto=format&fit=crop"
                 compact
@@ -49,7 +50,7 @@ export function RegisterPage() {
             <div className="container mx-auto px-4 py-12">
                 <div className="max-w-md mx-auto bg-white p-8 rounded-sm shadow-sm border border-stone/10">
                     <h2 className="text-2xl font-serif font-bold text-charcoal mb-6">Sign Up</h2>
-                    
+
                     {error && (
                         <div className="bg-red-50 text-red-600 p-3 rounded-sm text-sm mb-6 border border-red-100">
                             {error}
@@ -60,8 +61,8 @@ export function RegisterPage() {
                         <div className="grid grid-cols-2 gap-4">
                             <div className="space-y-2">
                                 <label className="text-sm font-bold text-navy uppercase tracking-wider">First Name</label>
-                                <input 
-                                    type="text" 
+                                <input
+                                    type="text"
                                     required
                                     value={firstName}
                                     onChange={(e) => setFirstName(e.target.value)}
@@ -71,8 +72,8 @@ export function RegisterPage() {
                             </div>
                             <div className="space-y-2">
                                 <label className="text-sm font-bold text-navy uppercase tracking-wider">Last Name</label>
-                                <input 
-                                    type="text" 
+                                <input
+                                    type="text"
                                     required
                                     value={lastName}
                                     onChange={(e) => setLastName(e.target.value)}
@@ -84,8 +85,8 @@ export function RegisterPage() {
 
                         <div className="space-y-2">
                             <label className="text-sm font-bold text-navy uppercase tracking-wider">Email</label>
-                            <input 
-                                type="email" 
+                            <input
+                                type="email"
                                 required
                                 value={email}
                                 onChange={(e) => setEmail(e.target.value)}
@@ -95,8 +96,8 @@ export function RegisterPage() {
                         </div>
                         <div className="space-y-2">
                             <label className="text-sm font-bold text-navy uppercase tracking-wider">Password</label>
-                            <input 
-                                type="password" 
+                            <input
+                                type="password"
                                 required
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)}
@@ -105,8 +106,8 @@ export function RegisterPage() {
                             />
                         </div>
 
-                        <Button 
-                            className="w-full h-12 text-lg mt-6" 
+                        <Button
+                            className="w-full h-12 text-lg mt-6"
                             disabled={loading}
                         >
                             {loading ? 'Creating Account...' : 'Create Account'}
