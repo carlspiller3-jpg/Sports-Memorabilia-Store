@@ -4,7 +4,7 @@ import { useAuth } from '@/context/AuthContext'
 import { Button } from '@/components/ui/Button'
 import { PageHero } from '@/components/ui/PageHero'
 import { Helmet } from 'react-helmet-async'
-import { Package, User as UserIcon, LogOut, LayoutDashboard, Gem, MapPin, Gift, Copy, Check, Users } from 'lucide-react'
+import { Package, User as UserIcon, LogOut, LayoutDashboard, Gem, MapPin, Gift, Copy } from 'lucide-react'
 import { OrderHistory } from '@/components/account/OrderHistory'
 import { AddressBook } from '@/components/account/AddressBook'
 import { CollectionGallery } from '@/components/account/CollectionGallery'
@@ -46,7 +46,7 @@ export function AccountPage() {
     const email = profile?.email || user.email
 
     return (
-        <div className="min-h-screen bg-ivory pb-20">
+        <div className="min-h-screen bg-ivory pt-20 pb-20">
             <Helmet>
                 <title>My Dashboard | Sports Memorabilia Store</title>
             </Helmet>

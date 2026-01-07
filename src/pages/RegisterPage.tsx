@@ -36,7 +36,7 @@ export function RegisterPage() {
     }
 
     return (
-        <div className="min-h-screen bg-ivory pb-20">
+        <div className="min-h-screen bg-ivory pt-20 pb-20">
             <Helmet>
                 <title>Register | Sports Memorabilia Store</title>
             </Helmet>

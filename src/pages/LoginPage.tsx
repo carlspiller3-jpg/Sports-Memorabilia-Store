@@ -34,7 +34,7 @@ export function LoginPage() {
     }
 
     return (
-        <div className="min-h-screen bg-ivory pb-20">
+        <div className="min-h-screen bg-ivory pt-20 pb-20">
             <Helmet>
                 <title>Login | Sports Memorabilia Store</title>
             </Helmet>
