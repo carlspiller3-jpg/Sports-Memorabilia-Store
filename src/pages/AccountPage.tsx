@@ -248,7 +248,7 @@ export function AccountPage() {
                         <div className="bg-stone/5 p-6 rounded-sm border border-stone/10 text-center">
                             <h4 className="font-serif font-bold text-charcoal mb-2">Need Help?</h4>
                             <p className="text-sm text-navy/70 mb-4">Have questions about your order or collection?</p>
-                            <Button variant="outline" className="w-full">Contact Support</Button>
+                            <Button variant="outline" className="w-full" onClick={() => navigate('/contact')}>Contact Support</Button>
                         </div>
                     </div>
                 </div>
