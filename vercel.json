@@ -37,7 +37,7 @@
   "rewrites": [
     {
       "source": "/pitch",
-      "destination": "/pitch-v2.html"
+      "destination": "/pitch.html"
     },
     {
       "source": "/api/(.*)",
