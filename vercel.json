@@ -34,10 +34,12 @@
       ]
     }
   ],
+  "cleanUrls": true,
+  "trailingSlash": false,
   "rewrites": [
     {
       "source": "/pitch",
-      "destination": "/pitch.html"
+      "destination": "/p.html"
     },
     {
       "source": "/api/(.*)",
