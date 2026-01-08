@@ -45,11 +45,15 @@
   ],
   "rewrites": [
     {
-      "source": "/api/:path*",
-      "destination": "/api/:path*"
+      "source": "/api/(.*)",
+      "destination": "/api/$1"
     },
     {
-      "source": "/((?!api/|p.html|.*\\..*).*)",
+      "source": "/p.html",
+      "destination": "/p.html"
+    },
+    {
+      "source": "/((?!api|p.html).*)",
       "destination": "/index.html"
     }
   ]
