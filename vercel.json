@@ -36,24 +36,17 @@
   ],
   "cleanUrls": true,
   "trailingSlash": false,
-  "redirects": [
-    {
-      "source": "/pitch",
-      "destination": "/p.html",
-      "permanent": false
-    }
-  ],
   "rewrites": [
     {
-      "source": "/api/(.*)",
-      "destination": "/api/$1"
+      "source": "/api/:path*",
+      "destination": "/api/:path*"
     },
     {
-      "source": "/p.html",
+      "source": "/pitch",
       "destination": "/p.html"
     },
     {
-      "source": "/((?!api|p.html).*)",
+      "source": "/((?!api|p.html|.*\\..*).*)",
       "destination": "/index.html"
     }
   ]
