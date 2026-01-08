@@ -36,11 +36,14 @@
   ],
   "cleanUrls": true,
   "trailingSlash": false,
-  "rewrites": [
+  "redirects": [
     {
       "source": "/pitch",
-      "destination": "/p.html"
-    },
+      "destination": "/p.html",
+      "permanent": false
+    }
+  ],
+  "rewrites": [
     {
       "source": "/api/(.*)",
       "destination": "/api/$1"
