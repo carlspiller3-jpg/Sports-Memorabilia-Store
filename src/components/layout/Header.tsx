@@ -4,7 +4,7 @@ import { ShoppingBag, Search, Menu, User } from "lucide-react"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/Sheet"
 import { useCart } from "@/context/CartContext"
 import { useAuth } from "@/context/AuthContext"
-import { useLocation } from "react-router-dom"
+import { useLocation, Link } from "react-router-dom"
 
 export function Header() {
     const { openCart, cartCount } = useCart()
@@ -24,42 +24,42 @@ export function Header() {
                     </SheetTrigger>
                     <SheetContent side="left" className="bg-ivory border-r border-stone/10">
                         <nav className="flex flex-col gap-6 mt-8 text-xl font-medium text-navy uppercase tracking-wider">
-                            <a href="/" className="hover:text-gold transition-colors">Home</a>
+                            <Link to="/" className="hover:text-gold transition-colors">Home</Link>
 
                             <div className="h-px bg-stone/10 my-1" />
 
-                            <a href="/shop/football" className="hover:text-gold transition-colors font-bold">Football</a>
-                            <a href="/shop/boxing" className="hover:text-gold transition-colors font-bold">Boxing</a>
-                            <a href="/shop/f1" className="hover:text-gold transition-colors font-bold">F1</a>
-                            <a href="/drops" className="text-gold hover:text-charcoal transition-colors font-black">Drops</a>
+                            <Link to="/shop/football" className="hover:text-gold transition-colors font-bold">Football</Link>
+                            <Link to="/shop/boxing" className="hover:text-gold transition-colors font-bold">Boxing</Link>
+                            <Link to="/shop/f1" className="hover:text-gold transition-colors font-bold">F1</Link>
+                            <Link to="/drops" className="text-gold hover:text-charcoal transition-colors font-black">Drops</Link>
 
                             <div className="h-px bg-stone/10 my-1" />
 
-                            <a href="/verify" className="text-base text-navy/70 hover:text-navy transition-colors">Verify Authenticity</a>
-                            <a href="/about" className="text-base text-navy/70 hover:text-navy transition-colors">About Us</a>
+                            <Link to="/verify" className="text-base text-navy/70 hover:text-navy transition-colors">Verify Authenticity</Link>
+                            <Link to="/about" className="text-base text-navy/70 hover:text-navy transition-colors">About Us</Link>
                         </nav>
                     </SheetContent>
                 </Sheet>
 
                 {/* Logo */}
                 <div className="flex-shrink-0 flex items-center z-[101] relative">
-                    <a href="/" className="flex items-center">
+                    <Link to="/" className="flex items-center">
                         <img
                             src="/logo-transparent.png"
                             alt="Sports Memorabilia Store"
                             className="h-16 w-auto object-contain"
                         />
-                    </a>
+                    </Link>
                 </div>
 
                 {/* Desktop Nav */}
                 <nav className="hidden md:flex items-center gap-10 text-xs font-bold uppercase tracking-widest text-navy">
-                    <a href="/shop/football" className="hover:text-gold transition-colors">Football</a>
-                    <a href="/shop/boxing" className="hover:text-gold transition-colors">Boxing</a>
-                    <a href="/shop/f1" className="hover:text-gold transition-colors">F1</a>
-                    <a href="/drops" className="hover:text-gold transition-colors">Drops</a>
-                    <a href="/verify" className="hover:text-gold transition-colors opacity-70">Verify</a>
-                    <a href="/about" className="hover:text-gold transition-colors opacity-70">About</a>
+                    <Link to="/shop/football" className="hover:text-gold transition-colors">Football</Link>
+                    <Link to="/shop/boxing" className="hover:text-gold transition-colors">Boxing</Link>
+                    <Link to="/shop/f1" className="hover:text-gold transition-colors">F1</Link>
+                    <Link to="/drops" className="hover:text-gold transition-colors">Drops</Link>
+                    <Link to="/verify" className="hover:text-gold transition-colors opacity-70">Verify</Link>
+                    <Link to="/about" className="hover:text-gold transition-colors opacity-70">About</Link>
                 </nav>
 
                 {/* Actions */}

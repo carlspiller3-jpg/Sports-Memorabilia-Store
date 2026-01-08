@@ -1,6 +1,6 @@
 
 import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
 import { useAuth } from '@/context/AuthContext'
 import { Button } from '@/components/ui/Button'
 import { PageHero } from '@/components/ui/PageHero'
@@ -88,7 +88,7 @@ export function LoginPage() {
                     </form>
 
                     <div className="mt-6 text-center text-sm text-navy/60">
-                        Don't have an account? <a href="/register" className="text-gold font-bold hover:underline">Create one</a>
+                        Don't have an account? <Link to="/register" className="text-gold font-bold hover:underline">Create one</Link>
                     </div>
                 </div>
             </div>

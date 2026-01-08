@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom"
 import { Helmet } from "react-helmet-async"
 import { ShieldCheck, Truck, Package, ZoomIn, AlertTriangle } from "lucide-react"
 import { Button } from "@/components/ui/Button"
+import { Link } from "react-router-dom"
 import { TrustBadge } from "@/components/ui/TrustBadge"
 import { supabase } from "@/lib/supabase"
 import type { Product } from "@/types/schema"
@@ -215,9 +216,9 @@ export function ProductPage() {
 
                 {/* Breadcrumbs */}
                 <div className="text-sm text-navy/50 mb-6 lg:mb-8 font-medium">
-                    <a href="/" className="hover:text-gold transition-colors">Home</a>
+                    <Link to="/" className="hover:text-gold transition-colors">Home</Link>
                     <span className="mx-2">/</span>
-                    <a href="/shop" className="hover:text-gold transition-colors">Shop</a>
+                    <Link to="/shop" className="hover:text-gold transition-colors">Shop</Link>
                     <span className="mx-2">/</span>
                     <span className="text-navy">{product.title}</span>
                 </div>

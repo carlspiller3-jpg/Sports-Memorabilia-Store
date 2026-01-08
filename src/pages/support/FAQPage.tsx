@@ -1,5 +1,6 @@
 import { Plus, Minus } from "lucide-react"
 import { useState } from "react"
+import { Link } from "react-router-dom"
 
 export function FAQPage() {
     const faqs = [
@@ -102,9 +103,9 @@ export function FAQPage() {
                 <div className="mt-12 text-center p-8 bg-white rounded-sm border border-stone/10">
                     <h3 className="font-serif text-xl font-bold text-charcoal mb-2">Still have questions?</h3>
                     <p className="text-navy/60 mb-4">We're here to help! Get in touch with our team.</p>
-                    <a href="/contact" className="inline-block bg-gold text-navy px-6 py-3 rounded-sm font-medium hover:bg-gold/90 transition-colors">
+                    <Link to="/contact" className="inline-block bg-gold text-navy px-6 py-3 rounded-sm font-medium hover:bg-gold/90 transition-colors">
                         Contact Us
-                    </a>
+                    </Link>
                 </div>
             </div>
         </div>
