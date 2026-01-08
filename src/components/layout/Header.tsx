@@ -4,12 +4,11 @@ import { ShoppingBag, Search, Menu, User } from "lucide-react"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/Sheet"
 import { useCart } from "@/context/CartContext"
 import { useAuth } from "@/context/AuthContext"
-import { useLocation, Link } from "react-router-dom"
+import { Link } from "react-router-dom"
 
 export function Header() {
     const { openCart, cartCount } = useCart()
     const { user } = useAuth()
-    const location = useLocation()
 
     const headerBg = "bg-ivory border-navy/5 text-navy shadow-sm"
 
@@ -36,7 +35,6 @@ export function Header() {
                             <div className="h-px bg-stone/10 my-1" />
 
                             <Link to="/verify" className="text-base text-navy/70 hover:text-navy transition-colors">Verify Authenticity</Link>
-                            <Link to="/about" className="text-base text-navy/70 hover:text-navy transition-colors">About Us</Link>
                         </nav>
                     </SheetContent>
                 </Sheet>
@@ -59,7 +57,6 @@ export function Header() {
                     <Link to="/shop/f1" className="hover:text-gold transition-colors">F1</Link>
                     <Link to="/drops" className="hover:text-gold transition-colors">Drops</Link>
                     <Link to="/verify" className="hover:text-gold transition-colors opacity-70">Verify</Link>
-                    <Link to="/about" className="hover:text-gold transition-colors opacity-70">About</Link>
                 </nav>
 
                 {/* Actions */}
