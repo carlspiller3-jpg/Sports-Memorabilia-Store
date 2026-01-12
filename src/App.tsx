@@ -38,6 +38,7 @@ import { CRMPage } from "@/pages/admin/CRMPage"
 import { AssetDemoPage } from "@/pages/AssetDemoPage"
 
 function App() {
+  // Configured check
   return (
     <HelmetProvider>
       <AuthProvider>

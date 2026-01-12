@@ -53,7 +53,7 @@
       "destination": "/p.html"
     },
     {
-      "source": "/((?!api|p.html).*)",
+      "source": "/(.*)",
       "destination": "/index.html"
     }
   ]
