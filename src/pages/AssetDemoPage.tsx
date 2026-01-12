@@ -1,9 +1,8 @@
 
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { Copy, Share2, ShieldCheck, Download, ExternalLink, Activity, ArrowUpRight, Lock, CheckCircle, X } from "lucide-react";
+import { Share2, ShieldCheck, Download, ExternalLink, Activity, ArrowUpRight, Lock, CheckCircle, X } from "lucide-react";
 import { Button } from "@/components/ui/Button";
-import { motion } from "framer-motion";
 
 export function AssetDemoPage() {
     const [scrolled, setScrolled] = useState(false);
@@ -18,15 +17,15 @@ export function AssetDemoPage() {
     }, []);
 
     const item = {
-        title: "Lionel Messi Signed FC Barcelona Shirt",
-        season: "2014-2015 Treble Season",
-        id: "SS-88392-LM10",
-        acquired: "12 Dec 2023",
-        value: "£3,850.00",
-        valueChange: "+14.2%",
-        authProvider: "Icons.com",
-        authId: "IC-99283-X",
-        image: "https://images.unsplash.com/photo-1511886929837-354d827aae26?q=80&w=2664&auto=format&fit=crop"
+        title: "Signed Trent Alexander-Arnold Match Issue Boot",
+        season: "Match Issue 2024",
+        id: "SS-BOOT-TAA-66",
+        acquired: "10 Feb 2026",
+        value: "£895.00",
+        valueChange: "+15.2%",
+        authProvider: "SportsSigned Auth",
+        authId: "SS-BOOT-9921",
+        image: "/products/trent_boot_case.png"
     };
 
     const graphData = [

@@ -22,7 +22,7 @@
 ### 🟢 Medium Priority (Operations & Polishing)
 - [x] 6. **[ADMIN] CRM Professionalization**: ✅ **Complete** (Native browser `confirm()` alerts replaced with custom branded modals)
 - [ ] 7. **[LEGAL] ICO Fee Verification**: Confirm registration status with the Information Commissioner's Office.
-- [ ] 8. **[UX] Mobile App Readiness**: Final review of Capacitor configuration for future iOS/Android store submission.
+- [x] 8. **[UX] Mobile App Readiness**: ✅ **Complete** (Updated `capacitor.config.ts`, `strings.xml` and `build.gradle` to align App ID `com.sportssigned.app` and correct branding).
 
 ---
 
