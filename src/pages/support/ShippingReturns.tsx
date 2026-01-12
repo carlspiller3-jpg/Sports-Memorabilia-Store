@@ -2,7 +2,7 @@ import { Truck, RotateCcw, ShieldCheck } from "lucide-react"
 
 export function ShippingReturns() {
     return (
-        <div className="min-h-screen bg-ivory py-12 lg:py-20">
+        <div className="min-h-screen bg-ivory pt-28 pb-12 lg:pt-36 lg:pb-20">
             <div className="container mx-auto px-4 max-w-4xl">
                 <div className="text-center mb-12">
                     <h1 className="text-3xl md:text-4xl font-serif font-bold text-charcoal mb-4">Shipping & Returns</h1>
