@@ -1,7 +1,8 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { supabase } from '@/lib/supabaseClient';
-import { Plus, Search, Phone, Mail, FileText, Trash2, Save, X, User, Lock, Send, LogOut, Loader2 } from 'lucide-react';
+import { Plus, Search, Phone, Mail, FileText, Trash2, Save, X, User, Lock, Send, LogOut, Loader2, Upload } from 'lucide-react';
 import { Helmet } from 'react-helmet-async';
+import * as XLSX from 'xlsx';
 
 // Types
 interface Note {
@@ -90,6 +91,85 @@ export function CRMPage() {
             setContacts(parsedData);
         }
         setLoading(false);
+    };
+
+    // File Import Logic
+    const fileInputRef = useRef<HTMLInputElement>(null);
+
+    const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+        const file = e.target.files?.[0];
+        if (!file) return;
+
+        const reader = new FileReader();
+        reader.onload = async (evt) => {
+            try {
+                const bstr = evt.target?.result;
+                const wb = XLSX.read(bstr, { type: 'binary' });
+                const wsname = wb.SheetNames[0];
+                const ws = wb.Sheets[wsname];
+                const data = XLSX.utils.sheet_to_json(ws);
+
+                if (data.length === 0) {
+                    alert('No data found in spreadsheet');
+                    return;
+                }
+
+                const contactsToInsert = data.map((row: any) => {
+                    const notes = [];
+                    // Check for "Notes" or "notes" column
+                    const noteContent = row.Notes || row.notes || row.Note || row.note;
+
+                    if (noteContent) {
+                        notes.push({
+                            date: new Date().toLocaleDateString('en-GB', {
+                                day: '2-digit',
+                                month: '2-digit',
+                                hour: '2-digit',
+                                minute: '2-digit'
+                            }),
+                            content: String(noteContent),
+                            author: session?.user?.email || 'Import'
+                        });
+                    }
+
+                    // Map status loosely
+                    let status = 'COLD';
+                    const rowStatus = (row.Status || row.status || '').toUpperCase();
+                    if (['WARM', 'HOT'].includes(rowStatus)) status = rowStatus;
+
+                    return {
+                        name: row.Name || row.name || 'Unknown Contact',
+                        role: row.Role || row.role || 'Unknown Role',
+                        company_name: row.Company || row.company || row.Organization || 'Unknown Company',
+                        contact_number: String(row.Phone || row.phone || row.Mobile || row.mobile || ''),
+                        contact_email: row.Email || row.email || '',
+                        status: status,
+                        notes: notes
+                    };
+                });
+
+                if (confirm(`Ready to import ${contactsToInsert.length} contacts?`)) {
+                    const { error } = await supabase
+                        .from('crm_contacts')
+                        .insert(contactsToInsert);
+
+                    if (error) {
+                        console.error('Import error:', error);
+                        alert('Error importing contacts: ' + error.message);
+                    } else {
+                        alert(`Successfully imported ${contactsToInsert.length} contacts.`);
+                        fetchContacts();
+                    }
+                }
+            } catch (err) {
+                console.error('File parse error:', err);
+                alert('Error reading file. Please ensure it is a valid Excel file.');
+            }
+
+            // Reset input so same file can be selected again if needed
+            if (fileInputRef.current) fileInputRef.current.value = '';
+        };
+        reader.readAsBinaryString(file);
     };
 
     const handleLogin = async (e: React.FormEvent) => {
@@ -322,6 +402,20 @@ export function CRMPage() {
                             <LogOut className="w-4 h-4" />
                             Logout
                         </button>
+                        <input
+                            type="file"
+                            accept=".xlsx, .xls, .csv"
+                            ref={fileInputRef}
+                            className="hidden"
+                            onChange={handleFileUpload}
+                        />
+                        <button
+                            onClick={() => fileInputRef.current?.click()}
+                            className="bg-white border border-navy/10 text-charcoal/70 px-4 py-3 rounded-md font-medium flex items-center gap-2 hover:bg-navy/5 transition-colors"
+                        >
+                            <Upload className="w-4 h-4" />
+                            Import
+                        </button>
                         <button
                             onClick={() => setIsAdding(true)}
                             className="bg-gold hover:bg-gold/90 text-ivory px-6 py-3 rounded-md font-medium flex items-center gap-2 transition-colors shadow-lg shadow-gold/20"
@@ -393,8 +487,8 @@ export function CRMPage() {
                             >
                                 {/* Left Status Border */}
                                 <div className={`absolute left-0 top-0 bottom-0 w-1.5 ${contact.status === 'HOT' ? 'bg-red-500' :
-                                        contact.status === 'WARM' ? 'bg-orange-400' :
-                                            'bg-blue-400'
+                                    contact.status === 'WARM' ? 'bg-orange-400' :
+                                        'bg-blue-400'
                                     }`} />
 
                                 {/* Name & Role */}
@@ -427,8 +521,8 @@ export function CRMPage() {
                                 {/* Right Side: Badge & Notes */}
                                 <div className="flex items-center justify-between md:justify-end gap-4 w-full md:w-auto pl-3 md:pl-0 mt-2 md:mt-0 border-t md:border-t-0 border-navy/5 pt-2 md:pt-0">
                                     <span className={`px-3 py-1 rounded-full text-[10px] font-bold tracking-widest uppercase border ${contact.status === 'HOT' ? 'bg-red-50 text-red-600 border-red-100' :
-                                            contact.status === 'WARM' ? 'bg-orange-50 text-orange-600 border-orange-100' :
-                                                'bg-blue-50 text-blue-600 border-blue-100'
+                                        contact.status === 'WARM' ? 'bg-orange-50 text-orange-600 border-orange-100' :
+                                            'bg-blue-50 text-blue-600 border-blue-100'
                                         }`}>
                                         {contact.status}
                                     </span>
