@@ -96,6 +96,22 @@ export function CRMPage() {
     // File Import Logic
     const fileInputRef = useRef<HTMLInputElement>(null);
 
+    const handleCleanBadImports = async () => {
+        if (!confirm('This will delete ALL contacts named "Unknown Contact". Are you sure?')) return;
+        setLoading(true);
+        const { error } = await supabase
+            .from('crm_contacts')
+            .delete()
+            .eq('name', 'Unknown Contact');
+
+        if (error) alert('Error: ' + error.message);
+        else {
+            alert('Cleanup successful.');
+            fetchContacts();
+        }
+        setLoading(false);
+    };
+
     const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0];
         if (!file) return;
@@ -114,10 +130,23 @@ export function CRMPage() {
                     return;
                 }
 
+                // Helper for fuzzy matching headers (ignores case & special chars)
+                const getValue = (row: any, candidates: string[]) => {
+                    const rowKeys = Object.keys(row);
+                    const normalize = (str: string) => str.toLowerCase().replace(/[^a-z0-9]/g, '');
+
+                    for (const candidate of candidates) {
+                        const target = normalize(candidate);
+                        const match = rowKeys.find(k => normalize(k) === target);
+                        if (match) return row[match];
+                    }
+                    return null;
+                };
+
                 const contactsToInsert = data.map((row: any) => {
                     const notes = [];
-                    // Check for "Notes" or "notes" column
-                    const noteContent = row['NOTES'] || row.Notes || row.notes || row.Note || row.note;
+                    // Look for various note headers
+                    const noteContent = getValue(row, ['notes', 'note', 'comments']);
 
                     if (noteContent) {
                         notes.push({
@@ -132,23 +161,23 @@ export function CRMPage() {
                         });
                     }
 
-                    // Map status loosely
+                    // Map status
                     let status = 'COLD';
-                    const rowStatus = (row['STATUS'] || row.Status || row.status || '').toUpperCase();
+                    const rowStatus = String(getValue(row, ['status', 'stage']) || '').toUpperCase();
                     if (['WARM', 'HOT'].includes(rowStatus)) status = rowStatus;
 
                     return {
-                        name: row['FULL NAME'] || row.Name || row.name || 'Unknown Contact',
-                        role: row['ROLE'] || row.Role || row.role || 'Unknown Role',
-                        company_name: row['COMPANY'] || row.Company || row.company || row.Organization || 'Unknown Company',
-                        contact_number: String(row['PHONE'] || row.Phone || row.phone || row.Mobile || row.mobile || ''),
-                        contact_email: row['EMAIL'] || row.Email || row.email || '',
+                        name: getValue(row, ['full name', 'fullname', 'name', 'contact']) || 'Unknown Contact',
+                        role: getValue(row, ['role', 'job title', 'title', 'position']) || 'Unknown Role',
+                        company_name: getValue(row, ['company', 'company name', 'organization', 'business']) || 'Unknown Company',
+                        contact_number: String(getValue(row, ['phone', 'mobile', 'cell', 'tel', 'contact number']) || ''),
+                        contact_email: getValue(row, ['email', 'e-mail', 'mail']) || '',
                         status: status,
                         notes: notes
                     };
                 });
 
-                if (confirm(`Ready to import ${contactsToInsert.length} contacts?`)) {
+                if (confirm(`Found ${contactsToInsert.length} rows. Ready to import?`)) {
                     const { error } = await supabase
                         .from('crm_contacts')
                         .insert(contactsToInsert);
@@ -166,7 +195,7 @@ export function CRMPage() {
                 alert('Error reading file. Please ensure it is a valid Excel file.');
             }
 
-            // Reset input so same file can be selected again if needed
+            // Reset input
             if (fileInputRef.current) fileInputRef.current.value = '';
         };
         reader.readAsBinaryString(file);
@@ -402,6 +431,15 @@ export function CRMPage() {
                             <LogOut className="w-4 h-4" />
                             Logout
                         </button>
+                        {contacts.some(c => c.name === 'Unknown Contact') && (
+                            <button
+                                onClick={handleCleanBadImports}
+                                className="bg-red-50 border border-red-100 text-red-600 px-4 py-3 rounded-md font-medium flex items-center gap-2 hover:bg-red-100 transition-colors"
+                            >
+                                <Trash2 className="w-4 h-4" />
+                                Cleanup Bad Imports
+                            </button>
+                        )}
                         <input
                             type="file"
                             accept=".xlsx, .xls, .csv"
