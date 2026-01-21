@@ -4,6 +4,8 @@ create table public.newsletter_subscribers (
   id uuid default gen_random_uuid() primary key,
   email text not null,
   interest text,
+  referral_code text,
+  own_referral_code text,
   created_at timestamp with time zone default timezone('utc'::text, now()) not null,
   unique(email)
 );
