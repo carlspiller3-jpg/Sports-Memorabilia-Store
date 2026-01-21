@@ -58,7 +58,7 @@ export function WaitlistModal() {
 
         try {
             // 1. Create Profile & Generate Code in Klaviyo (via Local API)
-            const emailRes = await fetch('http://127.0.0.1:3003/api/send-email', {
+            const emailRes = await fetch('/api/send-email', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
