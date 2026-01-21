@@ -33,6 +33,7 @@ create table public.crm_contacts (
   contact_number text,
   contact_email text,
   status text check (status in ('COLD', 'WARM', 'HOT')),
+  industry text, -- 'Professional Club', 'Corporate', 'Retail', etc.
   notes jsonb default '[]'::jsonb
 );
 

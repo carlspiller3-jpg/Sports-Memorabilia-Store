@@ -18,6 +18,7 @@ interface Contact {
     company_name: string;
     contact_number: string;
     contact_email: string;
+    industry?: string;
     status: 'COLD' | 'WARM' | 'HOT';
     notes: Note[] | null;
     created_at: string;
@@ -33,6 +34,7 @@ export function CRMPage() {
     const [loading, setLoading] = useState(true);
     const [searchTerm, setSearchTerm] = useState('');
     const [filterStatus, setFilterStatus] = useState<'ALL' | 'COLD' | 'WARM' | 'HOT'>('ALL');
+    const [filterIndustry, setFilterIndustry] = useState<string>('ALL');
 
     // UI State
     const [selectedContact, setSelectedContact] = useState<Contact | null>(null);
@@ -241,6 +243,7 @@ export function CRMPage() {
                     company_name: formData.company_name,
                     contact_number: formData.contact_number,
                     contact_email: formData.contact_email,
+                    industry: formData.industry,
                     status: formData.status,
                     notes: formData.notes || []
                 }
@@ -266,6 +269,7 @@ export function CRMPage() {
                 company_name: selectedContact.company_name,
                 contact_number: selectedContact.contact_number,
                 contact_email: selectedContact.contact_email,
+                industry: selectedContact.industry,
                 status: selectedContact.status
             })
             .eq('id', selectedContact.id);
@@ -333,11 +337,14 @@ export function CRMPage() {
         }
     };
 
+    const industries = Array.from(new Set(contacts.map(c => c.industry).filter(Boolean)));
+
     const filteredContacts = contacts.filter(c => {
         const matchesSearch = c.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
             c.company_name.toLowerCase().includes(searchTerm.toLowerCase());
-        const matchesFilter = filterStatus === 'ALL' || c.status === filterStatus;
-        return matchesSearch && matchesFilter;
+        const matchesStatus = filterStatus === 'ALL' || c.status === filterStatus;
+        const matchesIndustry = filterIndustry === 'ALL' || c.industry === filterIndustry;
+        return matchesSearch && matchesStatus && matchesIndustry;
     });
 
     if (authLoading) {
@@ -467,28 +474,51 @@ export function CRMPage() {
                 </div>
 
                 {/* Filters */}
-                <div className="bg-white p-4 rounded-xl shadow-sm border border-navy/5 mb-8 flex flex-col md:flex-row gap-4 items-center">
-                    <div className="relative flex-1 w-full">
-                        <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-charcoal/40 w-5 h-5" />
-                        <input
-                            type="text"
-                            placeholder="Search contacts by name or company..."
-                            value={searchTerm}
-                            onChange={(e) => setSearchTerm(e.target.value)}
-                            className="w-full pl-10 pr-4 py-3 bg-ivory border border-navy/10 rounded-lg focus:outline-none focus:border-gold transition-all"
-                        />
+                <div className="bg-white p-4 rounded-xl shadow-sm border border-navy/5 mb-8 flex flex-col gap-4">
+                    <div className="flex flex-col md:flex-row gap-4 items-center">
+                        <div className="relative flex-1 w-full">
+                            <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-charcoal/40 w-5 h-5" />
+                            <input
+                                type="text"
+                                placeholder="Search contacts by name, company..."
+                                value={searchTerm}
+                                onChange={(e) => setSearchTerm(e.target.value)}
+                                className="w-full pl-10 pr-4 py-3 bg-ivory border border-navy/10 rounded-lg focus:outline-none focus:border-gold transition-all"
+                            />
+                        </div>
+
+                        <div className="flex gap-2 w-full md:w-auto bg-ivory p-1.5 rounded-lg border border-navy/10 overflow-x-auto">
+                            {['ALL', 'COLD', 'WARM', 'HOT'].map((status) => (
+                                <button
+                                    key={status}
+                                    onClick={() => setFilterStatus(status as any)}
+                                    className={`px-6 py-2 rounded-md text-sm font-bold tracking-wide transition-all ${filterStatus === status
+                                        ? 'bg-navy text-white shadow-md'
+                                        : 'text-charcoal/50 hover:text-navy hover:bg-white'
+                                        }`}
+                                >
+                                    {status}
+                                </button>
+                            ))}
+                        </div>
                     </div>
-                    <div className="flex gap-2 w-full md:w-auto bg-ivory p-1.5 rounded-lg border border-navy/10 overflow-x-auto">
-                        {['ALL', 'COLD', 'WARM', 'HOT'].map((status) => (
+
+                    {/* Industry Filter Row */}
+                    <div className="flex items-center gap-3 overflow-x-auto pb-2">
+                        <span className="text-[10px] font-bold text-charcoal/40 uppercase tracking-widest whitespace-nowrap">Filter Industry:</span>
+                        <button
+                            onClick={() => setFilterIndustry('ALL')}
+                            className={`px-3 py-1 rounded-full text-xs font-bold border transition-colors ${filterIndustry === 'ALL' ? 'bg-gold text-white border-gold' : 'bg-white border-navy/10 text-charcoal/60 hover:border-gold'}`}
+                        >
+                            All Industries
+                        </button>
+                        {industries.map(ind => (
                             <button
-                                key={status}
-                                onClick={() => setFilterStatus(status as any)}
-                                className={`px-6 py-2 rounded-md text-sm font-bold tracking-wide transition-all ${filterStatus === status
-                                    ? 'bg-navy text-white shadow-md'
-                                    : 'text-charcoal/50 hover:text-navy hover:bg-white'
-                                    }`}
+                                key={ind}
+                                onClick={() => setFilterIndustry(ind!)}
+                                className={`px-3 py-1 rounded-full text-xs font-bold border transition-colors ${filterIndustry === ind ? 'bg-gold text-white border-gold' : 'bg-white border-navy/10 text-charcoal/60 hover:border-gold'}`}
                             >
-                                {status}
+                                {ind}
                             </button>
                         ))}
                     </div>
@@ -537,10 +567,17 @@ export function CRMPage() {
                                     <p className="text-xs text-charcoal/60 truncate uppercase tracking-wider font-bold">{contact.role}</p>
                                 </div>
 
-                                {/* Company */}
+                                {/* Company & Industry */}
                                 <div className="flex-1 min-w-0 pl-3 md:pl-0">
-                                    <div className="flex items-center gap-2 text-sm text-charcoal/80 font-medium">
-                                        <span className="hidden md:inline text-charcoal/30">@</span> {contact.company_name}
+                                    <div className="flex flex-col">
+                                        <div className="flex items-center gap-2 text-sm text-charcoal/80 font-medium">
+                                            <span className="hidden md:inline text-charcoal/30">@</span> {contact.company_name}
+                                        </div>
+                                        {contact.industry && (
+                                            <span className="text-[10px] bg-navy/5 text-navy/60 px-2 py-0.5 rounded w-fit mt-1 font-bold uppercase tracking-wider">
+                                                {contact.industry}
+                                            </span>
+                                        )}
                                     </div>
                                 </div>
 
@@ -630,6 +667,23 @@ export function CRMPage() {
                                     value={formData.company_name || ''}
                                     onChange={e => setFormData({ ...formData, company_name: e.target.value })}
                                 />
+                            </div>
+
+                            <div>
+                                <label className="text-[10px] font-bold text-charcoal/50 uppercase tracking-widest mb-1 block">Industry</label>
+                                <select
+                                    className="w-full p-3 bg-ivory border border-navy/10 rounded focus:border-gold focus:outline-none"
+                                    value={formData.industry || ''}
+                                    onChange={e => setFormData({ ...formData, industry: e.target.value })}
+                                >
+                                    <option value="">Select Industry...</option>
+                                    <option value="Professional Club">Professional Club</option>
+                                    <option value="Corporate">Corporate</option>
+                                    <option value="Retail">Retail</option>
+                                    <option value="Hospitality">Hospitality</option>
+                                    <option value="Agency">Agency</option>
+                                    <option value="Other">Other</option>
+                                </select>
                             </div>
 
                             <div className="grid grid-cols-2 gap-4">
@@ -723,6 +777,25 @@ export function CRMPage() {
                                             <option value="WARM">WARM</option>
                                             <option value="HOT">HOT</option>
                                         </select>
+                                    </div>
+
+                                    <div>
+                                        <label className="text-[10px] font-bold text-charcoal/40 uppercase tracking-widest block mb-1">Industry</label>
+                                        <div className="flex items-center gap-2 bg-ivory p-2 rounded border border-navy/5">
+                                            <select
+                                                className="w-full bg-transparent text-sm focus:outline-none"
+                                                value={selectedContact.industry || ''}
+                                                onChange={(e) => setSelectedContact({ ...selectedContact, industry: e.target.value })}
+                                            >
+                                                <option value="">No Industry</option>
+                                                <option value="Professional Club">Professional Club</option>
+                                                <option value="Corporate">Corporate</option>
+                                                <option value="Retail">Retail</option>
+                                                <option value="Hospitality">Hospitality</option>
+                                                <option value="Agency">Agency</option>
+                                                <option value="Other">Other</option>
+                                            </select>
+                                        </div>
                                     </div>
 
                                     <div className="pt-4 border-t border-navy/5">
