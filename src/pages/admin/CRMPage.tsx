@@ -117,7 +117,7 @@ export function CRMPage() {
                 const contactsToInsert = data.map((row: any) => {
                     const notes = [];
                     // Check for "Notes" or "notes" column
-                    const noteContent = row.Notes || row.notes || row.Note || row.note;
+                    const noteContent = row['NOTES'] || row.Notes || row.notes || row.Note || row.note;
 
                     if (noteContent) {
                         notes.push({
@@ -134,15 +134,15 @@ export function CRMPage() {
 
                     // Map status loosely
                     let status = 'COLD';
-                    const rowStatus = (row.Status || row.status || '').toUpperCase();
+                    const rowStatus = (row['STATUS'] || row.Status || row.status || '').toUpperCase();
                     if (['WARM', 'HOT'].includes(rowStatus)) status = rowStatus;
 
                     return {
-                        name: row.Name || row.name || 'Unknown Contact',
-                        role: row.Role || row.role || 'Unknown Role',
-                        company_name: row.Company || row.company || row.Organization || 'Unknown Company',
-                        contact_number: String(row.Phone || row.phone || row.Mobile || row.mobile || ''),
-                        contact_email: row.Email || row.email || '',
+                        name: row['FULL NAME'] || row.Name || row.name || 'Unknown Contact',
+                        role: row['ROLE'] || row.Role || row.role || 'Unknown Role',
+                        company_name: row['COMPANY'] || row.Company || row.company || row.Organization || 'Unknown Company',
+                        contact_number: String(row['PHONE'] || row.Phone || row.phone || row.Mobile || row.mobile || ''),
+                        contact_email: row['EMAIL'] || row.Email || row.email || '',
                         status: status,
                         notes: notes
                     };
