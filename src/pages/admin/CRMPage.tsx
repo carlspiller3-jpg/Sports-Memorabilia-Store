@@ -96,17 +96,21 @@ export function CRMPage() {
     // File Import Logic
     const fileInputRef = useRef<HTMLInputElement>(null);
 
-    const handleCleanBadImports = async () => {
-        if (!confirm('This will delete ALL contacts named "Unknown Contact". Are you sure?')) return;
+    const handleWipeAllContacts = async () => {
+        if (!confirm('WARNING: THIS WILL DELETE ALL CONTACTS IN THE CRM. THIS CANNOT BE UNDONE.\n\nAre you sure you want to proceed?')) return;
+
+        // Double confirmation for safety
+        if (!confirm('Seriously, are you sure? This will wipe the entire database.')) return;
+
         setLoading(true);
         const { error } = await supabase
             .from('crm_contacts')
             .delete()
-            .eq('name', 'Unknown Contact');
+            .neq('id', '00000000-0000-0000-0000-000000000000'); // Delete everything where ID is not zero (effectively all)
 
         if (error) alert('Error: ' + error.message);
         else {
-            alert('Cleanup successful.');
+            alert('All contacts wiped successfully.');
             fetchContacts();
         }
         setLoading(false);
@@ -431,15 +435,13 @@ export function CRMPage() {
                             <LogOut className="w-4 h-4" />
                             Logout
                         </button>
-                        {contacts.some(c => c.name === 'Unknown Contact') && (
-                            <button
-                                onClick={handleCleanBadImports}
-                                className="bg-red-50 border border-red-100 text-red-600 px-4 py-3 rounded-md font-medium flex items-center gap-2 hover:bg-red-100 transition-colors"
-                            >
-                                <Trash2 className="w-4 h-4" />
-                                Cleanup Bad Imports
-                            </button>
-                        )}
+                        <button
+                            onClick={handleWipeAllContacts}
+                            className="bg-red-50 border border-red-100 text-red-600 px-4 py-3 rounded-md font-medium flex items-center gap-2 hover:bg-red-100 transition-colors"
+                        >
+                            <Trash2 className="w-4 h-4" />
+                            Wipe All
+                        </button>
                         <input
                             type="file"
                             accept=".xlsx, .xls, .csv"
@@ -565,9 +567,21 @@ export function CRMPage() {
                                         {contact.status}
                                     </span>
 
-                                    <div className="flex items-center gap-1.5 text-xs text-charcoal/40 font-mono min-w-[60px] justify-end group-hover:text-navy transition-colors">
-                                        <FileText className="w-3 h-3" />
-                                        {(contact.notes || []).length}
+                                    <div className="flex items-center gap-4">
+                                        <button
+                                            onClick={(e) => {
+                                                e.stopPropagation();
+                                                handleDeleteContact(contact.id);
+                                            }}
+                                            className="text-gray-300 hover:text-red-500 transition-colors p-1"
+                                            title="Delete"
+                                        >
+                                            <Trash2 className="w-4 h-4" />
+                                        </button>
+                                        <div className="flex items-center gap-1.5 text-xs text-charcoal/40 font-mono min-w-[30px] justify-end group-hover:text-navy transition-colors">
+                                            <FileText className="w-3 h-3" />
+                                            {(contact.notes || []).length}
+                                        </div>
                                     </div>
                                 </div>
                             </div>
