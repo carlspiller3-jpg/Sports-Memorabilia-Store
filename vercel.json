@@ -44,6 +44,10 @@
       "destination": "/p.html"
     },
     {
+      "source": "/rhys-signature.html",
+      "destination": "/rhys-signature.html"
+    },
+    {
       "source": "/(.*)",
       "destination": "/index.html"
     }

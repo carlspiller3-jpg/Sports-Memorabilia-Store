@@ -38,7 +38,14 @@ export function ShopPage() {
     }, [category]);
 
     // Derived data for filters
-    const sports = ["Football", "Boxing", "Rugby", "Cricket", "Tennis", "F1"]
+    // Derived data for filters
+    const sports = useMemo(() => {
+        const allTags = products.flatMap(p => p.tags || [])
+        // Define knowing sports to look for, or just take unique tags that aren't teams/types
+        // For simplicity and accuracy with the new inventory, we'll scan for specific known sport keywords
+        const knownSports = ["Football", "Boxing", "Rugby", "Cricket", "Tennis", "F1", "Motorsport", "Golf", "Athletics", "UFC"]
+        return [...new Set(allTags.filter(tag => knownSports.includes(tag)))].sort()
+    }, [products])
     const priceRanges = [
         { label: "Under £100", value: "0-100" },
         { label: "£100 - £300", value: "100-300" },
@@ -62,7 +69,8 @@ export function ShopPage() {
                 // 1. Start with placeholders
                 let allProducts = [...PLACEHOLDER_PRODUCTS]
 
-                // 2. Fetch from Supabase
+                // 2. Fetch from Supabase (Disabled for strict inventory control)
+                /*
                 const { data, error } = await supabase
                     .from('products')
                     .select(`
@@ -76,6 +84,7 @@ export function ShopPage() {
                 } else if (data) {
                     allProducts = [...allProducts, ...data.filter(d => !allProducts.find(p => p.handle === d.handle))]
                 }
+                */
 
                 setProducts(allProducts)
             }
@@ -105,7 +114,7 @@ export function ShopPage() {
 
         // Sport filter
         if (selectedSport !== "all") {
-            result = result.filter(p => p.tags?.includes(selectedSport))
+            result = result.filter(p => p.tags?.some(tag => tag.toLowerCase() === selectedSport.toLowerCase()))
         }
 
         // Team/Athlete filter

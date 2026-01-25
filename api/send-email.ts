@@ -37,7 +37,7 @@ export default async function handler(req: any, res: any) {
         // --- KLAVIYO INTEGRATION START ---
         try {
             const klaviyoPublicKey = "VMkY3E";
-            const klaviyoListId = "WbMvGh";
+            const klaviyoListId = "Rxs6x7";
             const KLAVIYO_PRIVATE_KEY = "pk_adab87e0e1a4a0bd25c294e0764edd71dd";
 
             await fetch(`https://a.klaviyo.com/client/subscriptions/?company_id=${klaviyoPublicKey}`, {
