@@ -114,7 +114,21 @@ export function ShopPage() {
 
         // Sport filter
         if (selectedSport !== "all") {
-            result = result.filter(p => p.tags?.some(tag => tag.toLowerCase() === selectedSport.toLowerCase()))
+            console.log(`Filtering for sport: '${selectedSport}' (normalized: '${selectedSport.toLowerCase()}')`);
+            result = result.filter(p => {
+                const hasTag = p.tags?.some(tag => {
+                    const match = tag.toLowerCase() === selectedSport.toLowerCase();
+                    if (match) console.log(`Method matched product '${p.title}' with tag '${tag}'`);
+                    return match;
+                });
+                if (!hasTag) {
+                    // Log failures for the specific test product to see what tags it actually has
+                    if (p.title.includes("Test")) {
+                        console.log(`Failed to match Test Product:`, p.title, `Tags:`, p.tags);
+                    }
+                }
+                return hasTag;
+            })
         }
 
         // Team/Athlete filter
