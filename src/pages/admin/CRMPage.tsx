@@ -561,6 +561,7 @@ export function CRMPage() {
                                 <select className="w-full p-3 bg-ivory border border-navy/10 rounded focus:border-gold focus:outline-none font-medium text-navy" value={formData.owner || 'Carl Spiller'} onChange={e => setFormData({ ...formData, owner: e.target.value })}>
                                     <option value="Carl Spiller">Carl Spiller</option>
                                     <option value="Rhys Barker">Rhys Barker</option>
+                                    <option value="Unassigned">Unassigned</option>
                                 </select>
                             </div>
 
@@ -626,6 +627,7 @@ export function CRMPage() {
                                             >
                                                 <option value="Carl Spiller">Carl Spiller</option>
                                                 <option value="Rhys Barker">Rhys Barker</option>
+                                                <option value="Unassigned">Unassigned</option>
                                             </select>
                                         </div>
                                     </div>
