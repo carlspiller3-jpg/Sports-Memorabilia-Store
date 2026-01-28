@@ -584,7 +584,7 @@ export function CRMPage() {
             {/* Edit Modal */}
             {selectedContact && (
                 <div className="fixed inset-0 z-[1000] flex items-center justify-center bg-navy/60 backdrop-blur-md p-4 pt-24 animate-in fade-in duration-200">
-                    <div className="bg-ivory rounded-2xl shadow-2xl w-full max-w-6xl h-full max-h-[85vh] flex flex-col md:flex-row overflow-hidden border border-white/10">
+                    <div className="relative bg-ivory rounded-2xl shadow-2xl w-full max-w-6xl h-full max-h-[85vh] flex flex-col md:flex-row overflow-hidden border border-white/10">
                         {/* Details */}
                         <div className="w-full md:w-[350px] bg-white border-r border-navy/10 flex flex-col h-full z-10 shadow-lg">
                             <div className="p-6 border-b border-navy/5 bg-navy/5">
@@ -712,7 +712,7 @@ export function CRMPage() {
                                 </div>
                             </div>
                         </div>
-                        <button onClick={() => setSelectedContact(null)} className="absolute top-4 right-4 z-50 bg-white/10 hover:bg-white/20 p-2 rounded-full text-charcoal hover:text-navy transition-colors backdrop-blur-sm"><X className="w-6 h-6" /></button>
+                        <button onClick={() => setSelectedContact(null)} className="absolute top-4 right-4 z-50 bg-white shadow-md p-2 rounded-full text-navy hover:bg-red-50 hover:text-red-500 transition-colors pointer-events-auto"><X className="w-6 h-6" /></button>
                     </div>
                 </div>
             )}
