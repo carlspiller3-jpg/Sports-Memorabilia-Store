@@ -25,6 +25,7 @@ interface Contact {
     status: 'COLD' | 'WARM' | 'HOT';
     notes: Note[] | null;
     created_at: string;
+    recipient_name?: string;
 }
 
 export function CRMPage() {
@@ -201,6 +202,8 @@ export function CRMPage() {
                     return {
                         contact_type: type,
                         name: name,
+                        // If Unknown Contact (Business), try to set recipient_name if found elsewhere? No, keeping simple.
+                        recipient_name: '',
                         role: getValue(row, ['role', 'job title', 'title', 'position']) || (type === 'BUSINESS' ? 'Business Entity' : 'Unknown Role'),
                         company_name: companyName,
                         contact_number: String(getValue(row, ['phone', 'mobile', 'cell', 'tel', 'contact number']) || ''),
@@ -272,6 +275,7 @@ export function CRMPage() {
                 {
                     contact_type: finalType,
                     name: finalType === 'BUSINESS' ? '' : formData.name, // Ensure empty if business
+                    recipient_name: formData.recipient_name || '',
                     role: finalType === 'BUSINESS' ? 'Business Entity' : formData.role,
                     company_name: formData.company_name,
                     contact_number: formData.contact_number,
@@ -309,6 +313,7 @@ export function CRMPage() {
                 industry: selectedContact.industry,
                 status: selectedContact.status,
                 contact_type: finalType,
+                recipient_name: selectedContact.recipient_name,
                 website: selectedContact.website,
                 owner: selectedContact.owner
             })
@@ -541,6 +546,18 @@ export function CRMPage() {
                                 </div>
                             </div>
 
+                            {formData.contact_type === 'BUSINESS' && (
+                                <div>
+                                    <label className="text-[10px] font-bold text-charcoal/50 uppercase tracking-widest mb-1 block">Recipient Name (Contact Person)</label>
+                                    <input
+                                        placeholder="e.g. John Doe"
+                                        className="p-3 bg-ivory border border-navy/10 rounded w-full focus:border-gold focus:outline-none relative z-10"
+                                        value={formData.recipient_name || ''}
+                                        onChange={e => setFormData({ ...formData, recipient_name: e.target.value })}
+                                    />
+                                </div>
+                            )}
+
                             <div>
                                 <label className="text-[10px] font-bold text-charcoal/50 uppercase tracking-widest mb-1 block">Company</label>
                                 <input placeholder="e.g. Acme Corp" className="p-3 bg-ivory border border-navy/10 rounded w-full focus:border-gold focus:outline-none" value={formData.company_name || ''}
@@ -660,10 +677,16 @@ export function CRMPage() {
                                         <label className="text-[10px] font-bold text-charcoal/40 uppercase tracking-widest block mb-2">Contact Details</label>
                                         <div className="space-y-2">
                                             {selectedContact.contact_type === 'BUSINESS' && (
-                                                <div className="flex items-center gap-2 bg-ivory p-2 rounded border border-navy/5">
-                                                    <Upload className="w-4 h-4 text-gold" />
-                                                    <input className="w-full bg-transparent text-sm focus:outline-none" placeholder="Website" value={selectedContact.website || ''} onChange={(e) => setSelectedContact({ ...selectedContact, website: e.target.value })} />
-                                                </div>
+                                                <>
+                                                    <div className="flex items-center gap-2 bg-ivory p-2 rounded border border-navy/5">
+                                                        <User className="w-4 h-4 text-gold" />
+                                                        <input className="w-full bg-transparent text-sm focus:outline-none font-bold text-navy" placeholder="Recipient Name (e.g. John)" value={selectedContact.recipient_name || ''} onChange={(e) => setSelectedContact({ ...selectedContact, recipient_name: e.target.value })} />
+                                                    </div>
+                                                    <div className="flex items-center gap-2 bg-ivory p-2 rounded border border-navy/5">
+                                                        <Upload className="w-4 h-4 text-gold" />
+                                                        <input className="w-full bg-transparent text-sm focus:outline-none" placeholder="Website" value={selectedContact.website || ''} onChange={(e) => setSelectedContact({ ...selectedContact, website: e.target.value })} />
+                                                    </div>
+                                                </>
                                             )}
                                             <div className="flex items-center gap-2 bg-ivory p-2 rounded border border-navy/5">
                                                 <Mail className="w-4 h-4 text-gold" />
