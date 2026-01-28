@@ -35,6 +35,8 @@ import { ShopGate } from "@/components/auth/ShopGate"
 import { ScrollToTop } from "@/components/layout/ScrollToTop"
 import { B2BProposal } from "@/pages/B2BProposal"
 import { CRMPage } from "@/pages/admin/CRMPage"
+import { InvoiceGenerator } from "@/pages/admin/InvoiceGenerator"
+import { ProductMocker } from "@/pages/admin/ProductMocker"
 import { AssetDemoPage } from "@/pages/AssetDemoPage"
 
 function App() {
@@ -106,6 +108,8 @@ function App() {
 
                   {/* Internal Tools */}
                   <Route path="/crm" element={<CRMPage />} />
+                  <Route path="/invoice-generator" element={<InvoiceGenerator />} />
+                  <Route path="/product-mocker" element={<ProductMocker />} />
 
                   <Route path="*" element={<NotFoundPage />} />
 

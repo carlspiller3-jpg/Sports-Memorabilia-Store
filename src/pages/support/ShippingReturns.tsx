@@ -18,7 +18,7 @@ export function ShippingReturns() {
                         <h2 className="text-2xl font-serif font-bold text-charcoal">Shipping Policy</h2>
                         <div className="space-y-4 text-navy/80">
                             <p>
-                                We offer <strong>Free Express Shipping</strong> on all UK orders over £100. All items are fully insured during transit.
+                                We offer <strong>Complimentary Insured Delivery</strong> on all UK orders over £100. All items are fully insured during transit.
                             </p>
                             <ul className="space-y-3">
                                 <li className="flex justify-between border-b border-stone/10 pb-2">

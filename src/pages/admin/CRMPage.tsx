@@ -13,9 +13,11 @@ interface Note {
 
 interface Contact {
     id: string;
+    contact_type: 'INDIVIDUAL' | 'BUSINESS'; // New field
     name: string;
     role: string;
     company_name: string;
+    website?: string; // New field
     contact_number: string;
     contact_email: string;
     industry?: string;
@@ -35,6 +37,7 @@ export function CRMPage() {
     const [searchTerm, setSearchTerm] = useState('');
     const [filterStatus, setFilterStatus] = useState<'ALL' | 'COLD' | 'WARM' | 'HOT'>('ALL');
     const [filterIndustry, setFilterIndustry] = useState<string>('ALL');
+    const [activeTab, setActiveTab] = useState<'INDIVIDUAL' | 'BUSINESS'>('INDIVIDUAL'); // New Tab State
 
     // UI State
     const [selectedContact, setSelectedContact] = useState<Contact | null>(null);
@@ -48,6 +51,7 @@ export function CRMPage() {
 
     // Form State (Add)
     const [formData, setFormData] = useState<Partial<Contact>>({
+        contact_type: 'INDIVIDUAL',
         status: 'COLD',
         notes: []
     });
@@ -168,16 +172,30 @@ export function CRMPage() {
                     }
 
                     // Map status
-                    let status = 'COLD';
+                    let status: "COLD" | "WARM" | "HOT" = 'COLD';
                     const rowStatus = String(getValue(row, ['status', 'stage']) || '').toUpperCase();
-                    if (['WARM', 'HOT'].includes(rowStatus)) status = rowStatus;
+                    if (['WARM', 'HOT'].includes(rowStatus)) status = rowStatus as "COLD" | "WARM" | "HOT";
+
+                    const companyName = getValue(row, ['company', 'company name', 'organization', 'business']) || 'Unknown Company';
+                    let name = getValue(row, ['full name', 'fullname', 'name', 'contact']);
+
+                    // Auto-detect type
+                    let type: 'INDIVIDUAL' | 'BUSINESS' = 'INDIVIDUAL';
+                    if (!name && companyName !== 'Unknown Company') {
+                        type = 'BUSINESS';
+                        name = companyName; // Use company name as main label
+                    } else if (!name) {
+                        name = 'Unknown Contact';
+                    }
 
                     return {
-                        name: getValue(row, ['full name', 'fullname', 'name', 'contact']) || 'Unknown Contact',
-                        role: getValue(row, ['role', 'job title', 'title', 'position']) || 'Unknown Role',
-                        company_name: getValue(row, ['company', 'company name', 'organization', 'business']) || 'Unknown Company',
+                        contact_type: type,
+                        name: name,
+                        role: getValue(row, ['role', 'job title', 'title', 'position']) || (type === 'BUSINESS' ? 'Business Entity' : 'Unknown Role'),
+                        company_name: companyName,
                         contact_number: String(getValue(row, ['phone', 'mobile', 'cell', 'tel', 'contact number']) || ''),
                         contact_email: getValue(row, ['email', 'e-mail', 'mail']) || '',
+                        website: getValue(row, ['website', 'site', 'url']) || '',
                         status: status,
                         notes: notes
                     };
@@ -238,11 +256,13 @@ export function CRMPage() {
             .from('crm_contacts')
             .insert([
                 {
+                    contact_type: formData.contact_type || 'INDIVIDUAL',
                     name: formData.name,
-                    role: formData.role,
+                    role: formData.contact_type === 'BUSINESS' ? 'Business Entity' : formData.role,
                     company_name: formData.company_name,
                     contact_number: formData.contact_number,
                     contact_email: formData.contact_email,
+                    website: formData.website,
                     industry: formData.industry,
                     status: formData.status,
                     notes: formData.notes || []
@@ -253,7 +273,8 @@ export function CRMPage() {
             alert('Error saving contact: ' + error.message);
         } else {
             setIsAdding(false);
-            setFormData({ status: 'COLD', notes: [] });
+            setIsAdding(false);
+            setFormData({ contact_type: activeTab, status: 'COLD', notes: [] });
             fetchContacts();
         }
     };
@@ -270,7 +291,9 @@ export function CRMPage() {
                 contact_number: selectedContact.contact_number,
                 contact_email: selectedContact.contact_email,
                 industry: selectedContact.industry,
-                status: selectedContact.status
+                status: selectedContact.status,
+                contact_type: selectedContact.contact_type,
+                website: selectedContact.website
             })
             .eq('id', selectedContact.id);
 
@@ -344,7 +367,11 @@ export function CRMPage() {
             c.company_name.toLowerCase().includes(searchTerm.toLowerCase());
         const matchesStatus = filterStatus === 'ALL' || c.status === filterStatus;
         const matchesIndustry = filterIndustry === 'ALL' || c.industry === filterIndustry;
-        return matchesSearch && matchesStatus && matchesIndustry;
+
+        // Tab Filter
+        const matchesTab = (c.contact_type || 'INDIVIDUAL') === activeTab;
+
+        return matchesSearch && matchesStatus && matchesIndustry && matchesTab;
     });
 
     if (authLoading) {
@@ -473,7 +500,22 @@ export function CRMPage() {
                     </div>
                 </div>
 
-                {/* Filters */}
+                {/* Tabs & Filters */}
+                <div className="flex gap-4 mb-6">
+                    <button
+                        onClick={() => setActiveTab('INDIVIDUAL')}
+                        className={`flex-1 py-4 text-center font-serif text-lg border-b-2 transition-colors ${activeTab === 'INDIVIDUAL' ? 'border-navy text-navy font-bold' : 'border-transparent text-charcoal/40 hover:text-navy'}`}
+                    >
+                        Individuals
+                    </button>
+                    <button
+                        onClick={() => setActiveTab('BUSINESS')}
+                        className={`flex-1 py-4 text-center font-serif text-lg border-b-2 transition-colors ${activeTab === 'BUSINESS' ? 'border-navy text-navy font-bold' : 'border-transparent text-charcoal/40 hover:text-navy'}`}
+                    >
+                        Target Businesses
+                    </button>
+                </div>
+
                 <div className="bg-white p-4 rounded-xl shadow-sm border border-navy/5 mb-8 flex flex-col gap-4">
                     <div className="flex flex-col md:flex-row gap-4 items-center">
                         <div className="relative flex-1 w-full">
@@ -539,7 +581,8 @@ export function CRMPage() {
                         {/* Optional Header Row */}
                         <div className="hidden md:flex px-4 py-2 text-[10px] font-bold text-charcoal/40 uppercase tracking-widest gap-4">
                             <div className="w-2"></div>
-                            <div className="flex-1">Name / Role</div>
+                            <div className="w-2"></div>
+                            <div className="flex-1">{activeTab === 'BUSINESS' ? 'Company Name' : 'Name / Role'}</div>
                             <div className="flex-1">Company</div>
                             <div className="flex-1">Contact</div>
                             <div className="w-32 text-right">Status / Activity</div>
@@ -564,7 +607,9 @@ export function CRMPage() {
                                 {/* Name & Role */}
                                 <div className="flex-1 min-w-0 pl-3">
                                     <h3 className="font-serif text-lg text-navy font-bold truncate group-hover:text-gold transition-colors">{contact.name}</h3>
-                                    <p className="text-xs text-charcoal/60 truncate uppercase tracking-wider font-bold">{contact.role}</p>
+                                    {contact.contact_type === 'INDIVIDUAL' && (
+                                        <p className="text-xs text-charcoal/60 truncate uppercase tracking-wider font-bold">{contact.role}</p>
+                                    )}
                                 </div>
 
                                 {/* Company & Industry */}
@@ -638,94 +683,128 @@ export function CRMPage() {
                         <h2 className="font-serif text-2xl text-navy mb-6">Add New Contact</h2>
 
                         <div className="space-y-4">
-                            <div className="grid grid-cols-2 gap-4">
+                            <div className="space-y-4">
+                                {/* Type Selection */}
+                                <div className="bg-ivory p-1 rounded-lg border border-navy/10 flex mb-4">
+                                    <button
+                                        onClick={() => setFormData({ ...formData, contact_type: 'INDIVIDUAL' })}
+                                        className={`flex-1 py-2 text-xs font-bold uppercase tracking-wider rounded transition-colors ${formData.contact_type === 'INDIVIDUAL' ? 'bg-navy text-white shadow-sm' : 'text-charcoal/50 hover:bg-white'}`}
+                                    >
+                                        Individual
+                                    </button>
+                                    <button
+                                        onClick={() => setFormData({ ...formData, contact_type: 'BUSINESS' })}
+                                        className={`flex-1 py-2 text-xs font-bold uppercase tracking-wider rounded transition-colors ${formData.contact_type === 'BUSINESS' ? 'bg-navy text-white shadow-sm' : 'text-charcoal/50 hover:bg-white'}`}
+                                    >
+                                        Business
+                                    </button>
+                                </div>
+
+                                <div className="grid grid-cols-2 gap-4">
+                                    <div>
+                                        <label className="text-[10px] font-bold text-charcoal/50 uppercase tracking-widest mb-1 block">Full Name</label>
+                                        <input
+                                            placeholder="e.g. John Smith"
+                                            className="p-3 bg-ivory border border-navy/10 rounded w-full focus:border-gold focus:outline-none"
+                                            value={formData.name || ''}
+                                            onChange={e => {
+                                                const val = e.target.value;
+                                                setFormData(prev => ({
+                                                    ...prev,
+                                                    name: val,
+                                                    // Intelligent Switch: If typing name, likely Individual
+                                                    contact_type: val ? 'INDIVIDUAL' : prev.contact_type
+                                                }));
+                                            }}
+                                        />
+                                    </div>
+                                    <div>
+                                        <label className="text-[10px] font-bold text-charcoal/50 uppercase tracking-widest mb-1 block">Role / Job Title</label>
+                                        <input
+                                            placeholder="e.g. CEO"
+                                            className="p-3 bg-ivory border border-navy/10 rounded w-full focus:border-gold focus:outline-none"
+                                            value={formData.role || ''}
+                                            onChange={e => setFormData({ ...formData, role: e.target.value })}
+                                        />
+                                    </div>
+                                </div>
+
                                 <div>
-                                    <label className="text-[10px] font-bold text-charcoal/50 uppercase tracking-widest mb-1 block">Full Name</label>
+                                    <label className="text-[10px] font-bold text-charcoal/50 uppercase tracking-widest mb-1 block">Company</label>
                                     <input
-                                        placeholder="e.g. John Smith"
+                                        placeholder="e.g. Acme Corp"
                                         className="p-3 bg-ivory border border-navy/10 rounded w-full focus:border-gold focus:outline-none"
-                                        value={formData.name || ''}
-                                        onChange={e => setFormData({ ...formData, name: e.target.value })}
+                                        value={formData.company_name || ''}
+                                        onChange={e => {
+                                            const val = e.target.value;
+                                            setFormData(prev => ({
+                                                ...prev,
+                                                company_name: val,
+                                                // Intelligent Switch: If typing company and no name, likely Business
+                                                contact_type: (val && !prev.name) ? 'BUSINESS' : prev.contact_type
+                                            }));
+                                        }}
                                     />
                                 </div>
+
                                 <div>
-                                    <label className="text-[10px] font-bold text-charcoal/50 uppercase tracking-widest mb-1 block">Role / Job Title</label>
-                                    <input
-                                        placeholder="e.g. CEO"
-                                        className="p-3 bg-ivory border border-navy/10 rounded w-full focus:border-gold focus:outline-none"
-                                        value={formData.role || ''}
-                                        onChange={e => setFormData({ ...formData, role: e.target.value })}
-                                    />
+                                    <label className="text-[10px] font-bold text-charcoal/50 uppercase tracking-widest mb-1 block">Industry</label>
+                                    <select
+                                        className="w-full p-3 bg-ivory border border-navy/10 rounded focus:border-gold focus:outline-none"
+                                        value={formData.industry || ''}
+                                        onChange={e => setFormData({ ...formData, industry: e.target.value })}
+                                    >
+                                        <option value="">Select Industry...</option>
+                                        <option value="Professional Club">Professional Club</option>
+                                        <option value="Corporate">Corporate</option>
+                                        <option value="Retail">Retail</option>
+                                        <option value="Hospitality">Hospitality</option>
+                                        <option value="Agency">Agency</option>
+                                        <option value="Other">Other</option>
+                                    </select>
                                 </div>
-                            </div>
 
-                            <div>
-                                <label className="text-[10px] font-bold text-charcoal/50 uppercase tracking-widest mb-1 block">Company</label>
-                                <input
-                                    placeholder="e.g. Acme Corp"
-                                    className="p-3 bg-ivory border border-navy/10 rounded w-full focus:border-gold focus:outline-none"
-                                    value={formData.company_name || ''}
-                                    onChange={e => setFormData({ ...formData, company_name: e.target.value })}
-                                />
-                            </div>
+                                <div className="grid grid-cols-2 gap-4">
+                                    <div>
+                                        <label className="text-[10px] font-bold text-charcoal/50 uppercase tracking-widest mb-1 block">Phone</label>
+                                        <input
+                                            placeholder="+44..."
+                                            className="p-3 bg-ivory border border-navy/10 rounded w-full focus:border-gold focus:outline-none"
+                                            value={formData.contact_number || ''}
+                                            onChange={e => setFormData({ ...formData, contact_number: e.target.value })}
+                                        />
+                                    </div>
+                                    <div>
+                                        <label className="text-[10px] font-bold text-charcoal/50 uppercase tracking-widest mb-1 block">Email</label>
+                                        <input
+                                            placeholder="john@acme.com"
+                                            className="p-3 bg-ivory border border-navy/10 rounded w-full focus:border-gold focus:outline-none"
+                                            value={formData.contact_email || ''}
+                                            onChange={e => setFormData({ ...formData, contact_email: e.target.value })}
+                                        />
+                                    </div>
+                                </div>
 
-                            <div>
-                                <label className="text-[10px] font-bold text-charcoal/50 uppercase tracking-widest mb-1 block">Industry</label>
-                                <select
-                                    className="w-full p-3 bg-ivory border border-navy/10 rounded focus:border-gold focus:outline-none"
-                                    value={formData.industry || ''}
-                                    onChange={e => setFormData({ ...formData, industry: e.target.value })}
+                                <div>
+                                    <label className="text-[10px] font-bold text-charcoal/50 uppercase tracking-widest mb-1 block">Initial Status</label>
+                                    <select
+                                        className="w-full p-3 bg-ivory border border-navy/10 rounded focus:border-gold focus:outline-none"
+                                        value={formData.status}
+                                        onChange={(e) => setFormData({ ...formData, status: e.target.value as any })}
+                                    >
+                                        <option value="COLD">COLD (No contact)</option>
+                                        <option value="WARM">WARM (In conversation)</option>
+                                        <option value="HOT">HOT (Closing / Urgent)</option>
+                                    </select>
+                                </div>
+
+                                <button
+                                    onClick={handleSaveContact}
+                                    className="w-full bg-navy text-white py-4 rounded font-bold hover:bg-navy/90 mt-4 transition-transform active:scale-[0.98]"
                                 >
-                                    <option value="">Select Industry...</option>
-                                    <option value="Professional Club">Professional Club</option>
-                                    <option value="Corporate">Corporate</option>
-                                    <option value="Retail">Retail</option>
-                                    <option value="Hospitality">Hospitality</option>
-                                    <option value="Agency">Agency</option>
-                                    <option value="Other">Other</option>
-                                </select>
+                                    Create Contact Record
+                                </button>
                             </div>
-
-                            <div className="grid grid-cols-2 gap-4">
-                                <div>
-                                    <label className="text-[10px] font-bold text-charcoal/50 uppercase tracking-widest mb-1 block">Phone</label>
-                                    <input
-                                        placeholder="+44..."
-                                        className="p-3 bg-ivory border border-navy/10 rounded w-full focus:border-gold focus:outline-none"
-                                        value={formData.contact_number || ''}
-                                        onChange={e => setFormData({ ...formData, contact_number: e.target.value })}
-                                    />
-                                </div>
-                                <div>
-                                    <label className="text-[10px] font-bold text-charcoal/50 uppercase tracking-widest mb-1 block">Email</label>
-                                    <input
-                                        placeholder="john@acme.com"
-                                        className="p-3 bg-ivory border border-navy/10 rounded w-full focus:border-gold focus:outline-none"
-                                        value={formData.contact_email || ''}
-                                        onChange={e => setFormData({ ...formData, contact_email: e.target.value })}
-                                    />
-                                </div>
-                            </div>
-
-                            <div>
-                                <label className="text-[10px] font-bold text-charcoal/50 uppercase tracking-widest mb-1 block">Initial Status</label>
-                                <select
-                                    className="w-full p-3 bg-ivory border border-navy/10 rounded focus:border-gold focus:outline-none"
-                                    value={formData.status}
-                                    onChange={(e) => setFormData({ ...formData, status: e.target.value as any })}
-                                >
-                                    <option value="COLD">COLD (No contact)</option>
-                                    <option value="WARM">WARM (In conversation)</option>
-                                    <option value="HOT">HOT (Closing / Urgent)</option>
-                                </select>
-                            </div>
-
-                            <button
-                                onClick={handleSaveContact}
-                                className="w-full bg-navy text-white py-4 rounded font-bold hover:bg-navy/90 mt-4 transition-transform active:scale-[0.98]"
-                            >
-                                Create Contact Record
-                            </button>
                         </div>
                     </div>
                 </div>
