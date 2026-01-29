@@ -188,7 +188,7 @@ export function CRMPage() {
                     if (['WARM', 'HOT'].includes(rowStatus)) status = rowStatus as "COLD" | "WARM" | "HOT";
 
                     const companyName = getValue(row, ['company', 'company name', 'organization', 'business']) || 'Unknown Company';
-                    let name = getValue(row, ['full name', 'fullname', 'name', 'contact']);
+                    let name = getValue(row, ['full name', 'fullname', 'name', 'contact', 'contact name', 'person', 'recipient', 'recipient name', 'lead']);
 
                     // Auto-detect type
                     let type: 'INDIVIDUAL' | 'BUSINESS' = 'INDIVIDUAL';
