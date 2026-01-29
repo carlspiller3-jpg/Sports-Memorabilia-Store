@@ -202,8 +202,7 @@ export function CRMPage() {
                     return {
                         contact_type: type,
                         name: name,
-                        // If Unknown Contact (Business), try to set recipient_name if found elsewhere? No, keeping simple.
-                        recipient_name: '',
+                        recipient_name: getValue(row, ['recipient', 'recipient name', 'contact person', 'contact']) || '',
                         role: getValue(row, ['role', 'job title', 'title', 'position']) || (type === 'BUSINESS' ? 'Business Entity' : 'Unknown Role'),
                         company_name: companyName,
                         contact_number: String(getValue(row, ['phone', 'mobile', 'cell', 'tel', 'contact number']) || ''),
