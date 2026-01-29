@@ -194,7 +194,7 @@ export function CRMPage() {
                     let type: 'INDIVIDUAL' | 'BUSINESS' = 'INDIVIDUAL';
                     if (!name && companyName !== 'Unknown Company') {
                         type = 'BUSINESS';
-                        name = companyName;
+                        name = ''; // Keep name empty for Business
                     } else if (!name) {
                         name = 'Unknown Contact';
                     }
@@ -305,7 +305,7 @@ export function CRMPage() {
         const { error } = await supabase
             .from('crm_contacts')
             .update({
-                name: selectedContact.name,
+                name: finalType === 'BUSINESS' ? '' : selectedContact.name, // Force empty name for Business updates
                 role: selectedContact.role,
                 company_name: selectedContact.company_name,
                 contact_number: selectedContact.contact_number,
@@ -490,9 +490,14 @@ export function CRMPage() {
                             <div key={contact.id} onClick={() => setSelectedContact(contact)} className="bg-white p-4 rounded-lg shadow-sm border border-navy/5 hover:border-gold/50 cursor-pointer group flex flex-col md:flex-row md:items-center gap-4 relative overflow-hidden">
                                 <div className={`absolute left-0 top-0 bottom-0 w-1.5 ${contact.status === 'HOT' ? 'bg-red-500' : contact.status === 'WARM' ? 'bg-orange-400' : 'bg-blue-400'}`} />
                                 <div className="flex-1 min-w-0 pl-3">
-                                    <h3 className="font-serif text-lg text-navy font-bold truncate group-hover:text-gold transition-colors">{contact.name || contact.company_name}</h3>
+                                    <h3 className="font-serif text-lg text-navy font-bold truncate group-hover:text-gold transition-colors">{contact.contact_type === 'BUSINESS' ? contact.company_name : contact.name}</h3>
                                     {contact.contact_type === 'INDIVIDUAL' && <p className="text-xs text-charcoal/60 truncate uppercase tracking-wider font-bold">{contact.role} {contact.company_name && <span className="text-charcoal/40">at {contact.company_name}</span>}</p>}
-                                    {contact.contact_type === 'BUSINESS' && <p className="text-xs text-charcoal/60 truncate uppercase tracking-wider font-bold">{contact.industry || 'Unknown Industry'}</p>}
+                                    {contact.contact_type === 'BUSINESS' && (
+                                        <div className="flex flex-col">
+                                            <p className="text-xs text-charcoal/60 truncate uppercase tracking-wider font-bold">{contact.industry || 'Unknown Industry'}</p>
+                                            {contact.recipient_name && <p className="text-[10px] text-navy/60 font-bold mt-0.5">Contact: {contact.recipient_name}</p>}
+                                        </div>
+                                    )}
                                 </div>
                                 <div className="flex-1 min-w-0">
                                     <div className="flex items-center gap-2 text-xs font-bold text-navy bg-navy/5 px-2 py-1 rounded w-fit">
