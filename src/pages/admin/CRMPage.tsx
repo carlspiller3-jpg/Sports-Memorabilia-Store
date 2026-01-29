@@ -104,10 +104,10 @@ export function CRMPage() {
 
     // Helper for owner change security
     const handleOwnerChange = (newOwner: string, currentOwner?: string) => {
-        // If it's a new contact (no currentOwner), allow freely
-        if (!currentOwner) return true;
+        // If it's a new contact (no currentOwner) OR currently Unassigned, allow freely
+        if (!currentOwner || currentOwner === 'Unassigned') return true;
 
-        // If changing an existing owner, require password
+        // If changing from a person (assigned owner) to anything else, require password
         const password = prompt("Security Check: Enter Admin Password to change owner");
         if (password === "C4rlSp0rtsMem2025!") {
             return true;
