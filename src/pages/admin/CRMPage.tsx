@@ -698,9 +698,26 @@ export function CRMPage() {
                                         <div className="space-y-2">
                                             {selectedContact.contact_type === 'BUSINESS' && (
                                                 <>
-                                                    <div className="flex items-center gap-2 bg-ivory p-2 rounded border border-navy/5">
-                                                        <User className="w-4 h-4 text-gold" />
-                                                        <input className="w-full bg-transparent text-sm focus:outline-none font-bold text-navy" placeholder="Recipient Name (e.g. John)" value={selectedContact.recipient_name || ''} onChange={(e) => setSelectedContact({ ...selectedContact, recipient_name: e.target.value })} />
+                                                    <div className="flex items-center gap-2 bg-ivory p-2 rounded border border-navy/5 relative">
+                                                        <User className="w-4 h-4 text-gold flex-shrink-0" />
+                                                        <input
+                                                            className="w-full bg-transparent text-sm focus:outline-none font-bold text-navy"
+                                                            placeholder="Recipient Name (e.g. John)"
+                                                            value={selectedContact.recipient_name || ''}
+                                                            onChange={(e) => setSelectedContact({ ...selectedContact, recipient_name: e.target.value })}
+                                                        />
+                                                        {selectedContact.recipient_name && (
+                                                            <button
+                                                                onClick={(e) => {
+                                                                    e.stopPropagation();
+                                                                    setSelectedContact({ ...selectedContact, recipient_name: '' });
+                                                                }}
+                                                                className="absolute right-2 text-charcoal/30 hover:text-red-500 transition-colors"
+                                                                title="Remove Recipient"
+                                                            >
+                                                                <X className="w-3 h-3" />
+                                                            </button>
+                                                        )}
                                                     </div>
                                                     <div className="flex items-center gap-2 bg-ivory p-2 rounded border border-navy/5">
                                                         <Upload className="w-4 h-4 text-gold" />
