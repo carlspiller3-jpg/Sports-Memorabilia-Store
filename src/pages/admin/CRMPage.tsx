@@ -299,20 +299,29 @@ export function CRMPage() {
     const handleUpdateContact = async () => {
         if (!selectedContact) return;
 
-        const finalType = (!selectedContact.name || selectedContact.name.trim() === '') ? 'BUSINESS' : 'INDIVIDUAL';
+        // Intelligent Promotion: If Name is empty but Recipient Name is provided, simple assume they want to "promote" this to an Individual
+        let typeToSave = (!selectedContact.name || selectedContact.name.trim() === '') ? 'BUSINESS' : 'INDIVIDUAL';
+        let nameToSave = selectedContact.name;
+        let recipientToSave = selectedContact.recipient_name;
+
+        if (typeToSave === 'BUSINESS' && selectedContact.recipient_name && selectedContact.recipient_name.trim().length > 0) {
+            typeToSave = 'INDIVIDUAL';
+            nameToSave = selectedContact.recipient_name; // Promote recipient to main name
+            recipientToSave = ''; // Clear recipient field as it's now the main name
+        }
 
         const { error } = await supabase
             .from('crm_contacts')
             .update({
-                name: finalType === 'BUSINESS' ? '' : selectedContact.name, // Force empty name for Business updates
+                name: typeToSave === 'BUSINESS' ? '' : nameToSave,
                 role: selectedContact.role,
                 company_name: selectedContact.company_name,
                 contact_number: selectedContact.contact_number,
                 contact_email: selectedContact.contact_email,
                 industry: selectedContact.industry,
                 status: selectedContact.status,
-                contact_type: finalType,
-                recipient_name: selectedContact.recipient_name,
+                contact_type: typeToSave,
+                recipient_name: recipientToSave,
                 website: selectedContact.website,
                 owner: selectedContact.owner
             })
