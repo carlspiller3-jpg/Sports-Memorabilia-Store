@@ -330,6 +330,9 @@ export function CRMPage() {
         if (error) {
             alert('Error updating contact: ' + error.message);
         } else {
+            if (activeTab !== typeToSave) {
+                alert(`Contact updated and moved to the '${typeToSave === 'INDIVIDUAL' ? 'Individuals' : 'Target Businesses'}' tab based on name changes.`);
+            }
             fetchContacts();
         }
     };
