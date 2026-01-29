@@ -498,7 +498,7 @@ export function CRMPage() {
                             <div key={contact.id} onClick={() => setSelectedContact(contact)} className="bg-white p-4 rounded-lg shadow-sm border border-navy/5 hover:border-gold/50 cursor-pointer group flex flex-col md:flex-row md:items-center gap-4 relative overflow-hidden">
                                 <div className={`absolute left-0 top-0 bottom-0 w-1.5 ${contact.status === 'HOT' ? 'bg-red-500' : contact.status === 'WARM' ? 'bg-orange-400' : 'bg-blue-400'}`} />
                                 <div className="flex-1 min-w-0 pl-3">
-                                    <h3 className="font-serif text-lg text-navy font-bold truncate group-hover:text-gold transition-colors">{contact.contact_type === 'BUSINESS' ? contact.company_name : contact.name}</h3>
+                                    <h3 className="font-serif text-lg text-navy font-bold truncate group-hover:text-gold transition-colors">{contact.contact_type === 'BUSINESS' ? contact.company_name : (contact.name || contact.company_name)}</h3>
                                     {contact.contact_type === 'INDIVIDUAL' && <p className="text-xs text-charcoal/60 truncate uppercase tracking-wider font-bold">{contact.role} {contact.company_name && <span className="text-charcoal/40">at {contact.company_name}</span>}</p>}
                                     {contact.contact_type === 'BUSINESS' && (
                                         <div className="flex flex-col">
