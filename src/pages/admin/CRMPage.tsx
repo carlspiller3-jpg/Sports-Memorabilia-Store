@@ -299,8 +299,12 @@ export function CRMPage() {
     const handleUpdateContact = async () => {
         if (!selectedContact) return;
 
-        // Intelligent Promotion: If Name is empty but Recipient Name is provided, simple assume they want to "promote" this to an Individual
-        let typeToSave = (!selectedContact.name || selectedContact.name.trim() === '') ? 'BUSINESS' : 'INDIVIDUAL';
+        // Intelligent Promotion/Demotion Logic
+        const isNameEmpty = !selectedContact.name || selectedContact.name.trim() === '';
+        const isNameDuplicate = selectedContact.name?.trim() === selectedContact.company_name?.trim();
+        const isBusinessRole = selectedContact.role === 'Business Entity';
+
+        let typeToSave = (isNameEmpty || isNameDuplicate || isBusinessRole) ? 'BUSINESS' : 'INDIVIDUAL';
         let nameToSave = selectedContact.name;
         let recipientToSave = selectedContact.recipient_name;
 
