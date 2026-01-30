@@ -26,11 +26,10 @@ export function B2BProposal() {
             {/* A4 Page Container */}
             <div
                 ref={contentRef}
-                className="mx-auto bg-white w-[210mm] shadow-2xl print:shadow-none print:w-full print:m-0 flex flex-col relative overflow-hidden b2b-print-container"
-                style={{ height: '297mm' }}
+                className="mx-auto bg-white w-full max-w-[210mm] shadow-2xl print:shadow-none print:w-full print:m-0 flex flex-col relative overflow-hidden b2b-print-container h-auto md:h-[297mm]"
             >
                 {/* Header Section */}
-                <div className="bg-navy px-12 pt-8 pb-12 text-white relative flex-shrink-0 overflow-hidden print:break-inside-avoid shadow-lg">
+                <div className="bg-navy px-6 md:px-12 pt-8 pb-12 text-white relative flex-shrink-0 overflow-hidden print:break-inside-avoid shadow-lg">
                     {/* Background Pattern */}
                     <div className="absolute top-0 right-0 w-64 h-64 bg-gold/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
 
@@ -56,10 +55,10 @@ export function B2BProposal() {
                 </div>
 
                 {/* Main Content */}
-                <div className="px-12 py-8 flex-1 text-charcoal text-justify relative min-h-0 overflow-hidden">
+                <div className="px-6 md:px-12 py-8 flex-1 text-charcoal text-justify relative min-h-0 overflow-hidden">
 
                     {/* The Problem & Solution */}
-                    <div className="grid grid-cols-2 gap-8 mb-8">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
                         <div>
                             <h3 className="text-gold font-bold uppercase tracking-wider text-xs mb-3">The Issue</h3>
                             <h2 className="font-serif text-2xl text-navy mb-4 font-bold">Most of it is fake.</h2>
@@ -84,7 +83,7 @@ export function B2BProposal() {
 
                     {/* Framed Example Image */}
                     {/* Framed Example Showcase */}
-                    <div className="mb-8 flex flex-row items-center gap-8 bg-stone/5 p-6 rounded-xl">
+                    <div className="mb-8 flex flex-col md:flex-row items-center gap-8 bg-stone/5 p-6 rounded-xl">
                         {/* Image - Left Aligned */}
                         <div className="shrink-0">
                             <img
@@ -135,7 +134,7 @@ export function B2BProposal() {
                 </div>
 
                 {/* Footer */}
-                <div className="bg-navy text-white px-12 py-4 mt-auto flex-shrink-0 print:break-inside-avoid">
+                <div className="bg-navy text-white px-6 md:px-12 py-4 mt-auto flex-shrink-0 print:break-inside-avoid">
                     <div className="flex justify-between items-end">
                         <div>
                             <h4 className="font-serif text-lg mb-4">Contact</h4>
