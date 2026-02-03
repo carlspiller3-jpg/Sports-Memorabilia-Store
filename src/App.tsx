@@ -38,6 +38,7 @@ import { CRMPage } from "@/pages/admin/CRMPage"
 import { InvoiceGenerator } from "@/pages/admin/InvoiceGenerator"
 import { ProductMocker } from "@/pages/admin/ProductMocker"
 import { AssetDemoPage } from "@/pages/AssetDemoPage"
+import { ContentManager } from "@/pages/admin/ContentManager"
 
 function App() {
   // Configured check
@@ -108,6 +109,7 @@ function App() {
 
                   {/* Internal Tools */}
                   <Route path="/crm" element={<CRMPage />} />
+                  <Route path="/content-manager" element={<ContentManager />} />
                   <Route path="/invoice-generator" element={<InvoiceGenerator />} />
                   <Route path="/product-mocker" element={<ProductMocker />} />
 
