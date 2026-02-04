@@ -156,7 +156,7 @@ export function SEOManager() {
 
         const { error: insertError } = await supabase
             .from('site_pages')
-            .upsert(defaults, { onConflict: 'page_key' })
+            .upsert(defaults, { onConflict: 'page_key', ignoreDuplicates: true })
 
         if (insertError) {
             console.error('Seeding error:', insertError)
@@ -218,6 +218,14 @@ export function SEOManager() {
                         </h1>
                     </div>
                     <div className="flex items-center gap-2">
+                        <Button
+                            onClick={seedDefaults}
+                            variant="ghost"
+                            size="sm"
+                            className=""
+                        >
+                            Load Missing Pages
+                        </Button>
                         {successMessage && (
                             <span className="text-sm text-green-600 font-medium flex items-center gap-1 animate-fade-in mr-2">
                                 <Check className="w-4 h-4" /> {successMessage}
