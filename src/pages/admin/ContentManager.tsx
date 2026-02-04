@@ -1,8 +1,9 @@
 import { useState, useEffect } from 'react';
 import { supabase } from '@/lib/supabaseClient';
-import { Loader2, Save, Send, Globe, Layout, Search, Plus, Edit3, Trash2 } from 'lucide-react';
+import { Loader2, Save, Send, Globe, Layout, Search, Plus, Edit3, Trash2, Package } from 'lucide-react';
 import { Helmet } from 'react-helmet-async';
 import { marked } from 'marked';
+import { Product } from '@/types/schema';
 
 // --- Types ---
 interface BlogPost {
@@ -29,13 +30,18 @@ interface PageMeta {
 }
 
 export function ContentManager() {
-    const [activeTab, setActiveTab] = useState<'PAGES' | 'BLOG'>('PAGES');
+    const [activeTab, setActiveTab] = useState<'PAGES' | 'BLOG' | 'PRODUCTS'>('PAGES');
     const [loading, setLoading] = useState(true);
     const [session, setSession] = useState<any>(null);
 
     // Page Meta State
     const [pages, setPages] = useState<PageMeta[]>([]);
     const [selectedPage, setSelectedPage] = useState<PageMeta | null>(null);
+
+    // Product State
+    const [products, setProducts] = useState<Product[]>([]);
+    const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
+    const [productSearch, setProductSearch] = useState('');
 
     // Blog State
     const [posts, setPosts] = useState<BlogPost[]>([]);
@@ -51,32 +57,62 @@ export function ContentManager() {
 
     const loadContent = async () => {
         setLoading(true);
-        // Load Pages (We might need to mock this initially if table doesn't exist)
-        // For now, let's just hardcode the "Known Pages" and save to a simple table if it exists,
-        // or just local state for this demo to show the UI primarily.
-
-        // Actually, let's create a Supabase table for 'page_meta' if you haven't.
-        // For now, I'll simulate fetching known pages.
+        // Load Pages
         const knownPages = [
-            { id: '1', page_path: '/', seo_title: 'SportsSigned | Premium Authenticated Collectibles', seo_description: 'Premium authenticated sports memorabilia...' },
-            { id: '2', page_path: '/shop', seo_title: 'Shop | SportsSigned', seo_description: 'Browse our collection of signed shirts, boots...' },
+            { id: '1', page_path: '/', seo_title: 'SportsSigned | Premium Authenticated Collectibles', seo_description: 'Premium authenticated sports memorabilia with professional framing. Every piece comes with NFC digital authentication and lifetime guarantee.' },
+            { id: '2', page_path: '/shop', seo_title: 'Shop | SportsSigned', seo_description: 'Browse our collection of signed shirts, boots, and photos from the world\'s greatest athletes.' },
             { id: '3', page_path: '/about', seo_title: 'About Us | SportsSigned', seo_description: 'Our story and commitment to authenticity.' },
-            { id: '4', page_path: '/verify', seo_title: 'Verify Authenticity | SportsSigned', seo_description: 'Check your NFC tag.' },
+            { id: '4', page_path: '/verify', seo_title: 'Verify Authenticity | SportsSigned', seo_description: 'Verify your SportsSigned memorabilia using our blockchain-backed NFC technology.' },
         ];
         setPages(knownPages);
+
+        // Load Products
+        const { data: productData, error: productError } = await supabase.from('products').select('*').order('title');
+        if (productData) {
+            setProducts(productData);
+        } else if (productError) {
+            console.error('Error fetching products:', productError);
+        }
 
         // Load Blog Posts
         // const { data: blogData } = await supabase.from('blog_posts').select('*');
         // if (blogData) setPosts(blogData);
-        
+
         setLoading(false);
     };
+
+    const handleSaveProduct = async () => {
+        if (!selectedProduct) return;
+        const { error } = await supabase
+            .from('products')
+            .update({
+                title: selectedProduct.title,
+                body_html: selectedProduct.body_html,
+                seo_title: selectedProduct.seo_title,
+                seo_description: selectedProduct.seo_description
+            })
+            .eq('id', selectedProduct.id);
+
+        if (error) {
+            alert('Error updating product: ' + error.message);
+        } else {
+            alert('Product updated successfully!');
+            // Refresh local state to reflect changes if needed, or just rely on selectedProduct being current
+            setProducts(products.map(p => p.id === selectedProduct.id ? selectedProduct : p));
+        }
+    };
+
 
     // --- Renderers ---
 
     if (!session) {
         return <div className="p-12 text-center text-navy">Please log in to access CMS.</div>;
     }
+
+    const filteredProducts = products.filter(p =>
+        p.title.toLowerCase().includes(productSearch.toLowerCase()) ||
+        p.handle.toLowerCase().includes(productSearch.toLowerCase())
+    );
 
     return (
         <div className="min-h-screen bg-ivory text-charcoal pt-24 pb-12 px-4 md:px-12">
@@ -86,17 +122,24 @@ export function ContentManager() {
                 <div className="flex items-end justify-between mb-8 border-b border-navy/10 pb-4">
                     <div>
                         <h1 className="font-serif text-4xl text-navy">Content Manager</h1>
-                        <p className="text-charcoal/60 mt-2">Manage SEO meta tags and Blog articles.</p>
+                        <p className="text-charcoal/60 mt-2">Manage SEO meta tags, Products, and Blog articles.</p>
                     </div>
                     <div className="flex gap-2 bg-white p-1 rounded-lg border border-navy/10">
-                        <button 
+                        <button
                             onClick={() => setActiveTab('PAGES')}
                             className={`px-4 py-2 rounded-md text-sm font-bold transition-all ${activeTab === 'PAGES' ? 'bg-navy text-white shadow-sm' : 'text-charcoal/50 hover:bg-ivory'}`}
                         >
                             <Globe className="w-4 h-4 inline mr-2" />
                             Page SEO
                         </button>
-                        <button 
+                        <button
+                            onClick={() => setActiveTab('PRODUCTS')}
+                            className={`px-4 py-2 rounded-md text-sm font-bold transition-all ${activeTab === 'PRODUCTS' ? 'bg-navy text-white shadow-sm' : 'text-charcoal/50 hover:bg-ivory'}`}
+                        >
+                            <Package className="w-4 h-4 inline mr-2" />
+                            Products
+                        </button>
+                        <button
                             onClick={() => setActiveTab('BLOG')}
                             className={`px-4 py-2 rounded-md text-sm font-bold transition-all ${activeTab === 'BLOG' ? 'bg-navy text-white shadow-sm' : 'text-charcoal/50 hover:bg-ivory'}`}
                         >
@@ -116,8 +159,8 @@ export function ContentManager() {
                             </div>
                             <div className="divide-y divide-navy/5">
                                 {pages.map(page => (
-                                    <div 
-                                        key={page.id} 
+                                    <div
+                                        key={page.id}
                                         onClick={() => setSelectedPage(page)}
                                         className={`p-4 cursor-pointer hover:bg-ivory transition-colors group ${selectedPage?.id === page.id ? 'bg-ivory border-l-4 border-gold' : ''}`}
                                     >
@@ -141,20 +184,20 @@ export function ContentManager() {
                                     <div className="space-y-6">
                                         <div>
                                             <label className="block text-xs font-bold text-navy uppercase tracking-widest mb-2">Page Title (Meta Title)</label>
-                                            <input 
+                                            <input
                                                 className="w-full p-3 bg-ivory border border-navy/10 rounded-lg focus:outline-none focus:border-gold font-serif text-lg"
                                                 value={selectedPage.seo_title}
-                                                onChange={(e) => setSelectedPage({...selectedPage, seo_title: e.target.value})}
+                                                onChange={(e) => setSelectedPage({ ...selectedPage, seo_title: e.target.value })}
                                             />
                                             <p className="text-[10px] text-right mt-1 text-charcoal/40">{selectedPage.seo_title.length} / 60 chars recommended</p>
                                         </div>
 
                                         <div>
                                             <label className="block text-xs font-bold text-navy uppercase tracking-widest mb-2">Meta Description</label>
-                                            <textarea 
+                                            <textarea
                                                 className="w-full p-3 bg-ivory border border-navy/10 rounded-lg focus:outline-none focus:border-gold h-32 resize-none leading-relaxed"
                                                 value={selectedPage.seo_description}
-                                                onChange={(e) => setSelectedPage({...selectedPage, seo_description: e.target.value})}
+                                                onChange={(e) => setSelectedPage({ ...selectedPage, seo_description: e.target.value })}
                                             />
                                             <p className="text-[10px] text-right mt-1 text-charcoal/40">{selectedPage.seo_description.length} / 160 chars recommended</p>
                                         </div>
@@ -181,6 +224,132 @@ export function ContentManager() {
                                 <div className="h-full flex flex-col items-center justify-center text-charcoal/30 border-2 border-dashed border-navy/5 rounded-xl bg-gray-50/50 min-h-[400px]">
                                     <Globe className="w-12 h-12 mb-4 opacity-20" />
                                     <p>Select a page to edit SEO details</p>
+                                </div>
+                            )}
+                        </div>
+                    </div>
+                )}
+
+                {/* --- PRODUCTS TAB --- */}
+                {activeTab === 'PRODUCTS' && (
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        {/* Product List */}
+                        <div className="bg-white rounded-xl shadow-sm border border-navy/5 overflow-hidden flex flex-col max-h-[800px]">
+                            <div className="p-4 bg-navy/5 border-b border-navy/5">
+                                <div className="font-bold text-xs uppercase tracking-widest text-navy/50 mb-2">Products</div>
+                                <div className="relative">
+                                    <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-charcoal/40" />
+                                    <input
+                                        placeholder="Search products..."
+                                        className="w-full pl-9 pr-3 py-2 bg-white border border-navy/10 rounded text-sm focus:outline-none focus:border-gold"
+                                        value={productSearch}
+                                        onChange={(e) => setProductSearch(e.target.value)}
+                                    />
+                                </div>
+                            </div>
+                            <div className="divide-y divide-navy/5 overflow-y-auto flex-1">
+                                {loading ? (
+                                    <div className="p-8 text-center"><Loader2 className="w-6 h-6 animate-spin mx-auto text-navy/30" /></div>
+                                ) : (
+                                    filteredProducts.map(product => (
+                                        <div
+                                            key={product.id}
+                                            onClick={() => setSelectedProduct(product)}
+                                            className={`p-4 cursor-pointer hover:bg-ivory transition-colors group ${selectedProduct?.id === product.id ? 'bg-ivory border-l-4 border-gold' : ''}`}
+                                        >
+                                            <div className="font-bold text-navy text-sm truncate">{product.title}</div>
+                                            <div className="text-xs text-charcoal/50 truncate mt-1 font-mono">{product.handle}</div>
+                                        </div>
+                                    ))
+                                )}
+                            </div>
+                        </div>
+
+                        {/* Product Editor */}
+                        <div className="md:col-span-2">
+                            {selectedProduct ? (
+                                <div className="bg-white p-8 rounded-xl shadow-sm border border-navy/5 animate-in fade-in slide-in-from-right-4">
+                                    <div className="flex items-center gap-2 mb-6">
+                                        <Package className="w-5 h-5 text-gold" />
+                                        <h2 className="font-serif text-2xl text-navy">Edit Product</h2>
+                                        <span className={`ml-auto text-xs font-bold px-2 py-1 rounded uppercase ${selectedProduct.status === 'active' ? 'bg-green-100 text-green-700' : 'bg-gray-100 text-gray-600'}`}>
+                                            {selectedProduct.status}
+                                        </span>
+                                    </div>
+
+                                    <div className="space-y-6">
+                                        {/* Main Content */}
+                                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                            <div className="col-span-2 md:col-span-2">
+                                                <label className="block text-xs font-bold text-navy uppercase tracking-widest mb-2">Product Title</label>
+                                                <input
+                                                    className="w-full p-3 bg-ivory border border-navy/10 rounded-lg focus:outline-none focus:border-gold font-serif text-lg font-bold"
+                                                    value={selectedProduct.title}
+                                                    onChange={(e) => setSelectedProduct({ ...selectedProduct, title: e.target.value })}
+                                                />
+                                            </div>
+                                            <div className="col-span-2">
+                                                <label className="block text-xs font-bold text-navy uppercase tracking-widest mb-2">Description (HTML)</label>
+                                                <textarea
+                                                    className="w-full p-3 bg-ivory border border-navy/10 rounded-lg focus:outline-none focus:border-gold h-48 resize-none font-mono text-xs leading-relaxed"
+                                                    value={selectedProduct.body_html || ''}
+                                                    onChange={(e) => setSelectedProduct({ ...selectedProduct, body_html: e.target.value })}
+                                                />
+                                                <p className="text-[10px] text-right mt-1 text-charcoal/40">Visible on the product page body</p>
+                                            </div>
+                                        </div>
+
+                                        <div className="h-px bg-navy/5 my-4" />
+
+                                        {/* SEO Section */}
+                                        <h3 className="font-bold text-navy text-lg flex items-center gap-2">
+                                            <Globe className="w-4 h-4 text-gray-400" />
+                                            Search Engine Optimization
+                                        </h3>
+                                        <div>
+                                            <label className="block text-xs font-bold text-navy uppercase tracking-widest mb-2">SEO Title</label>
+                                            <input
+                                                className="w-full p-3 bg-ivory border border-navy/10 rounded-lg focus:outline-none focus:border-gold"
+                                                placeholder={selectedProduct.title}
+                                                value={selectedProduct.seo_title || ''}
+                                                onChange={(e) => setSelectedProduct({ ...selectedProduct, seo_title: e.target.value })}
+                                            />
+                                            <p className="text-[10px] text-right mt-1 text-charcoal/40">Leave blank to use default (Product Title)</p>
+                                        </div>
+
+                                        <div>
+                                            <label className="block text-xs font-bold text-navy uppercase tracking-widest mb-2">Meta Description</label>
+                                            <textarea
+                                                className="w-full p-3 bg-ivory border border-navy/10 rounded-lg focus:outline-none focus:border-gold h-24 resize-none leading-relaxed"
+                                                placeholder={selectedProduct.body_html?.substring(0, 150) + "..."}
+                                                value={selectedProduct.seo_description || ''}
+                                                onChange={(e) => setSelectedProduct({ ...selectedProduct, seo_description: e.target.value })}
+                                            />
+                                            <p className="text-[10px] text-right mt-1 text-charcoal/40">{(selectedProduct.seo_description || '').length} / 160 chars recommended</p>
+                                        </div>
+
+                                        {/* Preview Card */}
+                                        <div className="bg-gray-50 p-4 rounded-lg border border-dashed border-gray-200">
+                                            <div className="text-[10px] uppercase font-bold text-gray-400 mb-2">Google Search Preview</div>
+                                            <div className="font-sans">
+                                                <div className="text-[#1a0dab] text-lg hover:underline cursor-pointer truncate">{selectedProduct.seo_title || selectedProduct.title}</div>
+                                                <div className="text-[#006621] text-sm truncate">https://sportssigned.com/product/{selectedProduct.handle}</div>
+                                                <div className="text-[#545454] text-sm line-clamp-2">{selectedProduct.seo_description || selectedProduct.body_html?.replace(/<[^>]*>?/gm, '').substring(0, 160)}...</div>
+                                            </div>
+                                        </div>
+
+                                        <div className="pt-4 border-t border-navy/5 flex justify-end">
+                                            <button onClick={handleSaveProduct} className="bg-navy text-white px-6 py-3 rounded font-bold hover:bg-navy/90 flex items-center gap-2">
+                                                <Save className="w-4 h-4" />
+                                                Save Product
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            ) : (
+                                <div className="h-full flex flex-col items-center justify-center text-charcoal/30 border-2 border-dashed border-navy/5 rounded-xl bg-gray-50/50 min-h-[400px]">
+                                    <Package className="w-12 h-12 mb-4 opacity-20" />
+                                    <p>Select a product to edit details</p>
                                 </div>
                             )}
                         </div>
