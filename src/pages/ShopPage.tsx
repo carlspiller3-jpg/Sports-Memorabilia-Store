@@ -15,16 +15,22 @@ import { usePageSEO } from "@/hooks/usePageSEO"
 
 export function ShopPage() {
     const { category } = useParams<{ category: string }>()
-    const seo = usePageSEO('shop', {
-        title: "Shop Authentic Sports Memorabilia | SportsSigned",
+
+    // Construct dynamic default SEO based on category
+    const defaultTitle = category
+        ? `${category.charAt(0).toUpperCase() + category.slice(1)} Memorabilia - Shop Authentic | SportsSigned`
+        : "Shop Authentic Sports Memorabilia | SportsSigned"
+
+    const pageKey = category ? `shop_${category.toLowerCase()}` : 'shop'
+
+    const seo = usePageSEO(pageKey, {
+        title: defaultTitle,
         description: "Browse our collection of signed football shirts, boxing gloves, and boots. All items are 100% authentic and come with premium framing.",
         ogImage: "https://www.sportssigned.com/og-image.jpg"
     })
 
-    // Override title if category is present
-    const pageTitle = category
-        ? `${category.charAt(0).toUpperCase() + category.slice(1)} Memorabilia - Shop Authentic | SportsSigned`
-        : seo.title
+    // Use the fetched SEO title (which defaults to defaultTitle if not in DB)
+    const pageTitle = seo.title
 
     const [searchParams, setSearchParams] = useSearchParams()
     const [products, setProducts] = useState<Product[]>([])
