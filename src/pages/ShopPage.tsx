@@ -1,20 +1,31 @@
-
 import { useState, useEffect, useMemo } from "react"
 import { useSearchParams, useParams } from "react-router-dom"
+import { Helmet } from "react-helmet-async"
 import { SlidersHorizontal, ChevronDown, Search } from "lucide-react"
 import { ProductCard } from "@/components/ui/ProductCard"
 import { Button } from "@/components/ui/Button"
 import { PageHero } from "@/components/ui/PageHero"
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetFooter } from "@/components/ui/Sheet"
-import { supabase } from "@/lib/supabase"
 import type { Product } from "@/types/schema"
 import { PLACEHOLDER_PRODUCTS, PLACEHOLDER_IMAGES } from "@/lib/placeholder-data"
 import { generateImageAlt } from "@/lib/seo"
 import { fetchAllProducts } from "@/lib/shopify"
 import { WaitlistSignup } from "@/components/ui/WaitlistSignup"
+import { usePageSEO } from "@/hooks/usePageSEO"
 
 export function ShopPage() {
     const { category } = useParams<{ category: string }>()
+    const seo = usePageSEO('shop', {
+        title: "Shop Authentic Sports Memorabilia | SportsSigned",
+        description: "Browse our collection of signed football shirts, boxing gloves, and boots. All items are 100% authentic and come with premium framing.",
+        ogImage: "https://www.sportssigned.com/og-image.jpg"
+    })
+
+    // Override title if category is present
+    const pageTitle = category
+        ? `${category.charAt(0).toUpperCase() + category.slice(1)} Memorabilia - Shop Authentic | SportsSigned`
+        : seo.title
+
     const [searchParams, setSearchParams] = useSearchParams()
     const [products, setProducts] = useState<Product[]>([])
     // filteredProducts is now derived via useMemo
@@ -183,6 +194,16 @@ export function ShopPage() {
 
     return (
         <div className="min-h-screen bg-ivory pt-20">
+            <Helmet>
+                <title>{pageTitle}</title>
+                <meta name="description" content={seo.description} />
+                <meta property="og:title" content={pageTitle} />
+                <meta property="og:description" content={seo.description} />
+                <meta property="og:image" content={seo.ogImage} />
+                <meta name="twitter:title" content={pageTitle} />
+                <meta name="twitter:description" content={seo.description} />
+                <meta name="twitter:image" content={seo.ogImage} />
+            </Helmet>
             <PageHero
                 title={category ? (category.toLowerCase() === 'f1' ? 'Shop F1' : `Shop ${category.charAt(0).toUpperCase() + category.slice(1)}`) : "Shop All"}
                 subtitle="Authentic sports memorabilia. Professionally framed and ready to display."

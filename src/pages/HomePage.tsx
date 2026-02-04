@@ -1,37 +1,17 @@
-import { useState, useEffect } from "react"
 import { Helmet } from "react-helmet-async"
 import { Hero } from "@/components/home/Hero"
 import { AuthenticitySection } from "@/components/home/AuthenticitySection"
 import { PresentationSection } from "@/components/home/PresentationSection"
 import { WaitlistModal } from "@/components/home/WaitlistModal"
 import { TrustIndicators } from "@/components/home/TrustIndicators"
-import { supabase } from "@/lib/supabase"
+import { usePageSEO } from "@/hooks/usePageSEO"
 
 export function HomePage() {
-    const [seo, setSeo] = useState({
+    const seo = usePageSEO('home', {
         title: "SportsSigned | Premium Authenticated Collectibles",
         description: "Premium authenticated sports memorabilia with professional framing. Every piece comes with NFC digital authentication and lifetime guarantee.",
         ogImage: "https://www.sportssigned.com/og-image.jpg"
     })
-
-    useEffect(() => {
-        async function fetchSEO() {
-            const { data } = await supabase
-                .from('site_pages')
-                .select('meta_title, meta_description, og_image')
-                .eq('page_key', 'home')
-                .single()
-
-            if (data) {
-                setSeo({
-                    title: data.meta_title || seo.title,
-                    description: data.meta_description || seo.description,
-                    ogImage: data.og_image || seo.ogImage
-                })
-            }
-        }
-        fetchSEO()
-    }, [])
 
     return (
         <div className="min-h-screen">

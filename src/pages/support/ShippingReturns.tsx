@@ -1,8 +1,26 @@
 import { Truck, RotateCcw, ShieldCheck } from "lucide-react"
+import { Helmet } from "react-helmet-async"
+import { usePageSEO } from "@/hooks/usePageSEO"
 
 export function ShippingReturns() {
+    const seo = usePageSEO('shipping', {
+        title: "Shipping & Returns | SportsSigned",
+        description: "We ship worldwide using insured, tracked couriers. Learn more about our delivery times and returns policy.",
+        ogImage: "https://www.sportssigned.com/og-image.jpg"
+    })
+
     return (
         <div className="min-h-screen bg-ivory pt-28 pb-12 lg:pt-36 lg:pb-20">
+            <Helmet>
+                <title>{seo.title}</title>
+                <meta name="description" content={seo.description} />
+                <meta property="og:title" content={seo.title} />
+                <meta property="og:description" content={seo.description} />
+                <meta property="og:image" content={seo.ogImage} />
+                <meta name="twitter:title" content={seo.title} />
+                <meta name="twitter:description" content={seo.description} />
+                <meta name="twitter:image" content={seo.ogImage} />
+            </Helmet>
             <div className="container mx-auto px-4 max-w-4xl">
                 <div className="text-center mb-12">
                     <h1 className="text-3xl md:text-4xl font-serif font-bold text-charcoal mb-4">Shipping & Returns</h1>

@@ -16,7 +16,7 @@ ALTER TABLE site_pages ENABLE ROW LEVEL SECURITY;
 -- For simplicity in this project context, we might allow public read, and auth write.
 CREATE POLICY "Allow public read access" ON site_pages FOR SELECT USING (true);
 CREATE POLICY "Allow authenticated update" ON site_pages FOR UPDATE USING (auth.role() = 'authenticated');
-CREATE POLICY "Allow authenticated insert" ON site_pages FOR INSERT USING (auth.role() = 'authenticated');
+CREATE POLICY "Allow authenticated insert" ON site_pages FOR INSERT WITH CHECK (auth.role() = 'authenticated');
 
 -- Insert default data for All Static Pages
 INSERT INTO site_pages (page_key, title, meta_title, meta_description, og_image)

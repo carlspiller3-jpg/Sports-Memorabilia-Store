@@ -1,13 +1,25 @@
 import { Helmet } from "react-helmet-async"
 import { PageHero } from "@/components/ui/PageHero"
+import { usePageSEO } from "@/hooks/usePageSEO"
 
 export function AboutPage() {
+    const seo = usePageSEO('about', {
+        title: "Our Story | The New Standard in Authentic Memorabilia",
+        description: "We are redefining sports memorabilia. By working directly with athletes and utilising blockchain verification, we guarantee 100% authenticity for every signed shirt, boot, and photo.",
+        ogImage: "https://www.sportssigned.com/og-image.jpg"
+    })
+
     return (
         <div className="min-h-screen bg-ivory">
             <Helmet>
-                <title>Our Story | The New Standard in Authentic Memorabilia</title>
-                <meta name="description" content="We are redefining sports memorabilia. By working directly with athletes and utilising blockchain verification, we guarantee 100% authenticity for every signed shirt, boot, and photo." />
-                <meta name="keywords" content="authentic sports memorabilia, signed football shirts, blockchain authentication, sports history, conservation framing" />
+                <title>{seo.title}</title>
+                <meta name="description" content={seo.description} />
+                <meta property="og:title" content={seo.title} />
+                <meta property="og:description" content={seo.description} />
+                <meta property="og:image" content={seo.ogImage} />
+                <meta name="twitter:title" content={seo.title} />
+                <meta name="twitter:description" content={seo.description} />
+                <meta name="twitter:image" content={seo.ogImage} />
             </Helmet>
 
             <PageHero
