@@ -21,24 +21,82 @@ export function SEOManager() {
     const [saving, setSaving] = useState(false)
     const [successMessage, setSuccessMessage] = useState("")
 
+    const [error, setError] = useState<string | null>(null)
+
     useEffect(() => {
         fetchPages()
     }, [])
 
     async function fetchPages() {
         setLoading(true)
-        const { data, error } = await supabase
+        setError(null)
+        const { data, error: fetchError } = await supabase
             .from('site_pages')
             .select('*')
             .order('title')
 
-        if (error) {
-            console.error('Error fetching pages:', error)
+        if (fetchError) {
+            console.error('Error fetching pages:', fetchError)
+            setError(fetchError.message)
         } else {
             setPages(data || [])
             if (data && data.length > 0 && !selectedPage) {
                 setSelectedPage(data[0])
             }
+        }
+        setLoading(false)
+    }
+
+    async function seedDefaults() {
+        setLoading(true)
+        const defaults = [
+            {
+                page_key: 'home',
+                title: 'Home Page',
+                meta_title: 'SportsSigned | Premium Authenticated Collectibles',
+                meta_description: 'Premium authenticated sports memorabilia with professional framing. Every piece comes with NFC digital authentication and lifetime guarantee.',
+                og_image: 'https://www.sportssigned.com/og-image.jpg'
+            },
+            {
+                page_key: 'shop',
+                title: 'Shop All',
+                meta_title: 'Shop Authentic Sports Memorabilia | SportsSigned',
+                meta_description: 'Browse our collection of signed football shirts, boxing gloves, and boots. All items are 100% authentic and come with premium framing.',
+                og_image: 'https://www.sportssigned.com/og-image.jpg'
+            },
+            {
+                page_key: 'about',
+                title: 'About Us',
+                meta_title: 'Our Story | SportsSigned',
+                meta_description: 'We are setting the new standard in sports memorabilia. Learn about our commitment to authenticity, quality, and the "Unboxing Experience".',
+                og_image: 'https://www.sportssigned.com/og-image.jpg'
+            },
+            {
+                page_key: 'contact',
+                title: 'Contact Us',
+                meta_title: 'Contact Support | SportsSigned',
+                meta_description: 'Get in touch with our team for questions about your order, sourcing requests, or partnership opportunities.',
+                og_image: 'https://www.sportssigned.com/og-image.jpg'
+            },
+            {
+                page_key: 'faq',
+                title: 'FAQ',
+                meta_title: 'FAQ & Help | SportsSigned',
+                meta_description: 'Questions about authenticity, shipping, or framing? Find all the answers here.',
+                og_image: 'https://www.sportssigned.com/og-image.jpg'
+            }
+        ]
+
+        const { error: insertError } = await supabase
+            .from('site_pages')
+            .upsert(defaults, { onConflict: 'page_key' })
+
+        if (insertError) {
+            alert('Failed to seed data. Error: ' + insertError.message)
+        } else {
+            setSuccessMessage("Default pages loaded!")
+            setTimeout(() => setSuccessMessage(""), 3000)
+            fetchPages()
         }
         setLoading(false)
     }
@@ -129,7 +187,24 @@ export function SEOManager() {
                         ))}
                         {pages.length === 0 && (
                             <div className="p-8 text-center text-sm text-stone-400">
-                                No pages found.
+                                {error ? (
+                                    <div className="text-red-500 mb-4">
+                                        <p className="font-bold">Error loading pages:</p>
+                                        <p className="font-mono text-xs mt-1">{error}</p>
+                                        {error.includes('relation') && (
+                                            <p className="text-xs mt-2 text-stone-500">
+                                                Did you run the <strong>SUPABASE_SEO_v2.sql</strong> script?
+                                            </p>
+                                        )}
+                                    </div>
+                                ) : (
+                                    <div className="space-y-3">
+                                        <p>No pages found.</p>
+                                        <Button onClick={seedDefaults} variant="outline" size="sm" className="mx-auto w-full">
+                                            Load Default Pages
+                                        </Button>
+                                    </div>
+                                )}
                             </div>
                         )}
                     </div>
