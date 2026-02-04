@@ -70,58 +70,58 @@ export function SEOManager() {
             },
             {
                 page_key: 'shop_football',
-                title: 'Shop Football',
-                meta_title: 'Signed Football Memorabilia | Authentic Shirts & Boots',
-                meta_description: 'Shop authentic signed football shirts, boots, and photos. Certified legends from Premier League, La Liga and International football.',
+                title: 'Shop: Football',
+                meta_title: 'Signed Football Shirts & Boots | Authentic Memorabilia',
+                meta_description: 'Shop authentic signed football memorabilia. Premier League, La Liga, and International signed shirts, boots, and photos.',
                 og_image: 'https://www.sportssigned.com/og-image.jpg'
             },
             {
                 page_key: 'shop_boxing',
-                title: 'Shop Boxing',
-                meta_title: 'Signed Boxing Memorabilia | Gloves & Shorts',
-                meta_description: 'Authentic signed boxing gloves, shorts and robes. Legends including Tyson Fury, Anthony Joshua, Mike Tyson and Muhammad Ali.',
+                title: 'Shop: Boxing',
+                meta_title: 'Signed Boxing Gloves & Trunks | Authentic Memorabilia',
+                meta_description: 'Exclusive signed boxing memorabilia from legends of the ring. Authenticated gloves, shorts, and photos.',
                 og_image: 'https://www.sportssigned.com/og-image.jpg'
             },
             {
                 page_key: 'shop_f1',
-                title: 'Shop F1',
-                meta_title: 'F1 Memorabilia | Signed Helmets & Racewear',
-                meta_description: 'Official F1 memorabilia. Signed helmets, gloves and photos from Lewis Hamilton, Max Verstappen, Ayrton Senna and more.',
+                title: 'Shop: F1',
+                meta_title: 'F1 Memorabilia & Signed Racewear | SportsSigned',
+                meta_description: 'Authentic Formula 1 memorabilia. Signed helmets, race suits, and visors from World Champions.',
                 og_image: 'https://www.sportssigned.com/og-image.jpg'
             },
             {
                 page_key: 'shop_rugby',
-                title: 'Shop Rugby',
-                meta_title: 'Signed Rugby Memorabilia | Shirts & Balls',
-                meta_description: 'Authentic signed rugby union and league memorabilia. World Cup winners and legends of the game.',
-                og_image: 'https://www.sportssigned.com/og-image.jpg'
-            },
-            {
-                page_key: 'shop_ufc',
-                title: 'Shop UFC',
-                meta_title: 'UFC Memorabilia | Signed Gloves & Posters',
-                meta_description: 'Authentic signed UFC gloves and event posters. McGregor, Jones, St-Pierre and more.',
+                title: 'Shop: Rugby',
+                meta_title: 'Signed Rugby Shirts & Balls | SportsSigned',
+                meta_description: 'Authentic rugby memorabilia from Union and League legends.',
                 og_image: 'https://www.sportssigned.com/og-image.jpg'
             },
             {
                 page_key: 'shop_cricket',
-                title: 'Shop Cricket',
-                meta_title: 'Signed Cricket Memorabilia | Bats & Shirts',
-                meta_description: 'Authentic signed cricket bats and shirts. Legends of The Ashes and World Cricket.',
+                title: 'Shop: Cricket',
+                meta_title: 'Signed Cricket Bats & Shirts | SportsSigned',
+                meta_description: 'Authentic cricket memorabilia. Signed bats, balls, and shirts from cricketing greats.',
                 og_image: 'https://www.sportssigned.com/og-image.jpg'
             },
             {
                 page_key: 'shop_tennis',
-                title: 'Shop Tennis',
-                meta_title: 'Signed Tennis Memorabilia | Racquets & Balls',
-                meta_description: 'Authentic signed tennis memorabilia. Federer, Nadal, Djokovic, Murray and legends of the court.',
+                title: 'Shop: Tennis',
+                meta_title: 'Signed Tennis Memorabilia | SportsSigned',
+                meta_description: 'Authentic signed tennis balls, racquets, and photos from Grand Slam champions.',
                 og_image: 'https://www.sportssigned.com/og-image.jpg'
             },
             {
                 page_key: 'shop_golf',
-                title: 'Shop Golf',
-                meta_title: 'Signed Golf Memorabilia | Flags & Photos',
-                meta_description: 'Authentic signed golf memorabilia. Masters flags, photos and scorecards from the greats of the game.',
+                title: 'Shop: Golf',
+                meta_title: 'Signed Golf Memorabilia | SportsSigned',
+                meta_description: 'Authentic signed flags, balls, and photos from the Masters and Open Championship.',
+                og_image: 'https://www.sportssigned.com/og-image.jpg'
+            },
+            {
+                page_key: 'shop_ufc',
+                title: 'Shop: UFC',
+                meta_title: 'Signed UFC Memorabilia | SportsSigned',
+                meta_description: 'Authentic signed UFC gloves and posters from the octagon.',
                 og_image: 'https://www.sportssigned.com/og-image.jpg'
             },
             {
@@ -218,6 +218,14 @@ export function SEOManager() {
                         </h1>
                     </div>
                     <div className="flex items-center gap-2">
+                        <Button
+                            onClick={seedDefaults}
+                            variant="ghost"
+                            size="sm"
+                            className="hidden md:flex"
+                        >
+                            Refresh Defaults
+                        </Button>
                         {successMessage && (
                             <span className="text-sm text-green-600 font-medium flex items-center gap-1 animate-fade-in mr-2">
                                 <Check className="w-4 h-4" /> {successMessage}
