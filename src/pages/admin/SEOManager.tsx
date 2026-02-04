@@ -24,12 +24,14 @@ export function SEOManager() {
     const [error, setError] = useState<string | null>(null)
 
     useEffect(() => {
+        console.log("SEO Manager Mounted")
         fetchPages()
     }, [])
 
     async function fetchPages() {
         setLoading(true)
         setError(null)
+        console.log("Fetching pages...")
         const { data, error: fetchError } = await supabase
             .from('site_pages')
             .select('*')
@@ -39,6 +41,7 @@ export function SEOManager() {
             console.error('Error fetching pages:', fetchError)
             setError(fetchError.message)
         } else {
+            console.log("Pages fetched:", data)
             setPages(data || [])
             if (data && data.length > 0 && !selectedPage) {
                 setSelectedPage(data[0])
@@ -49,6 +52,7 @@ export function SEOManager() {
 
     async function seedDefaults() {
         setLoading(true)
+        console.log("Seeding defaults...")
         const defaults = [
             {
                 page_key: 'home',
@@ -84,6 +88,13 @@ export function SEOManager() {
                 meta_title: 'FAQ & Help | SportsSigned',
                 meta_description: 'Questions about authenticity, shipping, or framing? Find all the answers here.',
                 og_image: 'https://www.sportssigned.com/og-image.jpg'
+            },
+            {
+                page_key: 'shipping',
+                title: 'Shipping & Returns',
+                meta_title: 'Shipping Policy | SportsSigned',
+                meta_description: 'We ship worldwide using insured, tracked couriers. Learn more about our delivery times and returns policy.',
+                og_image: 'https://www.sportssigned.com/og-image.jpg'
             }
         ]
 
@@ -92,6 +103,7 @@ export function SEOManager() {
             .upsert(defaults, { onConflict: 'page_key' })
 
         if (insertError) {
+            console.error('Seeding error:', insertError)
             alert('Failed to seed data. Error: ' + insertError.message)
         } else {
             setSuccessMessage("Default pages loaded!")
@@ -128,20 +140,20 @@ export function SEOManager() {
     }
 
     if (loading) {
-        return <div className="p-12 text-center">Loading SEO Manager...</div>
+        return <div className="p-12 text-center pt-32">Loading SEO Manager...</div>
     }
 
     return (
-        <div className="min-h-screen bg-stone/5 pb-20">
+        <div className="min-h-screen bg-ivory pb-20 relative z-0">
             <Helmet>
                 <title>SEO Manager | Admin</title>
             </Helmet>
 
-            {/* Header */}
-            <div className="bg-white border-b border-stone/10 sticky top-0 z-10">
+            {/* Header - Use relative positioning to avoid overlap issues with main header */}
+            <div className="bg-white border-b border-stone/10 top-0 z-10 shadow-sm relative">
                 <div className="container mx-auto px-4 h-16 flex items-center justify-between">
                     <div className="flex items-center gap-4">
-                        <Link to="/crm" className="p-2 hover:bg-stone/5 rounded-full text-navy/60 transition-colors">
+                        <Link to="/crm" className="p-2 hover:bg-stone/20 rounded-full text-navy/60 transition-colors">
                             <ArrowLeft className="w-5 h-5" />
                         </Link>
                         <h1 className="font-serif text-xl font-bold text-navy flex items-center gap-2">
