@@ -59,98 +59,98 @@ export function SEOManager() {
                 title: 'Home Page',
                 meta_title: 'SportsSigned | Premium Authenticated Collectibles',
                 meta_description: 'Premium authenticated sports memorabilia with professional framing. Every piece comes with NFC digital authentication and lifetime guarantee.',
-                og_image: 'https://www.sportssigned.com/og-image.jpg'
+                og_image: 'https://www.sportssigned.com/logo.png'
             },
             {
                 page_key: 'shop',
                 title: 'Shop All',
                 meta_title: 'Shop Authentic Sports Memorabilia | SportsSigned',
                 meta_description: 'Browse our collection of signed football shirts, boxing gloves, and boots. All items are 100% authentic and come with premium framing.',
-                og_image: 'https://www.sportssigned.com/og-image.jpg'
+                og_image: 'https://www.sportssigned.com/logo.png'
             },
             {
                 page_key: 'shop_football',
                 title: 'Shop: Football',
                 meta_title: 'Signed Football Shirts & Boots | Authentic Memorabilia',
                 meta_description: 'Shop authentic signed football memorabilia. Premier League, La Liga, and International signed shirts, boots, and photos.',
-                og_image: 'https://www.sportssigned.com/og-image.jpg'
+                og_image: 'https://www.sportssigned.com/logo.png'
             },
             {
                 page_key: 'shop_boxing',
                 title: 'Shop: Boxing',
                 meta_title: 'Signed Boxing Gloves & Trunks | Authentic Memorabilia',
                 meta_description: 'Exclusive signed boxing memorabilia from legends of the ring. Authenticated gloves, shorts, and photos.',
-                og_image: 'https://www.sportssigned.com/og-image.jpg'
+                og_image: 'https://www.sportssigned.com/logo.png'
             },
             {
                 page_key: 'shop_f1',
                 title: 'Shop: F1',
                 meta_title: 'F1 Memorabilia & Signed Racewear | SportsSigned',
                 meta_description: 'Authentic Formula 1 memorabilia. Signed helmets, race suits, and visors from World Champions.',
-                og_image: 'https://www.sportssigned.com/og-image.jpg'
+                og_image: 'https://www.sportssigned.com/logo.png'
             },
             {
                 page_key: 'shop_rugby',
                 title: 'Shop: Rugby',
                 meta_title: 'Signed Rugby Shirts & Balls | SportsSigned',
                 meta_description: 'Authentic rugby memorabilia from Union and League legends.',
-                og_image: 'https://www.sportssigned.com/og-image.jpg'
+                og_image: 'https://www.sportssigned.com/logo.png'
             },
             {
                 page_key: 'shop_cricket',
                 title: 'Shop: Cricket',
                 meta_title: 'Signed Cricket Bats & Shirts | SportsSigned',
                 meta_description: 'Authentic cricket memorabilia. Signed bats, balls, and shirts from cricketing greats.',
-                og_image: 'https://www.sportssigned.com/og-image.jpg'
+                og_image: 'https://www.sportssigned.com/logo.png'
             },
             {
                 page_key: 'shop_tennis',
                 title: 'Shop: Tennis',
                 meta_title: 'Signed Tennis Memorabilia | SportsSigned',
                 meta_description: 'Authentic signed tennis balls, racquets, and photos from Grand Slam champions.',
-                og_image: 'https://www.sportssigned.com/og-image.jpg'
+                og_image: 'https://www.sportssigned.com/logo.png'
             },
             {
                 page_key: 'shop_golf',
                 title: 'Shop: Golf',
                 meta_title: 'Signed Golf Memorabilia | SportsSigned',
                 meta_description: 'Authentic signed flags, balls, and photos from the Masters and Open Championship.',
-                og_image: 'https://www.sportssigned.com/og-image.jpg'
+                og_image: 'https://www.sportssigned.com/logo.png'
             },
             {
                 page_key: 'shop_ufc',
                 title: 'Shop: UFC',
                 meta_title: 'Signed UFC Memorabilia | SportsSigned',
                 meta_description: 'Authentic signed UFC gloves and posters from the octagon.',
-                og_image: 'https://www.sportssigned.com/og-image.jpg'
+                og_image: 'https://www.sportssigned.com/logo.png'
             },
             {
                 page_key: 'about',
                 title: 'About Us',
                 meta_title: 'Our Story | SportsSigned',
                 meta_description: 'We are setting the new standard in sports memorabilia. Learn about our commitment to authenticity, quality, and the "Unboxing Experience".',
-                og_image: 'https://www.sportssigned.com/og-image.jpg'
+                og_image: 'https://www.sportssigned.com/logo.png'
             },
             {
                 page_key: 'contact',
                 title: 'Contact Us',
                 meta_title: 'Contact Support | SportsSigned',
                 meta_description: 'Get in touch with our team for questions about your order, sourcing requests, or partnership opportunities.',
-                og_image: 'https://www.sportssigned.com/og-image.jpg'
+                og_image: 'https://www.sportssigned.com/logo.png'
             },
             {
                 page_key: 'faq',
                 title: 'FAQ',
                 meta_title: 'FAQ & Help | SportsSigned',
                 meta_description: 'Questions about authenticity, shipping, or framing? Find all the answers here.',
-                og_image: 'https://www.sportssigned.com/og-image.jpg'
+                og_image: 'https://www.sportssigned.com/logo.png'
             },
             {
                 page_key: 'shipping',
                 title: 'Shipping & Returns',
                 meta_title: 'Shipping Policy | SportsSigned',
                 meta_description: 'We ship worldwide using insured, tracked couriers. Learn more about our delivery times and returns policy.',
-                og_image: 'https://www.sportssigned.com/og-image.jpg'
+                og_image: 'https://www.sportssigned.com/logo.png'
             }
         ]
 
