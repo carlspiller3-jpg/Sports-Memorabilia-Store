@@ -220,9 +220,8 @@ export function SEOManager() {
                     <div className="flex items-center gap-2">
                         <Button
                             onClick={seedDefaults}
-                            variant="ghost"
                             size="sm"
-                            className=""
+                            className="bg-navy text-white hover:bg-navy/90"
                         >
                             Load Missing Pages
                         </Button>
