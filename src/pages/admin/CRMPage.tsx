@@ -59,6 +59,10 @@ export function CRMPage() {
         notes: []
     });
 
+    // Import State
+    const [importOwner, setImportOwner] = useState('Carl Spiller');
+    const [isImportModalOpen, setIsImportModalOpen] = useState(false);
+
     // Form State (Note)
     const [newNote, setNewNote] = useState('');
 
@@ -208,7 +212,7 @@ export function CRMPage() {
                         contact_number: String(getValue(row, ['phone', 'mobile', 'cell', 'tel', 'contact number']) || ''),
                         contact_email: getValue(row, ['email', 'e-mail', 'mail']) || '',
                         website: getValue(row, ['website', 'site', 'url']) || '',
-                        owner: 'Carl Spiller',
+                        owner: importOwner,
                         status: status,
                         notes: notes
                     };
@@ -229,6 +233,7 @@ export function CRMPage() {
                 alert('Error reading file. Please ensure it is a valid Excel file.');
             }
             if (fileInputRef.current) fileInputRef.current.value = '';
+            setIsImportModalOpen(false);
         };
         reader.readAsBinaryString(file);
     };
@@ -450,7 +455,7 @@ export function CRMPage() {
                         <button onClick={handleLogout} className="bg-white border border-navy/10 text-charcoal/70 px-4 py-3 rounded-md font-medium flex items-center gap-2 hover:bg-red-50 hover:text-red-600 hover:border-red-100 transition-colors"><LogOut className="w-4 h-4" />Logout</button>
                         <button onClick={handleWipeAllContacts} className="bg-red-50 border border-red-100 text-red-600 px-4 py-3 rounded-md font-medium flex items-center gap-2 hover:bg-red-100 transition-colors"><Trash2 className="w-4 h-4" />Wipe All</button>
                         <input type="file" accept=".xlsx, .xls, .csv" ref={fileInputRef} className="hidden" onChange={handleFileUpload} />
-                        <button onClick={() => fileInputRef.current?.click()} className="bg-white border border-navy/10 text-charcoal/70 px-4 py-3 rounded-md font-medium flex items-center gap-2 hover:bg-navy/5 transition-colors"><Upload className="w-4 h-4" />Import</button>
+                        <button onClick={() => setIsImportModalOpen(true)} className="bg-white border border-navy/10 text-charcoal/70 px-4 py-3 rounded-md font-medium flex items-center gap-2 hover:bg-navy/5 transition-colors"><Upload className="w-4 h-4" />Import</button>
                         <button onClick={() => setIsAdding(true)} className="bg-gold hover:bg-gold/90 text-ivory px-6 py-3 rounded-md font-medium flex items-center gap-2 transition-colors shadow-lg shadow-gold/20"><Plus className="w-5 h-5" />Add Contact</button>
                     </div>
                 </div>
@@ -776,6 +781,36 @@ export function CRMPage() {
                     </div>
                 </div>
             )}
+
+            {/* Import Modal */}
+            {isImportModalOpen && (
+                <div className="fixed inset-0 z-[200] flex items-center justify-center bg-navy/40 backdrop-blur-sm p-4 animate-in fade-in duration-200">
+                    <div className="bg-white p-8 rounded-xl shadow-2xl w-full max-w-sm relative border border-white/20">
+                        <button onClick={() => setIsImportModalOpen(false)} className="absolute top-4 right-4 p-2 hover:bg-gray-100 rounded-full transition-colors"><X className="w-5 h-5 text-charcoal/50" /></button>
+                        <h2 className="font-serif text-xl text-navy mb-4">Import Contacts</h2>
+                        <p className="text-sm text-charcoal/60 mb-6">Select who these contacts should be assigned to.</p>
+
+                        <div className="mb-6">
+                            <label className="text-[10px] font-bold text-charcoal/50 uppercase tracking-widest mb-1 block">Assign To</label>
+                            <select
+                                className="w-full p-3 bg-ivory border border-navy/10 rounded focus:border-gold focus:outline-none font-medium text-navy"
+                                value={importOwner}
+                                onChange={(e) => setImportOwner(e.target.value)}
+                            >
+                                <option value="Carl Spiller">Carl Spiller</option>
+                                <option value="Rhys Barker">Rhys Barker</option>
+                                <option value="Unassigned">Unassigned</option>
+                            </select>
+                        </div>
+
+                        <button onClick={() => fileInputRef.current?.click()} className="w-full bg-navy text-white py-3 rounded font-bold hover:bg-navy/90 transition-all flex items-center justify-center gap-2">
+                            <Upload className="w-4 h-4" />
+                            Select File
+                        </button>
+                    </div>
+                </div>
+            )}
+
         </div>
     );
 }
