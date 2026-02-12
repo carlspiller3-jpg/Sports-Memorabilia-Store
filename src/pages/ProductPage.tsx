@@ -25,6 +25,7 @@ import {
 import { RelatedProducts } from "@/components/product/RelatedProducts"
 import { fetchProductByHandle } from "@/lib/shopify"
 import { SigningEventLayout } from "@/components/product/SigningEventLayout"
+import { WaitlistSignup } from "@/components/ui/WaitlistSignup"
 
 export function ProductPage() {
     const { handle } = useParams<{ handle: string }>()
@@ -302,19 +303,35 @@ export function ProductPage() {
 
                         {/* Actions */}
                         <div className="space-y-4 pt-1">
-                            <Button
-                                size="lg"
-                                onClick={handleAddToCart}
-                                className="w-full text-lg h-14 shadow-lg shadow-gold/20 hover:shadow-gold/30 transition-shadow bg-charcoal text-white hover:bg-charcoal/90"
-                            >
-                                Add to Cart
-                            </Button>
+                            {selectedVariant?.inventory_quantity !== undefined && selectedVariant.inventory_quantity <= 0 ? (
+                                <div className="bg-stone-50 p-6 rounded-lg border border-stone/10 shadow-sm">
+                                    <h4 className="text-lg font-serif font-bold text-charcoal mb-2">Item Currently Out of Stock</h4>
+                                    <p className="text-sm text-navy/70 mb-4">
+                                        This exclusive item is currently unavailable. Join our priority waitlist to secure it from our next private signing session.
+                                    </p>
+                                    <WaitlistSignup
+                                        productHandle={product.handle}
+                                        variantId={selectedVariant.id}
+                                        title="Reserve Your Spot"
+                                    />
+                                </div>
+                            ) : (
+                                <Button
+                                    size="lg"
+                                    onClick={handleAddToCart}
+                                    className="w-full text-lg h-14 shadow-lg shadow-gold/20 hover:shadow-gold/30 transition-shadow bg-charcoal text-white hover:bg-charcoal/90"
+                                >
+                                    Add to Cart
+                                </Button>
+                            )}
 
-                            {/* Payment Icons */}
-                            <div className="flex justify-center flex-wrap gap-2 opacity-60 grayscale hover:grayscale-0 transition-all duration-500 text-[10px] text-stone-500">
-                                <span className="flex items-center gap-1 border px-2 py-1 rounded"><ShieldCheck className="w-3 h-3" /> Secure Checkout</span>
-                                <span className="flex items-center gap-1 border px-2 py-1 rounded"><Truck className="w-3 h-3" /> Fast Shipping</span>
-                            </div>
+                            {/* Payment Icons - Only show if in stock or generally relevant */}
+                            {(!selectedVariant?.inventory_quantity || selectedVariant.inventory_quantity > 0) && (
+                                <div className="flex justify-center flex-wrap gap-2 opacity-60 grayscale hover:grayscale-0 transition-all duration-500 text-[10px] text-stone-500">
+                                    <span className="flex items-center gap-1 border px-2 py-1 rounded"><ShieldCheck className="w-3 h-3" /> Secure Checkout</span>
+                                    <span className="flex items-center gap-1 border px-2 py-1 rounded"><Truck className="w-3 h-3" /> Fast Shipping</span>
+                                </div>
+                            )}
                         </div>
 
                         {/* Certification & Provenance - EXPANDED TRINITY */}

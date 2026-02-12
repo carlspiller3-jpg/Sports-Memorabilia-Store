@@ -9,7 +9,7 @@ CREATE TABLE IF NOT EXISTS site_pages (
     updated_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now())
 );
 
--- Enable Row Level Security (RLS)
+-- Enable Row Level Security (RLS) 
 ALTER TABLE site_pages ENABLE ROW LEVEL SECURITY;
 
 -- Create policies (Allow read to everyone, write to authenticated users/admins)
@@ -26,42 +26,42 @@ VALUES
     'Home Page',
     'SportsSigned | Premium Authenticated Collectibles',
     'Premium authenticated sports memorabilia with professional framing. Every piece comes with NFC digital authentication and lifetime guarantee.',
-    'https://www.sportssigned.com/og-image.jpg'
+    'https://www.sportssigned.com/logo.png'
 ),
 (
     'shop',
     'Shop All',
     'Shop Authentic Sports Memorabilia | SportsSigned',
     'Browse our collection of signed football shirts, boxing gloves, and boots. All items are 100% authentic and come with premium framing.',
-    'https://www.sportssigned.com/og-image.jpg'
+    'https://www.sportssigned.com/logo.png'
 ),
 (
     'about',
     'About Us',
     'Our Story | SportsSigned',
     'We are setting the new standard in sports memorabilia. Learn about our commitment to authenticity, quality, and the "Unboxing Experience".',
-    'https://www.sportssigned.com/og-image.jpg'
+    'https://www.sportssigned.com/logo.png'
 ),
 (
     'faq',
     'Frequency Asked Questions',
     'FAQ & Help | SportsSigned',
     'Questions about authenticity, shipping, or framing? Find all the answers here.',
-    'https://www.sportssigned.com/og-image.jpg'
+    'https://www.sportssigned.com/logo.png'
 ),
 (
     'contact',
     'Contact Us',
     'Contact Support | SportsSigned',
     'Get in touch with our team for questions about your order, sourcing requests, or partnership opportunities.',
-    'https://www.sportssigned.com/og-image.jpg'
+    'https://www.sportssigned.com/logo.png'
 ),
 (
     'shipping',
     'Shipping & Returns',
     'Shipping Policy | SportsSigned',
     'We ship worldwide using insured, tracked couriers. Learn more about our delivery times and returns policy.',
-    'https://www.sportssigned.com/og-image.jpg'
+    'https://www.sportssigned.com/logo.png'
 )
 ON CONFLICT (page_key) DO UPDATE SET 
     meta_title = EXCLUDED.meta_title,
