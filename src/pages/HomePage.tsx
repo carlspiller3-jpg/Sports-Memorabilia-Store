@@ -50,13 +50,14 @@ export function HomePage() {
             </Helmet>
 
             {/* Above the Fold: Hero + Trust Bar */}
-            <div className="pt-24 min-h-screen lg:h-screen flex flex-col justify-between">
+            <div className="pt-32 min-h-screen lg:h-screen flex flex-col justify-between">
                 <div className="flex-1 min-h-0 relative">
                     <Hero />
                 </div>
-                <FeaturedProducts />
                 <TrustIndicators />
             </div>
+
+            <FeaturedProducts />
 
             {/* Below the Fold Content */}
             <PresentationSection />
