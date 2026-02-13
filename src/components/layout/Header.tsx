@@ -15,7 +15,7 @@ export function Header() {
     return (
         <>
             <div className="fixed top-0 left-0 right-0 z-[101] bg-navy text-gold text-[10px] uppercase tracking-widest font-bold py-2 text-center border-b border-gold/20">
-                Free Worldwide Shipping on all Framed Items
+                FREE UK DELIVERY ON ORDERS OVER £350 | WORLDWIDE SHIPPING AVAILABLE
             </div>
             <header className={`fixed left-0 right-0 z-[100] transition-all duration-300 border-b py-4 print:hidden ${headerBg}`}>
                 <div className="container mx-auto px-4 flex items-center justify-between">
