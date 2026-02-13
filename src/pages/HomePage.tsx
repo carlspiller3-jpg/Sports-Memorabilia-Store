@@ -4,6 +4,7 @@ import { AuthenticitySection } from "@/components/home/AuthenticitySection"
 import { PresentationSection } from "@/components/home/PresentationSection"
 import { WaitlistModal } from "@/components/home/WaitlistModal"
 import { TrustIndicators } from "@/components/home/TrustIndicators"
+import { FeaturedProducts } from "@/components/home/FeaturedProducts"
 import { usePageSEO } from "@/hooks/usePageSEO"
 
 export function HomePage() {
@@ -53,6 +54,7 @@ export function HomePage() {
                 <div className="flex-1 min-h-0 relative">
                     <Hero />
                 </div>
+                <FeaturedProducts />
                 <TrustIndicators />
             </div>
 

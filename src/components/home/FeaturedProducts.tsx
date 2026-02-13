@@ -15,6 +15,22 @@ export function FeaturedProducts() {
         async function fetchFeaturedProducts() {
             setLoading(true)
 
+            if (import.meta.env.VITE_USE_LIVE_SHOPIFY === 'true') {
+                try {
+                    // We can import fetchAllProducts or make a quick query here
+                    // Better to reuse the lib function
+                    const { fetchAllProducts } = await import("@/lib/shopify")
+                    const allProducts = await fetchAllProducts()
+                    // Just take top 4
+                    setProducts(allProducts.slice(0, 4))
+                } catch (e) {
+                    console.error("Shopify fetch error", e)
+                    setProducts(PLACEHOLDER_PRODUCTS.slice(0, 4))
+                }
+                setLoading(false)
+                return
+            }
+
             const { data, error } = await supabase
                 .from('products')
                 .select(`

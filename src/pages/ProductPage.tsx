@@ -327,10 +327,18 @@ export function ProductPage() {
 
                             {/* Payment Icons - Only show if in stock or generally relevant */}
                             {(!selectedVariant?.inventory_quantity || selectedVariant.inventory_quantity > 0) && (
-                                <div className="flex justify-center flex-wrap gap-2 opacity-60 grayscale hover:grayscale-0 transition-all duration-500 text-[10px] text-stone-500">
-                                    <span className="flex items-center gap-1 border px-2 py-1 rounded"><ShieldCheck className="w-3 h-3" /> Secure Checkout</span>
-                                    <span className="flex items-center gap-1 border px-2 py-1 rounded"><Truck className="w-3 h-3" /> Fast Shipping</span>
-                                </div>
+                                <>
+                                    <div className="flex justify-center flex-wrap gap-2 opacity-60 grayscale hover:grayscale-0 transition-all duration-500 text-[10px] text-stone-500">
+                                        <span className="flex items-center gap-1 border px-2 py-1 rounded-sm"><ShieldCheck className="w-3 h-3" /> Secure Checkout</span>
+                                        <span className="flex items-center gap-1 border px-2 py-1 rounded-sm"><Truck className="w-3 h-3" /> Fast Shipping</span>
+                                    </div>
+                                    <div className="flex justify-center gap-2 grayscale opacity-70 mt-2">
+                                        <img src="https://cdn.shopify.com/s/files/1/0070/7032/files/visa.svg?v=1602737671" className="h-4" alt="Visa" />
+                                        <img src="https://cdn.shopify.com/s/files/1/0070/7032/files/master.svg?v=1602737671" className="h-4" alt="Mastercard" />
+                                        <img src="https://cdn.shopify.com/s/files/1/0070/7032/files/amex.svg?v=1602737671" className="h-4" alt="Amex" />
+                                        <img src="https://cdn.shopify.com/s/files/1/0070/7032/files/paypal.svg?v=1602737671" className="h-4" alt="PayPal" />
+                                    </div>
+                                </>
                             )}
                         </div>
 
