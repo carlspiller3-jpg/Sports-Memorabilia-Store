@@ -110,7 +110,7 @@ export function InvoiceGenerator() {
                 <table style="width: 100%;">
                     <tr>
                         <td style="width: 60%;">
-                             <img src="https://sportssigned.com/logo-transparent.png" class="logo-img" alt="Sports Memorabilia Store" />
+                             <img src="https://sportssigned.com/logo-transparent.png" class="logo-img" width="200" style="background-color: white; padding: 5px; border-radius: 4px;" alt="Sports Memorabilia Store" />
                              <div class="company-name">Sports Memorabilia Store Limited</div>
                              <div class="company-details">
                                 189 Greenwood, Walters Ash<br>
