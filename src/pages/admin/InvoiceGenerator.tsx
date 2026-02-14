@@ -24,6 +24,7 @@ interface InvoiceData {
     bankAccountNumber: string;
     bankSortCode: string;
     currency: string;
+    vatRate: number;
 }
 
 export function InvoiceGenerator() {
@@ -37,10 +38,11 @@ export function InvoiceGenerator() {
         clientEmail: '',
         items: [{ id: '1', description: 'Consulting Services', quantity: 1, rate: 0 }],
         notes: 'Thank you for your business.',
-        bankAccountName: 'Sports Memorabilia Ltd',
-        bankAccountNumber: '',
-        bankSortCode: '',
-        currency: 'GBP'
+        bankAccountName: 'Sports Memorabilia Store Limited',
+        bankAccountNumber: '57113499',
+        bankSortCode: '23-05-80',
+        currency: 'GBP',
+        vatRate: 0
     });
 
     const addItem = () => {
@@ -70,13 +72,16 @@ export function InvoiceGenerator() {
         return data.items.reduce((acc, item) => acc + (item.quantity * item.rate), 0);
     };
 
+    const calculateVAT = () => {
+        return calculateSubtotal() * (data.vatRate / 100);
+    };
+
     const formatCurrency = (amount: number) => {
         return new Intl.NumberFormat('en-GB', { style: 'currency', currency: data.currency }).format(amount);
     };
 
     const downloadWordDoc = () => {
         const subtotal = calculateSubtotal();
-        const total = subtotal; // Add tax logic if needed
 
         const htmlContent = `
         <html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'>
@@ -89,21 +94,36 @@ export function InvoiceGenerator() {
                 td, th { padding: 8px; text-align: left; vertical-align: top; }
                 .header-container { margin-bottom: 40px; border-bottom: 2px solid #1c273a; padding-bottom: 20px; }
                 .invoice-title { font-size: 28pt; font-weight: bold; color: #1c273a; text-transform: uppercase; float: right; }
-                .company-name { font-size: 18pt; font-weight: bold; color: #c6a664; margin-bottom: 10px; }
+                .company-name { font-size: 18pt; font-weight: bold; color: #c6a664; margin-bottom: 5px; }
+                .company-details { color: #555; font-size: 10pt; line-height: 1.4; }
                 .info-label { font-weight: bold; color: #666; font-size: 9pt; text-transform: uppercase; }
                 .items-table th { background-color: #1c273a; color: white; font-weight: bold; padding: 10px; }
                 .items-table td { border-bottom: 1px solid #eee; padding: 10px; }
                 .total-section { float: right; width: 300px; margin-top: 20px; }
                 .total-row td { border-top: 2px solid #1c273a; font-weight: bold; font-size: 14pt; color: #1c273a; }
                 .footer { margin-top: 50px; border-top: 1px solid #eee; padding-top: 20px; font-size: 9pt; color: #888; text-align: center; }
+                .logo-img { max-height: 80px; margin-bottom: 15px; }
             </style>
         </head>
         <body>
             <div class="header-container">
-                <span class="invoice-title">INVOICE</span>
-                <div class="company-name">Sports Memorabilia Store</div>
-                <div>London, UK</div>
-                <div>contact@sportssigned.com</div>
+                <table style="width: 100%;">
+                    <tr>
+                        <td style="width: 60%;">
+                             <img src="https://sportssigned.com/logo-transparent.png" class="logo-img" alt="Sports Memorabilia Store" />
+                             <div class="company-name">Sports Memorabilia Store Limited</div>
+                             <div class="company-details">
+                                189 Greenwood, Walters Ash<br>
+                                Buckinghamshire, HP14 4XF<br>
+                                UK<br>
+                                Email: info@sportssigned.com
+                             </div>
+                        </td>
+                        <td style="width: 40%; text-align: right; vertical-align: top;">
+                            <div class="invoice-title">INVOICE</div>
+                        </td>
+                    </tr>
+                </table>
             </div>
 
             <table style="margin-bottom: 40px;">
@@ -161,9 +181,13 @@ export function InvoiceGenerator() {
                         <td style="text-align: right; padding-right: 20px;">Subtotal</td>
                         <td style="text-align: right;">${formatCurrency(subtotal)}</td>
                     </tr>
+                    <tr>
+                        <td style="text-align: right; padding-right: 20px;">VAT (${data.vatRate}%)</td>
+                        <td style="text-align: right;">${formatCurrency(calculateVAT())}</td>
+                    </tr>
                     <tr class="total-row">
                         <td style="text-align: right; padding-right: 20px;">Total</td>
-                        <td style="text-align: right;">${formatCurrency(total)}</td>
+                        <td style="text-align: right;">${formatCurrency(subtotal + calculateVAT())}</td>
                     </tr>
                 </table>
             </div>
@@ -314,6 +338,15 @@ export function InvoiceGenerator() {
                                     onChange={(e) => setData({ ...data, bankAccountNumber: e.target.value })}
                                     className="w-full p-2 bg-ivory border border-navy/10 rounded text-sm"
                                 />
+                                <div className="col-span-2 flex items-center gap-2 mt-2">
+                                    <label className="text-xs font-bold text-navy">VAT Rate %</label>
+                                    <input
+                                        type="number"
+                                        value={data.vatRate}
+                                        onChange={(e) => setData({ ...data, vatRate: Number(e.target.value) })}
+                                        className="w-20 p-2 bg-ivory border border-navy/10 rounded text-sm"
+                                    />
+                                </div>
                             </div>
                         </div>
                     </div>
