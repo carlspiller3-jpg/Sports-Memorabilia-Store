@@ -20,9 +20,16 @@ export function FeaturedProducts() {
                     // We can import fetchAllProducts or make a quick query here
                     // Better to reuse the lib function
                     const { fetchAllProducts } = await import("@/lib/shopify")
-                    const allProducts = await fetchAllProducts()
-                    // Just take top 4
-                    setProducts(allProducts.slice(0, 4))
+                    const shopifyProducts = await fetchAllProducts()
+
+                    // Allow mixing real products with placeholders to maintain the grid
+                    const combinedProducts = [...shopifyProducts]
+                    if (combinedProducts.length < 4) {
+                        const needed = 4 - combinedProducts.length
+                        combinedProducts.push(...PLACEHOLDER_PRODUCTS.slice(0, needed))
+                    }
+
+                    setProducts(combinedProducts.slice(0, 4))
                 } catch (e) {
                     console.error("Shopify fetch error", e)
                     setProducts(PLACEHOLDER_PRODUCTS.slice(0, 4))
