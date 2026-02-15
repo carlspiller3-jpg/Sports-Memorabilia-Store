@@ -18,7 +18,7 @@ export function Header() {
                 FREE UK DELIVERY ON ORDERS OVER £350 | WORLDWIDE SHIPPING AVAILABLE
             </div>
             <header className={`fixed left-0 right-0 z-[100] transition-all duration-300 border-b py-4 print:hidden ${headerBg}`}>
-                <div className="container mx-auto px-4 flex items-center justify-between">
+                <div className="container mx-auto px-4 flex items-center justify-between relative">
                     <Sheet>
                         <SheetTrigger asChild>
                             <button className="md:hidden p-2 hover:bg-white/10 rounded-md transition-colors">
@@ -44,7 +44,7 @@ export function Header() {
                     </Sheet>
 
                     {/* Logo */}
-                    <div className="flex-shrink-0 flex items-center z-[101] relative">
+                    <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 md:static md:transform-none flex-shrink-0 flex items-center z-[101]">
                         <Link to="/" className="flex items-center">
                             <img
                                 src="/logo-transparent.png"
