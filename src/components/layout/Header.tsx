@@ -49,7 +49,7 @@ export function Header() {
                             <img
                                 src="/logo-transparent.png"
                                 alt="Sports Memorabilia Store"
-                                className="h-16 w-auto object-contain"
+                                className="h-12 md:h-16 w-auto object-contain"
                             />
                         </Link>
                     </div>
