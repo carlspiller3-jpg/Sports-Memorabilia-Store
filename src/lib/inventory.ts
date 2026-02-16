@@ -28,7 +28,7 @@ const commonFields = (id: string, title: string, type: 'boot' | 'photo') => ({
     options: [],
     // Using high-quality Unsplash placeholders that match the sport/type
     images: type === 'boot'
-        ? ['/products/boot_standard.png']
+        ? ['/products/boot_navy_flat.png']
         : ['https://images.unsplash.com/photo-1579952363873-27f3bade9f55?q=80&w=800&auto=format&fit=crop']
 })
 
