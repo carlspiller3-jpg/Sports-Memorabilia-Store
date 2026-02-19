@@ -21,7 +21,8 @@ class ChatEngine {
 
     // 0. LLM OVERRIDE (If API Key is set)
     const geminiKey = import.meta.env.VITE_GEMINI_API_KEY;
-    if (geminiKey && geminiKey.length > 10) {
+    // Only use LLM if message is not empty (don't waste tokens on initial "hello")
+    if (geminiKey && geminiKey.length > 10 && userMessage && userMessage.trim().length > 0) {
       try {
         const llmResponse = await llmEngine.generateResponse(userMessage);
         return {
