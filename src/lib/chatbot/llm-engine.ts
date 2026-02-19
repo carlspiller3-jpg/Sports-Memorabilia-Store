@@ -10,6 +10,7 @@ let model: any = null;
 if (API_KEY && API_KEY.length > 0) {
     try {
         const genAI = new GoogleGenerativeAI(API_KEY);
+        console.log("Initializing Gemini 2.0 Flash");
         model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
     } catch (e) {
         console.warn("Failed to init Gemini", e);
