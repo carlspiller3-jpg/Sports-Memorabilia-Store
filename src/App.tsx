@@ -38,6 +38,7 @@ import { CRMPage } from "@/pages/admin/CRMPage"
 import { InvoiceGenerator } from "@/pages/admin/InvoiceGenerator"
 import { ProductMocker } from "@/pages/admin/ProductMocker"
 import { SEOManager } from "@/pages/admin/SEOManager"
+import { AIDebug } from "@/pages/admin/AIDebug"
 import { AssetDemoPage } from "@/pages/AssetDemoPage"
 
 function App() {
@@ -112,6 +113,7 @@ function App() {
                   <Route path="/admin/seo" element={<SEOManager />} />
                   <Route path="/invoice-generator" element={<InvoiceGenerator />} />
                   <Route path="/product-mocker" element={<ProductMocker />} />
+                  <Route path="/admin/ai-debug" element={<AIDebug />} />
 
                   <Route path="*" element={<NotFoundPage />} />
 
