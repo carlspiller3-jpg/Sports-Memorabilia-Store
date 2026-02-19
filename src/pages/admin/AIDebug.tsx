@@ -46,7 +46,7 @@ export function AIDebug() {
     };
 
     return (
-        <div className="min-h-screen bg-navy text-ivory p-10 pt-32">
+        <div className="min-h-screen bg-navy text-ivory p-10 pt-48">
             <div className="max-w-2xl mx-auto space-y-6">
                 <h1 className="text-3xl font-playfair text-gold">AI Connection Debugger</h1>
 

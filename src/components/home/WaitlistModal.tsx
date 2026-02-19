@@ -22,7 +22,10 @@ export function WaitlistModal() {
 
     useEffect(() => {
         const timer = setTimeout(() => {
-            setIsOpen(true);
+            const hasSeen = localStorage.getItem("waitlist_seen");
+            if (!hasSeen) {
+                setIsOpen(true);
+            }
         }, 2000);
 
         function handleClickOutside(event: MouseEvent) {

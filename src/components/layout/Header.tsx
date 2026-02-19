@@ -44,7 +44,7 @@ export function Header() {
                     </Sheet>
 
                     {/* Logo */}
-                    <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 md:static md:transform-none flex-shrink-0 flex items-center z-[101]">
+                    <div className="flex-shrink-0 flex items-center z-[101] ml-4 md:ml-0">
                         <Link to="/" className="flex items-center">
                             <img
                                 src="/logo-transparent.png"
