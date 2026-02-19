@@ -4,10 +4,17 @@ import { fetchAllProducts } from "@/lib/shopify";
 import { PLACEHOLDER_PRODUCTS } from "@/lib/placeholder-data";
 import type { Product } from "@/types/schema";
 
-// Initialize Gemini
+// Initialize Gemini safely
 const API_KEY = import.meta.env.VITE_GEMINI_API_KEY || "";
-const genAI = new GoogleGenerativeAI(API_KEY);
-const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+let model: any = null;
+if (API_KEY && API_KEY.length > 0) {
+    try {
+        const genAI = new GoogleGenerativeAI(API_KEY);
+        model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+    } catch (e) {
+        console.warn("Failed to init Gemini", e);
+    }
+}
 
 // Helper to format product list for the LLM
 function formatProductsForContext(products: Product[]): string {
@@ -21,9 +28,9 @@ export class LLMEngine {
     private history: { role: "user" | "model", parts: string }[] = [];
 
     async generateResponse(userMessage: string): Promise<{ message: string, quickReplies?: string[] } | null> {
-        if (!API_KEY) {
-            console.warn("Gemini API Key missing");
-            return { message: "I'm having trouble connecting to my brain. Please try again later." };
+        if (!model) {
+            console.warn("Gemini Engine not ready (Key missing or init fail). Falling back.");
+            return null;
         }
 
         try {
