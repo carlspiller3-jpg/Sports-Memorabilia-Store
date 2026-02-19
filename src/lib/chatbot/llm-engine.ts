@@ -4,7 +4,7 @@ import { fetchAllProducts } from "@/lib/shopify";
 import { PLACEHOLDER_PRODUCTS } from "@/lib/placeholder-data";
 import type { Product } from "@/types/schema";
 
-// Initialize Gemini safely
+// Initialize Gemini safely (forces rebuild to pick up new env var)
 const API_KEY = import.meta.env.VITE_GEMINI_API_KEY || "";
 let model: any = null;
 if (API_KEY && API_KEY.length > 0) {
