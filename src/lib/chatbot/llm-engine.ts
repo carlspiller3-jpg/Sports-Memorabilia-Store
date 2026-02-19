@@ -25,7 +25,6 @@ function formatProductsForContext(products: Product[]): string {
 }
 
 export class LLMEngine {
-    private history: { role: "user" | "model", parts: string }[] = [];
 
     async generateResponse(userMessage: string): Promise<{ message: string, quickReplies?: string[] } | null> {
         if (!model) {

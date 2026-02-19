@@ -254,7 +254,7 @@ export function ChatWidget() {
                 <MessageCircle className="w-5 h-5 text-navy" />
               </div>
               <div>
-                <h3 className="font-semibold text-gold">Sports Memorabilia</h3>
+                <h3 className="font-semibold text-gold">Sports Memorabilia (AI Active)</h3>
                 <p className="text-xs text-ivory/70 flex items-center gap-1">
                   <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
                   Online now
@@ -326,7 +326,7 @@ export function ChatWidget() {
                 <MessageCircle className="w-5 h-5 text-navy" />
               </div>
               <div>
-                <h3 className="font-semibold text-gold">Sports Memorabilia</h3>
+                <h3 className="font-semibold text-gold">Sports Memorabilia (AI Active)</h3>
                 <p className="text-xs text-ivory/70 flex items-center gap-1">
                   <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
                   Online now
