@@ -25,9 +25,13 @@ class ChatEngine {
     if (geminiKey && geminiKey.length > 10 && userMessage && userMessage.trim().length > 0) {
       try {
         const llmResponse = await llmEngine.generateResponse(userMessage);
-        return {
-          message: llmResponse.message,
-          quickReplies: llmResponse.quickReplies || ['Browse all', 'Search item']
+        if (llmResponse) {
+          return {
+            message: llmResponse.message,
+            quickReplies: llmResponse.quickReplies || ['Browse all', 'Search item']
+          }
+        } else {
+          console.warn("LLM returned null, falling back to rule engine");
         }
       } catch (e) {
         console.error('LLM Failed, falling back to rule engine', e);

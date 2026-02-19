@@ -20,7 +20,7 @@ function formatProductsForContext(products: Product[]): string {
 export class LLMEngine {
     private history: { role: "user" | "model", parts: string }[] = [];
 
-    async generateResponse(userMessage: string): Promise<{ message: string, quickReplies?: string[] }> {
+    async generateResponse(userMessage: string): Promise<{ message: string, quickReplies?: string[] } | null> {
         if (!API_KEY) {
             console.warn("Gemini API Key missing");
             return { message: "I'm having trouble connecting to my brain. Please try again later." };
@@ -70,7 +70,7 @@ ${inventoryContext}
 
         } catch (error) {
             console.error("LLM Error:", error);
-            return { message: "I'm currently overwhelmed with requests. Please try again in a moment." };
+            return null;
         }
     }
 }
