@@ -29,7 +29,7 @@ export function AIDebug() {
 
         try {
             const genAI = new GoogleGenerativeAI(apiKey);
-            const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash-001" });
+            const model = genAI.getGenerativeModel({ model: "gemini-pro" });
 
             const prompt = "Reply with 'Success' if you can read this.";
             const result = await model.generateContent(prompt);
