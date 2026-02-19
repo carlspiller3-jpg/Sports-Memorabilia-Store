@@ -45,6 +45,33 @@ export function AIDebug() {
         }
     };
 
+    const listModels = async () => {
+        setStatus("Listing Models...");
+        setResult("");
+        setError("");
+
+        const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
+        if (!apiKey) return;
+
+        try {
+            const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models?key=${apiKey}`);
+            const data = await response.json();
+
+            if (data.error) {
+                throw new Error(data.error.message);
+            }
+
+            const modelNames = data.models?.map((m: any) => m.name) || [];
+
+            setResult(`Available Models:\n${modelNames.join('\n')}`);
+            setStatus("Success");
+        } catch (e: any) {
+            console.error(e);
+            setError(`List Error: ${e.message}`);
+            setStatus("Failed");
+        }
+    };
+
     return (
         <div className="min-h-screen bg-navy text-ivory p-10 pt-48">
             <div className="max-w-2xl mx-auto space-y-6">
@@ -64,27 +91,37 @@ export function AIDebug() {
                     </div>
                 </div>
 
-                <Button
-                    onClick={runTest}
-                    disabled={status === "Testing..."}
-                    className="w-full h-12 text-lg"
-                >
-                    {status === "Testing..." ? "Connecting to Google..." : "Test AI Connection"}
-                </Button>
+                <div className="grid grid-cols-2 gap-4">
+                    <Button
+                        onClick={runTest}
+                        disabled={status === "Testing..."}
+                        className="w-full h-12 text-lg"
+                    >
+                        {status === "Testing..." ? "Testing..." : "Test Gen Content"}
+                    </Button>
+                    <Button
+                        onClick={listModels}
+                        variant="outline"
+                        disabled={status === "Listing Models..."}
+                        className="w-full h-12 text-lg border-gold text-gold hover:bg-gold hover:text-navy"
+                    >
+                        {status === "Listing Models..." ? "Listing..." : "List Available Models"}
+                    </Button>
+                </div>
 
                 {error && (
                     <div className="p-4 bg-red-900/50 text-red-200 rounded border border-red-500/50">
-                        <strong className="block mb-2 text-red-100">Connection Failed:</strong>
+                        <strong className="block mb-2 text-red-100">Operation Failed:</strong>
                         <pre className="whitespace-pre-wrap text-xs font-mono bg-black/30 p-2 rounded">{error}</pre>
                     </div>
                 )}
 
                 {result && (
                     <div className="p-4 bg-green-900/50 text-green-100 rounded border border-green-500/50">
-                        <strong className="block mb-2 text-green-300">Success! Google Responded:</strong>
-                        <div className="font-serif italic text-lg px-4 py-2 border-l-2 border-green-500 bg-white/5">
-                            "{result.replace('Success! Model replied: "', '').replace('"', '')}"
-                        </div>
+                        <strong className="block mb-2 text-green-300">Result:</strong>
+                        <pre className="whitespace-pre-wrap text-xs font-mono bg-black/30 p-2 rounded max-h-96 overflow-y-auto">
+                            {result}
+                        </pre>
                     </div>
                 )}
             </div>
