@@ -1,9 +1,11 @@
+
 import { chatMemory } from './memory'
 import { getRecommendations, type RecommendationOptions } from './recommendations'
 import { TEAM_INFO } from './knowledge'
 import { extractEntities } from './utils'
 import { getResponse } from './templates'
 import type { Product } from '@/types/schema'
+import { llmEngine } from './llm-engine'
 
 export interface ChatResponse {
   message: string
@@ -16,6 +18,20 @@ export interface ChatResponse {
 class ChatEngine {
   async processMessage(userMessage: string, isLocked: boolean = false): Promise<ChatResponse> {
     const lower = userMessage.toLowerCase()
+
+    // 0. LLM OVERRIDE (If API Key is set)
+    const geminiKey = import.meta.env.VITE_GEMINI_API_KEY;
+    if (geminiKey && geminiKey.length > 10) {
+      try {
+        const llmResponse = await llmEngine.generateResponse(userMessage);
+        return {
+          message: llmResponse.message,
+          quickReplies: llmResponse.quickReplies || ['Browse all', 'Search item']
+        }
+      } catch (e) {
+        console.error('LLM Failed, falling back to rule engine', e);
+      }
+    }
 
     // 1. LOCKED STATE CHECK - HIGHEST PRIORITY
     if (isLocked) {
