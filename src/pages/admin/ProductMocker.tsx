@@ -1,7 +1,8 @@
 import { useState, useRef } from 'react';
 import { Helmet } from 'react-helmet-async';
-import { Download, Upload, ZoomIn, ZoomOut, Move, Image as ImageIcon, Layers, ArrowLeft } from 'lucide-react';
+import { Download, Upload, ZoomIn, ZoomOut, Move, Image as ImageIcon, Layers, ArrowLeft, Wand2, Loader2 } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { removeBackground } from '@imgly/background-removal';
 
 const TEMPLATES = [
     {
@@ -41,6 +42,7 @@ export function ProductMocker() {
     const [position, setPosition] = useState({ x: 0, y: 0 });
     const [isDragging, setIsDragging] = useState(false);
     const [dragStart, setDragStart] = useState({ x: 0, y: 0 });
+    const [isRemovingBg, setIsRemovingBg] = useState(false);
 
     // Canvas Refs
     const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -67,6 +69,21 @@ export function ProductMocker() {
         link.download = `product-mockup-${selectedTemplate.id}-${Date.now()}.png`;
         link.href = canvasRef.current.toDataURL('image/png', 1.0);
         link.click();
+    };
+
+    const handleRemoveBg = async () => {
+        if (!uploadedImage) return;
+        setIsRemovingBg(true);
+        try {
+            const imageBlob = await removeBackground(uploadedImage);
+            const url = URL.createObjectURL(imageBlob);
+            setUploadedImage(url);
+        } catch (error) {
+            console.error('BG Removal Error:', error);
+            alert('Failed to remove background. Ensure your image is a standard JPG/PNG and your browser supports WebGL.');
+        } finally {
+            setIsRemovingBg(false);
+        }
     };
 
     // Draw Loop
@@ -234,6 +251,19 @@ export function ProductMocker() {
                                 </div>
                                 <input type="file" className="hidden" accept="image/*" onChange={handleImageUpload} />
                             </label>
+
+                            {uploadedImage && (
+                                <div className="mt-4 pt-4 border-t border-navy/5">
+                                    <button 
+                                        onClick={handleRemoveBg}
+                                        disabled={isRemovingBg}
+                                        className="w-full bg-gradient-to-r from-purple-600 to-indigo-600 text-white font-bold py-3 rounded-lg flex items-center justify-center gap-2 hover:opacity-90 transition-opacity disabled:opacity-50"
+                                    >
+                                        {isRemovingBg ? <Loader2 className="w-5 h-5 animate-spin" /> : <Wand2 className="w-5 h-5" />}
+                                        {isRemovingBg ? 'AI Extracting Subject...' : 'AI Remove Background'}
+                                    </button>
+                                </div>
+                            )}
                         </div>
 
                         {/* Adjustments */}
