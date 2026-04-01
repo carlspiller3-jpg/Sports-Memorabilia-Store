@@ -209,8 +209,8 @@ export function SEOManager() {
             <div className="bg-white border-b border-stone/10 top-0 z-10 shadow-sm relative">
                 <div className="container mx-auto px-4 h-16 flex items-center justify-between">
                     <div className="flex items-center gap-4">
-                        <Link to="/crm" className="p-2 hover:bg-stone/20 rounded-full text-navy/60 transition-colors">
-                            <ArrowLeft className="w-5 h-5" />
+                        <Link to="/admin" className="p-2 hover:bg-stone/20 rounded-full text-navy/60 transition-colors">
+                            <ArrowLeft className="w-6 h-6" />
                         </Link>
                         <h1 className="font-serif text-xl font-bold text-navy flex items-center gap-2">
                             <Globe className="w-5 h-5 text-gold" />
