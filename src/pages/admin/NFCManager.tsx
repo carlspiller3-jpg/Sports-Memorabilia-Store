@@ -44,7 +44,7 @@ export function NFCManager() {
 
         if (error) {
             console.error('Error fetching certificates:', error)
-            alert('Could not load certificates')
+            // Just fail silently for the user so they can still see the UI
         } else {
             setCertificates(data || [])
         }
@@ -158,7 +158,7 @@ export function NFCManager() {
     }
 
     return (
-        <div className="min-h-screen bg-stone/5 pt-24 pb-12">
+        <div className="min-h-screen bg-stone/5 pt-36 pb-12">
             <div className="container mx-auto px-4 max-w-6xl">
                 <div className="mb-8 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
                     <div>
