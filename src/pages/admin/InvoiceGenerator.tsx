@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
-import { Download, Plus, Trash2, FileText, DollarSign, Calendar, User, Hash } from 'lucide-react';
+import { Download, Plus, Trash2, FileText, DollarSign, Calendar, User, Hash, ArrowLeft } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 
 interface InvoiceItem {
@@ -232,10 +233,15 @@ export function InvoiceGenerator() {
             </Helmet>
 
             <div className="max-w-7xl mx-auto">
-                <div className="flex justify-between items-center mb-8">
-                    <div>
-                        <h1 className="font-serif text-3xl text-navy">Invoice Generator</h1>
-                        <p className="text-charcoal/60">Manage and export professional invoices.</p>
+                <div className="flex justify-between items-center mb-8 border-b border-navy/10 pb-6">
+                    <div className="flex items-center gap-4">
+                        <Link to="/admin" className="p-2 hover:bg-stone/20 rounded-full text-navy/60 transition-colors">
+                            <ArrowLeft className="w-6 h-6" />
+                        </Link>
+                        <div>
+                            <h1 className="font-serif text-3xl text-navy">Invoice Generator</h1>
+                            <p className="text-charcoal/60 mt-1 text-sm">Create and download professional invoices instantly.</p>
+                        </div>
                     </div>
                     <button
                         onClick={downloadWordDoc}

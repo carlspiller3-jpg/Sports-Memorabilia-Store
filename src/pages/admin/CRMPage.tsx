@@ -1,8 +1,9 @@
 import { useState, useEffect, useRef } from 'react';
 import { supabase } from '@/lib/supabaseClient';
-import { Plus, Search, Phone, Mail, FileText, Trash2, Save, X, User, Lock, Send, LogOut, Loader2, Upload } from 'lucide-react';
+import { Plus, Search, Phone, Mail, FileText, Trash2, Save, X, User, Lock, Send, LogOut, Loader2, Upload, ArrowLeft } from 'lucide-react';
 import { Helmet } from 'react-helmet-async';
 import * as XLSX from 'xlsx';
+import { Link } from 'react-router-dom';
 
 // Types
 interface Note {
@@ -444,12 +445,17 @@ export function CRMPage() {
             <div className="max-w-7xl mx-auto">
                 {/* Header */}
                 <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-8 gap-4 border-b border-navy/5 pb-8">
-                    <div>
-                        <div className="flex items-center gap-3 mb-2">
-                            <h1 className="font-serif text-4xl text-navy">Team CRM</h1>
-                            <span className="px-2 py-0.5 bg-green-100 text-green-700 text-[10px] font-bold tracking-widest rounded-full uppercase border border-green-200">Secure</span>
+                    <div className="flex items-center gap-4">
+                        <Link to="/admin" className="p-2 hover:bg-stone/20 rounded-full text-navy/60 transition-colors self-start mt-1">
+                            <ArrowLeft className="w-6 h-6" />
+                        </Link>
+                        <div>
+                            <div className="flex items-center gap-3 mb-2">
+                                <h1 className="font-serif text-4xl text-navy">Team CRM</h1>
+                                <span className="px-2 py-0.5 bg-green-100 text-green-700 text-[10px] font-bold tracking-widest rounded-full uppercase border border-green-200">Secure</span>
+                            </div>
+                            <p className="text-charcoal/60">Logged in as <span className="text-navy font-semibold">{session.user.email}</span>.</p>
                         </div>
-                        <p className="text-charcoal/60">Logged in as <span className="text-navy font-semibold">{session.user.email}</span>.</p>
                     </div>
                     <div className="flex gap-3">
                         <button onClick={handleLogout} className="bg-white border border-navy/10 text-charcoal/70 px-4 py-3 rounded-md font-medium flex items-center gap-2 hover:bg-red-50 hover:text-red-600 hover:border-red-100 transition-colors"><LogOut className="w-4 h-4" />Logout</button>

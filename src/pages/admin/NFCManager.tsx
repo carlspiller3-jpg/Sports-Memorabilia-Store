@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react"
 import { supabase } from "@/lib/supabase"
-import { ShieldCheck, Plus, Image as ImageIcon, Loader2, Save, Trash2, Link as LinkIcon } from "lucide-react"
+import { ShieldCheck, Plus, Image as ImageIcon, Loader2, Save, Trash2, Link as LinkIcon, ArrowLeft } from "lucide-react"
 import { Button } from "@/components/ui/Button"
+import { Link } from "react-router-dom"
 
 interface Certificate {
     id: string
@@ -161,12 +162,17 @@ export function NFCManager() {
         <div className="min-h-screen bg-stone/5 pt-36 pb-12">
             <div className="container mx-auto px-4 max-w-6xl">
                 <div className="mb-8 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
-                    <div>
-                        <h1 className="text-3xl font-serif font-bold flex items-center gap-3">
-                            <ShieldCheck className="text-gold w-8 h-8" />
-                            NFC Tag Manager
-                        </h1>
-                        <p className="text-navy/60 mt-1">Manage the digital certificates linked to your physical tags.</p>
+                    <div className="flex items-center gap-4">
+                        <Link to="/admin" className="p-2 hover:bg-stone/20 rounded-full text-navy/60 transition-colors">
+                            <ArrowLeft className="w-6 h-6" />
+                        </Link>
+                        <div>
+                            <h1 className="text-3xl font-serif font-bold flex items-center gap-3">
+                                <ShieldCheck className="text-gold w-8 h-8" />
+                                NFC Tag Manager
+                            </h1>
+                            <p className="text-navy/60 mt-1">Manage the digital certificates linked to your physical tags.</p>
+                        </div>
                     </div>
                     <Button onClick={() => setShowForm(!showForm)} className="bg-navy">
                         {showForm ? 'Cancel' : <><Plus className="w-4 h-4 mr-2" /> Add New Tag</>}

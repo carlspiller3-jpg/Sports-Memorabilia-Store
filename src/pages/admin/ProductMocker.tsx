@@ -1,6 +1,7 @@
 import { useState, useRef } from 'react';
 import { Helmet } from 'react-helmet-async';
-import { Download, Upload, ZoomIn, ZoomOut, Move, Image as ImageIcon, Layers } from 'lucide-react';
+import { Download, Upload, ZoomIn, ZoomOut, Move, Image as ImageIcon, Layers, ArrowLeft } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 const TEMPLATES = [
     {
@@ -185,11 +186,15 @@ export function ProductMocker() {
             </Helmet>
 
             <div className="max-w-6xl mx-auto">
-                <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
-                    <div>
+                <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-8 gap-4 border-b border-navy/5 pb-8">
+                    <div className="flex items-center gap-3 mb-2">
+                        <Link to="/admin" className="p-2 hover:bg-stone/20 rounded-full text-navy/60 transition-colors">
+                            <ArrowLeft className="w-6 h-6" />
+                        </Link>
+                        <Layers className="w-8 h-8 text-gold" />
                         <h1 className="font-serif text-3xl text-navy">Product Image Mocker</h1>
-                        <p className="text-charcoal/60">Generate standardized shopify product asset images.</p>
                     </div>
+                    <p className="text-charcoal/60">Generate standardized shopify product asset images.</p>
                     <div className="flex gap-2">
                         <button
                             onClick={handleDownload}

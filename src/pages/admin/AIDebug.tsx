@@ -2,6 +2,8 @@
 import { useState } from "react";
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import { Button } from "@/components/ui/Button";
+import { ArrowLeft } from "lucide-react";
+import { Link } from "react-router-dom";
 
 export function AIDebug() {
     const [status, setStatus] = useState("Idle");
@@ -73,9 +75,14 @@ export function AIDebug() {
     };
 
     return (
-        <div className="min-h-screen bg-navy text-ivory p-10 pt-48">
-            <div className="max-w-2xl mx-auto space-y-6">
-                <h1 className="text-3xl font-playfair text-gold">AI Connection Debugger</h1>
+        <div className="min-h-screen bg-navy text-ivory p-8 pt-24 font-mono">
+            <div className="max-w-4xl mx-auto space-y-8">
+                <div className="flex items-center gap-4">
+                    <Link to="/admin" className="p-2 hover:bg-white/10 rounded-full text-gold transition-colors">
+                        <ArrowLeft className="w-6 h-6" />
+                    </Link>
+                    <h1 className="text-3xl font-playfair text-gold">AI Connection Debugger</h1>
+                </div>
 
                 <div className="bg-charcoal p-6 rounded-lg border border-gold/20 font-mono text-sm space-y-2">
                     <p className="text-gold/80 uppercase text-xs tracking-wider mb-2">Environment Status</p>
