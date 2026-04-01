@@ -19,6 +19,7 @@ export function VerifyPage() {
 
     const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle')
     const [product, setProduct] = useState<VerifiedProduct | null>(null)
+    const [showFullImage, setShowFullImage] = useState(false)
 
     const handleVerify = useCallback(async (tagId: string) => {
         setStatus('loading')
@@ -97,8 +98,14 @@ export function VerifyPage() {
                                 <TrustBadge type="verified" className="bg-green-50 text-green-700 border-green-200" />
                             </div>
 
-                            <div className="aspect-square rounded-sm overflow-hidden bg-stone/5">
-                                <img src={product.image} alt={product.title} className="w-full h-full object-cover" />
+                            <div 
+                                className="rounded-sm overflow-hidden bg-stone/5 cursor-pointer relative group"
+                                onClick={() => setShowFullImage(true)}
+                            >
+                                <img src={product.image} alt={product.title} className="w-full h-auto max-h-[80vh] object-contain transition-transform duration-300 group-hover:scale-[1.02]" />
+                                <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                                    <span className="text-white font-medium px-4 py-2 bg-black/50 rounded-full text-sm">Click to Expand</span>
+                                </div>
                             </div>
 
                             <div className="space-y-2">
@@ -121,7 +128,13 @@ export function VerifyPage() {
                                 </div>
                             </div>
 
-                            <Button className="w-full" variant="outline">View Digital Certificate</Button>
+                            <Button 
+                                className="w-full" 
+                                variant="outline"
+                                onClick={() => setShowFullImage(true)}
+                            >
+                                View Digital Certificate
+                            </Button>
                         </div>
                     )}
 
@@ -254,6 +267,27 @@ export function VerifyPage() {
                     </div>
                 </div>
             </section>
+
+            {/* Full Screen Image Modal */}
+            {showFullImage && product && (
+                <div 
+                    className="fixed inset-0 z-50 bg-black/95 flex flex-col items-center justify-center animate-in fade-in p-4"
+                    onClick={() => setShowFullImage(false)}
+                >
+                    <button 
+                        className="absolute top-6 right-6 text-white/50 hover:text-white transition-colors p-2"
+                        onClick={() => setShowFullImage(false)}
+                    >
+                        <XCircle className="w-10 h-10" />
+                    </button>
+                    <img 
+                        src={product.image} 
+                        alt={product.title} 
+                        className="w-full h-full max-w-5xl object-contain animate-in zoom-in-95 duration-300 cursor-zoom-out" 
+                    />
+                    <p className="text-white/50 text-sm mt-4 font-mono select-none">Tap anywhere to close</p>
+                </div>
+            )}
         </div>
     )
 }
