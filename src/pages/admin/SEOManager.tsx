@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react"
 import { Helmet } from "react-helmet-async"
-import { Save, Globe, Check } from "lucide-react"
+import { Save, Globe, Check, ArrowLeft } from "lucide-react"
 import { Button } from "@/components/ui/Button"
 import { supabase } from "@/lib/supabase"
+import { Link } from "react-router-dom"
 
 interface SitePage {
     id: string
@@ -207,10 +208,15 @@ export function SEOManager() {
             {/* Header - Use relative positioning to avoid overlap issues with main header */}
             <div className="bg-white border-b border-stone/10 top-0 z-10 shadow-sm relative">
                 <div className="container mx-auto px-4 h-16 flex items-center justify-between">
-                    <h1 className="font-serif text-xl font-bold text-navy flex items-center gap-2">
-                        <Globe className="w-5 h-5 text-gold" />
-                        SEO Manager
-                    </h1>
+                    <div className="flex items-center gap-4">
+                        <Link to="/admin" className="p-2 hover:bg-stone/20 rounded-full text-navy/60 transition-colors">
+                            <ArrowLeft className="w-5 h-5" />
+                        </Link>
+                        <h1 className="font-serif text-xl font-bold text-navy flex items-center gap-2">
+                            <Globe className="w-5 h-5 text-gold" />
+                            SEO Manager
+                        </h1>
+                    </div>
                     <div className="flex items-center gap-2">
                         <Button
                             onClick={seedDefaults}
