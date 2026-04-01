@@ -65,8 +65,8 @@ export function VerifyPage() {
     return (
         <div className="min-h-screen bg-ivory">
             {/* Verification Interface */}
-            <div className="min-h-[80vh] flex items-center justify-center py-20 px-4">
-                <div className="max-w-md w-full space-y-8 text-center">
+            <div className="min-h-screen pt-36 pb-20 px-4 flex flex-col items-center">
+                <div className="max-w-md w-full space-y-8 text-center my-auto">
 
                     {status === 'idle' && (
                         <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-700">
