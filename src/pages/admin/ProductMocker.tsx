@@ -20,29 +20,15 @@ const TEMPLATES = [
     },
     {
         id: 'shirt',
-        name: 'Shirt - Living Room',
+        name: 'Shirt - Frame',
         src: '/templates/shirt_frame_empty.png',
         overlay: null,
         type: 'square'
     },
     {
-        id: 'shirt-navy',
-        name: 'Shirt - Navy Studio',
-        src: '/templates/shirt_frame_navy_empty.png',
-        overlay: null,
-        type: 'square'
-    },
-    {
-        id: 'poster',
-        name: 'Poster - Living Room',
-        src: '/templates/poster_frame_empty.png',
-        overlay: null,
-        type: 'square'
-    },
-    {
-        id: 'poster-navy',
-        name: 'Poster - Navy Studio',
-        src: '/templates/poster_frame_navy_empty.png',
+        id: 'product-bg',
+        name: 'Generic Background',
+        src: '/templates/product_background_template.png',
         overlay: null,
         type: 'square'
     }
@@ -179,7 +165,7 @@ export function ProductMocker() {
 
 
     return (
-        <div className="min-h-screen bg-ivory text-charcoal pt-24 pb-12 px-4 md:px-8">
+        <div className="min-h-screen bg-ivory text-charcoal pt-36 pb-12 px-4 md:px-8">
             <Helmet>
                 <title>Product Image Mocker | Admin</title>
                 <meta name="robots" content="noindex" />

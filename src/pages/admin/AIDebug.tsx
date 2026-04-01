@@ -75,7 +75,7 @@ export function AIDebug() {
     };
 
     return (
-        <div className="min-h-screen bg-navy text-ivory p-8 pt-24 font-mono">
+        <div className="min-h-screen bg-navy text-ivory p-8 pt-36 font-mono">
             <div className="max-w-4xl mx-auto space-y-8">
                 <div className="flex items-center gap-4">
                     <Link to="/admin" className="p-2 hover:bg-white/10 rounded-full text-gold transition-colors">

@@ -226,7 +226,7 @@ export function InvoiceGenerator() {
     };
 
     return (
-        <div className="min-h-screen bg-ivory text-charcoal pt-24 pb-12 px-4 md:px-12">
+        <div className="min-h-screen bg-ivory text-charcoal pt-36 pb-12 px-4 md:px-12">
             <Helmet>
                 <title>Invoice Generator | Admin</title>
                 <meta name="robots" content="noindex" />
