@@ -38,6 +38,8 @@ const TEMPLATES = [
 export function ProductMocker() {
     const [selectedTemplate, setSelectedTemplate] = useState(TEMPLATES[0]);
     const [uploadedImage, setUploadedImage] = useState<string | null>(null);
+    const [rawFile, setRawFile] = useState<File | null>(null);
+    const [errorMsg, setErrorMsg] = useState<string | null>(null);
     const [scale, setScale] = useState(1);
     const [position, setPosition] = useState({ x: 0, y: 0 });
     const [isDragging, setIsDragging] = useState(false);
@@ -50,14 +52,17 @@ export function ProductMocker() {
 
     const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
         if (e.target.files && e.target.files[0]) {
+            const file = e.target.files[0];
+            setRawFile(file);
+            setErrorMsg(null);
+            
             const reader = new FileReader();
             reader.onload = (event) => {
                 setUploadedImage(event.target?.result as string);
-                // Reset transform
                 setScale(1);
                 setPosition({ x: 0, y: 0 });
             };
-            reader.readAsDataURL(e.target.files[0]);
+            reader.readAsDataURL(file);
         }
     };
 
@@ -74,13 +79,22 @@ export function ProductMocker() {
     const handleRemoveBg = async () => {
         if (!uploadedImage) return;
         setIsRemovingBg(true);
+        setErrorMsg(null);
         try {
-            const imageBlob = await removeBackground(uploadedImage);
+            const source = rawFile || uploadedImage;
+            const config = {
+                debug: true,
+                model: 'isnet' as const,
+                output: { format: 'image/png' as const }
+            };
+            
+            const imageBlob = await removeBackground(source, config);
             const url = URL.createObjectURL(imageBlob);
             setUploadedImage(url);
-        } catch (error) {
+            setRawFile(null); // Clear raw file since we now have the transparent blob
+        } catch (error: any) {
             console.error('BG Removal Error:', error);
-            alert('Failed to remove background. Ensure your image is a standard JPG/PNG and your browser supports WebGL.');
+            setErrorMsg(error.message || JSON.stringify(error) || "Unknown error occurred.");
         } finally {
             setIsRemovingBg(false);
         }
@@ -253,7 +267,13 @@ export function ProductMocker() {
                             </label>
 
                             {uploadedImage && (
-                                <div className="mt-4 pt-4 border-t border-navy/5">
+                                <div className="mt-4 pt-4 border-t border-navy/5 space-y-3">
+                                    {errorMsg && (
+                                        <div className="p-3 bg-red-50 text-red-600 text-xs rounded border border-red-100 font-mono break-words">
+                                            <strong>Error:</strong> {errorMsg}
+                                            <p className="mt-2 text-[10px] text-red-500">If chunks are failing to load, try disabling your adblocker (it blocks access to the AI models).</p>
+                                        </div>
+                                    )}
                                     <button 
                                         onClick={handleRemoveBg}
                                         disabled={isRemovingBg}
