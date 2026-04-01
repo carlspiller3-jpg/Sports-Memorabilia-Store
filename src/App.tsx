@@ -40,6 +40,8 @@ import { ProductMocker } from "@/pages/admin/ProductMocker"
 import { SEOManager } from "@/pages/admin/SEOManager"
 import { AIDebug } from "@/pages/admin/AIDebug"
 import { NFCManager } from "@/pages/admin/NFCManager"
+import { AdminDashboard } from "@/pages/admin/AdminDashboard"
+import { AdminGate } from "@/components/auth/AdminGate"
 import { AssetDemoPage } from "@/pages/AssetDemoPage"
 
 function App() {
@@ -109,13 +111,14 @@ function App() {
                   {/* PDF Generation Routes */}
                   <Route path="/b2b-proposal" element={<B2BProposal />} />
 
-                  {/* Internal Tools */}
-                  <Route path="/crm" element={<CRMPage />} />
-                  <Route path="/admin/nfc" element={<NFCManager />} />
-                  <Route path="/admin/seo" element={<SEOManager />} />
-                  <Route path="/invoice-generator" element={<InvoiceGenerator />} />
-                  <Route path="/product-mocker" element={<ProductMocker />} />
-                  <Route path="/admin/ai-debug" element={<AIDebug />} />
+                  {/* Internal Admin Tools */}
+                  <Route path="/admin" element={<AdminGate><AdminDashboard /></AdminGate>} />
+                  <Route path="/admin/crm" element={<AdminGate><CRMPage /></AdminGate>} />
+                  <Route path="/admin/nfc" element={<AdminGate><NFCManager /></AdminGate>} />
+                  <Route path="/admin/seo" element={<AdminGate><SEOManager /></AdminGate>} />
+                  <Route path="/admin/invoice-generator" element={<AdminGate><InvoiceGenerator /></AdminGate>} />
+                  <Route path="/admin/product-mocker" element={<AdminGate><ProductMocker /></AdminGate>} />
+                  <Route path="/admin/ai-debug" element={<AdminGate><AIDebug /></AdminGate>} />
 
                   <Route path="*" element={<NotFoundPage />} />
 
