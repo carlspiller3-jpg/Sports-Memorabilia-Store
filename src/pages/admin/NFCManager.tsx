@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react"
 import { supabase } from "@/lib/supabase"
-import { ShieldCheck, Plus, Image as ImageIcon, Loader2, Save, Trash2, Link as LinkIcon, ArrowLeft } from "lucide-react"
+import { ShieldCheck, Plus, Image as ImageIcon, Loader2, Save, Trash2, Link as LinkIcon, ArrowLeft, Pencil } from "lucide-react"
 import { Button } from "@/components/ui/Button"
 import { Link } from "react-router-dom"
 
@@ -192,12 +192,15 @@ export function NFCManager() {
                                         <input
                                             type="text"
                                             value={formData.tag_id}
-                                            onChange={e => setFormData({ ...formData, tag_id: e.target.value })}
-                                            className="w-full px-4 py-2 border rounded-md uppercase font-mono"
+                                            onChange={e => !editingId && setFormData({ ...formData, tag_id: e.target.value })}
+                                            className={`w-full px-4 py-2 border rounded-md uppercase font-mono ${editingId ? 'bg-stone-100 cursor-not-allowed opacity-70' : ''}`}
                                             placeholder="AAA-001"
                                             required
+                                            disabled={!!editingId}
                                         />
-                                        <p className="text-xs text-stone/50 mt-1">This must exactly match the ?tag_id= parameter on the NFC tag.</p>
+                                        <p className="text-xs text-stone/50 mt-1">
+                                            {editingId ? "Tag ID cannot be changed once created as it is physically written to the NFC chip." : "This must exactly match the ?tag_id= parameter on the NFC tag."}
+                                        </p>
                                     </div>
                                     
                                     <div>
@@ -333,8 +336,8 @@ export function NFCManager() {
                                                     <a href={`/verify?tag_id=${cert.tag_id}`} target="_blank" rel="noreferrer" className="p-2 text-stone/50 hover:text-navy transition-colors" title="Test Link">
                                                         <LinkIcon className="w-4 h-4" />
                                                     </a>
-                                                    <button onClick={() => handleEdit(cert)} className="p-2 text-stone/50 hover:text-gold transition-colors" title="Edit">
-                                                        <Save className="w-4 h-4" />
+                                                    <button onClick={() => handleEdit(cert)} className="p-2 text-stone/50 hover:text-gold transition-colors" title="Edit Data">
+                                                        <Pencil className="w-4 h-4" />
                                                     </button>
                                                     <button onClick={() => handleDelete(cert.id, cert.tag_id)} className="p-2 text-stone/50 hover:text-red-500 transition-colors" title="Delete">
                                                         <Trash2 className="w-4 h-4" />
