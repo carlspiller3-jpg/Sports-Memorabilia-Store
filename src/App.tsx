@@ -39,6 +39,7 @@ import { InvoiceGenerator } from "@/pages/admin/InvoiceGenerator"
 import { ProductMocker } from "@/pages/admin/ProductMocker"
 import { SEOManager } from "@/pages/admin/SEOManager"
 import { AIDebug } from "@/pages/admin/AIDebug"
+import { NFCManager } from "@/pages/admin/NFCManager"
 import { AssetDemoPage } from "@/pages/AssetDemoPage"
 
 function App() {
@@ -110,6 +111,7 @@ function App() {
 
                   {/* Internal Tools */}
                   <Route path="/crm" element={<CRMPage />} />
+                  <Route path="/admin/nfc" element={<NFCManager />} />
                   <Route path="/admin/seo" element={<SEOManager />} />
                   <Route path="/invoice-generator" element={<InvoiceGenerator />} />
                   <Route path="/product-mocker" element={<ProductMocker />} />
