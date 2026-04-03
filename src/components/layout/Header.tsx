@@ -35,10 +35,6 @@ export function Header() {
                                 <Link to="/shop/boxing" className="hover:text-gold transition-colors font-bold">Boxing</Link>
                                 <Link to="/shop/f1" className="hover:text-gold transition-colors font-bold">F1</Link>
                                 <Link to="/drops" className="text-gold hover:text-charcoal transition-colors font-black">Drops</Link>
-
-                                <div className="h-px bg-stone/10 my-1" />
-
-                                <Link to="/verify" className="text-base text-navy/70 hover:text-navy transition-colors">Verify Authenticity</Link>
                             </nav>
                         </SheetContent>
                     </Sheet>
@@ -60,7 +56,6 @@ export function Header() {
                         <Link to="/shop/boxing" className="hover:text-gold transition-colors">Boxing</Link>
                         <Link to="/shop/f1" className="hover:text-gold transition-colors">F1</Link>
                         <Link to="/drops" className="hover:text-gold transition-colors">Drops</Link>
-                        <Link to="/verify" className="hover:text-gold transition-colors opacity-70">Verify</Link>
                     </nav>
 
                     {/* Actions */}

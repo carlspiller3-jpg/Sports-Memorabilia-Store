@@ -1,13 +1,13 @@
 
 import { useState, useEffect, useCallback } from "react"
-import { useSearchParams } from "react-router-dom"
+import { useParams } from "react-router-dom"
 import { ShieldCheck, Loader2, XCircle, Smartphone, Zap, CheckCircle, Lock } from "lucide-react"
 import { Button } from "@/components/ui/Button"
 import { TrustBadge } from "@/components/ui/TrustBadge"
 import { supabase } from "@/lib/supabase"
 
 export function VerifyPage() {
-    const [searchParams] = useSearchParams()
+    const { tagId } = useParams<{ tagId: string }>()
     interface VerifiedProduct {
         title: string
         date: string
@@ -56,11 +56,10 @@ export function VerifyPage() {
 
     // Simulate NFC scan handling
     useEffect(() => {
-        const tagId = searchParams.get('tag_id')
         if (tagId) {
             setTimeout(() => handleVerify(tagId), 0)
         }
-    }, [searchParams, handleVerify])
+    }, [tagId, handleVerify])
 
     return (
         <div className="min-h-screen bg-ivory">
@@ -73,14 +72,13 @@ export function VerifyPage() {
                             <div className="w-20 h-20 bg-gold/10 rounded-full flex items-center justify-center mx-auto">
                                 <ShieldCheck className="w-10 h-10 text-gold" />
                             </div>
-                            <h1 className="text-3xl font-serif font-bold text-charcoal">Verify Authenticity</h1>
+                            <h1 className="text-3xl font-serif font-bold text-charcoal">Authenticity Verified by NFC</h1>
                             <p className="text-navy/60">
-                                Scan your item's NFC tag or enter the Certificate ID manually to verify its authenticity on the blockchain.
+                                Simply tap your smartphone against the NFC tag on your item to instantly view its authenticity certificate.
                             </p>
-                            <div className="pt-4">
-                                <Button size="lg" className="w-full" onClick={() => handleVerify('demo')}>
-                                    Simulate NFC Scan
-                                </Button>
+                            <div className="pt-4 p-6 bg-stone/5 rounded-lg border border-stone/10 text-sm text-navy/80 text-left">
+                                <p className="mb-2 font-bold text-charcoal">Experiencing issues?</p>
+                                <p>If your NFC tag does not scan, or if you have questions about your item's authenticity, please <a href="/contact" className="text-gold hover:underline font-medium">contact our support team</a> and include your order details.</p>
                             </div>
                         </div>
                     )}
@@ -88,7 +86,7 @@ export function VerifyPage() {
                     {status === 'loading' && (
                         <div className="space-y-6">
                             <Loader2 className="w-12 h-12 text-gold animate-spin mx-auto" />
-                            <p className="text-navy/60 font-medium">Verifying on Blockchain...</p>
+                            <p className="text-navy/60 font-medium">Verifying Certificate...</p>
                         </div>
                     )}
 

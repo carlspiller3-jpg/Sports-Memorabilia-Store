@@ -84,6 +84,7 @@ function App() {
                     </ShopGate>
                   } />
                   <Route path="/verify" element={<VerifyPage />} />
+                  <Route path="/verify/:tagId" element={<VerifyPage />} />
                   <Route path="/checkout" element={<CheckoutPage />} />
                   <Route path="/debug" element={<DebugPage />} />
 
