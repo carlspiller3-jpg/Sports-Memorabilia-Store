@@ -6,7 +6,7 @@ export function PrivacyPolicy() {
             <div className="container mx-auto px-4 max-w-3xl">
                 <div className="text-center mb-12">
                     <h1 className="text-3xl md:text-4xl font-serif font-bold text-charcoal mb-4">Privacy Policy</h1>
-                    <p className="text-navy/60">Last Updated: December 2025</p>
+                    <p className="text-navy/60">Last Updated: April 2026</p>
                 </div>
 
                 <div className="bg-white p-8 md:p-12 rounded-sm shadow-sm border border-stone/10 space-y-8 text-navy/80 leading-relaxed">

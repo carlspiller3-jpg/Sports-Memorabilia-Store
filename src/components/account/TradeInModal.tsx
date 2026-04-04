@@ -109,7 +109,6 @@ export function TradeInModal({ isOpen, onClose }: TradeInModalProps) {
                         <div className="border-2 border-dashed border-stone/20 rounded-sm p-8 text-center hover:bg-stone/5 transition-colors cursor-pointer group">
                             <Camera className="w-8 h-8 mx-auto text-stone/30 group-hover:text-gold mb-2 transition-colors" />
                             <p className="text-sm text-navy/50 group-hover:text-navy">Click to upload photos</p>
-                            <p className="text-xs text-navy/30 mt-1">(Not implemented in demo)</p>
                         </div>
                     </div>
 

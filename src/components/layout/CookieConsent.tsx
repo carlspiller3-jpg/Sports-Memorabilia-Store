@@ -17,7 +17,12 @@ export function CookieConsent() {
     }, [])
 
     const handleAccept = () => {
-        localStorage.setItem('cookie_consent', 'true')
+        localStorage.setItem('cookie_consent', 'all')
+        setIsVisible(false)
+    }
+
+    const handleDecline = () => {
+        localStorage.setItem('cookie_consent', 'essential_only')
         setIsVisible(false)
     }
 
@@ -29,11 +34,17 @@ export function CookieConsent() {
                 <div className="text-ivory/90 text-sm md:text-base flex-1">
                     <p>
                         We use cookies to enhance your experience, analyse site traffic, and deliver personalised content.
-                        By clicking "Accept", you consent to our use of cookies.
+                        By clicking "Accept All", you consent to our use of all cookies. You can also choose to decline non-essential cookies.
                         Read our <Link to="/privacy" className="text-gold hover:underline">Privacy Policy</Link> and <Link to="/cookies" className="text-gold hover:underline">Cookie Policy</Link>.
                     </p>
                 </div>
-                <div className="flex items-center gap-4 shrink-0">
+                <div className="flex items-center gap-3 shrink-0">
+                    <button
+                        onClick={handleDecline}
+                        className="bg-transparent border border-white/20 hover:bg-white/10 text-white font-semibold px-4 py-2 rounded-sm transition-colors text-sm"
+                    >
+                        Decline
+                    </button>
                     <button
                         onClick={handleAccept}
                         className="bg-gold hover:bg-gold/90 text-navy font-semibold px-6 py-2 rounded-sm transition-colors text-sm"
