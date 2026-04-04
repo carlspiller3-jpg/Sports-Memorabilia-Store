@@ -124,7 +124,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
                 alert('Failed to create checkout. Please try again.')
             }
         } else {
-            window.location.href = '/checkout'
+            alert('Shopify checkout is only available when VITE_USE_LIVE_SHOPIFY is enabled in your environment variables.')
         }
     }
 

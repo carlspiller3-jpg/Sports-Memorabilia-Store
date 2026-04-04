@@ -9,7 +9,6 @@ import { ShopPage } from "@/pages/ShopPage"
 import { ProductPage } from "@/pages/ProductPage"
 import { CollectionsPage } from "@/pages/CollectionsPage"
 import { DropsPage } from "@/pages/DropsPage"
-import { CheckoutPage } from "./pages/CheckoutPage"
 import { DebugPage } from "./pages/DebugPage"
 import { CartProvider } from "@/context/CartContext"
 import { CartDrawer } from "@/components/cart/CartDrawer"
@@ -85,7 +84,6 @@ function App() {
                   } />
                   <Route path="/verify" element={<VerifyPage />} />
                   <Route path="/verify/:tagId" element={<VerifyPage />} />
-                  <Route path="/checkout" element={<CheckoutPage />} />
                   <Route path="/debug" element={<DebugPage />} />
 
                   {/* Account */}
