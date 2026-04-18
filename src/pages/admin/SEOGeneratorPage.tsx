@@ -1,13 +1,13 @@
 import { useState } from "react"
 import { Helmet } from "react-helmet-async"
-import { ArrowLeft, Zap, Copy, Check, Globe, ShoppingCart, Tag, Box, Info } from "lucide-react"
+import { ArrowLeft, Zap, Copy, Check, Globe, ShoppingCart, Tag, Box, Info, Heart, Calendar } from "lucide-react"
 import { Button } from "@/components/ui/Button"
 import { Link } from "react-router-dom"
 
 interface SEOAssets {
     google: { title: string; meta: string; long: string }
     ebay: { title: string; header: string }
-    etsy: { title: string; tags: string[] }
+    etsy: { title: string; tags: string[]; story: string }
     amazon: { title: string; bullets: string[] }
     internal: { sku: string; tags: string }
 }
@@ -20,6 +20,7 @@ export function SEOGeneratorPage() {
     const [auth, setAuth] = useState("Sports Memorabilia Store™ NFC")
     const [framing, setFraming] = useState("Bespoke Black Gallery Frame")
     const [history, setHistory] = useState("")
+    const [signingDetails, setSigningDetails] = useState("") // New: London, Nov 2023
 
     const [assets, setAssets] = useState<SEOAssets | null>(null)
     const [activeTab, setActiveTab] = useState<keyof SEOAssets>("google")
@@ -31,30 +32,45 @@ export function SEOGeneratorPage() {
         setTimeout(() => setCopiedId(null), 2000)
     }
 
+    const smartTrim = (text: string, max: number) => {
+        if (text.length <= max) return text
+        const trimmed = text.substring(0, max)
+        const lastSpace = trimmed.lastIndexOf(" ")
+        return lastSpace > 0 ? trimmed.substring(0, lastSpace) : trimmed
+    }
+
     const generate = () => {
         const aShort = athlete.split(' ').pop() || ""
+        const signText = signingDetails ? `Signed in ${signingDetails}.` : ""
         
+        // 1. EBAY TITLE LOGIC (Priority: Keywords > Brand)
+        let ebTitle = `Hand Signed ${athlete} ${itemType} - ${team || ''} ${year} COA`.trim()
+        if (ebTitle.length < 70) ebTitle += " FRAMED"
+        if (ebTitle.length < 75) ebTitle += " NEW"
+        ebTitle = smartTrim(ebTitle, 80)
+
         const newAssets: SEOAssets = {
             google: {
-                title: `${athlete} Signed ${itemType} | Authentic ${team || year} Memorabilia`.substring(0, 60),
-                meta: `Hand-signed ${athlete} ${itemType.toLowerCase()} with ${auth}. Gallery-standard framing. 100% guarantee. Official memorabilia from Sports Memorabilia Store. Shop the legend now.`.substring(0, 160),
-                long: `HISTORICAL LEGACY\nOwn a definitive piece of sporting history with this hand-signed ${itemType.toLowerCase()} from ${athlete}. ${history ? history + '. ' : ''}\n\nAUTHENTICATION\nSecured with ${auth} and our proprietary NFC technology. Tap your smartphone to the display to instantly verify the digital certificate of authenticity.\n\nPRESENTATION\nHoused in our ${framing}. Using conservation-grade mounts and UV-protective glass to ensure your asset remains pristine for decades.\n\nSHIPPING\nFree, fully insured UK delivery. Experience world-class luxury unboxing by Sports Memorabilia Store.`
+                title: smartTrim(`${athlete} Signed ${itemType} | Authentic ${team || year} Memorabilia`, 60),
+                meta: smartTrim(`Own an authentic hand-signed ${athlete} ${itemType.toLowerCase()}. ${signText} Verified by ${auth}. Bespoke framing. 100% guarantee. Shop now.`, 160),
+                long: `HISTORICAL LEGACY\nOwn a definitive piece of sporting history with this hand-signed ${itemType.toLowerCase()} from ${athlete}. ${signText} ${history ? history + '. ' : ''}\n\nAUTHENTICATION\nSecured with ${auth} and our proprietary NFC technology. Tap your smartphone to the display to instantly verify the digital certificate of authenticity and see proof of the signing session.\n\nPRESENTATION\nHoused in our ${framing}. Using conservation-grade mounts and UV-protective glass to ensure your investment remains pristine for decades. This is gallery-standard excellence.\n\nSHIPPING\nFree, fully insured UK delivery. Experience our world-class luxury unboxing, designed for high-value collectibles.`
             },
             ebay: {
-                title: `Authentic Hand Signed ${athlete} ${itemType} - ${team || ''} - ${auth} BOXED`.substring(0, 80),
-                header: `Rare ${athlete} Memorabilia\nType: Signed ${itemType}\nSeason: ${year}\nTeam: ${team || 'N/A'}\nCOA: ${auth}`
+                title: ebTitle,
+                header: `Jordan Henderson Memorabilia\nType: Signed ${itemType}\nSeason: ${year}\nTeam: ${team || 'N/A'}\nProvenance: ${signText || 'Signed in Private Session'}\nCOA: ${auth}`
             },
             etsy: {
-                title: `${athlete} Signed ${itemType} Gift, Custom Framed ${team} Memorabilia, Man Cave Art, ${year} Collection`,
-                tags: [athlete, `Signed ${itemType}`, team, 'Sports Gift', 'Gifts for Him', 'Birthday Gift', 'Custom Framed', 'Authenticated', 'Man Cave Art', 'Luxury Gift', 'Sports Memorabilia Store', year].filter(t => t !== "")
+                title: smartTrim(`${athlete} Signed ${itemType} Gift, Custom Framed ${team} Memorabilia, Luxury Sports Art for Man Cave, ${year} Collection`, 140),
+                tags: [athlete, `Signed ${itemType}`, team, 'Sports Gift', 'Gifts for Him', 'Birthday Gift', 'Custom Framed', 'Authenticated', 'Man Cave Art', 'Luxury Gift', 'Sports Memorabilia Store', year].filter(t => t !== ""),
+                story: `Elevate your space with a piece of sporting heritage. This isn't just memorabilia; it's a conversation starter and a milestone gift. Whether you're celebrating a massive birthday, a promotion, or completing a dream man cave, this hand-signed ${athlete} ${itemType.toLowerCase()} captures the magic of the game.\n\nProfessionally framed and authenticated, it's a timeless heirloom for any true ${team || 'sports'} supporter. A gift they will never forget.`
             },
             amazon: {
-                title: `Sports Memorabilia Store Authentic ${athlete} Signed ${itemType} - ${team} Edition - Premium Gallery Framed`,
+                title: smartTrim(`Sports Memorabilia Store Authentic ${athlete} Signed ${itemType} - ${team} Edition - Premium Gallery Framed`, 150),
                 bullets: [
-                    `OFFICIAL SIGNATURE: Guaranteed hand-signed by ${athlete} during an exclusive professional signing session.`,
+                    `OFFICIAL SIGNATURE: Guaranteed hand-signed by ${athlete} - ${signText || 'Official Private Session'}.`,
                     `NFC AUTHENTICATED: Features Sports Memorabilia Store™ NFC Technology for instant smartphone verification and digital provenance.`,
                     `GALLERY FRAMING: Housed in our bespoke black gallery frame with premium double-mounts and UV-protective glass.`,
-                    `PERFECT GIFT: Delivered in high-end luxury packaging, designed for a world-class unboxing experience.`,
+                    `PERFECT GIFT: Delivered in high-end luxury packaging, designed for a world-class unboxing experience for collectors.`,
                     `LIFETIME GUARANTEE: Accompanied by full legal authentication and a 100% lifetime authenticity guarantee.`
                 ]
             },
@@ -68,7 +84,7 @@ export function SEOGeneratorPage() {
 
     return (
         <div className="min-h-screen bg-ivory pt-36 pb-20">
-            <Helmet><title>Omni-Channel SEO Generator | Admin</title></Helmet>
+            <Helmet><title>Elite SEO Optimizer | Admin</title></Helmet>
 
             <div className="container mx-auto px-4 max-w-5xl">
                 <div className="flex items-center gap-4 mb-8">
@@ -77,7 +93,7 @@ export function SEOGeneratorPage() {
                     </Link>
                     <h1 className="font-serif text-3xl font-bold text-navy flex items-center gap-3">
                         <Zap className="w-8 h-8 text-gold" />
-                        AI SEO Optimizer
+                        Elite SEO Optimizer
                     </h1>
                 </div>
 
@@ -109,6 +125,11 @@ export function SEOGeneratorPage() {
                         </div>
 
                         <div className="space-y-2">
+                            <label className="text-xs font-bold uppercase tracking-widest text-gold flex items-center gap-2"><Calendar className="w-3 h-3"/> Signing Details (City, Date)</label>
+                            <input value={signingDetails} onChange={e => setSigningDetails(e.target.value)} className="w-full p-3 bg-ivory border border-stone/10 rounded-lg text-navy" placeholder="e.g. London, Nov 2023" />
+                        </div>
+
+                        <div className="space-y-2">
                             <label className="text-xs font-bold uppercase tracking-widest text-gold">Authenticity</label>
                             <select value={auth} onChange={e => setAuth(e.target.value)} className="w-full p-3 bg-ivory border border-stone/10 rounded-lg text-navy">
                                 <option>Sports Memorabilia Store™ NFC</option><option>Beckett</option><option>PSA/DNA</option><option>Official Club COA</option>
@@ -116,11 +137,11 @@ export function SEOGeneratorPage() {
                         </div>
 
                         <div className="space-y-2">
-                            <label className="text-xs font-bold uppercase tracking-widest text-gold">Product History</label>
+                            <label className="text-xs font-bold uppercase tracking-widest text-gold">Unique Acheivements / Key Points</label>
                             <textarea value={history} onChange={e => setHistory(e.target.value)} className="w-full p-3 bg-ivory border border-stone/10 rounded-lg text-navy h-24" placeholder="Brief details about the signing or achievement..." />
                         </div>
 
-                        <Button onClick={generate} className="w-full py-6 text-lg font-bold">Generate Assets</Button>
+                        <Button onClick={generate} className="w-full py-6 text-lg font-bold">Generate Elite Assets</Button>
                     </div>
 
                     {/* Results */}
@@ -143,18 +164,19 @@ export function SEOGeneratorPage() {
                                     <div className="space-y-6">
                                         <ResultItem label="SEO Title" val={assets.google.title} id="g_t" onCopy={handleCopy} copiedId={copiedId} max={60} />
                                         <ResultItem label="Meta Description" val={assets.google.meta} id="g_m" onCopy={handleCopy} copiedId={copiedId} max={160} />
-                                        <ResultItem label="Full Description" val={assets.google.long} id="g_l" onCopy={handleCopy} copiedId={copiedId} />
+                                        <ResultItem label="Product Page Description" val={assets.google.long} id="g_l" onCopy={handleCopy} copiedId={copiedId} />
                                     </div>
                                 )}
                                 {activeTab === "ebay" && (
                                     <div className="space-y-6">
-                                        <ResultItem label="eBay Title" val={assets.ebay.title} id="eb_t" onCopy={handleCopy} copiedId={copiedId} max={80} />
+                                        <ResultItem label="eBay Title (Calculated Stop)" val={assets.ebay.title} id="eb_t" onCopy={handleCopy} copiedId={copiedId} max={80} />
                                         <ResultItem label="eBay Headers" val={assets.ebay.header} id="eb_h" onCopy={handleCopy} copiedId={copiedId} />
                                     </div>
                                 )}
                                 {activeTab === "etsy" && (
                                     <div className="space-y-6">
-                                        <ResultItem label="Etsy Title" val={assets.etsy.title} id="et_t" onCopy={handleCopy} copiedId={copiedId} max={140} />
+                                        <ResultItem label="Etsy Gift Title" val={assets.etsy.title} id="et_t" onCopy={handleCopy} copiedId={copiedId} max={140} />
+                                        <ResultItem label="Storytelling Description" val={assets.etsy.story} id="et_s" onCopy={handleCopy} copiedId={copiedId} />
                                         <div className="space-y-2">
                                             <p className="text-[10px] font-black text-navy/30 uppercase tracking-widest">SEO Tags (13)</p>
                                             <div className="flex flex-wrap gap-2">
@@ -165,9 +187,9 @@ export function SEOGeneratorPage() {
                                 )}
                                 {activeTab === "amazon" && (
                                     <div className="space-y-6">
-                                        <ResultItem label="Brand Title" val={assets.amazon.title} id="am_t" onCopy={handleCopy} copiedId={copiedId} />
+                                        <ResultItem label="Amazon Product Title" val={assets.amazon.title} id="am_t" onCopy={handleCopy} copiedId={copiedId} />
                                         <div className="space-y-2">
-                                            <p className="text-[10px] font-black text-navy/30 uppercase tracking-widest">Key Features</p>
+                                            <p className="text-[10px] font-black text-navy/30 uppercase tracking-widest">Key Features (Humanized)</p>
                                             {assets.amazon.bullets.map((b, i) => <div key={i} className="bg-ivory p-3 rounded-lg text-xs text-navy border border-stone/5 flex justify-between items-center">{b} <button onClick={() => handleCopy(b, `am_b_${i}`)}>{copiedId === `am_b_${i}` ? <Check className="w-3 h-3 text-green-600" /> : <Copy className="w-3 h-3 text-navy/20" />}</button></div>)}
                                         </div>
                                     </div>
@@ -175,7 +197,7 @@ export function SEOGeneratorPage() {
                                 {activeTab === "internal" && (
                                     <div className="space-y-6">
                                         <ResultItem label="Generated SKU" val={assets.internal.sku} id="i_s" onCopy={handleCopy} copiedId={copiedId} />
-                                        <ResultItem label="Shopify Tags" val={assets.internal.tags} id="i_t" onCopy={handleCopy} copiedId={copiedId} />
+                                        <ResultItem label="Internal Tags" val={assets.internal.tags} id="i_t" onCopy={handleCopy} copiedId={copiedId} />
                                     </div>
                                 )}
                             </div>
@@ -183,7 +205,8 @@ export function SEOGeneratorPage() {
                     ) : (
                         <div className="h-full bg-navy/5 border-2 border-dashed border-navy/10 rounded-2xl flex flex-col items-center justify-center p-12 text-center">
                             <Box className="w-12 h-12 text-navy/10 mb-4" />
-                            <p className="text-navy/40 font-medium">Input product details to generate <br/>optimized marketplace assets.</p>
+                            <p className="text-navy/40 font-medium italic">"Trust is the currency of history."</p>
+                            <p className="text-navy/20 text-xs mt-2 font-medium uppercase tracking-widest">Input details to optimize assets</p>
                         </div>
                     )}
                 </div>
