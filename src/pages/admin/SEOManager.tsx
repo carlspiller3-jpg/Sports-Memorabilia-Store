@@ -368,7 +368,7 @@ export function SEOManager() {
                                         {selectedPage.meta_title || 'Page Title'}
                                     </div>
                                     <div className="text-[#006621] text-sm truncate mt-0.5">
-                                        https://sportssigned.com/{selectedPage.page_key}
+                                        https://sportssigned.com{selectedPage.page_key === 'home' ? '' : `/${selectedPage.page_key}`}
                                     </div>
                                     <div className="text-[#545454] text-sm mt-1 line-clamp-2">
                                         {selectedPage.meta_description || 'Page description will appear here...'}
