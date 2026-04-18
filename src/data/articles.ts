@@ -455,5 +455,105 @@ export const articles: BlogPost[] = [
 
       <p><strong>The Verdict:</strong> Keep your vintage football, but the growth is currently on the track.</p>
     `
+  },
+  {
+    id: "16",
+    title: "Why the Monaco Historique is the Real Magnet for Racing Capital",
+    slug: "monaco-historique-racing-capital",
+    date: "2026-04-25",
+    author: "The Authenticator",
+    category: "Analysis",
+    excerpt: "With the RM Sotheby sale live in Monaco this weekend, we look at why the Historique is a better index for price than the GP itself.",
+    imageUrl: "https://images.unsplash.com/photo-1542385151-efd9000785a0?q=80&w=2070&auto=format&fit=crop",
+    seo_title: "Monaco Historique Memorabilia Analysis 2026 | RM Sotheby Sale",
+    seo_description: "Why the Monaco Historique drives vintage F1 prices. Analysis of the RM Sotheby 2026 auction lots and market implications.",
+    seo_keywords: ["Monaco Historique auction", "vintage F1 value", "RM Sotheby Monaco 2026", "racing car investment", "F1 memorabilia price"],
+    content: `
+      <h2>The Auction of the Month</h2>
+      <p>All eyes are on Monaco this week as RM Sotheby opens their 2026 sale. While the modern Grand Prix is where the sponsors go, the Historique is where the real money sits. This event focuses on the machines and gear that built the racing world. It is a pure index of value.</p>
+
+      <h3>The Shift to Track History</h3>
+      <p>Investors are moving away from generic signatures and looking for items with a specific track history. A helmet used at Monza or a suit worn at Monaco carries a heavy premium over a standard promotional item. The lots in Monaco this weekend prove that collectors want proof of the work, not just the name.</p>
+
+      <h3>What to Watch</h3>
+      <p>We are tracking the prices of the early 90s racing gear. These years are currently the sweet spot for the market. Collectors who grew up watching Senna and Prost are now reaching their peak buying years. That is why we are seeing such heat in the Monaco lots this year.</p>
+
+      <p><strong>The Verdict:</strong> If you want to know what the next five years of the market looks like, watch the hammer at the Grimaldi Forum this Sunday.</p>
+    `
+  },
+  {
+    id: "17",
+    title: "The Spring Boom: Previewing the Heritage May Catalog",
+    slug: "heritage-may-catalog-preview-2026",
+    date: "2026-05-02",
+    author: "Market Analyst",
+    category: "News",
+    excerpt: "The first major catalog of the spring has been released. Here is why the May auctions set the tone for the entire summer collecting season.",
+    imageUrl: "https://images.unsplash.com/photo-1549465220-1a8b9238cd48?q=80&w=2070&auto=format&fit=crop",
+    seo_title: "Heritage Auctions May 2026 Preview | Sports Memorabilia Trends",
+    seo_description: "A preview of the Heritage Spring Sports Catalog 2026. Why the May auction results dictate summer market prices.",
+    seo_keywords: ["Heritage Auctions May 2026", "sports cards preview", "memorabilia market boom", "game worn jersey value", "collecting trends 2026"],
+    content: `
+      <h2>Setting the Summer Pulse</h2>
+      <p>The Heritage Spring Sports Catalog has just landed and it is clear that 2026 is going to be a heavy year for high end assets. This May auction is the traditional starting gun for the summer market. If these lots sell high, expect every dealer in the world to raise their prices by June.</p>
+
+      <h3>The Focus on Condition</h3>
+      <p>The early look at the catalog shows a brutal focus on condition. PSA 10 rookies items are being listed with reserves that would have been unheard of two years ago. The market is getting much more selective. If it is not perfect, the price is flat. If it is a 10, the sky is the target.</p>
+
+      <h3>Football vs Baseball</h3>
+      <p>While Heritage is a US giant, the footprint of global football in the May catalog is growing. We are seeing more European interest in match spec items than ever before. This is the first time we have seen football shirts listed alongside blue chip baseball cards with equal weight. That tells you everything about where the money is moving.</p>
+
+      <p><strong>The Verdict:</strong> Watch the PSA 10 lots in the first week. They will tell you if the summer is going to be hot or cold for your own collection.</p>
+    `
+  },
+  {
+    id: "18",
+    title: "The Bodyguard Premium: Lessons from the Gus Lett Auction",
+    slug: "michael-jordan-gus-lett-auction-analysis",
+    date: "2026-05-09",
+    author: "The Authenticator",
+    category: "Analysis",
+    excerpt: "Now that the dust has settled on the Michael Jordan inner circle auction, we look at why 'Witness Provenance' is the only thing that matters.",
+    imageUrl: "https://images.unsplash.com/photo-1546519638-68e109498ffc?q=80&w=2090&auto=format&fit=crop",
+    seo_title: "Michael Jordan Gus Lett Auction Analysis 2026 | Provenance Value",
+    seo_description: "Results and analysis of the Michael Jordan Gus Lett collection auction. Why buying from the 'inner circle' provides the best investment security.",
+    seo_keywords: ["Michael Jordan auction 2026", "Gus Lett collection", "MJ bodyguard memorabilia", "signed Jordan shoes price", "authenticated provenance"],
+    content: `
+      <h2>The Power of the Inner Circle</h2>
+      <p>The Gus Lett auction is over and the results were a lesson for every collector. These items belonged to Michael Jordan's personal bodyguard. That is what we call inner circle provenance. It is the gold standard of proof and the prices reflected it.</p>
+
+      <h3>Why Provenance Beats Opinion</h3>
+      <p>A standard signed shoe from a shop might sell for a good price. But a shoe given directly to a personal friend or staff member by the athlete is a different asset entirely. The market paid a huge premium for the story of Gus Lett. Why? Because you can never fake a relationship. The chain of custody was perfect.</p>
+
+      <h3>The Lesson for Collectors</h3>
+      <p>This auction proved that the story behind the item is often worth as much as the item itself. If you are buying high end assets, you need to look for that direct link. That is why we built our NFC system. We want to provide that same level of certainty for every item we sell, so you never have to rely on a scrap of paper again.</p>
+
+      <p><strong>The Verdict:</strong> Always pay more for the proof. The Gus Lett auction shows that it is the best insurance your money can buy.</p>
+    `
+  },
+  {
+    id: "19",
+    title: "The Scarcity of Finals Spec: Predicting the UCL 2026 Market",
+    slug: "ucl-2026-final-memorabilia-preview",
+    date: "2026-05-16",
+    author: "Market Analyst",
+    category: "News",
+    excerpt: "With the Champions League final in Budapest approaching, we look at why 'Finals Spec' shirts are the rarest items in football.",
+    imageUrl: "https://images.unsplash.com/photo-1574629810360-7efbbe195018?q=80&w=2076&auto=format&fit=crop",
+    seo_title: "UCL Final 2026 Memorabilia Preview | Match Spec Investment",
+    seo_description: "Predicting the market for Champions League Final 2026 memorabilia. Why 'Finals Spec' signed items are the top tier of football collecting.",
+    seo_keywords: ["UCL Final 2026 shirt", "Budapest 26 memorabilia", "signed champions league final shirt", "match spec football shirt", "rare football collectibles"],
+    content: `
+      <h2>The Budapest Final</h2>
+      <p>The Champions League final in Budapest is almost here. For collectors, this is the most important date on the calendar. But we are warning people now: do not be fooled by standard shirts. The real value is in the Finals Spec assets.</p>
+
+      <h3>What is Finals Spec?</h3>
+      <p>A shirt issued for a final has unique embroidery on the chest. It has specific patches on the sleeves. Only a handful of these are made for each player. When a player signs one of these, it is not just a signed shirt. It is a piece of the biggest game in club football. The scarcity of these items is what drives the price to five times the value of a standard shirt.</p>
+
+      <h3>The Charity Auction Wave</h3>
+      <p>Expect to see a wave of charity auctions from the UEFA Foundation following the game. This is the only chance to get real match used items from the final. These items are the peak of the market. If you are looking to add an anchor piece to your collection, these are the targets.</p>
+
+      <p><strong>The Verdict:</strong> Only buy items with the unique match day embroidery. Standard shirts from the final year are common, but Finals Spec items are the real treasure.</p>
+    `
   }
 ];
