@@ -1,5 +1,5 @@
 
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom"
 import { HelmetProvider, Helmet } from "react-helmet-async"
 import { Header } from "@/components/layout/Header"
 import { Footer } from "@/components/layout/Footer"
@@ -62,6 +62,7 @@ function App() {
               <main className="flex-1 animate-fade-in pb-16 md:pb-0">
                 <Routes>
                   <Route path="/" element={<HomePage />} />
+                  <Route path="/home" element={<Navigate to="/" replace />} />
                   <Route path="/shop" element={
                     <ShopGate>
                       <ShopPage />
