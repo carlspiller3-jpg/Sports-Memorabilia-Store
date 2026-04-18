@@ -15,7 +15,7 @@ export function Footer() {
                             />
                         </Link>
                         <p className="text-white/60 text-sm leading-relaxed">
-                            The world's premier destination for authenticated sports memorabilia.
+                            Setting the new standard in sports memorabilia.
                         </p>
                     </div>
 
