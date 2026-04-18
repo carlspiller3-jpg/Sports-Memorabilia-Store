@@ -46,11 +46,12 @@ export function ShopGate({ children }: { children: React.ReactNode }) {
                     <Lock className="w-8 h-8 text-gold" />
                 </div>
 
-                <h1 className="font-serif text-3xl text-navy mb-4">Access Restricted</h1>
+                <h1 className="font-serif text-3xl text-navy mb-4">Pre-Launch Store</h1>
                 <p className="text-charcoal/60 mb-8 leading-relaxed font-light">
-                    Our first collection is reserved for members with early access.
+                    Our official store is currently in a <strong>Pre-Launch phase</strong>. 
+                    Access is reserved for members with early-access credentials.
                     <br /><br />
-                    Please enter your password to view the collection.
+                    Please enter your password to browse the latest drops.
                 </p>
 
                 <form onSubmit={handleSubmit} className="space-y-4">

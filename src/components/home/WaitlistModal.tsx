@@ -132,10 +132,10 @@ export function WaitlistModal() {
                             <Lock className="w-4 h-4 text-gold" />
                         </div>
                         <h2 className="font-serif text-xl text-white mb-0.5">
-                            The Vault is Locked
+                            Official Pre-Launch
                         </h2>
                         <p className="text-white/60 text-[10px] uppercase tracking-wider">
-                            Next Drop: <span className="text-gold font-bold">January 2026</span>
+                            Join the Waitlist for our <span className="text-gold font-bold">2026 Collection</span>
                         </p>
                         <button
                             onClick={handleClose}
@@ -242,10 +242,10 @@ export function WaitlistModal() {
                                 <div className="w-16 h-16 bg-green-100 text-green-600 rounded-full flex items-center justify-center mx-auto mb-6 animate-in zoom-in">
                                     <ChevronRight className="w-8 h-8" />
                                 </div>
-                                <h3 className="font-serif text-2xl text-navy mb-2">Access Secured</h3>
+                                <h3 className="font-serif text-2xl text-navy mb-2">Waitlist Secured</h3>
                                 <p className="text-navy/60">
                                     You are on the list for <strong>{interest}</strong> updates.<br />
-                                    Watch your inbox in January.
+                                    We will notify you as soon as the official store launches.
                                 </p>
                             </div>
                         )}
