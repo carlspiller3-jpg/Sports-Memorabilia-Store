@@ -4,8 +4,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SEO Content Generator - Sports Memorabilia (Dec 2025 Rules)</title>
+    <title>Omni-Channel SEO Master - SportsSigned</title>
     <style>
+        :root {
+            --navy: #1a1a2e;
+            --gold: #d4af37;
+            --gold-light: #f4e4c1;
+            --ivory: #f5f5f0;
+            --glass: rgba(255, 255, 255, 0.05);
+            --border: rgba(255, 255, 255, 0.1);
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -13,604 +22,480 @@
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, var(--navy) 0%, #0f0f1a 100%);
             min-height: 100vh;
-            padding: 2rem;
-            color: #f5f5f0;
+            padding: 1rem;
+            color: var(--ivory);
+            line-height: 1.6;
         }
 
         .container {
-            max-width: 900px;
+            max-width: 1000px;
             margin: 0 auto;
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(10px);
-            border-radius: 16px;
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
             padding: 2.5rem;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+            border: 1px solid var(--border);
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 2.5rem;
         }
 
         h1 {
-            font-size: 2rem;
+            font-size: 2.5rem;
             margin-bottom: 0.5rem;
-            background: linear-gradient(135deg, #d4af37 0%, #f4e4c1 100%);
+            background: linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            background-clip: text;
+            font-weight: 800;
         }
 
         .subtitle {
-            color: rgba(255, 255, 255, 0.6);
-            margin-bottom: 1rem;
-            font-size: 0.95rem;
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 1rem;
+            letter-spacing: 1px;
         }
 
-        .rules-badge {
-            display: inline-block;
-            background: rgba(212, 175, 55, 0.2);
-            border: 1px solid rgba(212, 175, 55, 0.4);
-            padding: 0.5rem 1rem;
-            border-radius: 6px;
-            font-size: 0.85rem;
+        .input-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
             margin-bottom: 2rem;
-            color: #d4af37;
+            background: rgba(0, 0, 0, 0.2);
+            padding: 2rem;
+            border-radius: 12px;
+            border: 1px solid var(--border);
         }
 
         .form-group {
-            margin-bottom: 1.5rem;
+            margin-bottom: 1.2rem;
         }
 
         label {
             display: block;
             margin-bottom: 0.5rem;
-            font-weight: 500;
-            color: #d4af37;
-            font-size: 0.9rem;
+            font-weight: 700;
+            color: var(--gold);
+            font-size: 0.75rem;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
+            letter-spacing: 1px;
         }
 
         input,
         select,
         textarea {
             width: 100%;
-            padding: 0.875rem;
-            background: rgba(255, 255, 255, 0.08);
-            border: 1px solid rgba(255, 255, 255, 0.15);
+            padding: 0.8rem 1rem;
+            background: rgba(255, 255, 255, 0.07);
+            border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 8px;
-            color: #f5f5f0;
+            color: white;
             font-size: 1rem;
-            transition: all 0.3s ease;
+            transition: all 0.2s ease;
         }
 
         input:focus,
         select:focus,
         textarea:focus {
             outline: none;
-            border-color: #d4af37;
+            border-color: var(--gold);
             background: rgba(255, 255, 255, 0.12);
-            box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.1);
+            box-shadow: 0 0 0 4px rgba(212, 175, 55, 0.1);
         }
 
-        textarea {
-            resize: vertical;
-            min-height: 80px;
-            font-family: inherit;
-        }
-
-        button {
-            background: linear-gradient(135deg, #d4af37 0%, #c9a227 100%);
-            color: #1a1a2e;
+        button.generate-btn {
+            background: linear-gradient(135deg, var(--gold) 0%, #b8962d 100%);
+            color: var(--navy);
             border: none;
-            padding: 1rem 2rem;
-            border-radius: 8px;
-            font-size: 1rem;
-            font-weight: 600;
+            padding: 1.2rem;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: 800;
             cursor: pointer;
-            transition: all 0.3s ease;
             width: 100%;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
+            letter-spacing: 2px;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
         }
 
-        button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 16px rgba(212, 175, 55, 0.3);
+        button.generate-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(212, 175, 55, 0.3);
         }
 
-        button:active {
-            transform: translateY(0);
-        }
-
-        .output {
-            margin-top: 2rem;
-            padding: 1.5rem;
-            background: rgba(0, 0, 0, 0.3);
-            border-radius: 8px;
-            border: 1px solid rgba(212, 175, 55, 0.3);
+        /* Tabs */
+        .tabs-container {
+            margin-top: 3rem;
             display: none;
         }
 
-        .output.show {
+        .tabs-container.active {
             display: block;
-            animation: slideIn 0.3s ease;
+            animation: fadeIn 0.5s ease;
         }
 
-        @keyframes slideIn {
-            from {
-                opacity: 0;
-                transform: translateY(-10px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .output-item {
+        .tabs-nav {
+            display: flex;
+            gap: 0.5rem;
+            border-bottom: 1px solid var(--border);
             margin-bottom: 1.5rem;
+            overflow-x: auto;
+            padding-bottom: 5px;
         }
 
-        .output-item:last-child {
-            margin-bottom: 0;
-        }
-
-        .output-label {
-            font-size: 0.85rem;
-            color: #d4af37;
-            margin-bottom: 0.5rem;
+        .tab-btn {
+            padding: 0.8rem 1.5rem;
+            background: none;
+            border: none;
+            color: rgba(255, 255, 255, 0.5);
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 0.8rem;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
-            font-weight: 600;
+            letter-spacing: 1px;
+            transition: all 0.2s;
+            border-radius: 8px 8px 0 0;
+            white-space: nowrap;
         }
 
-        .output-value {
-            background: rgba(255, 255, 255, 0.05);
-            padding: 1rem;
-            border-radius: 6px;
-            font-family: 'Courier New', monospace;
-            font-size: 0.95rem;
-            line-height: 1.6;
-            border-left: 3px solid #d4af37;
+        .tab-btn.active {
+            color: var(--gold);
+            background: var(--glass);
+            border-bottom: 3px solid var(--gold);
+        }
+
+        .tab-content {
+            display: none;
+            background: rgba(0, 0, 0, 0.2);
+            padding: 2rem;
+            border-radius: 0 0 12px 12px;
+            border: 1px solid var(--border);
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .output-card {
+            margin-bottom: 2rem;
             position: relative;
         }
 
-        .char-count {
+        .output-label {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.8rem;
+        }
+
+        .output-label span {
             font-size: 0.75rem;
-            color: rgba(255, 255, 255, 0.5);
-            margin-top: 0.25rem;
+            color: var(--gold);
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
-        .char-count.warning {
-            color: #ff6b6b;
+        .char-tag {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 10px;
+            color: rgba(255, 255, 255, 0.6);
         }
 
-        .char-count.good {
-            color: #51cf66;
+        .output-box {
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1.2rem;
+            font-family: inherit;
+            position: relative;
+            min-height: 50px;
+            white-space: pre-wrap;
+            font-size: 0.95rem;
+            border-left: 4px solid var(--gold);
         }
 
-        .copy-btn {
+        .copy-trigger {
             position: absolute;
             top: 0.5rem;
             right: 0.5rem;
-            background: rgba(212, 175, 55, 0.2);
-            border: 1px solid rgba(212, 175, 55, 0.3);
-            color: #d4af37;
-            padding: 0.25rem 0.75rem;
+            background: var(--gold);
+            color: var(--navy);
+            border: none;
+            padding: 4px 10px;
             border-radius: 4px;
-            font-size: 0.75rem;
+            font-size: 10px;
+            font-weight: 800;
             cursor: pointer;
-            transition: all 0.2s ease;
-            width: auto;
+            opacity: 0.3;
+            transition: opacity 0.2s;
         }
 
-        .copy-btn:hover {
-            background: rgba(212, 175, 55, 0.3);
-            transform: none;
+        .output-box:hover .copy-trigger {
+            opacity: 1;
         }
 
-        .grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1rem;
+        .pill-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 10px;
         }
 
-        @media (max-width: 640px) {
-            .grid {
-                grid-template-columns: 1fr;
-            }
+        .pill {
+            background: var(--glass);
+            border: 1px solid var(--gold);
+            color: var(--gold-light);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
 
-            .container {
-                padding: 1.5rem;
-            }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (max-width: 600px) {
+            .container { padding: 1.5rem; }
+            h1 { font-size: 1.8rem; }
+            .input-section { padding: 1rem; }
         }
     </style>
 </head>
 
 <body>
     <div class="container">
-        <h1>⚡ SEO Content Generator</h1>
-        <p class="subtitle">Generate optimized titles and descriptions for your sports memorabilia products</p>
-        <div class="rules-badge">✓ Based on Google Dec 2025 Algorithm Rules</div>
+        <header>
+            <h1>⚡ OMNI-CHANNEL SEO</h1>
+            <p class="subtitle">Multi-Platform Optimized Content Engine</p>
+        </header>
 
-        <form id="seoForm">
-            <div class="grid">
-                <div class="form-group">
-                    <label for="athlete">Athlete Name *</label>
-                    <input type="text" id="athlete" placeholder="e.g., Tyson Fury, Mohamed Salah" required>
+        <form id="masterForm">
+            <div class="input-section">
+                <div class="form-groups">
+                    <div class="form-group">
+                        <label>Athlete Name *</label>
+                        <input type="text" id="athlete" placeholder="e.g. Mike Tyson, Lionel Messi" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Item Type *</label>
+                        <select id="itemType" required>
+                            <option value="Shirt">Signed Shirt</option>
+                            <option value="Glove">Signed Glove</option>
+                            <option value="Boot">Signed Boot</option>
+                            <option value="Photo">Signed Photo</option>
+                            <option value="Boxing Trunks">Signed Trunks</option>
+                            <option value="Ball">Signed Ball</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Year / Season *</label>
+                        <input type="text" id="year" placeholder="e.g. 2024, 23/24 Season" required>
+                    </div>
                 </div>
 
-                <div class="form-group">
-                    <label for="team">Team/Organization/Division</label>
-                    <input type="text" id="team" placeholder="e.g., Liverpool, Heavyweight, UFC">
-                </div>
-            </div>
-
-            <div class="grid">
-                <div class="form-group">
-                    <label for="itemType">Item Type *</label>
-                    <select id="itemType" required>
-                        <option value="">Select type...</option>
-                        <option value="photo">Photo</option>
-                        <option value="shirt">Shirt</option>
-                        <option value="boot">Boot</option>
-                        <option value="glove">Glove</option>
-                        <option value="ball">Ball</option>
-                        <option value="shorts">Shorts</option>
-                    </select>
-                </div>
-
-                <div class="form-group">
-                    <label for="sport">Sport *</label>
-                    <select id="sport" required>
-                        <option value="">Select sport...</option>
-                        <option value="football">Football</option>
-                        <option value="boxing">Boxing</option>
-                        <option value="tennis">Tennis</option>
-                        <option value="cricket">Cricket</option>
-                        <option value="rugby">Rugby</option>
-                        <option value="basketball">Basketball</option>
-                        <option value="mma">MMA</option>
-                    </select>
-                </div>
-            </div>
-
-            <div class="grid">
-                <div class="form-group">
-                    <label for="trophy">Trophy/Achievement (Optional)</label>
-                    <input type="text" id="trophy" placeholder="e.g., Premier League, WBC Belt">
-                </div>
-
-                <div class="form-group">
-                    <label for="year">Year *</label>
-                    <input type="number" id="year" placeholder="e.g., 2024" min="1900" max="2099" required>
+                <div class="form-groups">
+                    <div class="form-group">
+                        <label>Team / Event</label>
+                        <input type="text" id="team" placeholder="e.g. Manchester United, WBC Heavyweight">
+                    </div>
+                    <div class="form-group">
+                        <label>Authenticity Signal</label>
+                        <select id="auth">
+                            <option value="SportsSigned NFC">SportsSigned™ NFC Digitally Verified</option>
+                            <option value="Beckett">Beckett Authenticated</option>
+                            <option value="PSA/DNA">PSA/DNA Authenticated</option>
+                            <option value="Official Club COA">Official Club COA</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Framing Style</label>
+                        <input type="text" id="framing" value="Bespoke Black Gallery Frame">
+                    </div>
                 </div>
             </div>
 
             <div class="form-group">
-                <label for="details">Additional Details (Optional)</label>
-                <textarea id="details" placeholder="e.g., Match-worn, signed in gold pen, 2023/24 season"></textarea>
+                <label>Key Selling Points / History</label>
+                <textarea id="history" placeholder="e.g. Scored a hat-trick in the final, limited to 50 units worldwide..."></textarea>
             </div>
 
-            <button type="submit">Generate SEO Content</button>
+            <button type="submit" class="generate-btn">Generate Master Assets</button>
         </form>
 
-        <div id="output" class="output">
-            <div class="output-item">
-                <div class="output-label">Product Name (On-Page Title)</div>
-                <div class="output-value">
-                    <button class="copy-btn" onclick="copyToClipboard('productName')">Copy</button>
-                    <div id="productNameOutput"></div>
+        <div id="results" class="tabs-container">
+            <div class="tabs-nav">
+                <button class="tab-btn active" onclick="showTab('google')">Google / SEO</button>
+                <button class="tab-btn" onclick="showTab('ebay')">eBay</button>
+                <button class="tab-btn" onclick="showTab('etsy')">Etsy</button>
+                <button class="tab-btn" onclick="showTab('amazon')">Amazon</button>
+                <button class="tab-btn" onclick="showTab('internal')">Internal / SKU</button>
+            </div>
+
+            <div id="google" class="tab-content active">
+                <div class="output-card">
+                    <div class="output-label"><span>SEO Title (Google)</span><span class="char-tag" id="googT-count">0/60</span></div>
+                    <div class="output-box" id="googT"><button class="copy-trigger" onclick="copyBox('googT')">COPY</button></div>
+                </div>
+                <div class="output-card">
+                    <div class="output-label"><span>Meta Description</span><span class="char-tag" id="googM-count">0/160</span></div>
+                    <div class="output-box" id="googM"><button class="copy-trigger" onclick="copyBox('googM')">COPY</button></div>
+                </div>
+                <div class="output-card">
+                    <div class="output-label"><span>Extended Description (Long Form)</span><span class="char-tag" id="googL-count">0 chars</span></div>
+                    <div class="output-box" id="googL"><button class="copy-trigger" onclick="copyBox('googL')">COPY</button></div>
                 </div>
             </div>
 
-            <div class="output-item">
-                <div class="output-label">Product Description (~600 chars)</div>
-                <div class="output-value">
-                    <button class="copy-btn" onclick="copyToClipboard('productDescription')">Copy</button>
-                    <div id="productDescriptionOutput" style="white-space: pre-wrap;"></div>
-                    <div id="productDescriptionCount" class="char-count"></div>
+            <div id="ebay" class="tab-content">
+                <div class="output-card">
+                    <div class="output-label"><span>eBay Title (Keyword Dense)</span><span class="char-tag" id="ebayT-count">0/80</span></div>
+                    <div class="output-box" id="ebayT"><button class="copy-trigger" onclick="copyBox('ebayT')">COPY</button></div>
+                </div>
+                <div class="output-card">
+                    <div class="output-label"><span>eBay Listing Header</span></div>
+                    <div class="output-box" id="ebayH"><button class="copy-trigger" onclick="copyBox('ebayH')">COPY</button></div>
                 </div>
             </div>
 
-            <div class="output-item">
-                <div class="output-label">SEO Title (50-60 chars optimal, keyword-first)</div>
-                <div class="output-value">
-                    <button class="copy-btn" onclick="copyToClipboard('title')">Copy</button>
-                    <div id="titleOutput"></div>
-                    <div id="titleCount" class="char-count"></div>
+            <div id="etsy" class="tab-content">
+                <div class="output-card">
+                    <div class="output-label"><span>Etsy Title (Gift Focused)</span><span class="char-tag" id="etsyT-count">0/140</span></div>
+                    <div class="output-box" id="etsyT"><button class="copy-trigger" onclick="copyBox('etsyT')">COPY</button></div>
+                </div>
+                <div class="output-card">
+                    <div class="output-label"><span>Etsy SEO Tags (13)</span></div>
+                    <div class="pill-grid" id="etsyTags"></div>
                 </div>
             </div>
 
-            <div class="output-item">
-                <div class="output-label">Meta Description (150-160 chars, includes CTA)</div>
-                <div class="output-value">
-                    <button class="copy-btn" onclick="copyToClipboard('description')">Copy</button>
-                    <div id="descriptionOutput"></div>
-                    <div id="descriptionCount" class="char-count"></div>
+            <div id="amazon" class="tab-content">
+                <div class="output-card">
+                    <div class="output-label"><span>Amazon Product Title</span></div>
+                    <div class="output-box" id="amzT"><button class="copy-trigger" onclick="copyBox('amzT')">COPY</button></div>
+                </div>
+                <div class="output-card">
+                    <div class="output-label"><span>Key Features (Bullet Points)</span></div>
+                    <div class="output-box" id="amzB"><button class="copy-trigger" onclick="copyBox('amzB')">COPY</button></div>
                 </div>
             </div>
 
-            <div class="output-item">
-                <div class="output-label">URL Slug (SEO-friendly)</div>
-                <div class="output-value">
-                    <button class="copy-btn" onclick="copyToClipboard('slug')">Copy</button>
-                    <div id="slugOutput"></div>
+            <div id="internal" class="tab-content">
+                <div class="output-card">
+                    <div class="output-label"><span>Generated SKU</span></div>
+                    <div class="output-box" id="sku"><button class="copy-trigger" onclick="copyBox('sku')">COPY</button></div>
                 </div>
-            </div>
-
-            <div class="output-item">
-                <div class="output-label">SKU (Team-Athlete-Year-Type-Variant)</div>
-                <div class="output-value">
-                    <button class="copy-btn" onclick="copyToClipboard('sku')">Copy</button>
-                    <div id="skuOutput"></div>
-                </div>
-            </div>
-
-            <div class="output-item">
-                <div class="output-label">Tags (for Shopify collections)</div>
-                <div class="output-value">
-                    <button class="copy-btn" onclick="copyToClipboard('tags')">Copy</button>
-                    <div id="tagsOutput"></div>
+                <div class="output-card">
+                    <div class="output-label"><span>Internal Tags</span></div>
+                    <div class="output-box" id="tags"><button class="copy-trigger" onclick="copyBox('tags')">COPY</button></div>
                 </div>
             </div>
         </div>
     </div>
 
     <script>
-        const form = document.getElementById('seoForm');
-        const output = document.getElementById('output');
+        const form = document.getElementById('masterForm');
 
         form.addEventListener('submit', (e) => {
             e.preventDefault();
-            generateSEO();
+            generate();
         });
 
-        function generateSEO() {
+        function generate() {
             const athlete = document.getElementById('athlete').value.trim();
-            const team = document.getElementById('team').value.trim();
-            const itemType = document.getElementById('itemType').value;
-            const sport = document.getElementById('sport').value;
-            const trophy = document.getElementById('trophy').value.trim();
+            const type = document.getElementById('itemType').value;
             const year = document.getElementById('year').value.trim();
-            const details = document.getElementById('details').value.trim();
+            const team = document.getElementById('team').value.trim();
+            const auth = document.getElementById('auth').value;
+            const framing = document.getElementById('framing').value;
+            const history = document.getElementById('history').value.trim();
 
-            // 1. PRODUCT NAME (On-Page)
-            // clean, descriptive: [Athlete] Signed [Item] - [Team/Context]
-            let productName = `${athlete} Signed ${capitalize(itemType)}`;
-            if (trophy) {
-                productName += ` - ${trophy} Edition`;
-            } else if (team) {
-                productName += ` - ${team}`;
-            }
-            productName += ` (${year})`;
+            const athleteShort = athlete.split(' ').pop();
 
-            // 2. PRODUCT DESCRIPTION (~600 chars)
-            // Hook -> Item Details -> Auth -> Framing -> Conclusion
-            let prodDesc = `Own a piece of sporting history with this authentic ${capitalize(itemType)} signed by ${athlete}.\n\n`;
+            // 1. GOOGLE SEO
+            const googT = `${athlete} Signed ${type} | Authentic ${team || year} Memorabilia`;
+            setRes('googT', googT, 60);
 
-            // Context/Achievement
-            if (trophy) {
-                prodDesc += `This item celebrates the ${trophy} triumph, capturing a moment of glory for any true fan. `;
-            } else {
-                prodDesc += `A must-have for any dedicated ${capitalize(sport)} collector. `;
-            }
+            const googM = `Own this authentic ${athlete} hand-signed ${type.toLowerCase()}. Verified by ${auth}. Gallery-standard framing. 100% guarantee. Buy our legacy today.`;
+            setRes('googM', googM, 160);
 
-            // Item Details
-            prodDesc += `The ${itemType} features a clear, hand-signed autograph from the ${team ? team + ' ' : ''}legend. `;
-            if (details) {
-                prodDesc += `${details}. `;
-            }
-            prodDesc += `\n\n`;
+            const googL = `HISTORICAL LEGACY\nOwn a definitive piece of sporting history with this hand-signed ${type.toLowerCase()} from ${athlete}. ${history ? history + '. ' : ''}Capturing a moment of sheer sporting brilliance, this item stands as an elite investment for the dedicated collector.\n\nAUTHENTICATION & TRUST\nEvery piece in our collection is strictly vetted. This item is secured with ${auth}. Our proprietary NFC technology allows you to tap your smartphone to the display to instantly verify the digital certificate of authenticity and view the signing date history.\n\nPREMIUM PRESENTATION\nThis ${type.toLowerCase()} is professionally housed in our ${framing}. Using conservation-grade mounts and UV-protective glass, we ensure your asset remains pristine for decades. This is gallery-standard excellence.\n\nSHIPPING & SERVICE\nFree, fully insured UK delivery. Experience our world-class unboxing standards tailored for luxury gifting.`;
+            setRes('googL', googL);
 
-            // Authentication (The "SportsSigned" Value Prop)
-            prodDesc += `AUTHENTICATION\n`;
-            prodDesc += `Guaranteed authentic. This item features our proprietary SportsSigned™ NFC Technology. Simply tap your smartphone to the item to verify its authenticity, view the digital certificate, and see proof of the signing session. No more paper certificates to lose—your proof is digital and immutable on the blockchain.\n\n`;
+            // 2. EBAY
+            const ebayT = `Authentic Hand Signed ${athlete} ${type} - ${team || ''} - ${auth} BOXED`.substring(0, 80);
+            setRes('ebayT', ebayT, 80);
 
-            // Presentation
-            prodDesc += `PRESENTATION\n`;
-            prodDesc += `Professionally framed in our premium bespoke gallery framing (40mm moulding) with conservation-grade mounts and UV-protective glass to ensure your investment stays pristine for decades.\n\n`;
+            const ebayH = `Rare ${athlete} Memorabilia\nType: Signed ${type}\nSeason: ${year}\nTeam: ${team || 'N/A'}\nFraming: Included\nCOA: ${auth}`;
+            setRes('ebayH', ebayH);
 
-            // Conclusion
-            prodDesc += `Free fully insured UK shipping. Returns accepted within 30 days.`;
+            // 3. ETSY
+            const etsyT = `${athlete} Signed ${type} Gift, Custom Framed ${team} Memorabilia, Luxury Sports Art for Man Cave, ${year} Collection`;
+            setRes('etsyT', etsyT, 140);
+            
+            const tagsArr = [athlete, `Signed ${type}`, team, 'Sports Gift', 'Gifts for Him', 'Birthday Gift', 'Custom Framed', 'Authenticated', 'Man Cave Art', 'Luxury Gift', sportFromTeam(team), year, 'SportsSigned'];
+            const tagsHtml = tagsArr.filter(t => t).map(t => `<div class="pill">${t}</div>`).join('');
+            document.getElementById('etsyTags').innerHTML = tagsHtml;
 
+            // 4. AMAZON
+            const amzT = `SportsSigned Authentic ${athlete} Signed ${type} - ${team} Edition - Premium Gallery Framed`;
+            setRes('amzT', amzT);
+            
+            const amzB = `• OFFICIAL SIGNATURE: Guaranteed hand-signed by ${athlete} during an exclusive professional signing session.\n• NFC AUTHENTICATED: Features SportsSigned™ NFC Technology for instant smartphone verification and digital provenance.\n• GALLERY FRAMING: Housed in our bespoke black gallery frame with premium double-mounts and UV-protective glass.\n• PERFECT GIFT: Delivered in high-end luxury packaging, designed for a world-class unboxing experience.\n• LIFETIME GUARANTEE: Accompanied by full legal authentication and a 100% lifetime authenticity guarantee.`;
+            setRes('amzB', amzB);
 
-            // 3. SEO TITLE
-            // GOOGLE DEC 2025 RULES: Primary keyword first, 50-60 chars optimal
-            let title = '';
-            if (trophy) {
-                // Format: [Athlete] [Trophy] [Item] | [Team]
-                title = `${athlete} ${trophy} ${capitalize(itemType)}`;
-                if (team) title += ` | ${team}`;
-            } else {
-                // Format: [Athlete] Signed [Item] | [Team] NFC
-                title = `${athlete} Signed ${capitalize(itemType)}`;
-                if (team) title += ` | ${team}`;
-                else title += ` | NFC Auth`;
-            }
-
-            // Trim to 60 chars max (Google Dec 2025 optimal display)
-            if (title.length > 60) {
-                title = title.substring(0, 57) + '...';
-            }
-
-            // 4. META DESCRIPTION
-            // GOOGLE DEC 2025 RULES: 150-160 chars, natural keywords, clear CTA
-            // Build description smartly to fit within 160 chars
-            const maxLength = 160;
-            let description = '';
-
-            // Detect if "team" is actually just a sport name (redundant with item type)
-            const sportNames = ['boxing', 'football', 'soccer', 'basketball', 'rugby', 'cricket', 'tennis', 'golf', 'mma', 'ufc'];
-            const isJustSport = team && sportNames.includes(team.toLowerCase());
-
-            // Core message (always included)
-            const core = `Authentic ${athlete} signed ${itemType}`;
-            const teamPart = (team && !isJustSport) ? ` from ${team}` : '';
-            const trophyPart = trophy ? ` ${trophy} memorabilia.` : '';
-
-            // E-E-A-T signals (prioritized)
-            const framing = ` Professionally framed.`;
-            const auth = ` NFC authentication.`;
-            const cta = ` Shop now.`;
-
-            // Build description by adding parts that fit
-            description = core + teamPart + '.';
-
-            if (trophy && (description + trophyPart).length <= maxLength - cta.length) {
-                description += trophyPart;
-            }
-
-            if ((description + framing).length <= maxLength - auth.length - cta.length) {
-                description += framing;
-            }
-
-            if ((description + auth).length <= maxLength - cta.length) {
-                description += auth;
-            }
-
-            // Always try to add CTA if space allows
-            if ((description + cta).length <= maxLength) {
-                description += cta;
-            }
-
-            // Add details only if there's room
-            if (details) {
-                const withDetails = description + ` ${details}`;
-                if (withDetails.length <= maxLength) {
-                    description = withDetails;
-                }
-            }
-
-            // Final safety check - should never trigger now, but just in case
-            if (description.length > maxLength) {
-                let truncated = description.substring(0, maxLength - 3);
-                const lastSpace = truncated.lastIndexOf(' ');
-                if (lastSpace > maxLength - 20) {
-                    truncated = truncated.substring(0, lastSpace);
-                }
-                description = truncated + '...';
-            }
-
-            // Generate URL Slug (lowercase, hyphens, no special chars)
-            let slug = `${athlete}-${itemType}`;
-            if (trophy) {
-                slug += `-${trophy}`;
-            }
-            slug = slug.toLowerCase()
-                .replace(/[^a-z0-9]+/g, '-')
-                .replace(/^-+|-+$/g, '');
-
-            // Generate SKU: {TEAM}-{ATHLETE}-{YEAR}-{TYPE}-{VARIANT}
-            const teamCode = team ? team.substring(0, 3).toUpperCase() : 'GEN';
+            // 5. INTERNAL
+            const teamCode = team ? team.substring(0,3).toUpperCase() : 'GEN';
             const athleteCode = athlete.split(' ').map(n => n[0]).join('').toUpperCase();
-            const typeCode = itemType.substring(0, 3).toUpperCase();
-            const sku = `${teamCode}-${athleteCode}-${year}-${typeCode}-FRAMED`;
+            const skuVal = `${teamCode}-${athleteCode}-${year.substring(0,4)}-${type.substring(0,3).toUpperCase()}-F`;
+            setRes('sku', skuVal);
+            setRes('tags', [athlete, team, type, year, 'Framed'].join(', '));
 
-            // Generate Tags: [Team, Sport, Athlete, Type]
-            const tags = [];
-            if (team) tags.push(team);
-            tags.push(capitalize(sport));
-            tags.push(athlete);
-            tags.push(capitalize(itemType));
-            const tagsString = tags.join(', ');
-
-            // Display results
-            document.getElementById('productNameOutput').textContent = productName;
-            document.getElementById('productDescriptionOutput').textContent = prodDesc;
-
-            document.getElementById('titleOutput').textContent = title;
-            document.getElementById('descriptionOutput').textContent = description;
-            document.getElementById('slugOutput').textContent = slug;
-            document.getElementById('skuOutput').textContent = sku;
-            document.getElementById('tagsOutput').textContent = tagsString;
-
-            // Update character counts
-            updateCharCount('title', title.length, 60);
-            updateCharCount('description', description.length, 160);
-            updateCharCount('productDescription', prodDesc.length, 600); // New count for product desc
-
-            // Show output
-            output.classList.add('show');
-            output.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            document.getElementById('results').classList.add('active');
+            window.scrollTo({ top: document.getElementById('results').offsetTop - 100, behavior: 'smooth' });
         }
 
-        function updateCharCount(id, count, max) {
-            const element = document.getElementById(`${id}Count`);
-
-            if (id === 'productDescription') {
-                // For product description, we want around 600.
-                element.textContent = `${count} characters (Target: ~600)`;
-                // Simple range check
-                if (count >= 500 && count <= 750) {
-                    element.className = 'char-count good';
-                    element.textContent += ' (Sweet spot!)';
-                } else {
-                    element.className = 'char-count';
-                }
-                return;
-            }
-
-            if (id === 'title') {
-                // Dec 2025: 50-60 chars is optimal
-                element.textContent = `${count} / ${max} characters`;
-                if (count > max) {
-                    element.className = 'char-count warning';
-                    element.textContent += ' (over limit - will be truncated)';
-                } else if (count >= 50 && count <= 60) {
-                    element.className = 'char-count good';
-                    element.textContent += ' (optimal range)';
-                } else if (count < 50) {
-                    element.className = 'char-count';
-                    element.textContent += ' (could be longer)';
-                }
-            } else {
-                // Dec 2025: 150-160 chars is optimal
-                element.textContent = `${count} / ${max} characters`;
-                if (count > max) {
-                    element.className = 'char-count warning';
-                    element.textContent += ' (over limit - will be truncated)';
-                } else if (count >= 150 && count <= 160) {
-                    element.className = 'char-count good';
-                    element.textContent += ' (optimal range)';
-                } else if (count < 150) {
-                    element.className = 'char-count';
-                    element.textContent += ' (could be longer)';
-                }
+        function setRes(id, val, max) {
+            const box = document.getElementById(id);
+            box.innerHTML = `<button class="copy-trigger" onclick="copyBox('${id}')">COPY</button>${val}`;
+            const count = document.getElementById(id + '-count');
+            if (count) {
+                count.textContent = max ? `${val.length}/${max}` : `${val.length} chars`;
+                if (max && val.length > max) count.style.color = '#ff6b6b';
+                else count.style.color = 'var(--gold)';
             }
         }
 
-        function capitalize(str) {
-            return str.charAt(0).toUpperCase() + str.slice(1);
+        function sportFromTeam(t) {
+            if (!t) return 'Sports';
+            const football = ['United', 'FC', 'City', 'Premier', 'League', 'Liverpool', 'Madrid'];
+            if (football.some(k => t.includes(k))) return 'Football';
+            return 'Sports';
         }
 
-        function copyToClipboard(type) {
-            let text = '';
-            if (type === 'productName') {
-                text = document.getElementById('productNameOutput').textContent;
-            } else if (type === 'productDescription') {
-                text = document.getElementById('productDescriptionOutput').textContent;
-            } else if (type === 'title') {
-                text = document.getElementById('titleOutput').textContent;
-            } else if (type === 'description') {
-                text = document.getElementById('descriptionOutput').textContent;
-            } else if (type === 'slug') {
-                text = document.getElementById('slugOutput').textContent;
-            } else if (type === 'sku') {
-                text = document.getElementById('skuOutput').textContent;
-            } else if (type === 'tags') {
-                text = document.getElementById('tagsOutput').textContent;
-            }
+        function showTab(id) {
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            event.target.classList.add('active');
+            document.getElementById(id).classList.add('active');
+        }
 
-            navigator.clipboard.writeText(text).then(() => {
+        function copyBox(id) {
+            const txt = document.getElementById(id).innerText.replace('COPY', '').trim();
+            navigator.clipboard.writeText(txt).then(() => {
                 const btn = event.target;
-                const originalText = btn.textContent;
-                btn.textContent = 'Copied!';
-                setTimeout(() => {
-                    btn.textContent = originalText;
-                }, 2000);
+                btn.textContent = 'COPIED!';
+                setTimeout(() => btn.textContent = 'COPY', 2000);
             });
         }
     </script>

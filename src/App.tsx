@@ -42,6 +42,7 @@ import { NFCManager } from "@/pages/admin/NFCManager"
 import { AdminDashboard } from "@/pages/admin/AdminDashboard"
 import { AdminGate } from "@/components/auth/AdminGate"
 import { AssetDemoPage } from "@/pages/AssetDemoPage"
+import { SEOGeneratorPage } from "@/pages/admin/SEOGeneratorPage"
 
 function App() {
   // Configured check
@@ -118,6 +119,7 @@ function App() {
                   <Route path="/admin/invoice-generator" element={<AdminGate><InvoiceGenerator /></AdminGate>} />
                   <Route path="/admin/product-mocker" element={<AdminGate><ProductMocker /></AdminGate>} />
                   <Route path="/admin/ai-debug" element={<AdminGate><AIDebug /></AdminGate>} />
+                  <Route path="/admin/seo-generator" element={<AdminGate><SEOGeneratorPage /></AdminGate>} />
 
                   <Route path="*" element={<NotFoundPage />} />
 

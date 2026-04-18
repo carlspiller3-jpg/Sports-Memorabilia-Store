@@ -14,6 +14,7 @@ export function AdminDashboard() {
         { title: 'NFC Tag Manager', path: '/admin/nfc', icon: ShieldCheck, description: 'Map physical NFC tags to digital certificates.' },
         { title: 'Invoice Generator', path: '/admin/invoice-generator', icon: FileText, description: 'Quickly generate branded PDFs for manual B2B orders.' },
         { title: 'Product Mocker', path: '/admin/product-mocker', icon: Package, description: 'Create mockup displays for product imagery.' },
+        { title: 'SEO AI Generator', path: '/admin/seo-generator', icon: Zap, description: 'Generate titles and descriptions for Google, eBay, Etsy, and Amazon.' },
         { title: 'AI Chatbot Debug', path: '/admin/ai-debug', icon: Bug, description: 'Test and debug the AI assistant prompts.' },
     ]
 
