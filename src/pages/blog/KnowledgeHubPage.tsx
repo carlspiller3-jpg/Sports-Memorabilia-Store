@@ -8,12 +8,17 @@ export function KnowledgeHubPage() {
     const [searchParams] = useSearchParams();
     const isPreview = searchParams.get("preview") === "true";
 
-    // Filter articles (Show all if preview mode, otherwise only published)
-    const displayArticles = isPreview
-        ? articles
-        : articles.filter(article => new Date(article.date) <= new Date());
+    // 1. Sort all articles by date (Newest First)
+    const sortedArticles = [...articles].sort((a, b) => 
+        new Date(b.date).getTime() - new Date(a.date).getTime()
+    );
 
-    // Use displayArticles for display
+    // 2. Filter articles (Show all if preview mode, otherwise only published)
+    const displayArticles = isPreview
+        ? sortedArticles
+        : sortedArticles.filter(article => new Date(article.date) <= new Date());
+
+    // 3. Destructure for layout
     const featuredArticle = displayArticles[0];
     const gridArticles = displayArticles.slice(1);
 
@@ -35,7 +40,7 @@ export function KnowledgeHubPage() {
                     <div className="text-center mb-16">
                         <h1 className="font-serif text-4xl md:text-5xl text-navy mb-4">The Knowledge Hub</h1>
                         <p className="text-navy/60 text-lg max-w-2xl mx-auto">
-                            Expert analysis, authenticity guides, and collecting history from the team at SportsSigned.
+                            Expert analysis, authenticity guides, and collecting history from the team at the Sports Memorabilia Store.
                         </p>
                     </div>
 

@@ -40,7 +40,7 @@ async function runPulse() {
 
     // 2. Generate the Elite Article
     const articlePrompt = `
-        Write a professional blog post for a luxury sports memorabilia brand about this news: "${newsSummary}"
+        Write a professional blog post for a luxury sports memorabilia brand called 'Sports Memorabilia Store' about this news: "${newsSummary}"
         
         STRICT RULES:
         1. LANGUAGE: British English only (colour, realised, centre, football not soccer).
@@ -48,6 +48,7 @@ async function runPulse() {
         3. NO HYPHENS: Do not use hyphenated adjectives (e.g., no 'record-breaking', no 'top-tier'). Use real, flowing sentences.
         4. STRUCTURE: Use <h2> and <h3>. One blunt <strong>Verdict</strong> at the end.
         5. SEO: Provide a meta title (max 60 chars) and meta description (max 160 chars).
+        6. BRANDING: Use 'Sports Memorabilia Store' whenever referring to the company.
         
         Return the result in JSON format:
         {

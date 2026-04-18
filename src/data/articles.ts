@@ -50,7 +50,7 @@ export const articles: BlogPost[] = [
       <p>My uncle met Messi in a pub. No, he probably didn't. Authentication relies on concrete proof. Photo proof of the signing, or a verifiable chain of custody like our NFC system.</p>
 
       <div class="bg-navy/5 p-6 rounded-lg my-8 border-l-4 border-gold">
-        <strong>The SportsSigned Standard:</strong> We don't rely on opinion. We rely on witness. Every item we sell was signed in our presence or the presence of a trusted supply partner.
+        <strong>The Sports Memorabilia Store Standard:</strong> We don't rely on opinion. We rely on witness. Every item we sell was signed in our presence or the presence of a trusted supply partner.
       </div>
     `
   },
@@ -124,7 +124,7 @@ export const articles: BlogPost[] = [
       <p>Anyone with a high quality home printer can forge a Certificate of Authenticity. If you lose the paper, your £500 signed shirt becomes a £50 second hand shirt. Paper degrades, gets lost, and is easily separated from the item it protects.</p>
 
       <h3>The NFC Solution</h3>
-      <p>At SportsSigned, we use Near Field Communication technology. A tiny, tamper proof chip is applied to your framed item. When you tap it with your smartphone, it opens a secure, immutable digital record on the blockchain.</p>
+      <p>At Sports Memorabilia Store, we use Near Field Communication technology. A tiny, tamper proof chip is applied to your framed item. When you tap it with your smartphone, it opens a secure, immutable digital record on the blockchain.</p>
 
       <div class="bg-navy/5 p-6 rounded-lg my-8 border-l-4 border-gold">
         <strong>Key Benefits:</strong>
@@ -245,7 +245,7 @@ export const articles: BlogPost[] = [
       <h3>Standard Glass vs UV Glass</h3>
       <p>Standard picture frame glass allows about 97% of UV rays to pass through. Even indirect sunlight will bleach Sharpie ink over time. Once ink fades, it cannot be restored.</p>
 
-      <h3>The SportsSigned Standard</h3>
+      <h3>The Sports Memorabilia Store Standard</h3>
       <p>All our premium frames use Conservation Grade UV Protection Acrylic. This blocks 99% of harmful rays. It costs us more, but it ensures your investment survives for the next generation.</p>
 
       <div class="bg-navy/5 p-6 rounded-lg">
