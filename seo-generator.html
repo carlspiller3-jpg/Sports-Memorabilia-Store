@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Omni-Channel SEO Master - SportsSigned</title>
+    <title>Omni-Channel SEO Master - Sports Memorabilia Store</title>
     <style>
         :root {
             --navy: #1a1a2e;
@@ -426,10 +426,10 @@
             const googT = `${athlete} Signed ${type} | Authentic ${team || year} Memorabilia`;
             setRes('googT', googT, 60);
 
-            const googM = `Own this authentic ${athlete} hand-signed ${type.toLowerCase()}. Verified by ${auth}. Gallery-standard framing. 100% guarantee. Buy our legacy today.`;
+            const googM = `Own this authentic ${athlete} hand-signed ${type.toLowerCase()}. Verified by ${auth}. Gallery-standard framing. 100% guarantee. Authentic memorabilia from Sports Memorabilia Store. Shop the legend today.`;
             setRes('googM', googM, 160);
 
-            const googL = `HISTORICAL LEGACY\nOwn a definitive piece of sporting history with this hand-signed ${type.toLowerCase()} from ${athlete}. ${history ? history + '. ' : ''}Capturing a moment of sheer sporting brilliance, this item stands as an elite investment for the dedicated collector.\n\nAUTHENTICATION & TRUST\nEvery piece in our collection is strictly vetted. This item is secured with ${auth}. Our proprietary NFC technology allows you to tap your smartphone to the display to instantly verify the digital certificate of authenticity and view the signing date history.\n\nPREMIUM PRESENTATION\nThis ${type.toLowerCase()} is professionally housed in our ${framing}. Using conservation-grade mounts and UV-protective glass, we ensure your asset remains pristine for decades. This is gallery-standard excellence.\n\nSHIPPING & SERVICE\nFree, fully insured UK delivery. Experience our world-class unboxing standards tailored for luxury gifting.`;
+            const googL = `HISTORICAL LEGACY\nOwn a definitive piece of sporting history with this hand-signed ${type.toLowerCase()} from ${athlete}. ${history ? history + '. ' : ''}Capturing a moment of sheer sporting brilliance, this item stands as an elite investment for the dedicated collector.\n\nAUTHENTICATION & TRUST\nEvery piece in our collection is strictly vetted. This item is secured with ${auth}. Our proprietary NFC technology allows you to tap your smartphone to the display to instantly verify the digital certificate of authenticity and view the signing date history.\n\nPREMIUM PRESENTATION\nThis ${type.toLowerCase()} is professionally housed in our ${framing}. Using conservation-grade mounts and UV-protective glass, we ensure your asset remains pristine for decades. This is gallery-standard excellence.\n\nSHIPPING & SERVICE\nFree, fully insured UK delivery. Experience our world-class unboxing standards tailored for luxury gifting by Sports Memorabilia Store.`;
             setRes('googL', googL);
 
             // 2. EBAY
@@ -443,15 +443,15 @@
             const etsyT = `${athlete} Signed ${type} Gift, Custom Framed ${team} Memorabilia, Luxury Sports Art for Man Cave, ${year} Collection`;
             setRes('etsyT', etsyT, 140);
             
-            const tagsArr = [athlete, `Signed ${type}`, team, 'Sports Gift', 'Gifts for Him', 'Birthday Gift', 'Custom Framed', 'Authenticated', 'Man Cave Art', 'Luxury Gift', sportFromTeam(team), year, 'SportsSigned'];
+            const tagsArr = [athlete, `Signed ${type}`, team, 'Sports Gift', 'Gifts for Him', 'Birthday Gift', 'Custom Framed', 'Authenticated', 'Man Cave Art', 'Luxury Gift', sportFromTeam(team), year, 'Sports Memorabilia Store'];
             const tagsHtml = tagsArr.filter(t => t).map(t => `<div class="pill">${t}</div>`).join('');
             document.getElementById('etsyTags').innerHTML = tagsHtml;
 
             // 4. AMAZON
-            const amzT = `SportsSigned Authentic ${athlete} Signed ${type} - ${team} Edition - Premium Gallery Framed`;
+            const amzT = `Sports Memorabilia Store Authentic ${athlete} Signed ${type} - ${team} Edition - Premium Gallery Framed`;
             setRes('amzT', amzT);
             
-            const amzB = `• OFFICIAL SIGNATURE: Guaranteed hand-signed by ${athlete} during an exclusive professional signing session.\n• NFC AUTHENTICATED: Features SportsSigned™ NFC Technology for instant smartphone verification and digital provenance.\n• GALLERY FRAMING: Housed in our bespoke black gallery frame with premium double-mounts and UV-protective glass.\n• PERFECT GIFT: Delivered in high-end luxury packaging, designed for a world-class unboxing experience.\n• LIFETIME GUARANTEE: Accompanied by full legal authentication and a 100% lifetime authenticity guarantee.`;
+            const amzB = `• OFFICIAL SIGNATURE: Guaranteed hand-signed by ${athlete} during an exclusive professional signing session.\n• NFC AUTHENTICATED: Features Sports Memorabilia Store™ NFC Technology for instant smartphone verification and digital provenance.\n• GALLERY FRAMING: Housed in our bespoke black gallery frame with premium double-mounts and UV-protective glass.\n• PERFECT GIFT: Delivered in high-end luxury packaging, designed for a world-class unboxing experience.\n• LIFETIME GUARANTEE: Accompanied by full legal authentication and a 100% lifetime authenticity guarantee.`;
             setRes('amzB', amzB);
 
             // 5. INTERNAL
