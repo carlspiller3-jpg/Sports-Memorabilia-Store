@@ -423,5 +423,37 @@ export const articles: BlogPost[] = [
       <h3>What to Buy?</h3>
       <p>For investors, <strong>Match Used</strong> is king. A set of darts actually thrown on the Ally Pally stage is the ultimate prize. For casual collectors, signed replica shirts from the finalists offer a great entry point into a sport that is only getting bigger.</p>
     `
+  },
+  {
+    id: "15",
+    title: "The £150,000 Racing Glove: Why Modern F1 is the New Gold Standard",
+    slug: "f1-memorabilia-boom-april-2026",
+    date: "2026-04-18",
+    author: "Market Analyst",
+    category: "Analysis",
+    excerpt: "With a Kimi Antonelli glove smashing records this month, we look at why modern racing assets are now outperforming vintage football legends.",
+    imageUrl: "https://images.unsplash.com/photo-1547447134-cd3f5c716030?q=80&w=2070&auto=format&fit=crop",
+    seo_title: "F1 Memorabilia Market Analysis April 2026 | Antonelli Glove Sale",
+    seo_description: "Analysis of the $200k Kimi Antonelli racing glove sale. Why modern F1 memorabilia is the top-performing asset class in April 2026.",
+    seo_keywords: ["F1 memorabilia investment", "Kimi Antonelli glove sale", "Topps NFL license shift", "sports memorabilia trends 2026", "rare racing collectibles"],
+    content: `
+      <h2>The Shift to 'The Now'</h2>
+      <p>If you told a collector five years ago that a racing glove from a teenager would sell for more than a match-worn Pele shirt, they would have laughed you out of the auction house. Yet, here we are in April 2026, and the hammer has just fallen on a Kimi Antonelli asset for a staggering $201,910.</p>
+
+      <h3>Modern Performance vs. Vintage Sentiment</h3>
+      <p>We are witnessing a fundamental shift in how the elite 1% collect. While the 'Boys of 66' and the 'Class of 92' remain the bedrock of the UK market, global capital is flowing into high-growth modern assets. Darts, F1, and even modern UFC gear are seeing vertical price spikes because the new generation of investors values "Future Potential" over "Historical Retrospective".</p>
+
+      <h3>The Topps NFL Opportunity</h3>
+      <p>As of April 1st, the licensing shift in the US card market has created what we call a 'Liquidity Gap'. When providers change, the old product lines often see a temporary dip in volume as the market adjusts to the new Topps era. For those with a long-term view, this provides a unique buying window for high-grade vintage cards before the summer peak.</p>
+
+      <div class="bg-navy/5 p-6 rounded-lg my-8 border-l-4 border-gold italic">
+        "Smart money isn't just looking at who won the World Cup anymore; they are looking at who is going to win the 2027 Driver's Championship."
+      </div>
+
+      <h3>The Jordan 'Inner Circle' Alert</h3>
+      <p>Finally, eyes are fixed on the Gus Lett collection hitting the block this week. These aren't just market-bought items; they are 'provenance-locked' assets from Michael Jordan's personal bodyguard. In a market where authenticity is everything, these items are the safest harbour for capital.</p>
+
+      <p><strong>The Verdict:</strong> If you are holding vintage football, keep it. But if you want growth? Look at the track, not the pitch.</p>
+    `
   }
 ];
