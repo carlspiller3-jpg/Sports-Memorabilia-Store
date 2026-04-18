@@ -48,10 +48,10 @@ export function ShopGate({ children }: { children: React.ReactNode }) {
 
                 <h1 className="font-serif text-3xl text-navy mb-4">Pre-Launch Store</h1>
                 <p className="text-charcoal/60 mb-8 leading-relaxed font-light">
-                    Our official store is currently in a <strong>Pre-Launch phase</strong>. 
-                    Access is reserved for members with early-access credentials.
+                    Welcome to our <strong>Pre-Launch Phase</strong>. 
+                    We are currently preparing for our official store opening and stocking the world's finest authenticated assets.
                     <br /><br />
-                    Please enter your password to browse the latest drops.
+                    Join our email subscription for early access credentials, or enter your password below if you are already a member.
                 </p>
 
                 <form onSubmit={handleSubmit} className="space-y-4">
@@ -82,7 +82,7 @@ export function ShopGate({ children }: { children: React.ReactNode }) {
                 </form>
 
                 <p className="mt-8 text-xs text-charcoal/40">
-                    Don't have a password? <a href="/#waitlist" className="underline hover:text-gold">Join the Waitlist</a> for the next drop.
+                    Don't have a password? <a href="/#waitlist" className="underline hover:text-gold">Join our Email Subscription</a> for early access.
                 </p>
             </div>
         </div>

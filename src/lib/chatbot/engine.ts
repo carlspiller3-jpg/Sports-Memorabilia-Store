@@ -42,21 +42,21 @@ class ChatEngine {
     if (isLocked) {
       if (!userMessage || userMessage.trim() === '') {
         return {
-          message: "Hi there! Looking for a piece of history? I'm here to help.\n\nEvery item comes with NFC authentication and a lifetime guarantee.\n\nHowever, access is currently **Restricted** to the public.",
-          quickReplies: ['How do I enter?', 'Join Waitlist']
+          message: "Hi there! 👋 We're currently in our **Pre-Launch Phase**.\n\nWe are preparing some of the rarest signed memorabilia in the world for our official opening. \n\nWould you like to join our subscription list for early access and drop notifications?",
+          quickReplies: ['Join Pre-Launch List', 'How do I enter?']
         }
       }
 
       if (lower.includes('password') || lower.includes('enter') || lower.includes('unlock')) {
         return {
-          message: "Passwords are sent to waitlist members 48 hours before a drop.\n\nDo you have a password to enter?",
-          quickReplies: ['I have a password', 'Join Waitlist']
+          message: "Early access passwords are sent to our subscribers 48 hours before each drop.\n\nWould you like to join the list now?",
+          quickReplies: ['Join Pre-Launch List', 'I have a password']
         }
       }
 
       return {
-        message: "Our collection is reserved for members only right now. \n\nJoin the waitlist to get early access and the password for our next drop.",
-        quickReplies: ['Join Waitlist'],
+        message: "The store is currently in **Pre-Launch**. \n\nSign up for our email service to receive your access credentials for the next drop.",
+        quickReplies: ['Join Pre-Launch List'],
         action: 'scroll_waitlist'
       }
     }
