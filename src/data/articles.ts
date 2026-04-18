@@ -31,23 +31,23 @@ export const articles: BlogPost[] = [
     date: "2025-12-10",
     author: "The Authenticator",
     category: "Education",
-    excerpt: "Don't get stung by forgeries. We break down the 5 key signs of a fake autograph, from 'dotting' to the pen pressure test.",
+    excerpt: "Don't get stung by forgeries. We break down the 5 key signs of a fake autograph, from dotting to the pen pressure test.",
     imageUrl: "https://images.unsplash.com/photo-1549633036-bcd8207fa025?q=80&w=1956&auto=format&fit=crop",
     seo_title: "How to Spot Fake Signed Shirts | Authentication Guide",
     seo_description: "Learn the expert tricks to spotting a fake autograph. Our comprehensive guide covers the dotting technique, pen pressure, and verification methods.",
     seo_keywords: ["fake signed shirt", "autograph authentication", "sports memorabilia fakes", "signed shirt guide", "genuine autograph"],
     content: `
       <h2>The Plague of Fakes</h2>
-      <p>The memorabilia market is flooded with fakes. Some estimates suggest up to 80% of "signed" items on general auction sites are largely worthless. As a buyer, your best defence is knowledge.</p>
+      <p>The memorabilia market is flooded with fakes. Some estimates suggest up to 80% of signed items on general auction sites are largely worthless. As a buyer, your best defence is knowledge.</p>
 
-      <h3>1. The "Dotting" Technique</h3>
+      <h3>1. The Dotting Technique</h3>
       <p>When a forger pauses to check the signature they are copying, they often leave tiny dots of ink at the start or end of strokes. A natural signature flows. It has rhythm. If you see hesitation marks under a loupe, walk away.</p>
 
       <h3>2. Pen Pressure</h3>
-      <p>A real athlete signs quickly. The ink distribution should show speed. Fakes often look "drawn" rather than "signed", with consistent, heavy pressure throughout the signature because the forger is pressing hard to copy a shape.</p>
+      <p>A real athlete signs quickly. The ink distribution should show speed. Fakes often look drawn rather than signed, with consistent, heavy pressure throughout the signature because the forger is pressing hard to copy a shape.</p>
 
-      <h3>3. The "Too Good to Be True" Provenance</h3>
-      <p>"My uncle met Messi in a pub." No, he probably didn't. Authentication relies on concrete proof—photo proof of the signing, or a verifiable chain of custody (like our NFC system).</p>
+      <h3>3. The Too Good to Be True Provenance</h3>
+      <p>My uncle met Messi in a pub. No, he probably didn't. Authentication relies on concrete proof. Photo proof of the signing, or a verifiable chain of custody like our NFC system.</p>
 
       <div class="bg-navy/5 p-6 rounded-lg my-8 border-l-4 border-gold">
         <strong>The SportsSigned Standard:</strong> We don't rely on opinion. We rely on witness. Every item we sell was signed in our presence or the presence of a trusted supply partner.
@@ -64,20 +64,20 @@ export const articles: BlogPost[] = [
     excerpt: "We dive into the auction results this week to understand why certain modern shirts are skyrocketing in value.",
     imageUrl: "https://images.unsplash.com/photo-1671911400263-958428f52af3?q=80&w=2070&auto=format&fit=crop",
     seo_title: "Messi World Cup Shirt Value Analysis | Sports Memorabilia Investment",
-    seo_description: "Why did a Messi shirt sell for £5,000? We analyse the 'Goat Effect', scarcity of match-spec shirts, and future investment potential.",
+    seo_description: "Why did a Messi shirt sell for £5,000? We analyse the 'Goat Effect', scarcity of match spec shirts, and future investment potential.",
     seo_keywords: ["Messi signed shirt value", "sports memorabilia investment", "match worn vs replica", "Messi world cup shirt", "football collectibles"],
     content: `
-      <h2>The "Goat" Effect</h2>
+      <h2>The Goat Effect</h2>
       <p>This week, a 2022 Argentina Home Shirt signed by Lionel Messi hammered at a specialist auction for over £5,000. For a modern shirt, this is exceptional. Why?</p>
 
-      <h3>1. The "Peak" Narrative</h3>
-      <p>Collectors aren't just buying ink; they are buying a story. The 2022 World Cup was Messi's crowning moment. Items associated with that specific timeframe carry a "legacy premium" that a 2018 or 2014 shirt simply does not have.</p>
+      <h3>1. The Peak Narrative</h3>
+      <p>Collectors aren't just buying ink; they are buying a story. The 2022 World Cup was Messi's crowning moment. Items associated with that specific timeframe carry a legacy premium that a 2018 or 2014 shirt simply does not have.</p>
 
-      <h3>2. Scarcity of "Match Spec"</h3>
-      <p>The shirt in question was "Player Spec" (authentic on-pitch version), not a standard "Replica" (Fan store version). Serious investors are moving heavily towards Player Spec items, as they are closer to the actual asset used in the game.</p>
+      <h3>2. Scarcity of Match Spec</h3>
+      <p>The shirt in question was Player Spec, the version used on the pitch, not a standard replica from a fan store. Serious investors are moving heavily towards Player Spec items, as they are closer to the actual asset used in the game.</p>
 
       <h3>Investment Verdict</h3>
-      <p>While £5k is high, we believe "Peak Messi" items will outperform the general market over the next decade as he approaches retirement. It is the Michael Jordan effect happening in real-time for football.</p>
+      <p>While £5k is high, we believe Peak Messi items will outperform the general market over the next decade as he approaches retirement. It is the Michael Jordan effect happening in real time for football.</p>
     `
   },
   {
@@ -87,7 +87,7 @@ export const articles: BlogPost[] = [
     date: "2025-07-30",
     author: "Team Historian",
     category: "History",
-    excerpt: "Looking back at the most famous afternoon in English football history, and the rising value of the 'Boys of 66' signatures.",
+    excerpt: "Looking back at the most famous afternoon in English football history, and the rising value of the Boys of 66 signatures.",
     imageUrl: "https://images.unsplash.com/photo-1574629810360-7efbbe195018?q=80&w=2076&auto=format&fit=crop",
     seo_title: "1966 World Cup Final Memorabilia Value | England Squad Signatures",
     seo_description: "A look at the rising value of autographs from the 1966 World Cup squad. Why Bobby Moore signatures are the anchor of any serious collection.",
@@ -95,13 +95,13 @@ export const articles: BlogPost[] = [
     content: `
       <h2>They Think It's All Over...</h2>
       <p>It is now!</p>
-      <p>Today marks the anniversary of England's only World Cup triumph. But for collectors, the '66 squad represents a different kind of tragedy: time.</p>
+      <p>Today marks the anniversary of England's only World Cup triumph. But for collectors, the 66 squad represents a different kind of tragedy: time.</p>
 
       <h3>A Disappearing Signature</h3>
       <p>As we lose more members of that heroic squad, complete team signed items are becoming incredibly scarce. A shirt signed by the XI in the 1990s might have cost £300. Today, a pristine example with Geoff Hurst, Bobby Charlton, and Bobby Moore can command significantly higher sums.</p>
 
-      <h3>The "Moore" Factor</h3>
-      <p>Bobby Moore's signature is the anchor of any '66 piece. Because he passed away relatively young (1993), his signature is the rarest of the key trio. When evaluating a '66 piece, the condition of Moore's autograph is usually the primary value driver.</p>
+      <h3>The Moore Factor</h3>
+      <p>Bobby Moore's signature is the anchor of any 66 piece. Because he passed away relatively young in 1993, his signature is the rarest of the key trio. When evaluating a 66 piece, the condition of Moore's autograph is usually the primary value driver.</p>
     `
   },
   {
@@ -121,10 +121,10 @@ export const articles: BlogPost[] = [
       <p>For decades, the sports memorabilia industry has relied on a piece of A4 paper to prove that an item is worth thousands of pounds. This is madness.</p>
 
       <h3>The Vulnerability of Paper</h3>
-      <p>Anyone with a high-quality home printer can forge a Certificate of Authenticity (COA). If you lose the paper, your £500 signed shirt becomes a £50 second-hand shirt. Paper degrades, gets lost, and is easily separated from the item it protects.</p>
+      <p>Anyone with a high quality home printer can forge a Certificate of Authenticity. If you lose the paper, your £500 signed shirt becomes a £50 second hand shirt. Paper degrades, gets lost, and is easily separated from the item it protects.</p>
 
       <h3>The NFC Solution</h3>
-      <p>At SportsSigned, we use Near Field Communication (NFC) technology. A tiny, tamper-proof chip is applied to your framed item. When you tap it with your smartphone, it opens a secure, immutable digital record on the blockchain.</p>
+      <p>At SportsSigned, we use Near Field Communication technology. A tiny, tamper proof chip is applied to your framed item. When you tap it with your smartphone, it opens a secure, immutable digital record on the blockchain.</p>
 
       <div class="bg-navy/5 p-6 rounded-lg my-8 border-l-4 border-gold">
         <strong>Key Benefits:</strong>
@@ -140,7 +140,7 @@ export const articles: BlogPost[] = [
   },
   {
     id: "5",
-    title: "Investment Watch: 'Match Worn' vs 'Replica'",
+    title: "Investment Watch: Match Worn vs Replica",
     slug: "match-worn-vs-replica-investment",
     date: "2025-12-21",
     author: "Market Analyst",
@@ -161,8 +161,8 @@ export const articles: BlogPost[] = [
             <span class="block text-sm font-normal text-navy/70">The shirt you buy in the club shop. Looser fit, embroidered badges. Great for display, lower entry price.</span>
         </li>
         <li>
-            <span class="block text-gold">Player Issue / Match Spec</span>
-            <span class="block text-sm font-normal text-navy/70">The exact same specification as worn by players (lighter fabric, heat-pressed badges). These are rarer and command a 20-40% premium.</span>
+            <span class="block text-gold">Player Issue or Match Spec</span>
+            <span class="block text-sm font-normal text-navy/70">The exact same specification as worn by players with lighter fabric and heat pressed badges. These are rarer and command a premium of around 30%.</span>
         </li>
         <li>
             <span class="block text-gold">Match Worn</span>
@@ -171,12 +171,12 @@ export const articles: BlogPost[] = [
       </ol>
 
       <h3>Where is the Smart Money?</h3>
-      <p>For entry-level collectors, a signed <strong>Replica</strong> is perfect. But for investors, <strong>Match Spec</strong> (even if not worn) is becoming the standard. As manufacturers make the difference between "Fan" and "Player" versions more distinct, the "Player Spec" signed items are holding their value significantly better.</p>
+      <p>For entry level collectors, a signed replica is perfect. But for investors, Player Spec even if not worn is becoming the standard. As manufacturers make the difference between fan and player versions more distinct, the Player Spec signed items are holding their value significantly better.</p>
     `
   },
   {
     id: "6",
-    title: "The Class of '92: A Signing History",
+    title: "The Class of 92: A Signing History",
     slug: "class-of-92-signing-history",
     date: "2025-12-25",
     author: "Team Historian",
@@ -184,25 +184,25 @@ export const articles: BlogPost[] = [
     excerpt: "Nev, Becks, Scholesy, Giggs, Butt, Phil. The story of the most famous academy graduates in history and their autograph legacy.",
     imageUrl: "https://images.unsplash.com/photo-1628155930542-3c7a64e2c833?q=80&w=2070&auto=format&fit=crop",
     seo_title: "Class of 92 Signed Memorabilia | Manchester United History",
-    seo_description: "A guide to collecting Class of '92 autographs. From Beckham's ever-changing signature to the elusive Paul Scholes.",
+    seo_description: "A guide to collecting Class of 92 autographs. From Beckham's ever-changing signature to the elusive Paul Scholes.",
     seo_keywords: ["Class of 92 signed shirt", "David Beckham autograph", "Paul Scholes signed info", "Man Utd 1999 memorabilia", "collectible autographs"],
     content: `
       <h2>The Academy That Changed Everything</h2>
-      <p>Manchester United's 1992 FA Youth Cup winning side didn't just win trophies; they became a global brand. Beckham, Scholes, Giggs, Neville (x2), and Butt.</p>
+      <p>Manchester United's 1992 FA Youth Cup winning side didn't just win trophies; they became a global brand. Beckham, Scholes, Giggs, Neville, and Butt.</p>
 
       <h3>Beckham: The Global Brand</h3>
-      <p>David Beckham is arguably the most signed athlete in glorious history. However, his signature has evolved from a tight "David Beckham" to a sweeping, loop-heavy design. Finding a '90s era Beckham signature is rare and highly prized.</p>
+      <p>David Beckham is arguably the most signed athlete in history. However, his signature has evolved from a tight David Beckham to a sweeping, loop heavy design. Finding a 90s era Beckham signature is rare and highly prized.</p>
 
       <h3>Scholes: The Silent Genius</h3>
       <p>Paul Scholes famously disliked the limelight. Consequently, he did fewer commercial signings during his playing career than his peers. This makes a genuine Scholes signature harder to find than a Giggs or Neville.</p>
 
-      <h3>The "Full Set" Premium</h3>
+      <h3>The Full Set Premium</h3>
       <p>Items signed by all six members of the class are the gold standard. Finding a shirt where all six sat down to sign is increasingly difficult as their careers diverge.</p>
     `
   },
   {
     id: "7",
-    title: "The 'Ronaldo vs Messi' Market Index",
+    title: "The Ronaldo vs Messi Market Index",
     slug: "ronaldo-vs-messi-market-index",
     date: "2025-12-28",
     author: "Market Analyst",
@@ -217,13 +217,13 @@ export const articles: BlogPost[] = [
       <p>On the pitch, it's a matter of taste. In the investment market, it's a matter of data.</p>
 
       <h3>Messi: The Peak Burst</h3>
-      <p>Lionel Messi's value saw the single biggest vertical spike in history following the 2022 World Cup. Items from that specific 12-month period carry a "World Champion" tax. Before 2022, his prices were high but stable. Now, "National Team" items outstrip "Barcelona" items.</p>
+      <p>Lionel Messi's value saw the single biggest vertical spike in history following the 2022 World Cup. Items from that specific 12 month period carry a World Champion tax. Before 2022, his prices were high but stable. Now, National Team items outstrip Barcelona items.</p>
 
       <h3>Ronaldo: The Global Volume</h3>
-      <p>CR7 has arguably signed more items than any human being in history. He is a commercial machine. This high supply means standard "Real Madrid" Ronaldo shirts are relatively accessible (£400-£600). However, his early "Manchester United" (2003-2009) signatures are where the scarcity value lies.</p>
+      <p>CR7 has arguably signed more items than any human being in history. He is a commercial machine. This high supply means standard Real Madrid Ronaldo shirts are relatively accessible at around £500. However, his early Manchester United signatures from 2003 to 2009 are where the scarcity value lies.</p>
 
       <h3>The Verdict</h3>
-      <p>Buy <strong>Messi</strong> for peak "moment in time" value (World Cup). Buy <strong>Ronaldo</strong> for early-era nostalgia (Man Utd).</p>
+      <p>Buy Messi for peak moment in time value from the World Cup. Buy Ronaldo for early era nostalgia from Manchester United.</p>
     `
   },
   {
@@ -246,10 +246,10 @@ export const articles: BlogPost[] = [
       <p>Standard picture frame glass allows about 97% of UV rays to pass through. Even indirect sunlight will bleach Sharpie ink over time. Once ink fades, it cannot be restored.</p>
 
       <h3>The SportsSigned Standard</h3>
-      <p>All our premium frames use Conservation Grade UV-Protection Acrylic. This blocks 99% of harmful rays. It costs us more, but it ensures your investment survives for the next generation.</p>
+      <p>All our premium frames use Conservation Grade UV Protection Acrylic. This blocks 99% of harmful rays. It costs us more, but it ensures your investment survives for the next generation.</p>
 
-      <div class="bg-navy/5 p-6 rounded-lg font-bold">
-        Rule #1: Never hang signed memorabilia on a wall that faces a window directly.
+      <div class="bg-navy/5 p-6 rounded-lg">
+        <strong>Rule #1:</strong> Never hang signed memorabilia on a wall that faces a window directly.
       </div>
     `
   },
@@ -267,22 +267,16 @@ export const articles: BlogPost[] = [
     seo_keywords: ["sports memorabilia gifts", "football fan gift ideas", "signed shirt gift guide", "best sports gifts 2026", "soccer memorabilia presents"],
     content: `
       <h2>The Fear of Getting it Wrong</h2>
-      <p>Buying football gifts is high stakes. Buy a Liverpool fan a generic "football" gift and they will hate it. It has to be specific.</p>
+      <p>Buying football gifts is high stakes. Buy a Liverpool fan a generic football gift and they will hate it. It has to be specific.</p>
 
       <h3>Step 1: The Tribe</h3>
-      <p>Find out exactly who they support. Not just "Football". "Arsenal". If you get this wrong, the gift is toxic.</p>
+      <p>Find out exactly who they support. Not just football. Arsenal. If you get this wrong, the gift is toxic.</p>
 
       <h3>Step 2: The Era</h3>
-      <p>How old are they?
-      <ul class="list-disc ml-6">
-        <li><strong>Under 20:</strong> Buy current players (Saka, Haaland, Bellingham).</li>
-        <li><strong>30-40:</strong> Buy the heroes of their childhood (Henry, Rooney, Gerrard).</li>
-        <li><strong>50+:</strong> Buy the legends (Best, Moore, Dalglish).</li>
-      </ul>
-      </p>
+      <p>How old are they? For those under 20, buy current players like Saka or Haaland. For those in their 30s or 40s, buy the heroes of their childhood like Henry or Rooney. For those 50 and over, buy the legends like Best or Dalglish.</p>
 
       <h3>Step 3: The Presentation</h3>
-      <p>Don't give them a rolled up shirt in a plastic bag. A framed piece is "Furniture". It goes on the wall. It shows you care.</p>
+      <p>Don't give them a rolled up shirt in a plastic bag. A framed piece is furniture. It goes on the wall. It shows you care.</p>
     `
   },
   {
@@ -298,14 +292,14 @@ export const articles: BlogPost[] = [
     seo_description: "Why signatures from 1990s Premier League icons are skyrocketing in value. The 30-year nostalgia cycle explained for collectors.",
     seo_keywords: ["90s football memorabilia", "Premier League nostalgia", "investing in 90s autographs", "Cantona signed shirt", "nostalgia cycle collectibles"],
     content: `
-      <h2>The 30-Year Rule</h2>
-      <p>Collectibles markets operate on a 30-year nostalgia cycle. When a generation reaches their peak earning years (35-50), they start buying back the toys and heroes of their youth.</p>
+      <h2>The 30 Year Rule</h2>
+      <p>Collectibles markets operate on a 30 year nostalgia cycle. When a generation reaches their peak earning years between 35 and 50, they start buying back the toys and heroes of their youth.</p>
 
       <h3>The Premier League Boom</h3>
-      <p>The 90s was the birth of the Premier League. The kits were baggy, the collars were huge, and the personalities were massive (Cantona, Gazza, Wright). These items have a cult status that modern, clinical football lacks.</p>
+      <p>The 90s was the birth of the Premier League. The kits were baggy, the collars were huge, and the personalities were massive like Cantona or Gazza. These items have a cult status that modern clinical football lacks.</p>
 
       <h3>The Scarcity</h3>
-      <p>In the 90s, organised signing sessions were rare. Most signatures were obtained "in the wild" (outside training grounds). This makes verifying them harder, but finding a pristine, verified example incredibly valuable.</p>
+      <p>In the 90s, organised signing sessions were rare. Most signatures were obtained at training grounds. This makes verifying them harder, but finding a pristine verified example is incredibly valuable.</p>
     `
   },
   {
@@ -322,37 +316,19 @@ export const articles: BlogPost[] = [
     seo_keywords: ["send in autograph service", "get my shirt signed", "autograph signing event packing", "sports memorabilia signing service", "fan mail guide"],
     content: `
       <h2>Turn Your Own Item into a Legend</h2>
-      <p>Have a shirt you've owned for years? A photo you took yourself? Our Send-In Service allows you to get your personal items signed by the world's biggest athletes.</p>
+      <p>Have a shirt you've owned for years or a photo you took yourself? Our Send In Service allows you to get your personal items signed by the world's biggest athletes.</p>
 
       <h3>Step 1: Booking Your Slot</h3>
-      <p>Send-In slots are limited. You must purchase a "Send-In" ticket for the specific event on our website. This secures your place in the signing queue. Once purchased, you will receive a confirmation email with our <strong>Secure Depot Address</strong> and a unique reference number.</p>
+      <p>Send In slots are limited. You must purchase a ticket for the specific event on our website. This secures your place in the signing queue. Once purchased, you will receive a confirmation email with our Secure Depot Address and a unique reference number.</p>
 
       <h3>Step 2: Packaging Your Item</h3>
-      <p>This is the most critical step. You are responsible for the item arriving to us safely.
-      <ul class="list-disc ml-6 mt-2 space-y-2">
-        <li><strong>Photos:</strong> Must be sent in hard-backed envelopes or tubes. Do not fold.</li>
-        <li><strong>Shirts:</strong> Fold neatly and place in a waterproof bag inside a padded envelope/box.</li>
-        <li><strong>Other Items:</strong> Bubble wrap is your friend.</li>
-      </ul>
-      </p>
+      <p>This is the most critical step. You are responsible for the item arriving to us safely. Photos must be sent in hard backed envelopes. Shirts should be folded neatly and placed in a waterproof bag inside a padded envelope. Bubble wrap is your friend.</p>
 
-      <h3>Step 3: Labeling (Don't Skip This!)</h3>
-      <p>We need to know the item is yours.
-      <ul class="list-disc ml-6 mt-2 space-y-2">
-        <li><strong>Photos:</strong> Gently write your Order # on the BACK in pencil. Do not use heavy pressure. Do not use stickers on the front.</li>
-        <li><strong>Shirts:</strong> Fold neatly and place in a waterproof bag inside a padded envelope/box.</li>
-        <li><strong>Strict Rule:</strong> Never apply adhesive tape directly to the item's surface.</li>
-      </ul>
-      </p>
+      <h3>Step 3: Labeling</h3>
+      <p>We need to know the item is yours. For photos, gently write your Order Number on the back in pencil. Do not use stickers on the front. Never apply adhesive tape directly to the surface of the item.</p>
 
-      <h3>Step 4: Post & Insurance</h3>
-      <p>We <strong>strongly recommend</strong> using a tracked and insured service (e.g., Royal Mail Special Delivery). We cannot be held responsible for items that go missing on their way to us.</p>
-
-      <h3>Step 5: The Signing</h3>
-      <p>Our team handles your item with white gloves. We will attempt to accommodate specific requests (e.g., "Sign on the number", "Dedicate to Toom"), but these are at the athlete's discretion and cannot be 100% guaranteed.</p>
-
-      <h3>Step 6: Return</h3>
-      <p>Once signed, your item is authenticated (NFC Tag applied where possible, or separate COA card if item texture doesn't permit adhesion), repackaged securely, and sent back to you via our own insured courier.</p>
+      <h3>Step 4: Post and Insurance</h3>
+      <p>We strongly recommend using a tracked and insured service like Royal Mail Special Delivery. We cannot be held responsible for items that go missing on their way to us.</p>
     `
   },
   {
@@ -368,14 +344,14 @@ export const articles: BlogPost[] = [
     seo_description: "Does a player transfer affect the value of their old shirts? We analyse the 'Legacy Lock' vs the 'Villain Dip' in sports investments.",
     seo_keywords: ["football transfer market value", "Ronaldo Man Utd shirt value", "sports memorabilia investment tips", "signed shirt transfer value", "player transfers"],
     content: `
-      <h2>The 'Dead' Shirt Myth</h2>
+      <h2>The Dead Shirt Myth</h2>
       <p>When a hero leaves, fans burn shirts. But investors? They hold.</p>
-      
-      <h3>The 'Legacy' Lock</h3>
-      <p>When Cristiano Ronaldo left Manchester United (the first time) for Real Madrid, his United items didn't drop. They became 'Legacy' items. They represented a specific, closed chapter of history. A signed 2008 United shirt is worth significantly more than a 2012 Real Madrid shirt, simply because that era is finished and finite.</p>
 
-      <h3>The 'Villain' Dip</h3>
-      <p>However, if a player forces a move to a bitter rival (e.g., Sol Campbell to Arsenal), the market can freeze. The 'fan' demand evaporates, leaving only the 'investor' demand. This usually causes a short-term price dip (approx 15-20%) before stabilising as historical significance takes over years later.</p>
+      <h3>The Legacy Lock</h3>
+      <p>When Cristiano Ronaldo left Manchester United the first time, his items didn't drop. They became legacy items. They represented a closed chapter of history. A signed 2008 United shirt is worth significantly more than a 2012 Real Madrid shirt because that era is finite.</p>
+
+      <h3>The Villain Dip</h3>
+      <p>However, if a player forces a move to a bitter rival, the market can freeze. The fan demand evaporates, leaving only the investor demand. This usually causes a short term price dip before stabilising as historical significance takes over years later.</p>
     `
   },
   {
@@ -395,15 +371,15 @@ export const articles: BlogPost[] = [
       <p>In 2026, the WSL is a global powerhouse. But looking back at signed items from the 2022 Euros, we see a massive supply shock coming.</p>
 
       <h3>Accessibility vs Scarcity</h3>
-      <p>Historically, women's players were very accessible. You could get a shirt signed over a fence easily. But as stadiums grow and security tightens, 'in-the-wild' signatures are disappearing. We are moving to a paid-signing model, just like the men's game.</p>
+      <p>Historically, women's players were very accessible. You could get a shirt signed over a fence easily. But as stadiums grow and security tightens, that is disappearing. We are moving to a paid signing model, just like the men's game.</p>
 
-      <h3>The Williamson / Mead Index</h3>
-      <p>Items signed by the Euro 2022 winning spine (Williamson, Mead, Russo) have outperformed the FTSE 100 over the last 3 years. Why? Because they represent a 'First Mover' moment in cultural history, not just sport.</p>
+      <h3>The Williamson and Mead Index</h3>
+      <p>Items signed by the Euro 2022 winning spine have outperformed the stock market over the last 3 years. Why? Because they represent a first mover moment in cultural history, not just sport.</p>
     `
   },
   {
     id: "14",
-    title: "The Ally Pally Effect: Darts Memorabilia Hitting the Bullseye",
+    title: "The Ally Pally Effect: Darts Memorabilia Boom",
     slug: "ally-pally-darts-memorabilia-boom",
     date: "2025-12-29",
     author: "Market Analyst",
@@ -415,13 +391,13 @@ export const articles: BlogPost[] = [
     seo_keywords: ["darts memorabilia", "PDC World Championship signed", "Luke Littler signed shirt", "investing in darts", "match used darts value"],
     content: `
       <h2>Stand Up If You Love The Darts</h2>
-      <p>With the 2026 World Championship at Alexandra Palace currently gripping the nation, we are seeing a massive spike in inquiries for darts memorabilia.</p>
+      <p>With the 2026 World Championship currently gripping the nation, we are seeing a massive spike in inquiries for darts memorabilia.</p>
 
-      <h3>The "Littler" Legacy</h3>
-      <p>Following the explosion of interest in 2024, darts has firmly established itself as a tier-1 collectibles market. We are seeing match-used flights and signed shirts from the "New Era" of superstars commanding prices that rival Premier League footballers.</p>
+      <h3>The Littler Legacy</h3>
+      <p>Following the explosion of interest in 2024, darts has firmly established itself as a tier 1 collectibles market. We are seeing match used flights and signed shirts from the new superstars commanding prices that rival Premier League footballers.</p>
 
       <h3>What to Buy?</h3>
-      <p>For investors, <strong>Match Used</strong> is king. A set of darts actually thrown on the Ally Pally stage is the ultimate prize. For casual collectors, signed replica shirts from the finalists offer a great entry point into a sport that is only getting bigger.</p>
+      <p>For investors, match used is king. A set of darts actually thrown on the stage is the ultimate prize. For casual collectors, signed replica shirts from the finalists offer a great entry point into a sport that is only getting bigger.</p>
     `
   },
   {
@@ -435,7 +411,7 @@ export const articles: BlogPost[] = [
     imageUrl: "https://images.unsplash.com/photo-1547447134-cd3f5c716030?q=80&w=2070&auto=format&fit=crop",
     seo_title: "F1 Memorabilia Market Analysis April 2026 | Antonelli Glove Sale",
     seo_description: "Analysis of the $200k Kimi Antonelli racing glove sale. Why modern F1 memorabilia is a top performing asset class in April 2026.",
-    seo_keywords: ["F1 memorabilia investment", "Kimi Antonelli glove sale", "Topps NFL license shift", "sports memorabilia trends 2026", "rare racing collectibles"],
+    seo_keywords: ["f1 memorabilia", "kimi antonelli", "racing glove", "investment"],
     content: `
       <h2>The Move to Modern Assets</h2>
       <p>Five years ago, a racing glove from a rookie driver would never have sold for more than a match worn Pele shirt. That has changed. This month, a Kimi Antonelli glove sold for $201,910. The numbers show that the market is moving.</p>
@@ -467,7 +443,7 @@ export const articles: BlogPost[] = [
     imageUrl: "https://images.unsplash.com/photo-1542385151-efd9000785a0?q=80&w=2070&auto=format&fit=crop",
     seo_title: "Monaco Historique Memorabilia Analysis 2026 | RM Sotheby Sale",
     seo_description: "Why the Monaco Historique drives vintage F1 prices. Analysis of the RM Sotheby 2026 auction lots and market implications.",
-    seo_keywords: ["Monaco Historique auction", "vintage F1 value", "RM Sotheby Monaco 2026", "racing car investment", "F1 memorabilia price"],
+    seo_keywords: ["monaco historique", "f1 auction", "vintage racing", "investment"],
     content: `
       <h2>The Auction of the Month</h2>
       <p>All eyes are on Monaco this week as RM Sotheby opens their 2026 sale. While the modern Grand Prix is where the sponsors go, the Historique is where the real money sits. This event focuses on the machines and gear that built the racing world. It is a pure index of value.</p>
@@ -492,7 +468,7 @@ export const articles: BlogPost[] = [
     imageUrl: "https://images.unsplash.com/photo-1549465220-1a8b9238cd48?q=80&w=2070&auto=format&fit=crop",
     seo_title: "Heritage Auctions May 2026 Preview | Sports Memorabilia Trends",
     seo_description: "A preview of the Heritage Spring Sports Catalog 2026. Why the May auction results dictate summer market prices.",
-    seo_keywords: ["Heritage Auctions May 2026", "sports cards preview", "memorabilia market boom", "game worn jersey value", "collecting trends 2026"],
+    seo_keywords: ["heritage auctions", "may catalog", "market trends", "investment"],
     content: `
       <h2>Setting the Summer Pulse</h2>
       <p>The Heritage Spring Sports Catalog has just landed and it is clear that 2026 is going to be a heavy year for high end assets. This May auction is the traditional starting gun for the summer market. If these lots sell high, expect every dealer in the world to raise their prices by June.</p>
@@ -513,11 +489,11 @@ export const articles: BlogPost[] = [
     date: "2026-05-09",
     author: "The Authenticator",
     category: "Analysis",
-    excerpt: "Now that the dust has settled on the Michael Jordan inner circle auction, we look at why 'Witness Provenance' is the only thing that matters.",
+    excerpt: "Now that the dust has settled on the Michael Jordan inner circle auction, we look at why Witness Provenance is the only thing that matters.",
     imageUrl: "https://images.unsplash.com/photo-1546519638-68e109498ffc?q=80&w=2090&auto=format&fit=crop",
     seo_title: "Michael Jordan Gus Lett Auction Analysis 2026 | Provenance Value",
     seo_description: "Results and analysis of the Michael Jordan Gus Lett collection auction. Why buying from the 'inner circle' provides the best investment security.",
-    seo_keywords: ["Michael Jordan auction 2026", "Gus Lett collection", "MJ bodyguard memorabilia", "signed Jordan shoes price", "authenticated provenance"],
+    seo_keywords: ["michael jordan", "gus lett", "bodyguard", "provenance"],
     content: `
       <h2>The Power of the Inner Circle</h2>
       <p>The Gus Lett auction is over and the results were a lesson for every collector. These items belonged to Michael Jordan's personal bodyguard. That is what we call inner circle provenance. It is the gold standard of proof and the prices reflected it.</p>
@@ -538,11 +514,11 @@ export const articles: BlogPost[] = [
     date: "2026-05-16",
     author: "Market Analyst",
     category: "News",
-    excerpt: "With the Champions League final in Budapest approaching, we look at why 'Finals Spec' shirts are the rarest items in football.",
+    excerpt: "With the Champions League final in Budapest approaching, we look at why Finals Spec shirts are the rarest items in football.",
     imageUrl: "https://images.unsplash.com/photo-1574629810360-7efbbe195018?q=80&w=2076&auto=format&fit=crop",
     seo_title: "UCL Final 2026 Memorabilia Preview | Match Spec Investment",
     seo_description: "Predicting the market for Champions League Final 2026 memorabilia. Why 'Finals Spec' signed items are the top tier of football collecting.",
-    seo_keywords: ["UCL Final 2026 shirt", "Budapest 26 memorabilia", "signed champions league final shirt", "match spec football shirt", "rare football collectibles"],
+    seo_keywords: ["ucl final 2026", "budapest", "match spec", "football shirts"],
     content: `
       <h2>The Budapest Final</h2>
       <p>The Champions League final in Budapest is almost here. For collectors, this is the most important date on the calendar. But we are warning people now: do not be fooled by standard shirts. The real value is in the Finals Spec assets.</p>
