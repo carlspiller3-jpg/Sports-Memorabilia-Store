@@ -1,0 +1,37 @@
+
+name: Tactical News Pulse
+
+on:
+  schedule:
+    - cron: '0 */12 * * *' # Every 12 hours
+  workflow_dispatch: # Allows manual trigger
+
+jobs:
+  scout-and-post:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Run Autonomous Scout
+        env:
+          VITE_GEMINI_API_KEY: ${{ secrets.VITE_GEMINI_API_KEY }}
+        run: node scripts/autonomous-news.js
+
+      - name: Commit and Push Changes
+        run: |
+          git config --global user.name "Tactical Engine"
+          git config --global user.email "tactical@sportssigned.com"
+          git add src/data/articles.ts
+          git diff --quiet && git diff --staged --quiet || (git commit -m "Auto-Post: Breaking News Flash (Autonomous Scout)" && git push)
