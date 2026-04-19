@@ -6,7 +6,7 @@ import { usePageSEO } from "@/hooks/usePageSEO"
 
 export function FAQPage() {
     const seo = usePageSEO('faq', {
-        title: "FAQ & Help | SportsSigned",
+        title: "FAQ & Help | Sports Memorabilia Store",
         description: "Questions about authenticity, shipping, or framing? Find all the answers here.",
         ogImage: "https://www.sportssigned.com/og-image.jpg"
     })

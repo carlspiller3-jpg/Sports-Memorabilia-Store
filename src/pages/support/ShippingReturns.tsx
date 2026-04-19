@@ -4,7 +4,7 @@ import { usePageSEO } from "@/hooks/usePageSEO"
 
 export function ShippingReturns() {
     const seo = usePageSEO('shipping', {
-        title: "Shipping & Returns | SportsSigned",
+        title: "Shipping & Returns | Sports Memorabilia Store",
         description: "We ship worldwide using insured, tracked couriers. Learn more about our delivery times and returns policy.",
         ogImage: "https://www.sportssigned.com/og-image.jpg"
     })

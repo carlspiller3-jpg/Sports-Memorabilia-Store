@@ -5,7 +5,7 @@ import { usePageSEO } from "@/hooks/usePageSEO"
 
 export function ContactPage() {
     const seo = usePageSEO('contact', {
-        title: "Contact Us | SportsSigned",
+        title: "Contact Us | Sports Memorabilia Store",
         description: "Get in touch with our team for questions about your order, sourcing requests, or partnership opportunities.",
         ogImage: "https://www.sportssigned.com/og-image.jpg"
     })

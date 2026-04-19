@@ -33,7 +33,7 @@ export function HomePage() {
                         {
                             "@context": "http://schema.org",
                             "@type": "OnlineStore",
-                            "name": "SportsSigned",
+                            "name": "Sports Memorabilia Store",
                             "url": "https://www.sportssigned.com",
                             "logo": "https://www.sportssigned.com/logo-transparent.png",
                             "description": "${seo.description}",

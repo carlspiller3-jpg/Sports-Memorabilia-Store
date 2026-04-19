@@ -21,8 +21,8 @@ export function ShopPage() {
 
     // Generate dynamic defaults based on category
     const defaultTitle = category
-        ? `${category.charAt(0).toUpperCase() + category.slice(1)} Memorabilia - Shop Authentic | SportsSigned`
-        : "Shop Authentic Sports Memorabilia | SportsSigned"
+        ? `${category.charAt(0).toUpperCase() + category.slice(1)} Memorabilia - Shop Authentic | Sports Memorabilia Store`
+        : "Shop Authentic Sports Memorabilia | Sports Memorabilia Store"
 
     const defaultDesc = category
         ? `Browse our exclusive collection of signed ${category} memorabilia. Authentic, framed, and verified.`

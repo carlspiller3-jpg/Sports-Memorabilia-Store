@@ -23,7 +23,7 @@ export function AssetDemoPage() {
         acquired: "10 Feb 2026",
         value: "£895.00",
         valueChange: "+15.2%",
-        authProvider: "SportsSigned Auth",
+        authProvider: "Sports Memorabilia Store Auth",
         authId: "SS-BOOT-9921",
         image: "/products/trent_boot_case.png"
     };
