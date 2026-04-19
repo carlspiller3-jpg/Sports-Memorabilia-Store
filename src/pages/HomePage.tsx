@@ -9,8 +9,8 @@ import { usePageSEO } from "@/hooks/usePageSEO"
 
 export function HomePage() {
     const seo = usePageSEO('home', {
-        title: "Our Story | Sports Memorabilia Store",
-        description: "We are setting the new standard in sports memorabilia. Learn about our commitment to authenticity, quality, and the 'Unboxing Experience'.",
+        title: "Sports Memorabilia Store | Authentic Signed Collectibles",
+        description: "The global authority in 100% authentic sports memorabilia. Direct access to athletes, blockchain verified provenance, and luxury packaging.",
         ogImage: "https://www.sportssigned.com/logo.png"
     })
 

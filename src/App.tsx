@@ -50,8 +50,8 @@ function App() {
     <HelmetProvider>
       <AuthProvider>
         <Helmet>
-          <title>Our Story | Sports Memorabilia Store</title>
-          <meta name="description" content="We are setting the new standard in sports memorabilia. Learn about our commitment to authenticity, quality, and the 'Unboxing Experience'." />
+          <title>Sports Memorabilia Store | Authentic Signed Collectibles</title>
+          <meta name="description" content="The global authority in 100% authentic sports memorabilia. Direct access to athletes, blockchain verified provenance, and luxury packaging." />
         </Helmet>
         <CartProvider>
           <Router>
