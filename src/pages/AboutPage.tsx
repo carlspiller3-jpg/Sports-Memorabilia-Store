@@ -29,7 +29,7 @@ export function AboutPage() {
             />
 
             {/* The Philosophy Section */}
-            <section className="py-20 bg-ivory relative overflow-hidden flex items-center">
+            <section className="pt-12 pb-24 bg-ivory relative overflow-hidden flex items-center">
                 {/* Decorative background element */}
                 <div className="absolute top-0 right-0 w-96 h-96 bg-gold/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
 
@@ -67,8 +67,8 @@ export function AboutPage() {
                         <div className="relative mt-8 lg:mt-0">
                             <div className="aspect-[4/3] lg:aspect-video bg-navy/5 rounded-sm overflow-hidden relative shadow-2xl border-4 border-white max-w-xl">
                                 <img
-                                    src="https://images.unsplash.com/photo-1549633036-bcd8207fa025?q=80&w=1956&auto=format&fit=crop"
-                                    alt="Close up of a signature"
+                                    src="https://images.unsplash.com/photo-1510563342200-59830a2174c2?q=80&w=2070&auto=format&fit=crop"
+                                    alt="Authentic signature detail"
                                     className="w-full h-full object-cover"
                                 />
                                 <div className="absolute inset-0 bg-gradient-to-t from-navy/40 to-transparent" />
