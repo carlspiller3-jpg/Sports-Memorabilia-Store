@@ -18,7 +18,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: '22'
           cache: 'npm'
 
       - name: Install Dependencies
@@ -32,6 +32,6 @@ jobs:
       - name: Commit and Push Changes
         run: |
           git config --global user.name "Tactical Engine"
-          git config --global user.email "tactical@sportssigned.com"
+          git config --global user.email "tactical@sportsmemorabiliastore.com"
           git add src/data/articles.ts
           git diff --quiet && git diff --staged --quiet || (git commit -m "Auto-Post: Breaking News Flash (Autonomous Scout)" && git push)
