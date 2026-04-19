@@ -5,7 +5,7 @@ export function PresentationSection() {
     const [isOpen, setIsOpen] = useState(false);
 
     // Asset paths (using the new high-fidelity generation)
-    const packagingImage = "/luxury_lid_packaging_v2_1776610542355.png";
+    const packagingImage = "/luxury-packaging-lid.png";
 
     return (
         <section className="bg-ivory py-16 sm:py-20 lg:py-28 overflow-hidden">
