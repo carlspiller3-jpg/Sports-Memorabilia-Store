@@ -67,7 +67,7 @@ export function AboutPage() {
                         <div className="relative mt-8 lg:mt-0">
                             <div className="aspect-[4/3] lg:aspect-video bg-navy/5 rounded-sm overflow-hidden relative shadow-2xl border-4 border-white max-w-xl">
                                 <img
-                                    src="https://images.unsplash.com/photo-1579952363873-1003f67a2fa3?q=80&w=2070&auto=format&fit=crop"
+                                    src="/images/athlete-signing.png"
                                     alt="Authentic signature detail"
                                     className="w-full h-full object-cover"
                                 />
