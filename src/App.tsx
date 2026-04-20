@@ -35,7 +35,7 @@ import { ScrollToTop } from "@/components/layout/ScrollToTop"
 import { B2BProposal } from "@/pages/B2BProposal"
 import { CRMPage } from "@/pages/admin/CRMPage"
 import { InvoiceGenerator } from "@/pages/admin/InvoiceGenerator"
-import { ProductMocker } from "@/pages/admin/ProductMocker"
+import { AssetGenerator } from "@/pages/admin/AssetGenerator"
 import { SEOManager } from "@/pages/admin/SEOManager"
 import { AIDebug } from "@/pages/admin/AIDebug"
 import { NFCManager } from "@/pages/admin/NFCManager"
@@ -118,7 +118,7 @@ function App() {
                   <Route path="/admin/nfc" element={<AdminGate><NFCManager /></AdminGate>} />
                   <Route path="/admin/seo" element={<AdminGate><SEOManager /></AdminGate>} />
                   <Route path="/admin/invoice-generator" element={<AdminGate><InvoiceGenerator /></AdminGate>} />
-                  <Route path="/admin/product-mocker" element={<AdminGate><ProductMocker /></AdminGate>} />
+                  <Route path="/admin/asset-generator" element={<AdminGate><AssetGenerator /></AdminGate>} />
                   <Route path="/admin/ai-debug" element={<AdminGate><AIDebug /></AdminGate>} />
                   <Route path="/admin/seo-generator" element={<AdminGate><SEOGeneratorPage /></AdminGate>} />
 

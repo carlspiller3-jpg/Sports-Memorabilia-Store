@@ -1,6 +1,6 @@
 import { Helmet } from 'react-helmet-async'
 import { Link } from 'react-router-dom'
-import { LayoutDashboard, Users, Search, ShieldCheck, FileText, Package, Bug, LogOut } from 'lucide-react'
+import { LayoutDashboard, Users, Search, ShieldCheck, FileText, Zap, Bug, LogOut, Package } from 'lucide-react'
 import { supabase } from '@/lib/supabase'
 
 export function AdminDashboard() {
@@ -13,7 +13,7 @@ export function AdminDashboard() {
         { title: 'SEO Manager', path: '/admin/seo', icon: Search, description: 'Update metadata for Supabase stored products/pages.' },
         { title: 'NFC Tag Manager', path: '/admin/nfc', icon: ShieldCheck, description: 'Map physical NFC tags to digital certificates.' },
         { title: 'Invoice Generator', path: '/admin/invoice-generator', icon: FileText, description: 'Quickly generate branded PDFs for manual B2B orders.' },
-        { title: 'Product Mocker', path: '/admin/product-mocker', icon: Package, description: 'Create mockup displays for product imagery.' },
+        { title: 'Shopify Asset Generator', path: '/admin/asset-generator', icon: Package, description: 'Auto-frame and scale assets natively in browser to maintain Shopify standards.' },
         { title: 'SEO AI Generator', path: '/admin/seo-generator', icon: Zap, description: 'Generate titles and descriptions for Google, eBay, Etsy, and Amazon.' },
         { title: 'AI Chatbot Debug', path: '/admin/ai-debug', icon: Bug, description: 'Test and debug the AI assistant prompts.' },
     ]
