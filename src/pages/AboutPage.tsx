@@ -43,13 +43,13 @@ export function AboutPage() {
                             </h2>
                             <div className="space-y-4 pt-4 max-w-xl">
                                 <p className="text-lg text-charcoal/70 leading-relaxed font-light">
-                                    Authenticity is not an opinion. In an industry diluted by uncertainty and questionable certificates, the <strong>Sports Memorabilia Store</strong> stands as the definitive source.
+                                    Most of this industry is built on guesswork. Cheap certificates printed at home, "witnessed" signatures from three rows back, and a lot of blind trust. We got tired of it. 
                                 </p>
                                 <p className="text-lg text-charcoal/70 leading-relaxed font-light">
-                                    We do not rely on probability. We rely on proof. By strictly controlling the chain of custody—from the moment the ink touches the fabric until it reaches your hands—we eliminate doubt.
+                                    We don't do probability. We're in the room. We hold the pens. Every piece in our store is sourced directly from the athlete with our team standing right there. If we weren't there to see the ink hit the fabric, we don't sell it. Simple as that.
                                 </p>
                                 <p className="text-lg text-charcoal/70 leading-relaxed font-light">
-                                    This is more than a store. This is the new global benchmark for provenance, backed by digital ledgers and lifetime guarantees.
+                                    This isn't just a shop. It's us setting the standard we wanted as collectors. Everything is luxury framed, unashamedly premium, and backed by a digital ledger that never fades. 
                                 </p>
                             </div>
                             
