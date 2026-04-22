@@ -228,13 +228,13 @@ export function ProductPage() {
 
                     {/* Gallery Section */}
                     <div className="space-y-6">
-                        <div className="aspect-[4/5] bg-white rounded-sm overflow-hidden border border-stone/10 relative group shadow-sm">
+                        <div className="bg-white rounded-sm overflow-hidden border border-stone/10 relative group shadow-sm">
                             <img
                                 src={images[activeImageIndex]}
                                 alt={imageAlt}
                                 loading="eager"
                                 fetchPriority="high"
-                                className="w-full h-full object-contain bg-white transition-transform duration-700 group-hover:scale-105"
+                                className="w-full h-auto object-contain bg-white transition-transform duration-700 group-hover:scale-105"
                             />
                             <div className="absolute top-4 left-4 z-10">
                                 <TrustBadge type="authenticated" className="bg-white/95 backdrop-blur-md shadow-sm" />
