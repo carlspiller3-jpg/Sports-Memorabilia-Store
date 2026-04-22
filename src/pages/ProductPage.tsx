@@ -163,7 +163,7 @@ export function ProductPage() {
     }
 
     // Determine images
-    const mainImage = (product.images && product.images.length > 0) ? product.images[0] : (PLACEHOLDER_IMAGES[product.handle] || "/framed-product.jpg")
+    const mainImage = (product.images && product.images.length > 0) ? product.images[0] : (PLACEHOLDER_IMAGES[product.id] || "https://images.unsplash.com/photo-1518605348435-2996d2606926?q=80&w=1936&auto=format&fit=crop")
     const images = (product.images && product.images.length > 0) ? product.images : [mainImage, mainImage, mainImage] // Mock gallery for now
     const price = selectedVariant?.price || 0
 
@@ -213,10 +213,10 @@ export function ProductPage() {
                     {JSON.stringify(faqSchema)}
                 </script>
             </Helmet>
-            <div className="container mx-auto px-4">
+            <div className="container mx-auto px-4 max-w-6xl">
 
                 {/* Breadcrumbs */}
-                <div className="text-sm text-navy/50 mb-6 lg:mb-8 font-medium">
+                <div className="text-xs text-navy/50 mb-6 font-medium uppercase tracking-wider">
                     <Link to="/" className="hover:text-gold transition-colors">Home</Link>
                     <span className="mx-2">/</span>
                     <Link to="/shop" className="hover:text-gold transition-colors">Shop</Link>
@@ -224,7 +224,7 @@ export function ProductPage() {
                     <span className="text-navy">{product.title}</span>
                 </div>
 
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16">
 
                     {/* Gallery Section */}
                     <div className="space-y-6">
@@ -258,13 +258,13 @@ export function ProductPage() {
                     </div>
 
                     {/* Product Info Section */}
-                    <div className="space-y-8 lg:pt-4">
-                        <div className="space-y-4">
-                            <h1 className="text-3xl md:text-4xl lg:text-5xl font-serif font-bold text-charcoal leading-tight">
+                    <div className="space-y-6 lg:pt-2">
+                        <div className="space-y-3">
+                            <h1 className="text-2xl md:text-3xl lg:text-4xl font-serif font-bold text-charcoal leading-tight">
                                 {seoTitle.split('|')[0].trim()}
                             </h1>
                             <div className="flex items-center gap-6">
-                                <span className="text-3xl font-medium text-gold font-serif">£{selectedVariant?.price}</span>
+                                <span className="text-2xl font-medium text-gold font-serif">£{selectedVariant?.price}</span>
                             </div>
                         </div>
 
@@ -319,7 +319,7 @@ export function ProductPage() {
                                 <Button
                                     size="lg"
                                     onClick={handleAddToCart}
-                                    className="w-full text-lg h-14 shadow-lg shadow-gold/20 hover:shadow-gold/30 transition-shadow bg-charcoal text-white hover:bg-charcoal/90"
+                                    className="w-full text-sm uppercase tracking-widest font-bold h-12 shadow-md shadow-gold/10 hover:shadow-gold/20 transition-shadow bg-charcoal text-white hover:bg-charcoal/90"
                                 >
                                     Add to Cart
                                 </Button>
