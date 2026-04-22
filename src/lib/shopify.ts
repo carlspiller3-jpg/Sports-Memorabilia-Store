@@ -27,14 +27,14 @@ export const shopifyClient = client;
 
 export function mapShopifyProduct(shopifyProduct: any): Product {
   // Map Standard Fields
-  const images = shopifyProduct.images?.map((img: any) => img.src) || [];
+  const images = shopifyProduct.images?.map((img: any) => img.src || img.url).filter(Boolean) || [];
   const variants = shopifyProduct.variants?.map((v: any) => ({
     id: v.id,
     product_id: shopifyProduct.id,
     title: v.title,
     price: parseFloat(v.price.amount),
     sku: v.sku || `SKU-${v.id.substring(0, 8)}`, // Fallback
-    inventory_quantity: v.availableForSale ? 10 : 0, // Simplified
+    inventory_quantity: (v.availableForSale || v.available) ? 10 : 0, // Simplified
     option1: v.selectedOptions?.[0]?.value || null,
     option2: v.selectedOptions?.[1]?.value || null,
     created_at: new Date().toISOString(),

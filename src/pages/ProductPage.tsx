@@ -181,7 +181,7 @@ export function ProductPage() {
     const faqSchema = generateFAQSchema()
 
     return (
-        <div className="min-h-screen bg-ivory py-8 lg:py-12">
+        <div className="min-h-screen bg-ivory pt-32 pb-12 lg:pt-40 lg:pb-24">
             <Helmet>
                 {/* Primary Meta Tags */}
                 <title>{seoTitle}</title>
@@ -382,9 +382,9 @@ export function ProductPage() {
                                     <Package className="w-6 h-6" />
                                 </div>
                                 <div className="pt-1">
-                                    <h4 className="font-bold text-charcoal text-base">Premium Presentation</h4>
+                                    <h4 className="font-bold text-charcoal text-base">Secure Worldwide Delivery</h4>
                                     <p className="text-sm text-navy/70 mt-1 leading-relaxed">
-                                        Arrives in our signature matte-black luxury packaging. Framed items are protected in custom crates for insured worldwide delivery.
+                                        Professionally packaged and fully insured for safe worldwide transit.
                                     </p>
                                 </div>
                             </div>
@@ -431,23 +431,6 @@ export function ProductPage() {
                                 </div>
                             )}
 
-                            {/* SEO Title */}
-                            <div className="flex items-start gap-3">
-                                <span className="text-sm font-bold text-navy/60 uppercase tracking-wider min-w-[80px]">SEO Title:</span>
-                                <span className="text-sm text-charcoal">{seoTitle}</span>
-                            </div>
-
-                            {/* SEO Description */}
-                            <div className="flex items-start gap-3">
-                                <span className="text-sm font-bold text-navy/60 uppercase tracking-wider min-w-[80px]">SEO Desc:</span>
-                                <span className="text-sm text-charcoal">{seoDescription}</span>
-                            </div>
-
-                            {/* Image Alt Text */}
-                            <div className="flex items-start gap-3">
-                                <span className="text-sm font-bold text-navy/60 uppercase tracking-wider min-w-[80px]">Image Alt:</span>
-                                <span className="text-sm text-charcoal">{imageAlt}</span>
-                            </div>
                         </div>
 
                     </div>
