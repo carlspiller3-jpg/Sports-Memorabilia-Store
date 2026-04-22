@@ -163,7 +163,7 @@ export function ProductPage() {
     }
 
     // Determine images
-    const mainImage = (product.images && product.images.length > 0) ? product.images[0] : (PLACEHOLDER_IMAGES[product.id] || "https://images.unsplash.com/photo-1518605348435-2996d2606926?q=80&w=1936&auto=format&fit=crop")
+    const mainImage = (product.images && product.images.length > 0) ? product.images[0] : (PLACEHOLDER_IMAGES[product.handle] || "/framed-product.jpg")
     const images = (product.images && product.images.length > 0) ? product.images : [mainImage, mainImage, mainImage] // Mock gallery for now
     const price = selectedVariant?.price || 0
 
