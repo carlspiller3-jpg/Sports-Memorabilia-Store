@@ -394,11 +394,11 @@ export function ShopPage() {
                         {sortedProducts.map((product) => (
                             <a href={`/product/${product.handle}`} key={product.id} className="block group" aria-label={`View ${product.title}`}>
                                 <ProductCard
-                                    title={product.seo_title || product.title}
+                                    title={product.title}
                                     price={getPrice(product)}
                                     image={getImage(product)}
                                     altText={generateImageAlt(product)}
-                                    athlete={product.tags?.[2] || product.tags?.[0] || "Athlete"}
+                                    athlete={product.tags?.find(tag => ["Football", "Boxing", "Rugby", "F1", "Motorsport", "Golf", "Athletics", "UFC", "Tennis", "Cricket"].includes(tag)) || "Memorabilia"}
                                     type={(product.product_type as "shirt" | "boot" | "photo" | "other") || "other"}
                                 />
                             </a>

@@ -64,11 +64,11 @@ export function RelatedProducts({ currentProduct }: RelatedProductsProps) {
                     {relatedProducts.map((product) => (
                         <a href={`/product/${product.handle}`} key={product.id} className="block group">
                             <ProductCard
-                                title={product.seo_title || product.title}
+                                title={product.title}
                                 price={product.variants?.[0]?.price || 0}
                                 image={(product.images && product.images.length > 0) ? product.images[0] : (PLACEHOLDER_IMAGES[product.id] || "https://images.unsplash.com/photo-1515523110800-9415d13b84a8?q=80&w=1974&auto=format&fit=crop")}
                                 altText={generateImageAlt(product)}
-                                athlete={product.tags?.[2] || product.tags?.[0] || "Athlete"}
+                                athlete={product.tags?.find(tag => ["Football", "Boxing", "Rugby", "F1", "Motorsport", "Golf", "Athletics", "UFC", "Tennis", "Cricket"].includes(tag)) || "Memorabilia"}
                                 type={(product.product_type as "shirt" | "boot" | "photo" | "other") || "other"}
                             />
                         </a>

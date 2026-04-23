@@ -13,16 +13,6 @@ interface ProductCardProps {
 }
 
 export function ProductCard({ title, price, image, altText, athlete, type, className }: ProductCardProps) {
-    // Strip SEO suffix
-    const displayTitle = title.split(' | ')[0]
-    
-    // Fix generic athlete tags by extracting from the title
-    const genericTags = ["football", "boxing", "rugby", "f1", "tennis", "cricket", "motorsport"]
-    let displayAthlete = athlete
-    if (!athlete || genericTags.includes(athlete.toLowerCase()) || athlete.length > 25) {
-        displayAthlete = displayTitle.split(' Signed')[0]
-    }
-
     return (
         <div className={cn("group flex flex-col h-full relative bg-white border border-stone/20 rounded-sm overflow-hidden hover:shadow-xl transition-all duration-500 ease-out", className)}>
             {/* Image Container */}
@@ -47,9 +37,9 @@ export function ProductCard({ title, price, image, altText, athlete, type, class
             {/* Content */}
             <div className="p-5 flex flex-col flex-1 justify-between gap-3">
                 <div className="space-y-1">
-                    <p className="text-xs font-semibold tracking-wider text-gold uppercase line-clamp-1" title={displayAthlete}>{displayAthlete}</p>
-                    <h3 className="font-serif text-lg font-medium text-charcoal leading-tight group-hover:text-navy transition-colors line-clamp-3" title={displayTitle}>
-                        {displayTitle}
+                    <p className="text-xs font-semibold tracking-wider text-gold uppercase line-clamp-1" title={athlete}>{athlete}</p>
+                    <h3 className="font-serif text-lg font-medium text-charcoal leading-tight group-hover:text-navy transition-colors line-clamp-3" title={title}>
+                        {title}
                     </h3>
                 </div>
                 <div className="flex items-center justify-between pt-3 border-t border-stone/10 mt-auto">
