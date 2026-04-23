@@ -22,10 +22,7 @@ export function WaitlistModal() {
 
     useEffect(() => {
         const timer = setTimeout(() => {
-            const hasSeen = localStorage.getItem("waitlist_seen");
-            if (!hasSeen) {
-                setIsOpen(true);
-            }
+            setIsOpen(true);
         }, 2000);
 
         function handleClickOutside(event: MouseEvent) {
@@ -42,7 +39,6 @@ export function WaitlistModal() {
 
     const handleClose = () => {
         setIsOpen(false);
-        localStorage.setItem("waitlist_seen", "true");
     };
 
     const handleInterestChange = (e: React.ChangeEvent<HTMLInputElement>) => {

@@ -62,7 +62,7 @@ export function Footer() {
                             © 2025 SPORTS MEMORABILIA STORE LIMITED.
                         </p>
                         <p className="text-white/20 text-xs">
-                            Company Reg: 16854974 • VAT No: [VAT Number Here] • Registered Office: 189 Greenwood, Walters Ash, High Wycombe, HP14 4XF
+                            Company Reg: 16854974 • VAT No: [VAT_NUMBER] • Registered Office: 189 Greenwood, Walters Ash, High Wycombe, HP14 4XF
                         </p>
                     </div>
                     <div className="flex gap-6">

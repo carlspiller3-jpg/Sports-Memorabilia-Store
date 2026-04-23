@@ -309,9 +309,8 @@ export function ProductPage() {
                             <h1 className="text-2xl md:text-3xl lg:text-4xl font-serif font-bold text-charcoal leading-tight">
                                 {seoTitle.split('|')[0].trim()}
                             </h1>
-                            <div className="flex items-baseline gap-2">
+                            <div className="flex items-center gap-6">
                                 <span className="text-2xl font-medium text-gold font-serif">£{selectedVariant?.price}</span>
-                                <span className="text-[10px] text-gold/60 font-bold uppercase tracking-widest italic">inc. VAT</span>
                             </div>
                         </div>
 
