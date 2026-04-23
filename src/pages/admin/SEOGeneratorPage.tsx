@@ -23,6 +23,7 @@ export function SEOGeneratorPage() {
     const [signingDetails, setSigningDetails] = useState("")
 
     const [assets, setAssets] = useState<SEOAssets | null>(null)
+    const [isGeneratingEEAT, setIsGeneratingEEAT] = useState(false)
     const [activeTab, setActiveTab] = useState<keyof SEOAssets>("google")
     const [copiedId, setCopiedId] = useState<string | null>(null)
 
@@ -37,6 +38,60 @@ export function SEOGeneratorPage() {
         const trimmed = text.substring(0, max)
         const lastSpace = trimmed.lastIndexOf(" ")
         return lastSpace > 0 ? trimmed.substring(0, lastSpace) : trimmed
+    }
+
+    const generateEEAT = async () => {
+        if (!athlete || !team) {
+            alert("Please enter both Athlete Name and Team/Event first.");
+            return;
+        }
+        
+        let apiKey = import.meta.env.VITE_GEMINI_API_KEY;
+        if (!apiKey) {
+            apiKey = localStorage.getItem("GEMINI_API_KEY");
+            if (!apiKey) {
+                apiKey = prompt("Please enter your Gemini API Key. It will be saved securely in your browser's local storage.");
+                if (apiKey) {
+                    localStorage.setItem("GEMINI_API_KEY", apiKey);
+                } else {
+                    return;
+                }
+            }
+        }
+
+        setIsGeneratingEEAT(true);
+        try {
+            const promptText = `You are a strict sports historian writing a "Museum Plaque" style paragraph for a piece of sports memorabilia. 
+Write exactly 2-3 sentences of cold, verifiable facts and statistics about ${athlete}'s most significant records, milestones or achievements while playing for ${team}.
+Rules:
+- NO hyperbole, NO marketing fluff, NO "AI waffle" (do NOT use words like "cemented his status", "elite", "premier", "distinctive achievement", "unparalleled").
+- Focus entirely on hard statistics, goal ratios, titles won, or verifiable historical provenance.
+- Return ONLY the paragraph text, nothing else.`;
+
+            const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    contents: [{ parts: [{ text: promptText }] }]
+                })
+            });
+            const data = await response.json();
+            
+            if (data.error) {
+                throw new Error(data.error.message);
+            }
+            
+            if (data.candidates && data.candidates[0].content.parts[0].text) {
+                setHistory(data.candidates[0].content.parts[0].text.trim());
+            }
+        } catch (e: any) {
+            alert("Failed to generate E-E-A-T: " + e.message);
+            if (e.message.includes("API key")) {
+                 localStorage.removeItem("GEMINI_API_KEY");
+            }
+        } finally {
+            setIsGeneratingEEAT(false);
+        }
     }
 
     const generate = () => {
@@ -143,7 +198,17 @@ export function SEOGeneratorPage() {
                         </div>
 
                         <div className="space-y-2">
-                            <label className="text-xs font-bold uppercase tracking-widest text-gold">Unique Achievement (E-E-A-T Signal)</label>
+                            <div className="flex justify-between items-end">
+                                <label className="text-xs font-bold uppercase tracking-widest text-gold">Unique Achievement (E-E-A-T Signal)</label>
+                                <button 
+                                    onClick={generateEEAT}
+                                    disabled={isGeneratingEEAT}
+                                    className="text-[10px] bg-stone-100 hover:bg-stone-200 text-charcoal px-2 py-1 rounded-sm border border-stone-200 transition-colors flex items-center gap-1 disabled:opacity-50"
+                                >
+                                    <Zap className="w-3 h-3 text-gold" />
+                                    {isGeneratingEEAT ? "Generating..." : "Auto-Generate E-E-A-T"}
+                                </button>
+                            </div>
                             <textarea value={history} onChange={e => setHistory(e.target.value)} className="w-full p-3 bg-ivory border border-stone/10 rounded-lg text-navy h-24" placeholder="Brief details about the signing or achievement..." />
                         </div>
 
