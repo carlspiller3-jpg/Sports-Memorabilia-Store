@@ -236,9 +236,7 @@ export function ProductPage() {
                                 fetchPriority="high"
                                 className="w-full h-auto object-contain bg-white transition-transform duration-700 group-hover:scale-105"
                             />
-                            <div className="absolute top-4 left-4 z-10">
-                                <TrustBadge type="authenticated" className="bg-white/95 backdrop-blur-md shadow-sm" />
-                            </div>
+
                             <button className="absolute bottom-4 right-4 p-2 bg-white/90 backdrop-blur-sm rounded-full shadow-md opacity-0 group-hover:opacity-100 transition-opacity">
                                 <ZoomIn className="w-5 h-5 text-charcoal" />
                             </button>

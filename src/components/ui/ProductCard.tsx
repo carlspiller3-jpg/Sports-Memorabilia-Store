@@ -24,9 +24,7 @@ export function ProductCard({ title, price, image, altText, athlete, type, class
                     decoding="async"
                     className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
                 />
-                <div className="absolute top-3 left-3">
-                    <TrustBadge type="authenticated" className="bg-white/90 backdrop-blur-sm shadow-sm" />
-                </div>
+
 
                 {/* Quick Add Overlay */}
                 <div className="absolute inset-x-0 bottom-0 p-4 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out">
