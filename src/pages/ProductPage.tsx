@@ -221,7 +221,7 @@ export function ProductPage() {
                     <span className="mx-2">/</span>
                     <Link to="/shop" className="hover:text-gold transition-colors">Shop</Link>
                     <span className="mx-2">/</span>
-                    <span className="text-navy">{product.title}</span>
+                    <span className="text-navy">{product.tags?.[0] || product.product_type}</span>
                 </div>
 
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16">
@@ -307,7 +307,7 @@ export function ProductPage() {
                     <div className="space-y-6 lg:pt-2">
                         <div className="space-y-3">
                             <h1 className="text-2xl md:text-3xl lg:text-4xl font-serif font-bold text-charcoal leading-tight">
-                                {seoTitle.split('|')[0].trim()}
+                                {product.title}
                             </h1>
                             <div className="flex items-center gap-6">
                                 <span className="text-2xl font-medium text-gold font-serif">£{selectedVariant?.price}</span>
