@@ -255,6 +255,54 @@ export function ProductPage() {
                                 </button>
                             ))}
                         </div>
+
+                        {/* Certification & Provenance - EXPANDED TRINITY */}
+                        <div className="grid grid-cols-1 gap-0 border border-stone/20 rounded-lg overflow-hidden divide-y divide-stone/20 bg-white shadow-sm mt-8">
+
+                            {/* 1. Digital Authentication */}
+                            <div className="flex items-start gap-5 p-5 hover:bg-stone/5 transition-colors">
+                                <div className="flex-shrink-0 h-12 w-12 bg-blue-50/50 rounded-full flex items-center justify-center text-blue-700">
+                                    <ShieldCheck className="w-6 h-6" />
+                                </div>
+                                <div className="pt-1">
+                                    <h4 className="font-bold text-charcoal text-base">Digitally Authenticated</h4>
+                                    <p className="text-sm text-navy/70 mt-1 leading-relaxed">
+                                        Verified via our exclusive <strong>NFC Tag Technology</strong>.
+                                        Scan the item with your phone to access the immutable digital record and signing proof.
+                                    </p>
+                                    <div className="mt-3 flex gap-2">
+                                        <div className="bg-stone-100 text-[10px] px-2 py-1 rounded-sm border border-stone-200 font-mono text-stone-600">NFC Verified</div>
+                                        <div className="bg-stone-100 text-[10px] px-2 py-1 rounded-sm border border-stone-200 font-mono text-stone-600">Tamper Proof</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            {/* 2. Photo Proof / Provenance */}
+                            <div className="flex items-start gap-5 p-5 hover:bg-stone/5 transition-colors">
+                                <div className="flex-shrink-0 h-12 w-12 bg-purple-50/50 rounded-full flex items-center justify-center text-purple-700">
+                                    <span className="font-bold font-mono text-lg mb-1">((•))</span>
+                                </div>
+                                <div className="pt-1">
+                                    <h4 className="font-bold text-charcoal text-base">Signing Session Provenance</h4>
+                                    <p className="text-sm text-navy/70 mt-1 leading-relaxed">
+                                        Obtained directly from exclusive private signing sessions. We guarantee the provenance of every item we sell.
+                                    </p>
+                                </div>
+                            </div>
+
+                            {/* 3. Delivery */}
+                            <div className="flex items-start gap-5 p-5 hover:bg-stone/5 transition-colors">
+                                <div className="flex-shrink-0 h-12 w-12 bg-green-50/50 rounded-full flex items-center justify-center text-green-700">
+                                    <Package className="w-6 h-6" />
+                                </div>
+                                <div className="pt-1">
+                                    <h4 className="font-bold text-charcoal text-base">Secure Worldwide Delivery</h4>
+                                    <p className="text-sm text-navy/70 mt-1 leading-relaxed">
+                                        Professionally packaged and fully insured for safe worldwide transit.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
 
                     {/* Product Info Section */}
@@ -334,54 +382,6 @@ export function ProductPage() {
                                     </div>
                                 </>
                             )}
-                        </div>
-
-                        {/* Certification & Provenance - EXPANDED TRINITY */}
-                        <div className="grid grid-cols-1 gap-0 border border-stone/20 rounded-lg overflow-hidden divide-y divide-stone/20 bg-white shadow-sm mt-8">
-
-                            {/* 1. Digital Authentication */}
-                            <div className="flex items-start gap-5 p-5 hover:bg-stone/5 transition-colors">
-                                <div className="flex-shrink-0 h-12 w-12 bg-blue-50/50 rounded-full flex items-center justify-center text-blue-700">
-                                    <ShieldCheck className="w-6 h-6" />
-                                </div>
-                                <div className="pt-1">
-                                    <h4 className="font-bold text-charcoal text-base">Digitally Authenticated</h4>
-                                    <p className="text-sm text-navy/70 mt-1 leading-relaxed">
-                                        Verified via our exclusive <strong>NFC Tag Technology</strong>.
-                                        Scan the item with your phone to access the immutable digital record and signing proof.
-                                    </p>
-                                    <div className="mt-3 flex gap-2">
-                                        <div className="bg-stone-100 text-[10px] px-2 py-1 rounded-sm border border-stone-200 font-mono text-stone-600">NFC Verified</div>
-                                        <div className="bg-stone-100 text-[10px] px-2 py-1 rounded-sm border border-stone-200 font-mono text-stone-600">Tamper Proof</div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            {/* 2. Photo Proof / Provenance */}
-                            <div className="flex items-start gap-5 p-5 hover:bg-stone/5 transition-colors">
-                                <div className="flex-shrink-0 h-12 w-12 bg-purple-50/50 rounded-full flex items-center justify-center text-purple-700">
-                                    <span className="font-bold font-mono text-lg mb-1">((•))</span>
-                                </div>
-                                <div className="pt-1">
-                                    <h4 className="font-bold text-charcoal text-base">Signing Session Provenance</h4>
-                                    <p className="text-sm text-navy/70 mt-1 leading-relaxed">
-                                        Obtained directly from exclusive private signing sessions. We guarantee the provenance of every item we sell.
-                                    </p>
-                                </div>
-                            </div>
-
-                            {/* 3. Delivery */}
-                            <div className="flex items-start gap-5 p-5 hover:bg-stone/5 transition-colors">
-                                <div className="flex-shrink-0 h-12 w-12 bg-green-50/50 rounded-full flex items-center justify-center text-green-700">
-                                    <Package className="w-6 h-6" />
-                                </div>
-                                <div className="pt-1">
-                                    <h4 className="font-bold text-charcoal text-base">Secure Worldwide Delivery</h4>
-                                    <p className="text-sm text-navy/70 mt-1 leading-relaxed">
-                                        Professionally packaged and fully insured for safe worldwide transit.
-                                    </p>
-                                </div>
-                            </div>
                         </div>
 
                         {/* Description */}
