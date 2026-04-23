@@ -310,7 +310,7 @@ export function ProductPage() {
                                 {seoTitle.split('|')[0].trim()}
                             </h1>
                             <div className="flex items-center gap-6">
-                                <span className="text-2xl font-medium text-gold font-serif">£{selectedVariant?.price}</span>
+                                <span className="text-2xl font-medium text-gold font-serif">£{selectedVariant?.price} <span className="text-xs text-navy/40 ml-1 font-sans uppercase tracking-tighter">inc. VAT</span></span>
                             </div>
                         </div>
 

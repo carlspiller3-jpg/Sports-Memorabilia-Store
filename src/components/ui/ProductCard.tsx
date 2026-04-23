@@ -43,7 +43,7 @@ export function ProductCard({ title, price, image, altText, athlete, type, class
                     </h3>
                 </div>
                 <div className="flex items-center justify-between pt-3 border-t border-stone/10 mt-auto">
-                    <span className="text-charcoal font-medium">£{price.toLocaleString()}</span>
+                    <span className="text-charcoal font-medium">£{price.toLocaleString()}<span className="text-[10px] text-stone/40 ml-1 uppercase tracking-tighter">inc. VAT</span></span>
                 </div>
             </div>
         </div>
