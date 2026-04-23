@@ -5,6 +5,7 @@ import { PresentationSection } from "@/components/home/PresentationSection"
 import { WaitlistModal } from "@/components/home/WaitlistModal"
 import { TrustIndicators } from "@/components/home/TrustIndicators"
 import { FeaturedProducts } from "@/components/home/FeaturedProducts"
+import { WaitlistSignup } from "@/components/ui/WaitlistSignup"
 import { usePageSEO } from "@/hooks/usePageSEO"
 
 export function HomePage() {
@@ -55,6 +56,21 @@ export function HomePage() {
                     <Hero />
                 </div>
                 <TrustIndicators />
+            </div>
+
+            {/* Newsletter / Waitlist Row */}
+            <div className="bg-charcoal py-10 border-y border-white/5">
+                <div className="container mx-auto px-4">
+                    <div className="flex flex-col md:flex-row items-center justify-between gap-8">
+                        <div className="text-center md:text-left">
+                            <h3 className="text-white font-serif text-2xl font-bold mb-2">Join the Private Priority List</h3>
+                            <p className="text-white/60 text-sm">Access the 2026 Collection 48 hours before the public.</p>
+                        </div>
+                        <div className="w-full md:w-[400px]">
+                            <WaitlistSignup title="Secure Access" interest="Homepage" />
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <FeaturedProducts />
