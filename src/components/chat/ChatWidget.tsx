@@ -29,14 +29,12 @@ export function ChatWidget() {
 
   // Check lock state helper
   const isShopLocked = () => {
-    if (typeof window === 'undefined') return false
-    return sessionStorage.getItem("shop_unlocked") !== "true"
+    return false
   }
 
   const initializeChat = useCallback(async () => {
     setIsLoading(true)
-    const locked = isShopLocked()
-    const response = await chatEngine.processMessage('', locked)
+    const response = await chatEngine.processMessage('', false)
     const botMessage: Message = {
       id: generateId(),
       role: 'bot',
@@ -77,25 +75,9 @@ export function ChatWidget() {
     }
   }, [initializeChat])
 
-  // 2. Listen for Unlock Event
+  // 2. Listen for Unlock Event (Disabled - Site is Live)
   useEffect(() => {
-    const handleUnlock = () => {
-      // Add the "Access Granted" message
-      const unlockMsg: Message = {
-        id: `sys_${Date.now()}`,
-        role: 'bot',
-        content: "🔓 **ACCESS GRANTED**\n\nWelcome. The collection is now available to you.\n\nWe have just stocked some rare F1 and Football items. What would you like to see?",
-        timestamp: new Date()
-      }
-      setMessages(prev => [...prev, unlockMsg])
-      chatMemory.addMessage(unlockMsg)
-
-      // Trigger notification
-      setUnreadCount(prev => prev + 1)
-    }
-
-    window.addEventListener('shop_unlocked', handleUnlock)
-    return () => window.removeEventListener('shop_unlocked', handleUnlock)
+    // No longer needed
   }, [])
 
   // 3. Clear badges on open

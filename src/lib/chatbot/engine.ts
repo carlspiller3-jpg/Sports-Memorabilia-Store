@@ -17,8 +17,6 @@ export interface ChatResponse {
 
 class ChatEngine {
   async processMessage(userMessage: string, isLocked: boolean = false): Promise<ChatResponse> {
-    const lower = userMessage.toLowerCase()
-
     // 0. LLM OVERRIDE (If API Key is set)
     const geminiKey = import.meta.env.VITE_GEMINI_API_KEY;
     // Only use LLM if message is not empty (don't waste tokens on initial "hello")
@@ -38,28 +36,7 @@ class ChatEngine {
       }
     }
 
-    // 1. LOCKED STATE CHECK - HIGHEST PRIORITY
-    if (isLocked) {
-      if (!userMessage || userMessage.trim() === '') {
-        return {
-          message: "Hi there! 👋 We're currently in our **Pre-Launch Phase**.\n\nWe are preparing some of the rarest signed memorabilia in the world for our official opening. \n\nWould you like to join our subscription list for early access and drop notifications?",
-          quickReplies: ['Join Pre-Launch List', 'How do I enter?']
-        }
-      }
-
-      if (lower.includes('password') || lower.includes('enter') || lower.includes('unlock')) {
-        return {
-          message: "Early access passwords are sent to our subscribers 48 hours before each drop.\n\nWould you like to join the list now?",
-          quickReplies: ['Join Pre-Launch List', 'I have a password']
-        }
-      }
-
-      return {
-        message: "The store is currently in **Pre-Launch**. \n\nSign up for our email service to receive your access credentials for the next drop.",
-        quickReplies: ['Join Pre-Launch List'],
-        action: 'scroll_waitlist'
-      }
-    }
+    const lower = userMessage.toLowerCase()
 
     // 2. LEAD GEN / AWAITING EMAIL
     const currentTopic = chatMemory.getTopic()
