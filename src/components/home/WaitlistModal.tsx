@@ -128,10 +128,10 @@ export function WaitlistModal() {
                             <Lock className="w-4 h-4 text-gold" />
                         </div>
                         <h2 className="font-serif text-xl text-white mb-0.5">
-                            Official Pre-Launch
+                            Priority Access
                         </h2>
                         <p className="text-white/60 text-[10px] uppercase tracking-wider">
-                            Join the Waitlist for our <span className="text-gold font-bold">2026 Collection</span>
+                            Join our private registry for the <span className="text-gold font-bold">2026 Collection</span>
                         </p>
                         <button
                             onClick={handleClose}
