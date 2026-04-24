@@ -12,6 +12,7 @@ import { generateImageAlt } from "@/lib/seo"
 import { fetchAllProducts } from "@/lib/shopify"
 import { WaitlistSignup } from "@/components/ui/WaitlistSignup"
 import { usePageSEO } from "@/hooks/usePageSEO"
+import { ATHLETE_DB, TEAM_INFO } from "@/lib/chatbot/knowledge"
 
 export function ShopPage() {
     const { category } = useParams<{ category: string }>()
@@ -75,10 +76,44 @@ export function ShopPage() {
         { label: "Over £500", value: "500-10000" },
     ]
 
-    // Extract unique teams/athletes from tags (excluding sports and types)
-    const teams = [...new Set(products.flatMap((p: Product) => p.tags || []))]
-        .filter((tag: string) => !sports.includes(tag) && !["Signed Photo", "Boot", "Shirt", "Glove", "Ball", "Bat", "Trunks"].includes(tag))
-        .sort()
+    // Extract and categorize unique teams/athletes from tags
+    const groupedFilters = useMemo(() => {
+        const allTags = [...new Set(products.flatMap((p: Product) => p.tags || []))];
+        const noise = ["Signed Photo", "Boot", "Shirt", "Glove", "Ball", "Bat", "Trunks", "Framed", "Mount", "Authenticated", "NFC", "Premium", "Display Case", "Gift Box"];
+        const seasonRegex = /^\d{2}\/\d{2}$/;
+
+        const groups = {
+            teams: [] as string[],
+            athletes: [] as string[],
+            competitions: [] as string[]
+        };
+
+        allTags.forEach(tag => {
+            if (sports.includes(tag) || noise.includes(tag) || seasonRegex.test(tag)) return;
+
+            // Proper Casing
+            const displayTag = tag.split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()).join(' ');
+
+            const isKnownAthlete = ATHLETE_DB.some(a => a.name.toLowerCase() === tag.toLowerCase());
+            const isKnownTeam = TEAM_INFO.some(t => t.name.toLowerCase() === tag.toLowerCase() || t.commonName.toLowerCase() === tag.toLowerCase());
+            const isCompetition = ["Champions League", "Premier League", "La Liga", "Serie A", "World Cup", "Euros", "FA Cup"].some(c => tag.toLowerCase().includes(c.toLowerCase()));
+
+            if (isKnownAthlete) groups.athletes.push(displayTag);
+            else if (isKnownTeam) groups.teams.push(displayTag);
+            else if (isCompetition) groups.competitions.push(displayTag);
+            else {
+                // Heuristic for unknown tags: if it has 2+ words, assume Athlete, else Team
+                if (tag.includes(' ')) groups.athletes.push(displayTag);
+                else groups.teams.push(displayTag);
+            }
+        });
+
+        return {
+            teams: [...new Set(groups.teams)].sort(),
+            athletes: [...new Set(groups.athletes)].sort(),
+            competitions: [...new Set(groups.competitions)].sort()
+        };
+    }, [products, sports]);
 
     useEffect(() => {
         async function loadProducts() {
@@ -155,7 +190,7 @@ export function ShopPage() {
 
         // Team/Athlete filter
         if (selectedTeam !== "all") {
-            result = result.filter(p => p.tags?.includes(selectedTeam))
+            result = result.filter(p => p.tags?.some(tag => tag.toLowerCase() === selectedTeam.toLowerCase()))
         }
 
         // Price filter
@@ -340,9 +375,30 @@ export function ShopPage() {
                                             aria-label="Filter by Team or Athlete"
                                         >
                                             <option value="all">All Teams & Athletes</option>
-                                            {teams.map((team: string) => (
-                                                <option key={team} value={team}>{team}</option>
-                                            ))}
+                                            
+                                            {groupedFilters.teams.length > 0 && (
+                                                <optgroup label="Teams">
+                                                    {groupedFilters.teams.map(team => (
+                                                        <option key={team} value={team}>{team}</option>
+                                                    ))}
+                                                </optgroup>
+                                            )}
+
+                                            {groupedFilters.athletes.length > 0 && (
+                                                <optgroup label="Athletes">
+                                                    {groupedFilters.athletes.map(athlete => (
+                                                        <option key={athlete} value={athlete}>{athlete}</option>
+                                                    ))}
+                                                </optgroup>
+                                            )}
+
+                                            {groupedFilters.competitions.length > 0 && (
+                                                <optgroup label="Competitions">
+                                                    {groupedFilters.competitions.map(comp => (
+                                                        <option key={comp} value={comp}>{comp}</option>
+                                                    ))}
+                                                </optgroup>
+                                            )}
                                         </select>
                                     </div>
                                 </div>
