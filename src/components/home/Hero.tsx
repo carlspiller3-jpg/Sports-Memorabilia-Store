@@ -17,7 +17,7 @@ export function Hero() {
       </div>
 
       {/* Content */}
-      <div className="relative flex-1 container mx-auto px-4 flex flex-col justify-center h-full py-20">
+      <div className="relative flex-1 container mx-auto px-4 flex flex-col justify-center h-full pt-44 pb-20">
         <div className="max-w-3xl space-y-8 animate-in fade-in slide-in-from-bottom-8 duration-1000">
           {/* Offer-Led Badge */}
           <div className="inline-flex items-center space-x-2 rounded-full border border-gold/30 bg-gold/10 backdrop-blur-md px-4 py-2 text-[10px] font-bold uppercase tracking-[0.2em] text-gold w-fit">
@@ -28,8 +28,8 @@ export function Hero() {
           {/* Headline: The Offer */}
           <div className="space-y-4">
             <h1 className="font-serif text-5xl sm:text-7xl lg:text-8xl font-bold tracking-tighter text-white leading-[0.95]">
-              Own the <span className="text-gold italic">Moment.</span><br />
-              Guaranteed for <span className="underline decoration-gold/50 underline-offset-8">Life.</span>
+              Own the Moment.<br />
+              Guaranteed for <span className="underline decoration-gold/50 underline-offset-8 text-gold italic">Life.</span>
             </h1>
             <p className="text-lg sm:text-xl text-ivory/80 max-w-2xl leading-relaxed font-light">
               We eliminate the risk of counterfeit memorabilia. Every piece is a 100% verified asset, 
