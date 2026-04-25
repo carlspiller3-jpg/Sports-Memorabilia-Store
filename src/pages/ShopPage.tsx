@@ -300,7 +300,7 @@ export function ShopPage() {
                             </div>
                             <h2 className="text-2xl font-serif text-navy mb-3 uppercase tracking-tight">Asset not found</h2>
                             <p className="text-stone/60 mb-8 max-w-sm mx-auto">
-                                The ledger is updated daily. Secure your place for the next authentication drop.
+                                The shop is updated daily. Secure your place for the next authentication drop.
                             </p>
 
                             <WaitlistSignup interest={selectedSport !== 'all' ? selectedSport : 'General'} />
