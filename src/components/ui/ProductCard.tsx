@@ -62,14 +62,23 @@ export function ProductCard({ title, price, image, altText, athlete, type, class
                         {title}
                     </h3>
                 </div>
-                <div className="flex items-center justify-between pt-3 border-t border-stone/10 mt-auto">
-                    <span className={cn("font-medium", isArchived ? "text-stone/40 line-through" : "text-charcoal")}>
-                        £{price.toLocaleString()}
-                        <span className="text-[10px] ml-1 uppercase tracking-tighter">inc. VAT</span>
-                    </span>
-                    {isArchived && (
-                        <span className="text-[9px] font-bold text-navy/40 uppercase tracking-widest">Private Collection</span>
-                    )}
+                <div className="flex flex-col pt-3 border-t border-stone/10 mt-auto">
+                    <div className="flex items-center justify-between">
+                        <div className="flex flex-col">
+                            {!isArchived && (
+                                <span className="text-[10px] text-stone/40 line-through font-medium">
+                                    Est. Market: £{(price * 1.25).toLocaleString()}
+                                </span>
+                            )}
+                            <span className={cn("font-bold text-lg", isArchived ? "text-stone/40 line-through" : "text-navy")}>
+                                £{price.toLocaleString()}
+                                <span className="text-[10px] ml-1 uppercase tracking-tighter opacity-50">inc. VAT</span>
+                            </span>
+                        </div>
+                        {isArchived && (
+                            <span className="text-[9px] font-bold text-navy/40 uppercase tracking-widest bg-navy/5 px-2 py-1 rounded-xs">Private Collection</span>
+                        )}
+                    </div>
                 </div>
             </div>
         </div>
