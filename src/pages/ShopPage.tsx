@@ -160,7 +160,12 @@ export function ShopPage() {
 
     // Render Helpers
     const getPrice = (p: Product) => p.variants?.[0]?.price || 0
-    const getImage = (p: Product) => p.images?.[0]?.src || PLACEHOLDER_IMAGES[p.id] || ""
+    const getImage = (p: Product) => p.images?.[0] || PLACEHOLDER_IMAGES[p.id] || ""
+    const getAthlete = (p: Product) => {
+        const sportsList = ["Football", "Boxing", "Rugby", "F1", "Motorsport", "Golf", "Athletics", "UFC", "Tennis", "Cricket"]
+        const noiseTags = ["Signed", "Photo", "Boot", "Shirt", "Glove", "Ball", "Bat", "Trunks", "Framed", "Mount", "Authenticated", "NFC", "Premium", "Display Case", "Gift Box"]
+        return p.tags?.find(t => !sportsList.includes(t) && !noiseTags.includes(t) && !/^\d{2}\/\d{2}$/.test(t)) || p.tags?.[0] || "Memorabilia"
+    }
     const productTypes = ["all", ...new Set(products.map(p => p.product_type).filter((t): t is string => t !== null))]
 
     return (
@@ -200,7 +205,7 @@ export function ShopPage() {
                                     )}
                                 </Button>
                             </SheetTrigger>
-                            <SheetContent side="right" className="w-full sm:max-w-md bg-ivory p-0 flex flex-col">
+                            <SheetContent side="right" className="w-full sm:max-max-w-md bg-ivory p-0 flex flex-col">
                                 <SheetHeader className="p-8 border-b border-stone/10 bg-white">
                                     <SheetTitle className="font-serif text-2xl text-navy">Refine Search</SheetTitle>
                                 </SheetHeader>
@@ -209,9 +214,9 @@ export function ShopPage() {
                                     <div className="space-y-4">
                                         <h3 className="text-[10px] font-bold text-navy/40 uppercase tracking-[0.2em]">Sport</h3>
                                         <div className="flex flex-wrap gap-2">
-                                            <button onClick={() => setSelectedSport("all")} className={`px-4 py-2 text-xs font-bold rounded-full border ${selectedSport === "all" ? "bg-navy text-white" : "bg-white text-navy/60"}`}>All</button>
+                                            <button onClick={() => setSelectedSport("all")} className={`px-4 py-2 text-xs font-bold rounded-full border transition-all ${selectedSport === "all" ? "bg-navy text-white" : "bg-white text-navy/60"}`}>All</button>
                                             {sports.map(s => (
-                                                <button key={s} onClick={() => setSelectedSport(s)} className={`px-4 py-2 text-xs font-bold rounded-full border ${selectedSport === s ? "bg-navy text-white" : "bg-white text-navy/60"}`}>{s}</button>
+                                                <button key={s} onClick={() => setSelectedSport(s)} className={`px-4 py-2 text-xs font-bold rounded-full border transition-all ${selectedSport === s ? "bg-navy text-white" : "bg-white text-navy/60"}`}>{s}</button>
                                             ))}
                                         </div>
                                     </div>
@@ -219,9 +224,9 @@ export function ShopPage() {
                                     <div className="space-y-4">
                                         <h3 className="text-[10px] font-bold text-navy/40 uppercase tracking-[0.2em]">Price</h3>
                                         <div className="flex flex-wrap gap-2">
-                                            <button onClick={() => setPriceRange("all")} className={`px-4 py-2 text-xs font-bold rounded-full border ${priceRange === "all" ? "bg-navy text-white" : "bg-white text-navy/60"}`}>Any</button>
+                                            <button onClick={() => setPriceRange("all")} className={`px-4 py-2 text-xs font-bold rounded-full border transition-all ${priceRange === "all" ? "bg-navy text-white" : "bg-white text-navy/60"}`}>Any</button>
                                             {priceRanges.map(r => (
-                                                <button key={r.value} onClick={() => setPriceRange(r.value)} className={`px-4 py-2 text-xs font-bold rounded-full border ${priceRange === r.value ? "bg-navy text-white" : "bg-white text-navy/60"}`}>{r.label}</button>
+                                                <button key={r.value} onClick={() => setPriceRange(r.value)} className={`px-4 py-2 text-xs font-bold rounded-full border transition-all ${priceRange === r.value ? "bg-navy text-white" : "bg-white text-navy/60"}`}>{r.label}</button>
                                             ))}
                                         </div>
                                     </div>
@@ -229,16 +234,16 @@ export function ShopPage() {
                                     <div className="space-y-4">
                                         <h3 className="text-[10px] font-bold text-navy/40 uppercase tracking-[0.2em]">Asset Type</h3>
                                         <div className="flex flex-wrap gap-2">
-                                            <button onClick={() => setSelectedType("all")} className={`px-4 py-2 text-xs font-bold rounded-full border ${selectedType === "all" ? "bg-navy text-white" : "bg-white text-navy/60"}`}>All</button>
+                                            <button onClick={() => setSelectedType("all")} className={`px-4 py-2 text-xs font-bold rounded-full border transition-all ${selectedType === "all" ? "bg-navy text-white" : "bg-white text-navy/60"}`}>All</button>
                                             {productTypes.filter(t => t !== "all").map(t => (
-                                                <button key={t} onClick={() => setSelectedType(t)} className={`px-4 py-2 text-xs font-bold rounded-full border ${selectedType === t ? "bg-navy text-white" : "bg-white text-navy/60"}`}>{t.charAt(0).toUpperCase() + t.slice(1)}</button>
+                                                <button key={t} onClick={() => setSelectedType(t)} className={`px-4 py-2 text-xs font-bold rounded-full border transition-all ${selectedType === t ? "bg-navy text-white" : "bg-white text-navy/60"}`}>{t.charAt(0).toUpperCase() + t.slice(1)}</button>
                                             ))}
                                         </div>
                                     </div>
 
                                     <div className="space-y-4">
                                         <h3 className="text-[10px] font-bold text-navy/40 uppercase tracking-[0.2em]">Heritage Filter</h3>
-                                        <select value={selectedTeam} onChange={(e) => setSelectedTeam(e.target.value)} className="w-full p-4 bg-white border border-stone/20 rounded-sm text-sm">
+                                        <select value={selectedTeam} onChange={(e) => setSelectedTeam(e.target.value)} className="w-full p-4 bg-white border border-stone/20 rounded-sm text-sm outline-none focus:border-gold transition-colors appearance-none cursor-pointer">
                                             <option value="all">All Teams & Athletes</option>
                                             {groupedFilters.teams.length > 0 && <optgroup label="TEAMS">{groupedFilters.teams.map(t => <option key={t} value={t}>{t}</option>)}</optgroup>}
                                             {groupedFilters.athletes.length > 0 && <optgroup label="ATHLETES">{groupedFilters.athletes.map(a => <option key={a} value={a}>{a}</option>)}</optgroup>}
@@ -248,15 +253,15 @@ export function ShopPage() {
                                 </div>
 
                                 <div className="p-8 bg-white border-t border-stone/10 grid grid-cols-2 gap-4">
-                                    <Button variant="outline" onClick={() => { setSelectedType("all"); setSelectedSport("all"); setSelectedTeam("all"); setPriceRange("all"); }}>Reset</Button>
-                                    <Button className="bg-gold text-charcoal" onClick={() => setShowFilters(false)}>Show {filteredProducts.length} Items</Button>
+                                    <Button variant="outline" className="h-12 font-bold uppercase tracking-widest text-[10px]" onClick={() => { setSelectedType("all"); setSelectedSport("all"); setSelectedTeam("all"); setPriceRange("all"); }}>Reset</Button>
+                                    <Button className="h-12 font-bold uppercase tracking-widest text-[10px] bg-gold text-charcoal hover:bg-gold/90" onClick={() => setShowFilters(false)}>Show {filteredProducts.length} Items</Button>
                                 </div>
                             </SheetContent>
                         </Sheet>
 
                         <div className="relative group">
-                            <Button variant="outline" className="gap-2">Sort <ChevronDown className="w-4 h-4" /></Button>
-                            <div className="absolute right-0 top-full mt-2 w-48 bg-white border rounded-sm shadow-xl hidden group-hover:block z-30">
+                            <Button variant="outline" className="gap-2 bg-white">Sort <ChevronDown className="w-4 h-4" /></Button>
+                            <div className="absolute right-0 top-full mt-2 w-48 bg-white border rounded-sm shadow-xl hidden group-hover:block z-30 animate-in fade-in slide-in-from-top-2 duration-200">
                                 <button onClick={() => setSortBy('featured')} className="block w-full text-left px-4 py-3 hover:bg-stone/5 text-sm border-b">Featured</button>
                                 <button onClick={() => setSortBy('price-asc')} className="block w-full text-left px-4 py-3 hover:bg-stone/5 text-sm border-b">Price: Low to High</button>
                                 <button onClick={() => setSortBy('price-desc')} className="block w-full text-left px-4 py-3 hover:bg-stone/5 text-sm">Price: High to Low</button>
@@ -279,7 +284,7 @@ export function ShopPage() {
                                     price={getPrice(p)}
                                     image={getImage(p)}
                                     altText={generateImageAlt(p)}
-                                    athlete={p.tags?.find(tag => ["Football", "Boxing", "Rugby", "F1"].includes(tag)) || "Memorabilia"}
+                                    athlete={getAthlete(p)}
                                     type={p.product_type || "other"}
                                 />
                             </a>
