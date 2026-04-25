@@ -69,6 +69,7 @@ export function ShopPage() {
         const knownSports = ["Football", "Boxing", "Rugby", "Cricket", "Tennis", "F1", "Motorsport", "Golf", "Athletics", "UFC"]
         return [...new Set(allTags.filter(tag => knownSports.includes(tag)))].sort()
     }, [products])
+
     const priceRanges = [
         { label: "Under £100", value: "0-100" },
         { label: "£100 - £300", value: "100-300" },
@@ -81,6 +82,7 @@ export function ShopPage() {
         const allTags = [...new Set(products.flatMap((p: Product) => p.tags || []))];
         const noise = ["Signed Photo", "Boot", "Shirt", "Glove", "Ball", "Bat", "Trunks", "Framed", "Mount", "Authenticated", "NFC", "Premium", "Display Case", "Gift Box"];
         const seasonRegex = /^\d{2}\/\d{2}$/;
+        const teamKeywords = ["FC", "LFC", "United", "City", "Racing", "Scuderia", "Madrid", "Barcelona", "Club", "AFC", "CFC", "MUFC"];
 
         const groups = {
             teams: [] as string[],
@@ -91,18 +93,23 @@ export function ShopPage() {
         allTags.forEach(tag => {
             if (sports.includes(tag) || noise.includes(tag) || seasonRegex.test(tag)) return;
 
-            // Proper Casing
-            const displayTag = tag.split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()).join(' ');
+            // Proper Casing with special handling for 'FC'
+            let displayTag = tag.split(' ').map(word => {
+                if (word.toLowerCase() === 'fc') return 'FC';
+                if (word.toLowerCase() === 'lfc') return 'LFC';
+                return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
+            }).join(' ');
 
             const isKnownAthlete = ATHLETE_DB.some(a => a.name.toLowerCase() === tag.toLowerCase());
-            const isKnownTeam = TEAM_INFO.some(t => t.name.toLowerCase() === tag.toLowerCase() || t.commonName.toLowerCase() === tag.toLowerCase());
+            const isKnownTeam = TEAM_INFO.some(t => t.name.toLowerCase() === tag.toLowerCase() || t.commonName.toLowerCase() === tag.toLowerCase()) || 
+                               teamKeywords.some(k => tag.toLowerCase().includes(k.toLowerCase()));
             const isCompetition = ["Champions League", "Premier League", "La Liga", "Serie A", "World Cup", "Euros", "FA Cup"].some(c => tag.toLowerCase().includes(c.toLowerCase()));
 
             if (isKnownAthlete) groups.athletes.push(displayTag);
             else if (isKnownTeam) groups.teams.push(displayTag);
             else if (isCompetition) groups.competitions.push(displayTag);
             else {
-                // Heuristic for unknown tags: if it has 2+ words, assume Athlete, else Team
+                // Heuristic fallback
                 if (tag.includes(' ')) groups.athletes.push(displayTag);
                 else groups.teams.push(displayTag);
             }
@@ -123,27 +130,7 @@ export function ShopPage() {
                 const liveProducts = await fetchAllProducts()
                 setProducts(liveProducts)
             } else {
-                // 1. Start with placeholders
-                let allProducts = [...PLACEHOLDER_PRODUCTS]
-
-                // 2. Fetch from Supabase (Disabled for strict inventory control)
-                /*
-                const { data, error } = await supabase
-                    .from('products')
-                    .select(`
-                        *,
-                        variants (*)
-                    `)
-                    .eq('status', 'active')
-
-                if (error) {
-                    console.error('Error fetching products:', error)
-                } else if (data) {
-                    allProducts = [...allProducts, ...data.filter(d => !allProducts.find(p => p.handle === d.handle))]
-                }
-                */
-
-                setProducts(allProducts)
+                setProducts([...PLACEHOLDER_PRODUCTS])
             }
             setLoading(false)
         }
@@ -155,7 +142,6 @@ export function ShopPage() {
     const filteredProducts = useMemo(() => {
         let result = [...products]
 
-        // Search filter
         if (searchQuery) {
             const query = searchQuery.toLowerCase()
             result = result.filter(p =>
@@ -164,28 +150,13 @@ export function ShopPage() {
             )
         }
 
-        // Type filter
         if (selectedType !== "all") {
             result = result.filter(p => p.product_type === selectedType)
         }
 
         // Sport filter
         if (selectedSport !== "all") {
-            console.log(`Filtering for sport: '${selectedSport}' (normalized: '${selectedSport.toLowerCase()}')`);
-            result = result.filter(p => {
-                const hasTag = p.tags?.some(tag => {
-                    const match = tag.toLowerCase() === selectedSport.toLowerCase();
-                    if (match) console.log(`Method matched product '${p.title}' with tag '${tag}'`);
-                    return match;
-                });
-                if (!hasTag) {
-                    // Log failures for the specific test product to see what tags it actually has
-                    if (p.title.includes("Test")) {
-                        console.log(`Failed to match Test Product:`, p.title, `Tags:`, p.tags);
-                    }
-                }
-                return hasTag;
-            })
+            result = result.filter(p => p.tags?.some(tag => tag.toLowerCase() === selectedSport.toLowerCase()))
         }
 
         // Team/Athlete filter
@@ -193,7 +164,6 @@ export function ShopPage() {
             result = result.filter(p => p.tags?.some(tag => tag.toLowerCase() === selectedTeam.toLowerCase()))
         }
 
-        // Price filter
         if (priceRange !== "all") {
             const [min, max] = priceRange.split('-').map(Number)
             result = result.filter(p => {
@@ -205,7 +175,13 @@ export function ShopPage() {
         return result
     }, [products, searchQuery, selectedType, selectedSport, selectedTeam, priceRange])
 
-    // Sync search query to URL
+    const sortedProducts = useMemo(() => {
+        const result = [...filteredProducts]
+        if (sortBy === "price-asc") return result.sort((a, b) => (a.variants?.[0]?.price || 0) - (b.variants?.[0]?.price || 0))
+        if (sortBy === "price-desc") return result.sort((a, b) => (b.variants?.[0]?.price || 0) - (a.variants?.[0]?.price || 0))
+        return result
+    }, [filteredProducts, sortBy])
+
     useEffect(() => {
         setSearchParams(prev => {
             if (searchQuery) {
@@ -217,94 +193,62 @@ export function ShopPage() {
         }, { replace: true })
     }, [searchQuery, setSearchParams])
 
-    // Helper to get price range or single price
-    const getPrice = (product: Product) => {
-        if (!product.variants || product.variants.length === 0) return 0
-        return product.variants[0].price
-    }
+    const getPrice = (product: Product) => product.variants?.[0]?.price || 0
+    const getImage = (product: Product) => product.images?.[0]?.src || PLACEHOLDER_IMAGES[product.id]
 
-    // Helper to get image
-    const getImage = (product: Product) => {
-        if (product.images && product.images.length > 0) return product.images[0]
-        return PLACEHOLDER_IMAGES[product.id] || "https://images.unsplash.com/photo-1515523110800-9415d13b84a8?q=80&w=1974&auto=format&fit=crop"
-    }
-
-    const sortedProducts = [...filteredProducts].sort((a, b) => {
-        if (sortBy === "price-asc") return getPrice(a) - getPrice(b)
-        if (sortBy === "price-desc") return getPrice(b) - getPrice(a)
-        return 0
-    })
-
-    // Get unique product types for filter
     const productTypes = ["all", ...new Set(products.map(p => p.product_type).filter((t): t is string => t !== null))]
 
     return (
-        <div className="min-h-screen bg-ivory pt-20">
+        <div className="min-h-screen bg-ivory">
             <Helmet>
                 <title>{pageTitle}</title>
                 <meta name="description" content={seo.description} />
-                <meta property="og:title" content={pageTitle} />
-                <meta property="og:description" content={seo.description} />
-                <meta property="og:image" content={seo.ogImage} />
-                <meta name="twitter:title" content={pageTitle} />
-                <meta name="twitter:description" content={seo.description} />
-                <meta name="twitter:image" content={seo.ogImage} />
             </Helmet>
+
             <PageHero
-                title={category ? (category.toLowerCase() === 'f1' ? 'Shop F1' : `Shop ${category.charAt(0).toUpperCase() + category.slice(1)}`) : "Shop All"}
-                subtitle="Authentic sports memorabilia. Professionally framed and ready to display."
-                backgroundImage="https://images.unsplash.com/photo-1486286701208-1d58e9338013?q=80&w=2070&auto=format&fit=crop"
-                compact
+                title={category ? category.toUpperCase() : "THE COLLECTION"}
+                subtitle={category ? `PREMIUM AUTHENTICATED ${category.toUpperCase()} ASSETS` : "SETTING THE NEW STANDARD IN SPORTS MEMORABILIA"}
+                backgroundImage="/shop-hero.png"
             />
 
-            <div className="container mx-auto px-4 py-6">
-                {/* Compact Toolbar */}
-                <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-8 pb-4 border-b border-stone/10">
-                    <div className="text-sm text-navy/60">
-                        <span className="font-bold text-charcoal">{filteredProducts.length}</span> {filteredProducts.length === 1 ? 'item' : 'items'}
+            <div className="container mx-auto px-4 py-12">
+                {/* Search & Filter Bar */}
+                <div className="flex flex-col md:flex-row gap-4 justify-between items-center mb-12 bg-white p-4 rounded-sm border border-stone/10 shadow-sm">
+                    <div className="relative w-full md:w-96 group">
+                        <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-navy/30 group-focus-within:text-gold transition-colors" />
+                        <input
+                            type="text"
+                            placeholder="Search by player, team or item..."
+                            className="w-full pl-12 pr-4 py-3 bg-ivory/50 border border-transparent focus:bg-white focus:border-gold/30 rounded-sm text-sm transition-all outline-none"
+                            value={searchQuery}
+                            onChange={(e) => setSearchQuery(e.target.value)}
+                        />
                     </div>
 
-                    <div className="flex gap-2 w-full md:w-auto flex-wrap">
-                        {/* Search */}
-                        <div className="relative flex-1 md:flex-initial md:w-64">
-                            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-navy/40" />
-                            <input
-                                type="text"
-                                placeholder="Search..."
-                                value={searchQuery}
-                                onChange={(e) => setSearchQuery(e.target.value)}
-                                className="w-full pl-9 pr-4 py-2 bg-white border border-stone/20 rounded-sm text-sm focus:outline-none focus:border-gold/50 transition-colors"
-                            />
-                        </div>
-
-                        {/* Filter Button */}
-                        <Button
-                            variant="outline"
-                            className="gap-2 bg-white border-stone/20 hover:border-gold/50"
-                            onClick={() => setShowFilters(true)}
-                        >
-                            <SlidersHorizontal className="w-4 h-4" />
-                            <span className="hidden sm:inline">Filters</span>
-                            {(selectedType !== "all" || selectedSport !== "all" || selectedTeam !== "all" || priceRange !== "all") && (
-                                <span className="flex h-2 w-2 rounded-full bg-gold" />
-                            )}
-                        </Button>
-
-                        {/* Filter Sheet */}
+                    <div className="flex items-center gap-3 w-full md:w-auto">
                         <Sheet open={showFilters} onOpenChange={setShowFilters}>
-                            <SheetContent side="right" className="w-full sm:max-w-md bg-ivory overflow-y-auto">
-                                <SheetHeader className="border-b border-stone/10 pb-4 mb-6">
-                                    <SheetTitle className="font-serif text-2xl text-charcoal">Filters</SheetTitle>
+                            <SheetTrigger asChild>
+                                <Button variant="outline" className="gap-2 flex-1 md:flex-none bg-white border-stone/20 hover:border-gold/50">
+                                    <SlidersHorizontal className="w-4 h-4" />
+                                    Filters
+                                    { (selectedType !== "all" || selectedSport !== "all" || selectedTeam !== "all" || priceRange !== "all") && (
+                                        <span className="ml-1 w-2 h-2 bg-gold rounded-full" />
+                                    ) }
+                                </Button>
+                            </SheetTrigger>
+                            <SheetContent side="right" className="w-full sm:max-w-md bg-ivory border-l border-stone/10 p-0 flex flex-col">
+                                <SheetHeader className="p-8 border-b border-stone/10 bg-white">
+                                    <SheetTitle className="font-serif text-2xl text-navy">Refine Search</SheetTitle>
                                 </SheetHeader>
-
-                                <div className="space-y-8">
-                                    {/* Sport */}
-                                    <div className="space-y-3">
-                                        <h3 className="text-sm font-bold text-navy uppercase tracking-wider">Sport</h3>
+                                
+                                <div className="flex-1 overflow-y-auto p-8 space-y-10">
+                                    {/* Sport Section */}
+                                    <div className="space-y-4">
+                                        <h3 className="text-[10px] font-bold text-navy/40 uppercase tracking-[0.2em]">Sport</h3>
                                         <div className="flex flex-wrap gap-2">
                                             <button
                                                 onClick={() => setSelectedSport("all")}
-                                                className={`px-3 py-1.5 text-sm rounded-full border transition-all ${selectedSport === "all" ? "bg-navy text-white border-navy" : "bg-white text-navy border-stone/20 hover:border-gold"}`}
+                                                className={`px-4 py-2 text-xs font-bold rounded-full border transition-all ${selectedSport === "all" ? "bg-navy text-white border-navy" : "bg-white text-navy/60 border-stone/20 hover:border-navy/30"}`}
                                             >
                                                 All Sports
                                             </button>
@@ -312,7 +256,7 @@ export function ShopPage() {
                                                 <button
                                                     key={sport}
                                                     onClick={() => setSelectedSport(sport)}
-                                                    className={`px-3 py-1.5 text-sm rounded-full border transition-all ${selectedSport === sport ? "bg-navy text-white border-navy" : "bg-white text-navy border-stone/20 hover:border-gold"}`}
+                                                    className={`px-4 py-2 text-xs font-bold rounded-full border transition-all ${selectedSport === sport ? "bg-navy text-white border-navy" : "bg-white text-navy/60 border-stone/20 hover:border-navy/30"}`}
                                                 >
                                                     {sport}
                                                 </button>
@@ -320,44 +264,43 @@ export function ShopPage() {
                                         </div>
                                     </div>
 
-                                    {/* Price Range */}
-                                    <div className="space-y-3">
-                                        <h3 className="text-sm font-bold text-navy uppercase tracking-wider">Price</h3>
-                                        <div className="space-y-2">
-                                            <label className="flex items-center gap-3 cursor-pointer group">
-                                                <div className={`w-5 h-5 rounded-full border flex items-center justify-center transition-colors ${priceRange === "all" ? "border-gold" : "border-stone/30 group-hover:border-gold"}`}>
-                                                    {priceRange === "all" && <div className="w-2.5 h-2.5 rounded-full bg-gold" />}
-                                                </div>
-                                                <input type="radio" name="price" className="hidden" checked={priceRange === "all"} onChange={() => setPriceRange("all")} />
-                                                <span className={`${priceRange === "all" ? "text-navy font-medium" : "text-navy/70"}`}>Any Price</span>
-                                            </label>
+                                    {/* Price Section */}
+                                    <div className="space-y-4">
+                                        <h3 className="text-[10px] font-bold text-navy/40 uppercase tracking-[0.2em]">Price Point</h3>
+                                        <div className="flex flex-wrap gap-2">
+                                            <button
+                                                onClick={() => setPriceRange("all")}
+                                                className={`px-4 py-2 text-xs font-bold rounded-full border transition-all ${priceRange === "all" ? "bg-navy text-white border-navy" : "bg-white text-navy/60 border-stone/20 hover:border-navy/30"}`}
+                                            >
+                                                Any Price
+                                            </button>
                                             {priceRanges.map(range => (
-                                                <label key={range.value} className="flex items-center gap-3 cursor-pointer group">
-                                                    <div className={`w-5 h-5 rounded-full border flex items-center justify-center transition-colors ${priceRange === range.value ? "border-gold" : "border-stone/30 group-hover:border-gold"}`}>
-                                                        {priceRange === range.value && <div className="w-2.5 h-2.5 rounded-full bg-gold" />}
-                                                    </div>
-                                                    <input type="radio" name="price" className="hidden" checked={priceRange === range.value} onChange={() => setPriceRange(range.value)} />
-                                                    <span className={`${priceRange === range.value ? "text-navy font-medium" : "text-navy/70"}`}>{range.label}</span>
-                                                </label>
+                                                <button
+                                                    key={range.value}
+                                                    onClick={() => setPriceRange(range.value)}
+                                                    className={`px-4 py-2 text-xs font-bold rounded-full border transition-all ${priceRange === range.value ? "bg-navy text-white border-navy" : "bg-white text-navy/60 border-stone/20 hover:border-navy/30"}`}
+                                                >
+                                                    {range.label}
+                                                </button>
                                             ))}
                                         </div>
                                     </div>
 
-                                    {/* Product Type */}
-                                    <div className="space-y-3">
-                                        <h3 className="text-sm font-bold text-navy uppercase tracking-wider">Item Type</h3>
+                                    {/* Item Type Section */}
+                                    <div className="space-y-4">
+                                        <h3 className="text-[10px] font-bold text-navy/40 uppercase tracking-[0.2em]">Asset Type</h3>
                                         <div className="flex flex-wrap gap-2">
                                             <button
                                                 onClick={() => setSelectedType("all")}
-                                                className={`px-3 py-1.5 text-sm rounded-sm border transition-all ${selectedType === "all" ? "bg-gold/10 text-gold border-gold" : "bg-white text-navy border-stone/20 hover:border-gold"}`}
+                                                className={`px-4 py-2 text-xs font-bold rounded-full border transition-all ${selectedType === "all" ? "bg-navy text-white border-navy" : "bg-white text-navy/60 border-stone/20 hover:border-navy/30"}`}
                                             >
-                                                All Types
+                                                All Assets
                                             </button>
                                             {productTypes.filter(t => t !== "all").map(type => (
                                                 <button
                                                     key={type}
                                                     onClick={() => setSelectedType(type)}
-                                                    className={`px-3 py-1.5 text-sm rounded-sm border transition-all ${selectedType === type ? "bg-gold/10 text-gold border-gold" : "bg-white text-navy border-stone/20 hover:border-gold"}`}
+                                                    className={`px-4 py-2 text-xs font-bold rounded-full border transition-all ${selectedType === type ? "bg-navy text-white border-navy" : "bg-white text-navy/60 border-stone/20 hover:border-navy/30"}`}
                                                 >
                                                     {type.charAt(0).toUpperCase() + type.slice(1)}
                                                 </button>
@@ -365,19 +308,19 @@ export function ShopPage() {
                                         </div>
                                     </div>
 
-                                    {/* Teams/Athletes */}
-                                    <div className="space-y-3">
-                                        <h3 className="text-sm font-bold text-navy uppercase tracking-wider">Team / Athlete</h3>
+                                    {/* Teams/Athletes Section */}
+                                    <div className="space-y-4">
+                                        <h3 className="text-[10px] font-bold text-navy/40 uppercase tracking-[0.2em]">Heritage Filter</h3>
                                         <select
                                             value={selectedTeam}
                                             onChange={(e) => setSelectedTeam(e.target.value)}
-                                            className="w-full p-3 bg-white border border-stone/20 rounded-sm text-sm focus:outline-none focus:border-gold"
+                                            className="w-full p-4 bg-white border border-stone/20 rounded-sm text-sm focus:outline-none focus:border-navy transition-colors appearance-none cursor-pointer"
                                             aria-label="Filter by Team or Athlete"
                                         >
                                             <option value="all">All Teams & Athletes</option>
                                             
                                             {groupedFilters.teams.length > 0 && (
-                                                <optgroup label="Teams">
+                                                <optgroup label="TEAMS">
                                                     {groupedFilters.teams.map(team => (
                                                         <option key={team} value={team}>{team}</option>
                                                     ))}
@@ -385,7 +328,7 @@ export function ShopPage() {
                                             )}
 
                                             {groupedFilters.athletes.length > 0 && (
-                                                <optgroup label="Athletes">
+                                                <optgroup label="ATHLETES">
                                                     {groupedFilters.athletes.map(athlete => (
                                                         <option key={athlete} value={athlete}>{athlete}</option>
                                                     ))}
@@ -393,7 +336,7 @@ export function ShopPage() {
                                             )}
 
                                             {groupedFilters.competitions.length > 0 && (
-                                                <optgroup label="Competitions">
+                                                <optgroup label="COMPETITIONS">
                                                     {groupedFilters.competitions.map(comp => (
                                                         <option key={comp} value={comp}>{comp}</option>
                                                     ))}
@@ -403,10 +346,10 @@ export function ShopPage() {
                                     </div>
                                 </div>
 
-                                <SheetFooter className="mt-10 pt-6 border-t border-stone/10">
+                                <div className="p-8 bg-white border-t border-stone/10 grid grid-cols-2 gap-4">
                                     <Button
                                         variant="outline"
-                                        className="w-full"
+                                        className="h-12 text-xs font-bold uppercase tracking-widest border-stone/20"
                                         onClick={() => {
                                             setSelectedType("all")
                                             setSelectedSport("all")
@@ -414,12 +357,15 @@ export function ShopPage() {
                                             setPriceRange("all")
                                         }}
                                     >
-                                        Reset All Filters
+                                        Reset
                                     </Button>
-                                    <Button className="w-full mt-2" onClick={() => setShowFilters(false)}>
+                                    <Button 
+                                        className="h-12 text-xs font-bold uppercase tracking-widest bg-gold text-charcoal hover:bg-gold/90 shadow-lg shadow-gold/20 border-none"
+                                        onClick={() => setShowFilters(false)}
+                                    >
                                         Show {filteredProducts.length} Items
                                     </Button>
-                                </SheetFooter>
+                                </div>
                             </SheetContent>
                         </Sheet>
 
