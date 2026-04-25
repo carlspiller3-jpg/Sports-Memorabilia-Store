@@ -10,11 +10,18 @@ interface ProductCardProps {
     athlete: string
     type: string
     className?: string
+    status?: 'active' | 'archived'
 }
 
-export function ProductCard({ title, price, image, altText, athlete, type, className }: ProductCardProps) {
+export function ProductCard({ title, price, image, altText, athlete, type, className, status = 'active' }: ProductCardProps) {
+    const isArchived = status === 'archived'
+
     return (
-        <div className={cn("group flex flex-col h-full relative bg-white border border-stone/20 rounded-sm overflow-hidden hover:shadow-xl transition-all duration-500 ease-out", className)}>
+        <div className={cn(
+            "group flex flex-col h-full relative bg-white border border-stone/20 rounded-sm overflow-hidden hover:shadow-xl transition-all duration-500 ease-out",
+            isArchived && "opacity-90",
+            className
+        )}>
             {/* Image Container */}
             <div className="aspect-[4/3] overflow-hidden bg-stone/5 relative">
                 <img
@@ -22,16 +29,29 @@ export function ProductCard({ title, price, image, altText, athlete, type, class
                     alt={altText || title}
                     loading="lazy"
                     decoding="async"
-                    className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                    className={cn(
+                        "w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105",
+                        isArchived && "grayscale contrast-125"
+                    )}
                 />
+
+                {isArchived && (
+                    <div className="absolute inset-0 bg-navy/20 flex items-center justify-center">
+                        <div className="bg-white/90 backdrop-blur-sm px-4 py-2 border border-navy/10 shadow-xl">
+                            <p className="text-[10px] font-bold tracking-[0.3em] text-navy uppercase">Secured</p>
+                        </div>
+                    </div>
+                )}
 
 
                 {/* Quick Add Overlay */}
-                <div className="absolute inset-x-0 bottom-0 p-4 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out">
-                    <Button className="w-full shadow-lg" size="lg">
-                        Quick View
-                    </Button>
-                </div>
+                {!isArchived && (
+                    <div className="absolute inset-x-0 bottom-0 p-4 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out">
+                        <Button className="w-full shadow-lg" size="lg">
+                            Quick View
+                        </Button>
+                    </div>
+                )}
             </div>
 
             {/* Content */}
@@ -43,7 +63,13 @@ export function ProductCard({ title, price, image, altText, athlete, type, class
                     </h3>
                 </div>
                 <div className="flex items-center justify-between pt-3 border-t border-stone/10 mt-auto">
-                    <span className="text-charcoal font-medium">£{price.toLocaleString()}<span className="text-[10px] text-stone/40 ml-1 uppercase tracking-tighter">inc. VAT</span></span>
+                    <span className={cn("font-medium", isArchived ? "text-stone/40 line-through" : "text-charcoal")}>
+                        £{price.toLocaleString()}
+                        <span className="text-[10px] ml-1 uppercase tracking-tighter">inc. VAT</span>
+                    </span>
+                    {isArchived && (
+                        <span className="text-[9px] font-bold text-navy/40 uppercase tracking-widest">Private Collection</span>
+                    )}
                 </div>
             </div>
         </div>

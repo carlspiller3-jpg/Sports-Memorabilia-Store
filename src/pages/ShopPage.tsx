@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/Button"
 import { PageHero } from "@/components/ui/PageHero"
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/Sheet"
 import type { Product } from "@/types/schema"
-import { PLACEHOLDER_PRODUCTS, PLACEHOLDER_IMAGES } from "@/lib/placeholder-data"
+import { PLACEHOLDER_PRODUCTS, PLACEHOLDER_IMAGES, SECURED_HERITAGE } from "@/lib/placeholder-data"
 import { generateImageAlt } from "@/lib/seo"
 import { fetchAllProducts } from "@/lib/shopify"
 import { WaitlistSignup } from "@/components/ui/WaitlistSignup"
@@ -293,11 +293,43 @@ export function ShopPage() {
                 )}
 
                 {!loading && filteredProducts.length === 0 && (
-                    <div className="py-20 text-center">
-                        <div className="bg-white border border-stone/20 rounded-sm p-12 max-w-xl mx-auto">
-                            <h2 className="text-2xl font-serif text-navy mb-4">No Items Found</h2>
-                            <p className="text-stone/60 mb-8">Join our priority list for notifications on new arrivals.</p>
+                    <div className="space-y-16">
+                        <div className="max-w-xl mx-auto text-center py-10 px-4">
+                            <div className="w-12 h-12 bg-gold/10 rounded-full flex items-center justify-center mx-auto mb-6">
+                                <Search className="w-6 h-6 text-navy/40" />
+                            </div>
+                            <h2 className="text-2xl font-serif text-navy mb-3 uppercase tracking-tight">Asset not found</h2>
+                            <p className="text-stone/60 mb-8 max-w-sm mx-auto">
+                                The ledger is updated daily. Secure your place for the next authentication drop.
+                            </p>
+
                             <WaitlistSignup interest={selectedSport !== 'all' ? selectedSport : 'General'} />
+                        </div>
+
+                        {/* Secured Archive Section */}
+                        <div className="border-t border-stone/10 pt-16">
+                            <div className="flex flex-col md:flex-row justify-between items-end mb-10 gap-4">
+                                <div className="space-y-2">
+                                    <h2 className="text-2xl font-serif text-navy">Recently Secured Heritage</h2>
+                                    <p className="text-stone/50 text-sm max-w-md">These assets have been authenticated and moved into private collections.</p>
+                                </div>
+                                <a href="/shop" className="text-[10px] font-bold uppercase tracking-[0.2em] text-navy/40 hover:text-navy transition-colors border-b border-stone/20 pb-1">View Full Ledger</a>
+                            </div>
+
+                            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                                {SECURED_HERITAGE.map(p => (
+                                    <ProductCard
+                                        key={p.id}
+                                        title={p.title}
+                                        price={getPrice(p)}
+                                        image={getImage(p)}
+                                        altText={generateImageAlt(p)}
+                                        athlete={getAthlete(p)}
+                                        type={p.product_type || "other"}
+                                        status="archived"
+                                    />
+                                ))}
+                            </div>
                         </div>
                     </div>
                 )}

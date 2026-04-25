@@ -458,3 +458,38 @@ export const INVENTORY_PRODUCTS: Product[] = [
         ...commonFields('photo-irwin', "Glenn Irwin signed montage", 'photo')
     }
 ]
+
+export const ARCHIVED_HERITAGE: Product[] = [
+    {
+        title: "Pele Signed 1970 World Cup Final Shirt",
+        body_html: "An iconic piece of football history. Signed by O Rei himself.",
+        tags: ["Football", "Shirt", "Pele", "Brazil", "World Cup", "Legend"],
+        variants: [createVariant('arch-pele', 5000, 'Framed', 0)],
+        ...commonFields('arch-pele', "Pele Signed 1970 World Cup Final Shirt", 'photo'),
+        status: 'archived'
+    },
+    {
+        title: "Muhammad Ali Signed 'The Greatest' Boxing Gloves",
+        body_html: "Authentic Everlast gloves signed by Muhammad Ali.",
+        tags: ["Boxing", "Glove", "Muhammad Ali", "Legend", "Signed"],
+        variants: [createVariant('arch-ali', 8000, 'Display Case', 0)],
+        ...commonFields('arch-ali', "Muhammad Ali Signed Boxing Gloves", 'photo'),
+        status: 'archived'
+    },
+    {
+        title: "Lewis Hamilton 2020 Race Worn Mercedes Glove",
+        body_html: "Race worn and signed by the 7-time World Champion.",
+        tags: ["F1", "Glove", "Lewis Hamilton", "Mercedes", "Race Worn"],
+        variants: [createVariant('arch-hamilton', 4000, 'Display Case', 0)],
+        ...commonFields('arch-hamilton', "Lewis Hamilton Race Worn Glove", 'photo'),
+        status: 'archived'
+    },
+    {
+        title: "Diego Maradona Signed 'Hand of God' Photo",
+        body_html: "Large format photo signed by Diego Armando Maradona.",
+        tags: ["Football", "Photo", "Maradona", "Argentina", "Legend"],
+        variants: [createVariant('arch-maradona', 3500, 'Framed', 0)],
+        ...commonFields('arch-maradona', "Diego Maradona Signed Photo", 'photo'),
+        status: 'archived'
+    }
+]
