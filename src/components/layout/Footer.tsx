@@ -29,12 +29,11 @@ export function Footer() {
                     </div>
 
                     <div>
-                        <h4 className="font-serif font-bold text-lg mb-4 text-white">Professional</h4>
+                        <h4 className="font-serif font-bold text-lg mb-4 text-white">Authentication</h4>
                         <ul className="space-y-2 text-sm text-white/60">
-                            <li><Link to="/b2b-proposal" className="hover:text-gold transition-colors">Corporate Gifting</Link></li>
                             <li><Link to="/alpha-report" className="hover:text-gold transition-colors font-bold text-gold">Heritage Alpha Report</Link></li>
                             <li><Link to="/verify" className="hover:text-gold transition-colors">Verify Authenticity</Link></li>
-                            <li><Link to="/legal" className="hover:text-gold transition-colors">Registry Access</Link></li>
+                            <li><Link to="/legal" className="hover:text-gold transition-colors">Digital Registry</Link></li>
                         </ul>
                     </div>
 
