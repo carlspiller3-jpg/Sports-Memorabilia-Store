@@ -305,12 +305,20 @@ export function ProductPage() {
 
                     {/* Product Info Section */}
                     <div className="space-y-6 lg:pt-2">
-                        <div className="space-y-3">
-                            <h1 className="text-2xl md:text-3xl lg:text-4xl font-serif font-bold text-charcoal leading-tight">
+                        <div className="space-y-4">
+                            <h1 className="text-2xl md:text-3xl lg:text-4xl font-serif font-bold text-navy leading-tight">
                                 {seoTitle.split('|')[0].trim()}
                             </h1>
-                            <div className="flex items-center gap-6">
-                                <span className="text-2xl font-medium text-gold font-serif">£{selectedVariant?.price} <span className="text-xs text-navy/40 ml-1 font-sans uppercase tracking-tighter">inc. VAT</span></span>
+                            <div className="flex flex-col">
+                                {selectedVariant?.price && (
+                                    <span className="text-xs text-navy/40 line-through font-medium">
+                                        Est. Market Value: £{(selectedVariant.price * 1.25).toLocaleString()}
+                                    </span>
+                                )}
+                                <div className="flex items-center gap-6">
+                                    <span className="text-4xl font-bold text-navy font-serif tracking-tight">£{selectedVariant?.price.toLocaleString()}</span>
+                                    <span className="text-[10px] text-navy/40 font-sans uppercase tracking-widest leading-none">Official Store Price<br />Inc. VAT & Insurance</span>
+                                </div>
                             </div>
                         </div>
 
@@ -347,8 +355,29 @@ export function ProductPage() {
                             </div>
                         )}
 
-                        {/* Actions */}
                         <div className="space-y-4 pt-1">
+                            {/* Value Stack Anchoring */}
+                            <div className="bg-navy/5 border border-navy/10 rounded-sm p-4 space-y-3 mb-4">
+                                <div className="flex items-center gap-3">
+                                    <div className="w-5 h-5 rounded-full bg-gold/20 flex items-center justify-center">
+                                        <Package className="w-3 h-3 text-gold" />
+                                    </div>
+                                    <p className="text-[10px] font-bold uppercase tracking-widest text-navy">Museum-Grade Framing Included <span className="text-gold">(£150 Value)</span></p>
+                                </div>
+                                <div className="flex items-center gap-3">
+                                    <div className="w-5 h-5 rounded-full bg-gold/20 flex items-center justify-center">
+                                        <ShieldCheck className="w-3 h-3 text-gold" />
+                                    </div>
+                                    <p className="text-[10px] font-bold uppercase tracking-widest text-navy">Digital Ledger Provenance</p>
+                                </div>
+                                <div className="flex items-center gap-3">
+                                    <div className="w-5 h-5 rounded-full bg-gold/20 flex items-center justify-center">
+                                        <Truck className="w-3 h-3 text-gold" />
+                                    </div>
+                                    <p className="text-[10px] font-bold uppercase tracking-widest text-navy">24h Fully Insured Dispatch</p>
+                                </div>
+                            </div>
+
                             {selectedVariant?.inventory_quantity !== undefined && selectedVariant.inventory_quantity <= 0 ? (
                                 <div className="bg-stone-50 p-6 rounded-lg border border-stone/10 shadow-sm">
                                     <h4 className="text-lg font-serif font-bold text-charcoal mb-2">Item Currently Out of Stock</h4>
@@ -365,20 +394,20 @@ export function ProductPage() {
                                 <Button
                                     size="lg"
                                     onClick={handleAddToCart}
-                                    className="w-full text-sm uppercase tracking-widest font-bold h-12 shadow-md shadow-gold/10 hover:shadow-gold/20 transition-shadow bg-charcoal text-white hover:bg-charcoal/90"
+                                    className="w-full text-sm uppercase tracking-widest font-bold h-14 shadow-2xl shadow-gold/10 hover:shadow-gold/20 transition-all bg-navy text-white hover:bg-navy/90 rounded-sm"
                                 >
-                                    Add to Cart
+                                    Secure This Asset
                                 </Button>
                             )}
 
                             {/* Payment Icons - Only show if in stock or generally relevant */}
                             {(!selectedVariant?.inventory_quantity || selectedVariant.inventory_quantity > 0) && (
-                                <>
-                                    <div className="flex justify-center flex-wrap gap-2 opacity-60 grayscale hover:grayscale-0 transition-all duration-500 text-[10px] text-stone-500">
-                                        <span className="flex items-center gap-1 border px-2 py-1 rounded-sm"><ShieldCheck className="w-3 h-3" /> Secure Checkout</span>
-                                        <span className="flex items-center gap-1 border px-2 py-1 rounded-sm"><Truck className="w-3 h-3" /> Fast Shipping</span>
-                                    </div>
-                                </>
+                                <div className="flex justify-center flex-wrap gap-4 pt-2 opacity-50 grayscale hover:grayscale-0 transition-all duration-500">
+                                    <img src="https://upload.wikimedia.org/wikipedia/commons/b/b5/PayPal.svg" alt="PayPal" className="h-4 w-auto" />
+                                    <img src="https://upload.wikimedia.org/wikipedia/commons/5/5e/Visa_Inc._logo.svg" alt="Visa" className="h-3 w-auto" />
+                                    <img src="https://upload.wikimedia.org/wikipedia/commons/2/2a/Mastercard-logo.svg" alt="Mastercard" className="h-4 w-auto" />
+                                    <img src="https://upload.wikimedia.org/wikipedia/commons/b/b0/Apple_Pay_logo.svg" alt="Apple Pay" className="h-4 w-auto" />
+                                </div>
                             )}
                         </div>
 

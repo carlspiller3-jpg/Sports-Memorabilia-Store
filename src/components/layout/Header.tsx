@@ -28,13 +28,14 @@ export function Header() {
                         <SheetContent side="left" className="bg-ivory border-r border-stone/10">
                             <nav className="flex flex-col gap-6 mt-8 text-xl font-medium text-navy uppercase tracking-wider">
                                 <Link to="/" className="hover:text-gold transition-colors">Home</Link>
-
                                 <div className="h-px bg-stone/10 my-1" />
-
                                 <Link to="/shop/football" className="hover:text-gold transition-colors font-bold">Football</Link>
                                 <Link to="/shop/boxing" className="hover:text-gold transition-colors font-bold">Boxing</Link>
-                                <Link to="/shop/f1" className="hover:text-gold transition-colors font-bold">F1</Link>
                                 <Link to="/drops" className="text-gold hover:text-charcoal transition-colors font-black">Drops</Link>
+                                <div className="h-px bg-stone/10 my-1" />
+                                <Link to="/verify" className="hover:text-gold transition-colors text-sm">Verify Item</Link>
+                                <Link to="/alpha-report" className="hover:text-gold transition-colors text-sm">Alpha Report</Link>
+                                <Link to="/b2b-proposal" className="hover:text-gold transition-colors text-sm">Corporate/B2B</Link>
                             </nav>
                         </SheetContent>
                     </Sheet>
@@ -51,11 +52,12 @@ export function Header() {
                     </div>
 
                     {/* Desktop Nav */}
-                    <nav className="hidden md:flex items-center gap-10 text-xs font-bold uppercase tracking-widest text-navy">
+                    <nav className="hidden md:flex items-center gap-10 text-[10px] font-bold uppercase tracking-widest text-navy">
                         <Link to="/shop/football" className="hover:text-gold transition-colors">Football</Link>
                         <Link to="/shop/boxing" className="hover:text-gold transition-colors">Boxing</Link>
-                        <Link to="/shop/f1" className="hover:text-gold transition-colors">F1</Link>
                         <Link to="/drops" className="hover:text-gold transition-colors">Drops</Link>
+                        <Link to="/verify" className="hover:text-gold transition-colors">Verify</Link>
+                        <Link to="/b2b-proposal" className="hover:text-gold transition-colors border-l border-navy/10 pl-10">B2B</Link>
                     </nav>
 
                     {/* Actions */}
