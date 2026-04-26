@@ -6,14 +6,18 @@ export function Hero() {
   return (
     <section className="relative w-full h-full min-h-[500px] flex flex-col overflow-hidden">
       {/* Background Image Container */}
-      <div className="absolute inset-0 bg-[#0B1221]">
+      <div className="absolute inset-0 bg-navy">
         <img
           src="/hero-banner.png"
           alt="Premium authenticated sports memorabilia"
-          className="h-full w-full object-contain object-right"
+          className="h-full w-full object-contain object-right opacity-90"
+          style={{ 
+            maskImage: 'linear-gradient(to right, transparent, black 30%, black)',
+            WebkitMaskImage: 'linear-gradient(to right, transparent, black 30%, black)' 
+          }}
         />
-        {/* Gradient Overlay - Left-to-right only to protect text legibility while keeping products clear */}
-        <div className="absolute inset-0 bg-gradient-to-r from-navy via-navy/80 to-transparent md:via-navy/40" />
+        {/* Deep Gradient Overlay - Ensures text legibility and further smooths the transition */}
+        <div className="absolute inset-0 bg-gradient-to-r from-navy via-navy/90 to-transparent" />
       </div>
 
       {/* Content */}
