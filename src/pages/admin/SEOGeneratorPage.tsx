@@ -85,6 +85,10 @@ Return ONLY the historical paragraph text. No introductions. No greetings.`;
             const data = await response.json();
             
             if (data.error) {
+                if (data.error.message.toLowerCase().includes("expired") || data.error.message.toLowerCase().includes("api key")) {
+                    localStorage.removeItem("GEMINI_API_KEY");
+                    throw new Error("Your Gemini API key has expired or is invalid. I have cleared it—please refresh the page and enter a new key.");
+                }
                 throw new Error(data.error.message);
             }
             
