@@ -61,12 +61,19 @@ export function SEOGeneratorPage() {
 
         setIsGeneratingEEAT(true);
         try {
-            const promptText = `You are a strict sports historian writing a "Museum Plaque" style paragraph for a piece of sports memorabilia. 
-Write exactly 2-3 sentences of cold, verifiable facts and statistics about ${athlete}'s most significant records, milestones or achievements while playing for ${team}.
-Rules:
-- NO hyperbole, NO marketing fluff, NO "AI waffle" (do NOT use words like "cemented his status", "elite", "premier", "distinctive achievement", "unparalleled").
-- Focus entirely on hard statistics, goal ratios, titles won, or verifiable historical provenance.
-- Return ONLY the paragraph text, nothing else.`;
+            const promptText = `As a Senior Sports Archivist and Historical Consultant, generate a definitive "Institutional Provenance" statement for this item: Hand-signed ${itemType} by ${athlete} (${team}).
+
+RESEARCH TASK:
+Synthesize your internal historical database to identify ${athlete}'s most defining career records, institutional milestones, or culturally significant achievements specifically related to their time with ${team}.
+
+STRICT CONTENT RULES:
+1. TONE: Academic, cold, museum-grade authority. 
+2. STRUCTURE: 2-3 sentences of dense, verifiable historical fact.
+3. EEAT SIGNALS: Include specific dates, goal/stat ratios, or trophy citations that prove "Expertise and Trustworthiness".
+4. ANTI-WAFFLE: Strictly forbidden words: "legendary", "iconic", "premier", "unparalleled", "cemented", "elite", "unique". 
+5. FOCUS: Focus on the "Asset Class" value of the provenance. Why does this history make the item a verified historical asset?
+
+Return ONLY the historical paragraph text. No introductions. No greetings.`;
 
             const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`, {
                 method: "POST",

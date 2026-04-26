@@ -120,33 +120,33 @@ export function WaitlistModal() {
                 onClick={handleClose}
             />
 
-            <div className="relative flex h-full w-full flex-col items-center pt-[15dvh] sm:justify-center sm:pt-0 p-4">
+            <div className="relative flex h-full w-full flex-col items-center pt-[25dvh] sm:justify-center sm:pt-0 p-4">
                 <div className="relative w-full max-w-lg bg-white border border-navy/10 rounded-xl shadow-2xl animate-in zoom-in-95 duration-300 text-left">
 
-                    <div className="bg-navy p-3 text-center border-b border-gold/20 rounded-t-xl relative">
-                        <div className="w-8 h-8 bg-white/10 rounded-full flex items-center justify-center mx-auto mb-2">
-                            <Lock className="w-4 h-4 text-gold" />
+                    <div className="bg-navy p-4 text-center border-b border-gold/20 rounded-t-xl relative">
+                        <div className="w-10 h-10 bg-gold/20 rounded-full flex items-center justify-center mx-auto mb-3 border border-gold/30">
+                            <Zap className="w-5 h-5 text-gold fill-gold" />
                         </div>
-                        <h2 className="font-serif text-xl text-white mb-0.5">
-                            Priority Access
+                        <h2 className="font-serif text-2xl text-white mb-1">
+                            Store Is Now Live
                         </h2>
-                        <p className="text-white/60 text-[10px] uppercase tracking-wider">
-                            Join our private registry for the <span className="text-gold font-bold">2026 Collection</span>
+                        <p className="text-white/60 text-[10px] uppercase tracking-[0.2em] font-bold">
+                            Unlock a <span className="text-gold">10% Discount Code</span>
                         </p>
                         <button
                             onClick={handleClose}
-                            className="absolute top-3 right-3 p-1.5 bg-white/10 rounded-full text-white/50 hover:text-white transition-colors"
+                            className="absolute top-4 right-4 p-1.5 bg-white/10 rounded-full text-white/50 hover:text-white transition-colors"
                             aria-label="Close"
                         >
                             <X className="w-4 h-4" />
                         </button>
                     </div>
 
-                    <div className="p-4 sm:p-5">
+                    <div className="p-5 sm:p-8">
                         {!isSuccess ? (
                             <>
-                                <p className="text-navy/70 text-center mb-3 text-xs sm:text-sm leading-relaxed">
-                                    Join the <strong>Priority Access List</strong> to get notified 48 hours before the public.
+                                <p className="text-navy/70 text-center mb-6 text-sm sm:text-base leading-relaxed">
+                                    Join our inner circle today and we'll send an immediate <strong>10% Discount Code</strong> to your inbox for your first order.
                                 </p>
 
                                 <form onSubmit={handleSubmit} className="space-y-2">
@@ -222,7 +222,7 @@ export function WaitlistModal() {
                                         className="w-full h-12 bg-gold hover:bg-gold/90 text-navy font-bold text-base mt-2 shadow-lg shadow-gold/10"
                                         disabled={isSubmitting}
                                     >
-                                        {isSubmitting ? "Unlocking..." : "Secure Priority Access"}
+                                        {isSubmitting ? "Unlocking..." : "Get My 10% Discount"}
                                     </Button>
                                     <button
                                         type="button"
@@ -236,12 +236,12 @@ export function WaitlistModal() {
                         ) : (
                             <div className="text-center py-8">
                                 <div className="w-16 h-16 bg-green-100 text-green-600 rounded-full flex items-center justify-center mx-auto mb-6 animate-in zoom-in">
-                                    <ChevronRight className="w-8 h-8" />
+                                    <Check className="w-8 h-8" />
                                 </div>
-                                <h3 className="font-serif text-2xl text-navy mb-2">Waitlist Secured</h3>
+                                <h3 className="font-serif text-2xl text-navy mb-2">Discount Unlocked</h3>
                                 <p className="text-navy/60">
-                                    You are on the list for <strong>{interest}</strong> updates.<br />
-                                    We will notify you as soon as the official store launches.
+                                    Check your inbox for your <strong>10% Welcome Code</strong>.<br />
+                                    Welcome to the collection.
                                 </p>
                             </div>
                         )}

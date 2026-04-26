@@ -1,6 +1,11 @@
 
-const domain = 'sports-memorabilia-store-3.myshopify.com';
-const token = '9d5879fee4c4ec895826d24b8bae48cc';
+const domain = process.env.VITE_SHOPIFY_DOMAIN || 'sports-memorabilia-store-3.myshopify.com';
+const token = process.env.VITE_SHOPIFY_ACCESS_TOKEN;
+
+if (!token) {
+    console.error('❌ ERROR: VITE_SHOPIFY_ACCESS_TOKEN is missing. Please check your .env file.');
+    process.exit(1);
+}
 
 async function verify() {
     console.log(`Checking connection to https://${domain}...`);
