@@ -14,9 +14,8 @@ export function Header() {
 
     return (
         <>
-            <div className="fixed top-0 left-0 right-0 z-[101] bg-navy text-gold text-[9px] sm:text-[10px] uppercase tracking-widest font-bold py-2 text-center border-b border-gold/20 px-4 truncate">
-                <span className="hidden sm:inline">OFFICIAL STORE NOW LIVE | SHOP THE 2026 COLLECTION</span>
-                <span className="sm:hidden">OFFICIAL STORE | 2026 COLLECTION</span>
+            <div className="fixed top-0 left-0 right-0 z-[101] bg-navy text-gold text-[10px] uppercase tracking-widest font-bold py-2 text-center border-b border-gold/20">
+                OFFICIAL STORE NOW LIVE | SHOP THE 2026 COLLECTION
             </div>
             <header className={`fixed left-0 right-0 z-[100] transition-all duration-300 border-b py-4 print:hidden ${headerBg}`}>
                 <div className="container mx-auto px-4 flex items-center justify-between relative">

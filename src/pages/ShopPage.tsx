@@ -53,47 +53,20 @@ export function ShopPage() {
         }
     }, [category]);
 
-    const [archivedProducts, setArchivedProducts] = useState<Product[]>([])
-
     // Data Loading
     useEffect(() => {
         async function loadProducts() {
             setLoading(true)
             try {
-                // 1. Fetch Live Products from Shopify
-                let liveProducts: Product[] = []
                 if (import.meta.env.VITE_USE_LIVE_SHOPIFY === 'true') {
-                    liveProducts = await fetchAllProducts()
+                    const liveProducts = await fetchAllProducts()
+                    setProducts(liveProducts)
                 } else {
-                    liveProducts = [...PLACEHOLDER_PRODUCTS]
+                    setProducts([...PLACEHOLDER_PRODUCTS])
                 }
-
-                // 2. Fetch Archived Products from Supabase (or Fallback)
-                let archived: Product[] = []
-                try {
-                    const { data, error } = await supabase
-                        .from('products')
-                        .select('*, variants(*)')
-                        .eq('status', 'archived')
-                        .order('updated_at', { ascending: false })
-                    
-                    if (!error && data && data.length > 0) {
-                        archived = data
-                    } else {
-                        archived = [...SECURED_HERITAGE]
-                    }
-                } catch (err) {
-                    console.warn("Supabase fetch failed, using local archive", err)
-                    archived = [...SECURED_HERITAGE]
-                }
-
-                setProducts(liveProducts)
-                setArchivedProducts(archived)
-
             } catch (e) {
                 console.error("Failed to load products", e);
                 setProducts([...PLACEHOLDER_PRODUCTS])
-                setArchivedProducts([...SECURED_HERITAGE])
             }
             setLoading(false)
         }
@@ -344,7 +317,7 @@ export function ShopPage() {
                             </div>
 
                             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-                                {archivedProducts.map(p => (
+                                {SECURED_HERITAGE.map(p => (
                                     <ProductCard
                                         key={p.id}
                                         title={p.title}

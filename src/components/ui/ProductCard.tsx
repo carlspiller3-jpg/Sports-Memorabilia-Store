@@ -44,9 +44,9 @@ export function ProductCard({ title, price, image, altText, athlete, type, class
                 )}
 
 
-                {/* Quick Add Overlay - Hidden on mobile for cleaner grid */}
+                {/* Quick Add Overlay */}
                 {!isArchived && (
-                    <div className="absolute inset-x-0 bottom-0 p-4 translate-y-full lg:group-hover:translate-y-0 transition-transform duration-300 ease-out hidden lg:block">
+                    <div className="absolute inset-x-0 bottom-0 p-4 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out">
                         <Button className="w-full shadow-lg" size="lg">
                             Quick View
                         </Button>
@@ -55,28 +55,28 @@ export function ProductCard({ title, price, image, altText, athlete, type, class
             </div>
 
             {/* Content */}
-            <div className="p-3 sm:p-5 flex flex-col flex-1 justify-between gap-3">
+            <div className="p-5 flex flex-col flex-1 justify-between gap-3">
                 <div className="space-y-1">
-                    <p className="text-[10px] sm:text-xs font-semibold tracking-wider text-gold uppercase line-clamp-1" title={athlete}>{athlete}</p>
-                    <h3 className="font-serif text-sm sm:text-lg font-medium text-charcoal leading-tight group-hover:text-navy transition-colors line-clamp-3" title={title}>
+                    <p className="text-xs font-semibold tracking-wider text-gold uppercase line-clamp-1" title={athlete}>{athlete}</p>
+                    <h3 className="font-serif text-lg font-medium text-charcoal leading-tight group-hover:text-navy transition-colors line-clamp-3" title={title}>
                         {title}
                     </h3>
                 </div>
-                <div className="flex flex-col pt-2 sm:pt-3 border-t border-stone/10 mt-auto">
+                <div className="flex flex-col pt-3 border-t border-stone/10 mt-auto">
                     <div className="flex items-center justify-between">
                         <div className="flex flex-col">
                             {!isArchived && (
-                                <span className="text-[9px] sm:text-[10px] text-stone/40 line-through font-medium">
+                                <span className="text-[10px] text-stone/40 line-through font-medium">
                                     Est. Market: £{(price * 1.25).toLocaleString()}
                                 </span>
                             )}
-                            <span className={cn("font-bold text-sm sm:text-lg", isArchived ? "text-stone/40 line-through" : "text-navy")}>
+                            <span className={cn("font-bold text-lg", isArchived ? "text-stone/40 line-through" : "text-navy")}>
                                 £{price.toLocaleString()}
-                                <span className="text-[9px] sm:text-[10px] ml-1 uppercase tracking-tighter opacity-50 font-normal">inc. VAT</span>
+                                <span className="text-[10px] ml-1 uppercase tracking-tighter opacity-50">inc. VAT</span>
                             </span>
                         </div>
                         {isArchived && (
-                            <span className="text-[8px] sm:text-[9px] font-bold text-navy/40 uppercase tracking-widest bg-navy/5 px-2 py-1 rounded-xs">Private Collection</span>
+                            <span className="text-[9px] font-bold text-navy/40 uppercase tracking-widest bg-navy/5 px-2 py-1 rounded-xs">Private Collection</span>
                         )}
                     </div>
                 </div>
