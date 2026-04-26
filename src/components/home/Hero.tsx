@@ -21,8 +21,8 @@ export function Hero() {
         <div className="max-w-[60%] sm:max-w-3xl space-y-5 sm:space-y-6 animate-in fade-in slide-in-from-left-8 duration-1000 text-left">
           {/* Offer-Led Badge */}
           <div className="inline-flex items-center space-x-2 rounded-full border border-gold/30 bg-gold/10 backdrop-blur-md px-3 py-1.5 sm:px-4 sm:py-2 text-[8px] sm:text-[10px] font-bold uppercase tracking-[0.15em] sm:tracking-[0.2em] text-gold w-fit">
-            <Fingerprint className="w-3 h-3" />
-            <span className="whitespace-nowrap overflow-hidden text-ellipsis">Official Store</span>
+            <Fingerprint className="w-3 h-3 shrink-0" />
+            <span className="leading-tight">The Global Standard in Authenticity</span>
           </div>
 
           {/* Headline: The Offer */}
@@ -32,7 +32,7 @@ export function Hero() {
               Guaranteed for <span className="underline decoration-gold/50 underline-offset-4 sm:underline-offset-8 text-gold">Life.</span>
             </h1>
             <p className="text-[10px] sm:text-xl text-ivory/80 max-w-2xl leading-relaxed font-light">
-              100% verified assets, curated for provenance.
+              We eliminate the risk of counterfeit memorabilia. Every piece is a 100% verified asset, curated for collectors who value provenance over everything.
             </p>
           </div>
 
@@ -71,12 +71,12 @@ export function Hero() {
           <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 pt-2 sm:pt-4">
             <Link to="/shop" className="w-full sm:w-auto">
               <Button size="lg" className="h-10 sm:h-14 px-4 sm:px-10 text-[9px] sm:text-sm font-bold bg-gold hover:bg-gold/90 text-navy w-full shadow-2xl shadow-gold/20 rounded-sm uppercase tracking-widest">
-                Browse Collection
+                Browse The Collection
               </Button>
             </Link>
             <Link to="/verify" className="w-full sm:w-auto">
               <Button size="lg" variant="outline" className="h-10 sm:h-14 px-4 sm:px-10 text-[9px] sm:text-sm font-bold border-white/20 text-white hover:bg-white hover:text-navy w-full backdrop-blur-sm bg-white/5 rounded-sm uppercase tracking-widest">
-                Verify Item
+                Verify An Item
               </Button>
             </Link>
           </div>
