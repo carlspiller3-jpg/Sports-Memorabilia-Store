@@ -17,7 +17,7 @@ export function Hero() {
       </div>
 
       {/* Content */}
-      <div className="relative flex-1 container mx-auto px-4 flex flex-col justify-center h-full pt-16 pb-12 sm:pt-20">
+      <div className="relative flex-1 container mx-auto px-2 sm:px-4 flex flex-col justify-center h-full pt-16 pb-12 sm:pt-20">
         <div className="max-w-[85%] sm:max-w-3xl space-y-5 sm:space-y-6 animate-in fade-in slide-in-from-left-8 duration-1000 text-left">
           {/* Offer-Led Badge */}
           <div className="inline-flex items-center space-x-2 rounded-full border border-gold/30 bg-gold/10 backdrop-blur-md px-3 py-1.5 sm:px-4 sm:py-2 text-[9px] sm:text-[10px] font-bold uppercase tracking-[0.2em] text-gold w-fit">
