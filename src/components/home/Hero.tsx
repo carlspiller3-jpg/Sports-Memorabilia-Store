@@ -10,10 +10,10 @@ export function Hero() {
         <img
           src="/hero-banner.png"
           alt="Premium authenticated sports memorabilia"
-          className="h-full w-full object-contain object-right"
+          className="h-full w-full object-contain object-right transition-all duration-700"
         />
-        {/* Gradient Overlay - Drastically darkened for legibility */}
-        <div className="absolute inset-0 bg-gradient-to-r from-navy via-navy/90 md:via-navy/40 to-transparent" />
+        {/* Gradient Overlay - Optimized for both visibility and legibility */}
+        <div className="absolute inset-0 bg-gradient-to-r from-navy via-navy/80 via-50% md:via-navy/40 to-transparent" />
       </div>
 
       {/* Content */}
