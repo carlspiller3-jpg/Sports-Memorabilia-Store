@@ -88,11 +88,12 @@ Return ONLY the historical paragraph text. No introductions. No greetings.`;
             }
         } catch (e: any) {
             console.error("EEAT Generation Error:", e);
-            if (e.message?.toLowerCase().includes("api key") || e.message?.toLowerCase().includes("expired")) {
+            const errorMsg = e.message?.toLowerCase() || "";
+            if (errorMsg.includes("api key") || errorMsg.includes("expired") || errorMsg.includes("400")) {
                 localStorage.removeItem("GEMINI_API_KEY");
-                alert("Your Gemini API key is invalid or expired. I have cleared it—please refresh and try again with a fresh key.");
+                alert("CRITICAL ERROR: Your Gemini API Key is EXPIRED or INVALID. \n\nThe key in your .env file or browser storage is no longer active. Please get a fresh key from aistudio.google.com and paste it when prompted.");
             } else {
-                alert("Failed to generate E-E-A-T: " + e.message);
+                alert("Failed to generate E-E-A-T: " + e.message + "\n\n(Note: This often means the API key is expired even if the message says 'model not found')");
             }
         } finally {
             setIsGeneratingEEAT(false);
