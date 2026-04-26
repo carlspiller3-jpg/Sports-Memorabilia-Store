@@ -3,6 +3,7 @@ import { Helmet } from "react-helmet-async"
 import { ArrowLeft, Zap, Copy, Check, Globe, ShoppingCart, Tag, Box, Info, Heart, Calendar } from "lucide-react"
 import { Button } from "@/components/ui/Button"
 import { Link } from "react-router-dom"
+import { GoogleGenerativeAI } from "@google/generative-ai"
 
 interface SEOAssets {
     google: { title: string; meta: string; long: string }
@@ -50,7 +51,7 @@ export function SEOGeneratorPage() {
         if (!apiKey) {
             apiKey = localStorage.getItem("GEMINI_API_KEY");
             if (!apiKey) {
-                apiKey = prompt("Please enter your Gemini API Key. It will be saved securely in your browser's local storage.");
+                apiKey = prompt("Please enter your Gemini API Key.");
                 if (apiKey) {
                     localStorage.setItem("GEMINI_API_KEY", apiKey);
                 } else {
@@ -61,6 +62,9 @@ export function SEOGeneratorPage() {
 
         setIsGeneratingEEAT(true);
         try {
+            const genAI = new GoogleGenerativeAI(apiKey);
+            const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+
             const promptText = `As a Senior Sports Archivist and Historical Consultant, generate a definitive "Institutional Provenance" statement for this item: Hand-signed ${itemType} by ${athlete} (${team}).
 
 RESEARCH TASK:
@@ -75,30 +79,20 @@ STRICT CONTENT RULES:
 
 Return ONLY the historical paragraph text. No introductions. No greetings.`;
 
-            const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=${apiKey}`, {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({
-                    contents: [{ parts: [{ text: promptText }] }]
-                })
-            });
-            const data = await response.json();
+            const result = await model.generateContent(promptText);
+            const response = await result.response;
+            const text = response.text();
             
-            if (data.error) {
-                if (data.error.message.toLowerCase().includes("expired") || data.error.message.toLowerCase().includes("api key")) {
-                    localStorage.removeItem("GEMINI_API_KEY");
-                    throw new Error("Your Gemini API key has expired or is invalid. I have cleared it—please refresh the page and enter a new key.");
-                }
-                throw new Error(data.error.message);
-            }
-            
-            if (data.candidates && data.candidates[0].content.parts[0].text) {
-                setHistory(data.candidates[0].content.parts[0].text.trim());
+            if (text) {
+                setHistory(text.trim());
             }
         } catch (e: any) {
-            alert("Failed to generate E-E-A-T: " + e.message);
-            if (e.message.includes("API key")) {
-                 localStorage.removeItem("GEMINI_API_KEY");
+            console.error("EEAT Generation Error:", e);
+            if (e.message?.toLowerCase().includes("api key") || e.message?.toLowerCase().includes("expired")) {
+                localStorage.removeItem("GEMINI_API_KEY");
+                alert("Your Gemini API key is invalid or expired. I have cleared it—please refresh and try again with a fresh key.");
+            } else {
+                alert("Failed to generate E-E-A-T: " + e.message);
             }
         } finally {
             setIsGeneratingEEAT(false);
