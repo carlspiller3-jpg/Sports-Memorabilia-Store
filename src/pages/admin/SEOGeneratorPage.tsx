@@ -68,16 +68,17 @@ export function SEOGeneratorPage() {
             const promptText = `As a Senior Sports Archivist and Historical Consultant, generate a definitive "Institutional Provenance" statement for this item: Hand-signed ${itemType} by ${athlete} (${team}).
 
 RESEARCH TASK:
-Synthesize your internal historical database to identify ${athlete}'s most defining career records, institutional milestones, or culturally significant achievements specifically related to their time with ${team}.
+Synthesize your internal historical database to identify ${athlete}'s most defining career records or institutional milestones specifically related to their time with ${team}.
 
 STRICT CONTENT RULES:
-1. TONE: Academic, cold, museum-grade authority. 
-2. STRUCTURE: 2-3 sentences of dense, verifiable historical fact.
-3. EEAT SIGNALS: Include specific dates, goal/stat ratios, or trophy citations that prove "Expertise and Trustworthiness".
-4. ANTI-WAFFLE: Strictly forbidden words: "legendary", "iconic", "premier", "unparalleled", "cemented", "elite", "unique". 
-5. FOCUS: Focus on the "Asset Class" value of the provenance. Why does this history make the item a verified historical asset?
+1. ZERO HYPHENS: Do not use hyphens at all. No "record-breaking", no "world-class", no "top-tier". Use natural, academic English only.
+2. NO GENERIC AI BULLSHIT: Strictly forbidden words: "legendary", "iconic", "premier", "unparalleled", "cemented", "elite", "unique", "testament", "journey", "passion", "dedication". 
+3. NO M+S DRAMA: Avoid emotional adjectives or marketing flair. The text must read like an entry in a museum catalogue or a legal certificate of provenance.
+4. STRUCTURE: 2-3 sentences of dense, verifiable historical fact.
+5. EEAT SIGNALS: Include specific dates, goal ratios, or trophy citations that prove "Expertise and Trustworthiness".
+6. FOCUS: Why does this specific history make the item a verified historical asset for a collector?
 
-Return ONLY the historical paragraph text. No introductions. No greetings.`;
+Return ONLY the cold historical paragraph text. No introductions. No greetings.`;
 
             const result = await model.generateContent(promptText);
             const response = await result.response;
