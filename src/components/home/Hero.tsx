@@ -4,13 +4,13 @@ import { ShieldCheck, Box, Truck, Fingerprint } from "lucide-react"
 
 export function Hero() {
   return (
-    <section className="relative w-full h-full min-h-[600px] flex flex-col overflow-hidden">
+    <section className="relative w-full h-full min-h-[500px] flex flex-col overflow-hidden">
       {/* Background Image */}
       <div className="absolute inset-0">
         <img
           src="/hero-banner.png"
           alt="Premium authenticated sports memorabilia"
-          className="h-full w-full object-cover object-top"
+          className="h-full w-full object-cover object-center"
         />
         {/* Gradient Overlay */}
         <div className="absolute inset-0 bg-gradient-to-r from-navy via-navy/60 to-transparent" />

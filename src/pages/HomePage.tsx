@@ -50,7 +50,7 @@ export function HomePage() {
             </Helmet>
 
             {/* Above the Fold: Hero */}
-            <div className="pt-24 min-h-screen lg:h-screen flex flex-col">
+            <div className="pt-24 min-h-screen lg:min-h-[600px] flex flex-col">
                 <div className="flex-1 min-h-0 relative">
                     <Hero />
                 </div>
