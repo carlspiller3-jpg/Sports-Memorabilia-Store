@@ -63,7 +63,7 @@ export function SEOGeneratorPage() {
         setIsGeneratingEEAT(true);
         try {
             const genAI = new GoogleGenerativeAI(apiKey);
-            const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+            const model = genAI.getGenerativeModel({ model: "gemini-flash-latest" });
 
             const promptText = `As a Senior Sports Archivist and Historical Consultant, generate a definitive "Institutional Provenance" statement for this item: Hand-signed ${itemType} by ${athlete} (${team}).
 

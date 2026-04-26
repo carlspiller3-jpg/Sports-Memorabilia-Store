@@ -1,7 +1,8 @@
-
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import { readFileSync, writeFileSync } from 'fs';
 import { join } from 'path';
+import dotenv from 'dotenv';
+dotenv.config();
 
 // This script is designed to run in a GitHub Action environment
 // It scouts for breaking news and generates an autonomous blog post.
@@ -17,7 +18,7 @@ async function runPulse() {
     }
     
     const genAI = new GoogleGenerativeAI(apiKey);
-    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+    const model = genAI.getGenerativeModel({ model: "gemini-flash-latest" });
 
     // 1. Scout for "Bosh" Moments
     const scoutPrompt = `
