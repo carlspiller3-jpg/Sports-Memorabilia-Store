@@ -12,8 +12,8 @@ export function Hero() {
           alt="Premium authenticated sports memorabilia"
           className="h-full w-full object-contain object-right"
         />
-        {/* Gradient Overlay - Subtle to allow image visibility */}
-        <div className="absolute inset-0 bg-gradient-to-r from-navy via-navy/40 to-transparent" />
+        {/* Gradient Overlay - Drastically darkened for legibility */}
+        <div className="absolute inset-0 bg-gradient-to-r from-navy via-navy/90 md:via-navy/40 to-transparent" />
       </div>
 
       {/* Content */}
@@ -27,11 +27,11 @@ export function Hero() {
 
           {/* Headline: The Offer */}
           <div className="space-y-3 sm:space-y-4">
-            <h1 className="font-serif text-4xl sm:text-7xl lg:text-8xl font-bold tracking-tighter text-white leading-[0.95] sm:leading-[0.95]">
+            <h1 className="font-serif text-4xl sm:text-7xl lg:text-8xl font-bold tracking-tighter text-white leading-[0.95] sm:leading-[0.95] drop-shadow-lg">
               Own the Moment.<br />
               Guaranteed for <span className="underline decoration-gold/50 underline-offset-4 sm:underline-offset-8 text-gold">Life.</span>
             </h1>
-            <p className="text-sm sm:text-xl text-ivory/80 max-w-2xl leading-relaxed font-light">
+            <p className="text-sm sm:text-xl text-ivory/80 max-w-2xl leading-relaxed font-light drop-shadow-md">
               We eliminate the risk of counterfeit memorabilia. Every piece is a 100% verified asset, 
               curated for collectors who value provenance.
             </p>
