@@ -89,11 +89,14 @@ Return ONLY the historical paragraph text. No introductions. No greetings.`;
         } catch (e: any) {
             console.error("EEAT Generation Error:", e);
             const errorMsg = e.message?.toLowerCase() || "";
-            if (errorMsg.includes("api key") || errorMsg.includes("expired") || errorMsg.includes("400")) {
+            
+            if (errorMsg.includes("503") || errorMsg.includes("high demand")) {
+                alert("GOOGLE API OVERLOAD (503): Google's servers are currently experiencing high demand. \n\nPlease wait 30 seconds and try again—your key and configuration are correct, the service is just busy.");
+            } else if (errorMsg.includes("api key") || errorMsg.includes("expired") || errorMsg.includes("400") || errorMsg.includes("invalid")) {
                 localStorage.removeItem("GEMINI_API_KEY");
-                alert("CRITICAL ERROR: Your Gemini API Key is EXPIRED or INVALID. \n\nThe key in your .env file or browser storage is no longer active. Please get a fresh key from aistudio.google.com and paste it when prompted.");
+                alert("CRITICAL ERROR: Your Gemini API Key is EXPIRED or INVALID. \n\nPlease get a fresh key from aistudio.google.com and paste it when prompted.");
             } else {
-                alert("Failed to generate E-E-A-T: " + e.message + "\n\n(Note: This often means the API key is expired even if the message says 'model not found')");
+                alert("Failed to generate E-E-A-T: " + e.message);
             }
         } finally {
             setIsGeneratingEEAT(false);
