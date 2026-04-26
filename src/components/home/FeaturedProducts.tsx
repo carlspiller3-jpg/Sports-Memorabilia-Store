@@ -14,38 +14,36 @@ export function FeaturedProducts() {
     useEffect(() => {
         async function fetchFeaturedProducts() {
             setLoading(true)
-
-            if (import.meta.env.VITE_USE_LIVE_SHOPIFY === 'true') {
-                try {
-                    // We can import fetchAllProducts or make a quick query here
-                    // Better to reuse the lib function
-                    const { fetchAllProducts } = await import("@/lib/shopify")
-                    const allProducts = await fetchAllProducts()
-                    // Just take top 4
-                    setProducts(allProducts.slice(0, 4))
-                } catch (e) {
-                    console.error("Shopify fetch error", e)
-                    setProducts(PLACEHOLDER_PRODUCTS.slice(0, 4))
+            try {
+                // 1. Try Shopify Live
+                let featured: Product[] = []
+                if (import.meta.env.VITE_USE_LIVE_SHOPIFY === 'true') {
+                    const liveProducts = await fetchAllProducts()
+                    featured = liveProducts.slice(0, 4)
                 }
-                setLoading(false)
-                return
-            }
 
-            const { data, error } = await supabase
-                .from('products')
-                .select(`
-          *,
-          variants (*)
-        `)
-                .eq('status', 'active')
-                .limit(4)
+                // 2. If no Shopify or disabled, try Supabase Active
+                if (featured.length === 0) {
+                    const { data, error } = await supabase
+                        .from('products')
+                        .select('*, variants(*)')
+                        .eq('status', 'active')
+                        .limit(4)
 
-            if (error) {
-                console.error('Error fetching products:', error)
-                setProducts(PLACEHOLDER_PRODUCTS.slice(0, 4))
-            } else if (data && data.length > 0) {
-                setProducts(data)
-            } else {
+                    if (!error && data && data.length > 0) {
+                        featured = data
+                    }
+                }
+
+                // 3. Fallback to placeholders
+                if (featured.length === 0) {
+                    featured = PLACEHOLDER_PRODUCTS.slice(0, 4)
+                }
+
+                setProducts(featured)
+
+            } catch (e) {
+                console.error("Fetch featured error", e)
                 setProducts(PLACEHOLDER_PRODUCTS.slice(0, 4))
             }
             setLoading(false)
