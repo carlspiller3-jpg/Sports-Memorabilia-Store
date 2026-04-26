@@ -29,9 +29,12 @@ jobs:
           VITE_GEMINI_API_KEY: ${{ secrets.VITE_GEMINI_API_KEY }}
         run: node scripts/autonomous-news.js
 
+      - name: Update Sitemap
+        run: node scripts/generate-sitemap.js
+
       - name: Commit and Push Changes
         run: |
           git config --global user.name "Tactical Engine"
           git config --global user.email "tactical@sportsmemorabiliastore.com"
-          git add src/data/articles.ts
-          git diff --quiet && git diff --staged --quiet || (git commit -m "Auto-Post: Breaking News Flash (Autonomous Scout)" && git push)
+          git add src/data/articles.ts public/sitemap.xml
+          git diff --quiet && git diff --staged --quiet || (git commit -m "Auto-Post: Breaking News Flash & Sitemap Update (Autonomous Scout)" && git push)
