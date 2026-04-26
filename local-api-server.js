@@ -83,14 +83,14 @@ const server = http.createServer(async (req, res) => {
                     });
                     const createData = await createRes.json();
                     if (!createRes.ok) {
-                        console.error('Create Profile Failed:', createData);
+                        console.error('[API] Create Profile Failed (Sanitized)');
                         throw new Error('Failed to create profile');
                     }
                     profileId = createData.data.id;
                 }
 
                 // 2. Subscribe to List (Server Side)
-                console.log(`[API] Subscribing Profile ${profileId} to List ${KLAVIYO_LIST_ID}...`);
+                console.log(`[API] Subscribing Profile to List...`);
                 const subRes = await fetch(`https://a.klaviyo.com/api/profile-subscription-bulk-create-jobs/`, {
                     method: 'POST',
                     headers: { 'Authorization': `Klaviyo-API-Key ${KLAVIYO_PRIVATE_KEY}`, 'revision': '2024-02-15', 'content-type': 'application/json' },
@@ -110,8 +110,7 @@ const server = http.createServer(async (req, res) => {
                 });
 
                 if (!subRes.ok) {
-                    const subErr = await subRes.text();
-                    console.error(`[API] Subscription Failed: ${subErr}`);
+                    console.error(`[API] Subscription Failed (Sanitized)`);
                     // Don't fail the request, just log
                 } else {
                     console.log(`[API] Subscription Job Created`);
@@ -178,9 +177,9 @@ const server = http.createServer(async (req, res) => {
                 res.writeHead(200, { 'Content-Type': 'application/json' });
                 res.end(JSON.stringify({ success: true, referralCode: newReferralCode }));
             } catch (error) {
-                console.error("[API] Server Error", error);
+                console.error("[API] Server Error: Request processing failed (Sanitized)");
                 res.writeHead(500);
-                res.end(JSON.stringify({ error: error.message }));
+                res.end(JSON.stringify({ error: "Server Processing Error" }));
             }
         });
     } else { res.writeHead(404); res.end(); }

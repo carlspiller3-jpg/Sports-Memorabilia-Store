@@ -100,7 +100,7 @@ async function runPulse() {
         console.log(`✅ Tactical Article #${newId} Posted: ${articleData.title}`);
 
     } catch (error) {
-        console.error("❌ THE TACTICAL ENGINE CRASHED:", error.message);
+        console.error("❌ THE TACTICAL ENGINE CRASHED: Connection failed or parsing error (Sanitized)");
         process.exit(1);
     }
 }
