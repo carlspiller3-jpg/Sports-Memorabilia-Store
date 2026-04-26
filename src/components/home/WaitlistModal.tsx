@@ -12,9 +12,7 @@ export function WaitlistModal() {
     const [isOpen, setIsOpen] = useState(false);
     const [email, setEmail] = useState("");
     const [interest, setInterest] = useState("");
-    const [referralCode, setReferralCode] = useState("");
     const [showSuggestions, setShowSuggestions] = useState(false);
-    const [showReferralInput, setShowReferralInput] = useState(false);
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [isSuccess, setIsSuccess] = useState(false);
 
@@ -62,8 +60,7 @@ export function WaitlistModal() {
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
                     email,
-                    interest,
-                    referralCode: referralCode ? referralCode.toUpperCase() : undefined
+                    interest
                 })
             });
 
@@ -78,9 +75,7 @@ export function WaitlistModal() {
                 .insert([
                     {
                         email,
-                        interest,
-                        referral_code: referralCode ? referralCode.toUpperCase() : null, // The code they USED
-                        own_referral_code: newOwnCode // The code they GOT
+                        interest
                     }
                 ]);
 
@@ -193,33 +188,9 @@ export function WaitlistModal() {
                                         )}
                                     </div>
 
-                                    <div className="pt-1">
-                                        {!showReferralInput ? (
-                                            <button
-                                                type="button"
-                                                onClick={() => setShowReferralInput(true)}
-                                                className="text-gold text-xs hover:text-gold/80 hover:underline font-medium"
-                                            >
-                                                + Have a referral code?
-                                            </button>
-                                        ) : (
-                                            <div className="animate-in fade-in slide-in-from-top-2 duration-200">
-                                                <label className="block text-[10px] font-bold text-navy/50 uppercase tracking-wider mb-0.5">Referral Code</label>
-                                                <input
-                                                    type="text"
-                                                    value={referralCode}
-                                                    onChange={(e) => setReferralCode(e.target.value.toUpperCase())}
-                                                    placeholder="e.g. VIP-1234"
-                                                    className="w-full px-4 py-2 rounded-lg bg-ivory border border-navy/10 text-navy text-sm placeholder:text-navy/30 focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold tracking-widest"
-                                                    autoFocus
-                                                />
-                                            </div>
-                                        )}
-                                    </div>
-
                                     <Button
                                         type="submit"
-                                        className="w-full h-12 bg-gold hover:bg-gold/90 text-navy font-bold text-base mt-2 shadow-lg shadow-gold/10"
+                                        className="w-full h-12 bg-gold hover:bg-gold/90 text-navy font-bold text-base mt-4 shadow-lg shadow-gold/10"
                                         disabled={isSubmitting}
                                     >
                                         {isSubmitting ? "Unlocking..." : "Get My 10% Discount"}

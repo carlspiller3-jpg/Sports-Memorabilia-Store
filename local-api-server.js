@@ -144,38 +144,8 @@ const server = http.createServer(async (req, res) => {
                     console.warn(`[API] Legacy Track returned ${eventResText}`);
                 }
 
-                // 2. Increment Logic (Only if code provided)
-                if (referredByCode) {
-                    console.log(`[API] Searching for referrer with code: ${referredByCode}`);
-                    const searchUrl = `https://a.klaviyo.com/api/profiles/?filter=equals(properties.own_referral_code,"${referredByCode}")`;
-                    const searchRes = await fetch(searchUrl, {
-                        method: 'GET',
-                        headers: { 'Authorization': `Klaviyo-API-Key ${KLAVIYO_PRIVATE_KEY}`, 'revision': '2024-02-15' }
-                    });
-                    const searchData = await searchRes.json();
-                    if (searchData.data && searchData.data.length > 0) {
-                        const referrer = searchData.data[0];
-                        console.log(`[API] Found Referrer: ${referrer.id} (${referrer.attributes.email})`);
-                        const newCount = (Number(referrer.attributes.properties.referral_count) || 0) + 1;
-                        await fetch(`https://a.klaviyo.com/api/profiles/${referrer.id}/`, {
-                            method: 'PATCH',
-                            headers: { 'Authorization': `Klaviyo-API-Key ${KLAVIYO_PRIVATE_KEY}`, 'revision': '2024-02-15', 'content-type': 'application/json' },
-                            body: JSON.stringify({ data: { type: 'profile', id: referrer.id, attributes: { properties: { referral_count: newCount } } } })
-                        });
-                        console.log(`[API] Updated Referrer Count to ${newCount}`);
-                        await fetch(`https://a.klaviyo.com/api/events/`, {
-                            method: 'POST',
-                            headers: { 'Authorization': `Klaviyo-API-Key ${KLAVIYO_PRIVATE_KEY}`, 'revision': '2024-02-15', 'content-type': 'application/json' },
-                            body: JSON.stringify({ data: { type: 'event', attributes: { profile: { data: { type: 'profile', id: referrer.id } }, metric: { name: 'Referral Success' }, properties: { new_total_entries: newCount, referred_email: email } } } })
-                        });
-                        console.log(`[API] Triggered Referral Success Event`);
-                    } else {
-                        console.log(`[API] Referrer NOT FOUND for code: ${referredByCode}`);
-                    }
-                }
-
                 res.writeHead(200, { 'Content-Type': 'application/json' });
-                res.end(JSON.stringify({ success: true, referralCode: newReferralCode }));
+                res.end(JSON.stringify({ success: true }));
             } catch (error) {
                 console.error("[API] Server Error: Request processing failed (Sanitized)");
                 res.writeHead(500);
