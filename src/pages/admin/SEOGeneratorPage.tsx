@@ -65,20 +65,22 @@ export function SEOGeneratorPage() {
             const genAI = new GoogleGenerativeAI(apiKey);
             const model = genAI.getGenerativeModel({ model: "gemini-flash-latest" });
 
-            const promptText = `As a Senior Sports Archivist and Historical Consultant, generate a definitive "Institutional Provenance" statement for this item: Hand-signed ${itemType} by ${athlete} (${team}).
+            const promptText = `As a Senior Sports Journalist for a prestige broadsheet newspaper (The Times, The Telegraph), write a factual summary for this item: Hand-signed ${itemType} by ${athlete} (${team}).
 
-RESEARCH TASK:
-Synthesize your internal historical database to identify ${athlete}'s most defining career records or institutional milestones specifically related to their time with ${team}.
+TASK:
+Write 2-3 punchy, authoritative sentences that document the historical significance of ${athlete} during their time with ${team}. Focus on raw stats, dates, and verifiable trophies.
 
-STRICT CONTENT RULES:
-1. ZERO HYPHENS: Do not use hyphens at all. No "record-breaking", no "world-class", no "top-tier". Use natural, academic English only.
-2. NO GENERIC AI BULLSHIT: Strictly forbidden words: "legendary", "iconic", "premier", "unparalleled", "cemented", "elite", "unique", "testament", "journey", "passion", "dedication". 
-3. NO M+S DRAMA: Avoid emotional adjectives or marketing flair. The text must read like an entry in a museum catalogue or a legal certificate of provenance.
-4. STRUCTURE: 2-3 sentences of dense, verifiable historical fact.
-5. EEAT SIGNALS: Include specific dates, goal ratios, or trophy citations that prove "Expertise and Trustworthiness".
-6. FOCUS: Why does this specific history make the item a verified historical asset for a collector?
+STRICT WRITING RULES:
+1. NO ROBOT SPEAK: Do not use words like "specimen", "textile", "perpetuity", "asset", "organization", "roster", "deficit", "regulations", "milestone", "triggered". 
+2. USE FOOTBALL LANGUAGE: Use "squad", "club", "team", "players". 
+3. ZERO HYPHENS: Do not use hyphens (no "record-breaking", no "world-class").
+4. NO AI BULLSHIT: Strictly forbidden: "legendary", "iconic", "premier", "unparalleled", "cemented", "elite", "unique", "testament", "journey".
+5. NO MARKETING DRAMA: No emotional adjectives. Just cold, hard sports history.
+6. EEAT SIGNALS: Mention specific dates, goal counts, or trophy names (e.g., "Champions League final in Istanbul").
 
-Return ONLY the cold historical paragraph text. No introductions. No greetings.`;
+The tone should be human, direct, and elite. Write like a man who has covered sports for 40 years. 
+
+Return ONLY the text. No introductions.`;
 
             const result = await model.generateContent(promptText);
             const response = await result.response;
