@@ -15,6 +15,8 @@ async function runPulse() {
     if (!apiKey) {
         console.error("❌ ERROR: VITE_GEMINI_API_KEY is missing from environment variables.");
         process.exit(1);
+    } else {
+        console.log("✅ Secret Detected (Internal Validation Passed)");
     }
     
     const genAI = new GoogleGenerativeAI(apiKey);
