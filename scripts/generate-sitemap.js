@@ -3,7 +3,7 @@ import { readFileSync, writeFileSync } from 'fs';
 import { join } from 'path';
 
 // Config
-const DOMAIN = 'https://thesportsmemorabiliastore.com';
+const DOMAIN = 'https://sportssigned.com';
 const ARTICLES_PATH = join(process.cwd(), 'src/data/articles.ts');
 const SITEMAP_PATH = join(process.cwd(), 'public/sitemap.xml');
 
