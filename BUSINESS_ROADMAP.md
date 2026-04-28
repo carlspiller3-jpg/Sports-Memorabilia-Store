@@ -15,17 +15,24 @@
 
 ---
 
-## 2. Content Engine: "Document, Don't Create"
-*You don't need athlete footage. You need to show the "Cost of Production" to justify the high price.*
+## 2. Content Engine: The Omnichannel Engagement Machine
+*Stop hard selling. Build a top-of-funnel attention machine producing ~500 posts/month focused on pure sports history and engagement.*
 
-### The "Provenance Line" Video Strategy (Short-form)
-Film the birth of every product in 4 stages:
+### A. The "Value First" Social Playbook (Volume Strategy)
+Your goal is to become a daily destination for sports fans. Every post earns you the right to drop a soft link in the comments or bio.
+*   **"On This Day" History:** "On this day in 2005, Gerrard sparked the Miracle of Istanbul." (Link to 2005 memorabilia in comments).
+*   **Anniversary Drops:** Celebrating 1, 5, 10, or 20-year anniversaries of legendary sporting moments.
+*   **Debate Starters:** "Who was the greatest Heavyweight of the 90s?" (Drives massive comment engagement, signaling algorithms to push your page).
+*   **Behind the Archive:** Cold, factual posts about obscure sporting rules or history, establishing you as the ultimate authority.
+
+### B. The "Provenance Line" Video Strategy (Mid-Funnel Trust)
+For the posts that *do* feature products, show the "Cost of Production" instead of begging for a sale.
 1.  **The Raw Material:** Close-up of the unattached number or glove.
 2.  **The Signature:** Pen meeting fabric. Macro focus.
 3.  **The Craft:** The mounting and framing process in the workshop.
 4.  **The NFC Tagging:** The phone tapping the item and the certificate appearing.
 
-**The Narrative:** "We don't buy memorabilia. We archive sports history. This is how a raw signature becomes a museum asset."
+**The Rule:** 90% Engagement / History. 10% Provenance & Product. Every post has a soft backlink.
 
 ---
 
