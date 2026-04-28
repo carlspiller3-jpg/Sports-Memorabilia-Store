@@ -41,8 +41,9 @@ STRICT WRITING RULES:
 - NO ROBOT SPEAK: Do not use words like "specimen", "perpetuity", "testament", "journey", "unparalleled", "iconic", "legendary".
 - TONE: Punchy, authoritative, and direct. Like a seasoned sports journalist.
 - ACTION: Every text post must end with a natural question to force engagement in the comments.
-- HASHTAGS: Include 3-5 highly targeted SEO hashtags at the very end of the text (e.g., #LFC #ChampionsLeague #SportsMemorabilia).
-- REEL/STORY HOOK: For each post, provide a 1-sentence "Video Hook" for how to turn this topic into a 10-second TikTok/Reel.
+- INVENTORY RULE (CRITICAL): You are a new brand with a tiny inventory. DO NOT pretend or claim that you have items in stock that relate to the post (e.g. DO NOT say "We just added a signed glove to our archive"). Talk ONLY about the history of the event. 
+- HASHTAGS: Include 3-5 highly targeted SEO hashtags at the very end of the text.
+- REEL/STORY HOOK: Provide a 1-sentence "Video Hook" for a TikTok/Reel. Because you have no inventory, suggest using public archival footage/photos with text over it, NEVER suggest filming physical products.
 
 Output the content in clean Markdown format, organized by Day/Date.`;
 
