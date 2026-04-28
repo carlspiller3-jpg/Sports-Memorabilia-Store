@@ -43,7 +43,7 @@ STRICT WRITING RULES:
 - ACTION: Every text post must end with a natural question to force engagement in the comments.
 - INVENTORY RULE (CRITICAL): You are a new brand with a tiny inventory. DO NOT pretend or claim that you have items in stock that relate to the post (e.g. DO NOT say "We just added a signed glove to our archive"). Talk ONLY about the history of the event. 
 - HASHTAGS: Include 3-5 highly targeted SEO hashtags at the very end of the text.
-- REEL/STORY HOOK: Provide a 1-sentence "Video Hook" for a TikTok/Reel. Because you have no inventory, suggest using public archival footage/photos with text over it, NEVER suggest filming physical products.
+- REEL/STORY HOOK: Provide a 1-sentence "Video Hook" for a TikTok/Reel. STRICT COPYRIGHT RULE: The user CANNOT use official match footage (Premier League, Sky Sports, etc. will ban their account). The video hook MUST suggest "Copyright-Safe" B-roll (e.g., "Royalty-free dark stadium background with text-on-screen", "A zoomed-in newspaper clipping from the day", or "You talking directly to camera").
 
 Output the content in clean Markdown format, organized by Day/Date.`;
 

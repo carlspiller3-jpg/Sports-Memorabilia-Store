@@ -1,95 +1,125 @@
-### Sunday, 28 April
+# Social Media Content Calendar: April 28 – May 4
 
-**Post 1: Historical Archive**
-The slip that shook the world. Ten years ago today, Anfield held its breath as Steven Gerrard lost his footing against Chelsea. Demba Ba didn't hesitate. That 2-0 defeat effectively handed the Premier League title to Manchester City and altered the course of English football history. We’ve just added a rare matchday programme from that afternoon to the vault—a stark reminder of how thin the margins are at the top. Does this remain the most dramatic title-deciding moment in the modern era?
-*   **Video Hook:** A slow-motion zoom on the 2014 matchday programme with the text: "The day the title changed hands forever."
-*   **Hashtags:** #LFC #CFC #PremierLeague #StevenGerrard
+### Sunday, April 28
 
-**Post 2: Debate Starter**
-Top-tier strikers are often measured by the silverware they lift. Harry Kane has the goals, but the trophy cabinet is bare. Alan Shearer got his winner's medal at Blackburn, but most of his records came during a lean spell at Newcastle. It raises the ultimate question for any scout: who is the greatest striker to never win a Premier League title?
-*   **Video Hook:** Rapid-fire clips of Kane and Fowler finishing, ending with the text: "Greatest without a ring?"
-*   **Hashtags:** #PL #Strikers #GoldenBoot #FootballDebate
+**Post 1: On This Day (History)**
+Wembley Stadium opened its gates for the first time 101 years ago today for the 1923 FA Cup Final. Known as the ‘White Horse Final,’ an estimated 300,000 fans squeezed into a ground built for 126,000 to watch Bolton beat West Ham. Order only returned when a lone policeman on a white horse began clearing the pitch. It remains the most chaotic scene in English football history. 
+**Which modern stadium do you think has the best atmosphere for a cup final?**
+#FACup #Wembley #FootballHistory #WestHam #BoltonWanderers
 
----
-
-### Monday, 29 April
-
-**Post 1: Historical Archive**
-2017. Wembley Stadium. 90,000 fans. Anthony Joshua climbed off the canvas to stop Wladimir Klitschko in the 11th round, signaling a new era for the heavyweight division. It was a masterclass in grit and calculated aggression. Our archive now holds a signed glove from that night, still showing the scuffs of elite-level combat. Was this the last great heavyweight fight we’ve seen on British soil?
-*   **Video Hook:** Side-by-side shot of the signed glove and the famous knockdown photo: "The night AJ became the man."
-*   **Hashtags:** #Boxing #AnthonyJoshua #Klitschko #HeavyweightBoxing
+*   **Video Hook:** Fast-cut black and white footage of the 1923 crowd spilling onto the pitch with the text "The day 300,000 people stormed Wembley."
 
 **Post 2: Debate Starter**
-Heavyweight boxing in the 1990s was a shark tank—Tyson, Holyfield, Lewis, and Bowe. Today, the landscape is dominated by massive frames and tactical patience. If you dropped a prime 1990s Mike Tyson into the current heavyweight rankings, how many of the top five does he knock out inside six rounds?
-*   **Video Hook:** A split screen of Tyson in '88 and Fury today: "Could the old school handle the new size?"
-*   **Hashtags:** #MikeTyson #TysonFury #BoxingHistory #Heavyweight
+The 1990s Manchester United vs. the 2020s Manchester City. One dominated with homegrown grit and late drama; the other plays a brand of clinical, programmed football that feels impossible to stop. Both sides define their eras, but only one can be the ultimate Premier League benchmark.
+**If these two sides met in a one-off final, who walks away with the trophy?**
+#PremierLeague #ManCity #ManUtd #FootballDebate
 
----
+*   **Video Hook:** Side-by-side archival stills of Alex Ferguson and Pep Guardiola with the text "The Ultimate Tactical Battle."
 
-### Tuesday, 30 April
+***
 
-**Post 1: Historical Archive**
-The power shift in Manchester. On this day in 2012, Vincent Kompany rose highest to head home the winner against Manchester United at the Etihad. It wasn't just a goal; it was the moment the "noisy neighbours" finally broke down the door to take control of the title race. We’ve secured a shirt signed by the 2012 squad to mark the anniversary. Is this Kompany header the most important goal in Manchester City’s history?
-*   **Video Hook:** The camera pans across a 2012 signed City shirt: "The goal that changed Manchester forever."
-*   **Hashtags:** #MCFC #MUFC #ManchesterDerby #Kompany
+### Monday, April 29
 
-**Post 2: Debate Starter**
-Formula 1 is often about the machine, but the driver makes the difference when the rain falls or the brakes fail. Stirling Moss is widely regarded as the best to never win a World Championship, but Gilles Villeneuve and Ronnie Peterson have their supporters. If every F1 driver in history was given the exact same car, who wins the race?
-*   **Video Hook:** Quick cuts of Senna, Schumacher, and Hamilton: "Same car, one winner. Who is it?"
-*   **Hashtags:** #F1 #Formula1 #Motorsport #F1History
+**Post 1: On This Day (History)**
+April 29, 1970. Chelsea and Leeds United met at Old Trafford for an FA Cup final replay that looked more like a battlefield than a football pitch. It was the most brutal match ever televised in the UK. Modern referees claim if played today, the game would have seen six red cards and twenty yellows. Chelsea eventually won 2-1 after 120 minutes of sheer physical punishment.
+**Who is the one player from your club's history you’d trust to win a game this physical?**
+#ChelseaFC #LUFC #FACup #OldSchoolFootball #HardMen
 
----
-
-### Wednesday, 1 May
-
-**Post 1: Historical Archive**
-The birth of a dynasty. May 1, 2005. A 17-year-old Lionel Messi came off the bench for Barcelona and lobbed the Albacete keeper with a composure that defied his age. Ronaldinho provided the assist, effectively passing the baton to the teenager. Our collection features a rare Barcelona home shirt from that 04/05 season, the dawn of a new standard in global sport. Did you know at the time that you were watching the greatest of all time?
-*   **Video Hook:** A vintage 2005 Barca shirt hanging on a locker: "Where it all began for the GOAT."
-*   **Hashtags:** #Messi #FCBarcelona #LaLiga #FootballHistory
+*   **Video Hook:** A montage of the heaviest tackles from the 1970 replay with the text "The most violent game in history."
 
 **Post 2: Debate Starter**
-Natural talent is a gift you can’t coach. Some players work for every inch, others seem to play a different game entirely. Ronaldinho had the flair, R9 had the explosive power, and Zidane had the grace. Between Ronaldinho and prime Brazilian Ronaldo, who was the more unplayable talent?
-*   **Video Hook:** A 5-second montage of Ronaldinho's elastico and R9's step-overs: "Pure talent. Who you picking?"
-*   **Hashtags:** #Ronaldinho #Ronaldo #R9 #Skills
+Boxing has seen some massive punchers, but few split opinion like Deontay Wilder vs. Mike Tyson. Tyson had the speed and the intimidation; Wilder has the "Eraser"—a right hand that ends nights regardless of the scorecard. Both relied on raw, explosive power to mask technical flaws.
+**In their respective primes, who hits harder: Iron Mike or The Bronze Bomber?**
+#Boxing #MikeTyson #DeontayWilder #HeavyweightBoxing
 
----
+*   **Video Hook:** Archival slow-motion clips of Tyson and Wilder landing knockout blows with the text "Raw Power: Who hits harder?"
 
-### Thursday, 2 May
+***
 
-**Post 1: Historical Archive**
-The impossible became reality on this day in 2016. Leicester City were confirmed as Premier League champions after Chelsea fought back to draw with Tottenham at the Bridge. 5,000/1 odds shattered. It remains the biggest underdog story in professional sports. We have a set of commemorative medals issued to the backroom staff from that season—a physical piece of a miracle. Will we ever see a non-"Big Six" club win the Premier League again?
-*   **Video Hook:** Pointing to a Leicester 2016 scarf: "The greatest upset in sports history happened 8 years ago."
-*   **Hashtags:** #LCFC #LeicesterCity #PremierLeague #Underdogs
+### Tuesday, April 30
 
-**Post 2: Debate Starter**
-Every sport has its "shock" moment—Leicester winning the league, Buster Douglas beating Tyson, or the Miracle on Ice. These events rewrite the record books and stun the betting markets. What is the single most unbelievable upset you have ever witnessed live?
-*   **Video Hook:** Text over a shocked crowd: "What’s the biggest 'I was there' upset in history?"
-*   **Hashtags:** #SportsUpsets #Betting #SportsHistory #WildMoments
+**Post 1: On This Day (History)**
+In 2012, the Manchester Derby on April 30 became the biggest game in Premier League history. Vincent Kompany’s towering header just before half-time gave City a 1-0 win, putting the title race back in their hands. It shifted the power dynamic of English football permanently. The blue half of Manchester hasn't looked back since that night at the Etihad.
+**Is this Kompany header the most significant goal in Premier League history?**
+#ManCity #ManchesterDerby #Kompany #PLHistory #TitleRace
 
----
-
-### Friday, 3 May
-
-**Post 1: Historical Archive**
-The "Ghost Goal." In 2005, Anfield turned into a cauldron for the Champions League semi-final second leg. Luis Garcia’s flicked finish was cleared by William Gallas, but the goal stood. Jose Mourinho still insists it never crossed the line; Rafa Benitez doesn't care. We’ve added an original 2005 final programme from Istanbul to the archive today. Was that ball over the line, or did the Anfield atmosphere force the decision?
-*   **Video Hook:** Close up of the 2005 CL Final programme: "The goal that Mourinho still can't forget."
-*   **Hashtags:** #LFC #ChampionsLeague #Anfield #CFC
+*   **Video Hook:** High-angle archival shot of Kompany’s header hitting the net with the text "The goal that changed Manchester forever."
 
 **Post 2: Debate Starter**
-Football is a game of "what ifs." Imagine you have a time machine and can bring any retired player back in their absolute physical prime to play for your club today. You get them for one full season, injury-free. Who is the one player your team needs right now to guarantee a trophy?
-*   **Video Hook:** Rapid shots of Henry, Vieira, and Keane: "One legend. Your team. Right now. Who?"
-*   **Hashtags:** #FootballDebate #PremierLeague #TransferWindow #Legends
+Roy Keane, Patrick Vieira, or Steven Gerrard. Every great team needs a midfield general who can dictate the tempo, break up play, and drag their teammates to a win through sheer force of will. These three were the gold standard of the 2000s, but their styles were worlds apart.
+**If you’re building a team to win a title today, which one are you signing first?**
+#PremierLeague #Midfielders #LFC #MUFC #AFC
 
----
+*   **Video Hook:** Rapid-fire stills of all three players celebrating goals with the text "Choose your Midfield General."
 
-### Saturday, 4 May
+***
 
-**Post 1: Historical Archive**
-"One nil to the Arsenal." On this day in 1994, George Graham’s Gunners defied the odds to beat a star-studded Parma side in the Cup Winners' Cup final. Alan Smith’s volley was the difference in a defensive clinic. It was the ultimate display of tactical discipline over individual flair. We’ve just sourced a match-worn shirt from that final—heavy wool, classic design. Is this the most disciplined defensive performance in the history of European finals?
-*   **Video Hook:** Slow pan over the 1994 Arsenal jersey: "The night Arsenal’s 'Boring' defense conquered Europe."
-*   **Hashtags:** #AFC #Arsenal #EuropeanCup #ClassicFootball
+### Wednesday, May 1
+
+**Post 1: On This Day (History)**
+May 1, 1994. The darkest day in Formula 1. Ayrton Senna, a three-time world champion and a man who pushed the limits of what was possible in a racing car, lost his life at the San Marino Grand Prix. His passing forced a total revolution in driver safety, changing the sport of F1 forever. He remains the standard by which every modern driver is measured.
+**Where do you rank Senna in the list of the all-time greatest F1 drivers?**
+#Senna #F1 #Formula1 #Imola #MotorsportHistory
+
+*   **Video Hook:** Still image of Senna’s yellow helmet in the cockpit with the text "The day F1 changed forever."
 
 **Post 2: Debate Starter**
-Control the midfield, control the game. The Premier League has seen some elite trios: United’s Scholes-Keane-Giggs, Chelsea’s Makelele-Essien-Lampard, or City’s Rodri-De Bruyne-Gundogan. If you are building a team to win a one-off final, which midfield trio are you naming in your starting XI?
-*   **Video Hook:** Graphic of the three famous midfields: "The ultimate engine room. Choose your three."
-*   **Hashtags:** #Midfield #MUFC #CFC #MCFC
+Modern F1 fans debate Lewis Hamilton vs. Max Verstappen, but the real question is about the car vs. the driver. Some argue the machine does 90% of the work; others say only an elite talent can extract that final half-second. It’s a debate that has raged since the 1950s.
+**Does the best driver always win, or is it 100% about the car?**
+#F1Debate #LewisHamilton #MaxVerstappen #GrandPrix
+
+*   **Video Hook:** Close-up archival footage of a steering wheel during a high-speed corner with the text "Driver or Machine?"
+
+***
+
+### Thursday, May 2
+
+**Post 1: On This Day (History)**
+On May 2, 2016, the impossible happened. Leicester City were crowned Premier League champions after Tottenham failed to beat Chelsea at Stamford Bridge. Starting the season as 5,000/1 outsiders, the Foxes pulled off the greatest shock in the history of professional sport. It was a victory for the underdog that we will likely never see repeated in our lifetime.
+**What is the greatest "I was there" moment you've ever experienced in sports?**
+#LeicesterCity #LCFC #PremierLeague #Underdogs #BlueArmy
+
+*   **Video Hook:** Archival footage of the Leicester fans celebrating in the streets with the text "The 5,000/1 Miracle."
+
+**Post 2: Debate Starter**
+The "Perfect" Striker. Some want a poacher like Ruud van Nistelrooy. Some want a physical powerhouse like Erling Haaland. Others want a creative genius who can do it all like Thierry Henry. Every era has a different definition of what makes a world-class number nine.
+**If you had to pick one striker to play for your life, who are you choosing?**
+#Strikers #FootballDebate #Haaland #ThierryHenry #Goalscorers
+
+*   **Video Hook:** A montage of different finishing styles (tap-in, long-range, header) with the text "The Ultimate Number 9."
+
+***
+
+### Friday, May 3
+
+**Post 1: On This Day (History)**
+The "Ghost Goal." On May 3, 2005, Anfield witnessed one of the most controversial moments in Champions League history. Luis Garcia’s flick was cleared off the line by William Gallas, but the goal was given. It sent Liverpool to the final and left Jose Mourinho fuming for years. To this day, Chelsea fans insist the ball never crossed the line.
+**Looking at the footage now, do you think the ball actually went in?**
+#LFC #CFC #ChampionsLeague #Anfield #GhostGoal
+
+*   **Video Hook:** The grainy archival replay of the Luis Garcia goal with the text "Did it cross the line?"
+
+**Post 2: Debate Starter**
+The atmosphere at a sporting event can change everything. From the wall of noise at Anfield on a European night to the tension of a heavy-weight title fight in Las Vegas or the roar of the crowd at Monza. Every venue has its own distinct energy that can intimidate even the best athletes.
+**Which stadium or arena has the most intimidating atmosphere in world sport?**
+#Stadiums #FootballFans #Boxing #SportsAtmosphere
+
+*   **Video Hook:** Panning shots of various world-famous stadiums with the text "The World's Most Intimidating Venues."
+
+***
+
+### Saturday, May 4
+
+**Post 1: On This Day (History)**
+May 4, 2013. Floyd Mayweather put on a defensive clinic against Robert Guerrero to retain his WBC Welterweight title. It was a masterclass in the "hit and don't get hit" philosophy that defined his career. Mayweather’s ability to remain untouched while dismantled elite opponents was a feat of athletic discipline rarely seen in the ring.
+**Will anyone ever beat Floyd Mayweather's 50-0 professional record?**
+#Mayweather #BoxingHistory #TBE #BoxingMasterclass #FloydMayweather
+
+*   **Video Hook:** Archival clip of Mayweather pulling his shoulder back to dodge a punch with the text "The Art of Defense."
+
+**Post 2: Debate Starter**
+The greatest sporting dynasty. Some point to the 90s Chicago Bulls. Others look at the Ferrari era with Schumacher or the dominant Real Madrid sides of the 50s and modern era. Sustaining excellence over a decade is the hardest feat in any discipline. 
+**Which team or individual had the most impressive period of total dominance?**
+#Dynasty #SportsDebate #RealMadrid #Ferrari #ChicagoBulls
+
+*   **Video Hook:** A scrolling list of championship years for various teams with the text "The Greatest Dynasties in History."
