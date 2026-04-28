@@ -40,10 +40,12 @@ For EACH of the 7 days, generate exactly TWO posts:
 STRICT WRITING RULES:
 - NO ROBOT SPEAK: Do not use words like "specimen", "perpetuity", "testament", "journey", "unparalleled", "iconic", "legendary".
 - TONE: Punchy, authoritative, and direct. Like a seasoned sports journalist.
-- ACTION: Every post must end with a natural question to force engagement in the comments.
-- SOFT LINK: Add "[Drop a soft link here to relevant archive item if applicable]" at the bottom of the posts.
+- ACTION: Every text post must end with a natural question to force engagement in the comments.
+- HASHTAGS: Include 3-5 highly targeted SEO hashtags at the very end of the text (e.g., #LFC #ChampionsLeague #SportsMemorabilia).
+- REEL/STORY HOOK: For each post, provide a 1-sentence "Video Hook" for how to turn this topic into a 10-second TikTok/Reel.
 
 Output the content in clean Markdown format, organized by Day/Date.`;
+
 
     try {
         console.log("🧠 Analyzing historical sports data & writing posts...");
