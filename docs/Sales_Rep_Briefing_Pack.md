@@ -1,60 +1,59 @@
-# Sales Representative Briefing Pack
-## Sports Signed | Institutional Grade Memorabilia
-
-### 1. The SMS Value Proposition
-We are not a "shop." We are a trust and authentication layer that bridges the gap between elite sports and the high-end collector/corporate market. 
-
-**The SMS Moat:** Our founder is a licensed FIFA agent. We secure inventory directly from the training ground or player’s home. We are the source.
-
+---
+title: Sports Signed - Product Guide
+margin: 20mm
 ---
 
-### 2. Product Architecture
-#### A. The Physical Asset
-*   **Frame:** Hand-finished black timber, deep-set for an architectural look.
-*   **Mounting:** Archival-grade, acid-free mounts.
-*   **Protection:** High-clarity glass (UV protection options available).
-*   **Authentication:** Embedded NFC tagging. A smartphone tap brings up the Digital Certificate of Authenticity (COA) on our ledger.
+# Sports Signed - Product Guide
 
-#### B. The Presentation (The SMS Unboxing)
-*   **Matte Black Luxury Box:** Heavyweight cardstock with a lid-and-base construction.
-*   **Branding:** Gold foil debossing on the exterior.
-*   **Internal:** Precision-cut protective foam and silk lining.
+This guide outlines our core products, framing standards, and authenticity guarantees for corporate and private clients.
 
----
+## The Products
 
-### 3. Signing Proof & Talent Roster
-Our current and historical roster includes:
-*   **Alexis Mac Allister:** World Cup Winner (Argentina / Liverpool FC).
-*   **Cody Gakpo:** Dutch International (Liverpool FC).
-*   **Fernando Torres:** Champions League & Euro Winner.
-*   **Divock Origi:** Champions League Legend.
-*   **Steven Gerrard:** Liverpool Icon.
+We specialise in fully authenticated, signed sports memorabilia. All items are professionally framed and delivered in premium packaging.
 
-**Proof of Signing:** We maintain a visual database of every athlete signing the exact jerseys we frame. (See `catalogue.html` for imagery).
+### Framing Standards
+* **Frames:** Solid black wooden frames.
+* **Mounting:** Clean white mounts to protect the shirt and provide a gallery finish.
+* **Plaques:** Custom metallic plaques detailing the player and era.
 
----
+### Presentation
+Every framed shirt is delivered in a matte black lid box with gold foil branding. The internal lining ensures the frame arrives in perfect condition.
 
-### 4. Corporate & Charity Solutions (Pitching Points)
-*   **Employee Retention:** Gift a piece of history for 10-year anniversaries or Top Performer awards.
-*   **Boardroom Prestige:** Transform generic office spaces into high-stakes environments.
-*   **Charity Auctions:** Our items consistently outperform generic memorabilia by 40-50% in live auctions due to the "Agent Verified" provenance.
+## The Roster
 
-#### "Punchy" Client Reviews (For Sales Deck):
-> "We gifted a signed and framed Mac Allister shirt to our top performer. The impact was 10x more than a cash bonus. It sits in his home office as a permanent reminder of his value to the firm."
-> — **Director, Tier 1 Financial Services**
+We provide signed items from top-tier athletes, including:
+* Alexis Mac Allister (Liverpool FC / Argentina)
+* Cody Gakpo (Liverpool FC / Netherlands)
+* Fernando Torres (Liverpool Legend)
+* Divock Origi (Champions League Winner)
+* Steven Gerrard (Liverpool Legend)
 
-> "The Origi shirt was the star of our annual charity gala. The NFC verification was a huge talking point and helped us drive the bidding 40% higher than last year."
-> — **Chair, National Children's Foundation**
+## Authenticity & Proof of Signing
 
----
+All items are signed in the presence of our team. Our founder is a licensed FIFA agent, allowing us direct access to players at their homes or training grounds. We do not use third-party brokers. Every frame includes an embedded NFC chip that links to a digital Certificate of Authenticity.
 
-### 5. FAQ for Reps
-*   **Q: How do we know it's real?**
-    *   **A:** Direct agent proximity. No brokers. Every signature is witnessed by SMS staff.
-*   **Q: Can we do custom framing?**
-    *   **A:** Yes, for corporate orders of 5+ units, we can custom-brand the plaque with your company logo.
-*   **Q: How is it shipped?**
-    *   **A:** Fully insured, white-glove courier service in our signature luxury packaging.
+### Signing Sessions
 
----
-*Confidential - For Sales Representatives Only*
+Below is photographic proof of our recent signing sessions with current athletes:
+
+![Mac Allister Signing](../public/products/proof/signing_1.jpg)
+![Gakpo Signing](../public/products/proof/signing_2.jpg)
+![Szoboszlai Signing](../public/products/proof/signing_3.jpg)
+
+### Finished Products
+
+![Torres Framed Shirt](../public/products/proof/product_torres.jpg)
+![Origi Framed Shirt](../public/products/proof/product_origi.jpg)
+
+## Corporate Use Cases
+
+Our items are regularly purchased by businesses for:
+
+* **Employee Recognition:**
+  "We gave a signed Mac Allister shirt to our top salesperson this year. The reaction was brilliant, and it sits proudly in his home office." – *Sales Director, London*
+
+* **Charity Auctions:**
+  "The Origi framed shirt was the highlight of our annual charity dinner. Having the photos of him signing it really helped push the bids up." – *Event Organiser, Manchester*
+
+* **Office Aesthetics:**
+  "We've bought three framed shirts for our new boardrooms. They look fantastic and are a great talking point for clients." – *Managing Director, Leeds*
