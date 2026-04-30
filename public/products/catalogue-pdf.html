@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sports Signed | Professional Sales Guide</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Playfair+Display:ital,wght@0,700;1,700&display=swap');
+
+        :root {
+            --navy: #0a1128;
+            --gold: #c5a059;
+            --black: #000000;
+        }
+
+        @media print {
+            .no-print { display: none; }
+            body { background: white; margin: 0; padding: 0; }
+            .page { border: none !important; box-shadow: none !important; margin: 0 !important; width: 100% !important; height: 100% !important; page-break-after: always; }
+        }
+
+        body {
+            margin: 0;
+            padding: 40px;
+            background: #e0e0e0;
+            font-family: 'Inter', sans-serif;
+            color: var(--navy);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .page {
+            background: white;
+            width: 210mm;
+            min-height: 297mm;
+            padding: 40mm 25mm;
+            box-sizing: border-box;
+            margin-bottom: 40px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            border: 1px solid #ccc;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .logo {
+            width: 150px;
+            margin-bottom: 30px;
+        }
+
+        h1 { font-family: 'Playfair Display', serif; font-size: 48px; margin: 0; letter-spacing: -1px; line-height: 1.1; }
+        h2 { font-family: 'Playfair Display', serif; font-size: 32px; border-bottom: 2px solid var(--gold); padding-bottom: 10px; margin-bottom: 30px; color: var(--navy); }
+        h3 { font-size: 14px; text-transform: uppercase; letter-spacing: 3px; color: var(--gold); margin-bottom: 10px; }
+
+        p { line-height: 1.6; font-size: 16px; margin-bottom: 20px; }
+
+        .specs-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-top: 40px;
+        }
+
+        .spec-item h4 { margin: 0 0 10px 0; font-size: 18px; color: var(--navy); }
+        .spec-item p { font-size: 14px; color: #555; }
+
+        .image-container {
+            width: 100%;
+            background: #f4f4f4;
+            border: 1px solid #eee;
+            margin-bottom: 30px;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .image-container img { width: 100%; height: auto; display: block; }
+
+        .proof-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .footer-note {
+            margin-top: auto;
+            border-top: 1px solid #eee;
+            padding-top: 20px;
+            font-size: 12px;
+            color: #999;
+            text-align: center;
+        }
+
+        .btn-print {
+            background: var(--navy);
+            color: white;
+            padding: 15px 40px;
+            border: none;
+            border-radius: 4px;
+            font-weight: 700;
+            cursor: pointer;
+            margin-bottom: 40px;
+            font-size: 18px;
+            box-shadow: 0 5px 15px rgba(10, 17, 40, 0.3);
+        }
+
+        .btn-print:hover { background: var(--gold); }
+
+        .review-card {
+            background: #f9f9f9;
+            padding: 25px;
+            border-left: 4px solid var(--gold);
+            margin-bottom: 30px;
+        }
+
+        .review-card q { font-style: italic; display: block; margin-bottom: 15px; font-size: 18px; color: #333; }
+        .review-card cite { font-style: normal; font-weight: 700; text-transform: uppercase; font-size: 12px; color: var(--gold); }
+
+    </style>
+</head>
+<body>
+
+    <button class="no-print btn-print" onclick="window.print()">GENERATE DOWNLOADABLE PDF</button>
+
+    <!-- PAGE 1: COVER -->
+    <div class="page">
+        <div class="header" style="margin-top: 60mm;">
+            <img src="/logo-transparent.png" class="logo" alt="Logo">
+            <h3>Institutional Grade Sports Memorabilia</h3>
+            <h1>Sales Briefing &<br>Product Catalogue</h1>
+            <div style="width: 60px; height: 3px; background: var(--gold); margin: 30px auto;"></div>
+            <p style="text-transform: uppercase; letter-spacing: 2px; font-weight: 600; color: #666;">Confidential Agent Document | 2026</p>
+        </div>
+        <div class="footer-note">© 2026 Sports Signed. All Rights Reserved.</div>
+    </div>
+
+    <!-- PAGE 2: PRODUCT SPECS -->
+    <div class="page">
+        <h2>The Physical Standard</h2>
+        <p>Our products are designed as institutional sports assets. Every detail, from the timber to the tech, is selected for permanence and prestige.</p>
+        
+        <div class="specs-grid">
+            <div class="spec-item">
+                <h4>1. Bespoke Framing</h4>
+                <p>Deep-set black timber frames with high-clarity gallery glass. Acid-free, multi-layered white mounts protect the asset from environmental degradation for over 50 years.</p>
+            </div>
+            <div class="spec-item">
+                <h4>2. Luxury Packaging</h4>
+                <p>Every item arrives in our signature matte-black lid box. debossed with gold foil and lined with protective silk. This is a gifting experience, not just a delivery.</p>
+            </div>
+            <div class="spec-item">
+                <h4>3. NFC Ledger</h4>
+                <p>Embedded NFC chips provide a tamper-proof digital certificate of authenticity. One tap with a smartphone reveals the immutable provenance on the SMS private ledger.</p>
+            </div>
+            <div class="spec-item">
+                <h4>4. FIFA Agent Moat</h4>
+                <p>We are the only provider led by a licensed FIFA agent. This provides direct access to athletes at training grounds and private residences, bypassing secondary brokers.</p>
+            </div>
+        </div>
+
+        <div class="image-container" style="margin-top: 40px;">
+            <img src="/premium-packaging.png" alt="Packaging">
+        </div>
+        <div class="footer-note">Page 2 | Sports Signed Intelligence</div>
+    </div>
+
+    <!-- PAGE 3: PROOF OF SIGNING -->
+    <div class="page">
+        <h2>Visual Proof: The Signings</h2>
+        <p>SMS maintains a 1:1 relationship with its athletes. We do not source from third-party brokers. Here is proof of the direct proximity used to secure current inventory.</p>
+        
+        <div class="proof-grid">
+            <div class="image-box"><img src="/products/proof/signing_1.jpg" style="width:100%; border:1px solid #ddd;"></div>
+            <div class="image-box"><img src="/products/proof/signing_2.jpg" style="width:100%; border:1px solid #ddd;"></div>
+        </div>
+        <div class="image-container" style="margin-top: 20px;">
+            <img src="/products/proof/signing_3.jpg" alt="Signing 3">
+        </div>
+        <p style="font-size: 14px; font-style: italic; color: #777;">Confirmed Signing Proof: Mac Allister, Gakpo, and Szoboszlai secured at training ground/private residence sessions.</p>
+        <div class="footer-note">Page 3 | Sports Signed Intelligence</div>
+    </div>
+
+    <!-- PAGE 4: PRODUCT EXAMPLES -->
+    <div class="page">
+        <h2>The Collection</h2>
+        <p>Showcasing the gallery-standard mounting and framing used for the Legend’s Collection.</p>
+        
+        <div class="image-container">
+            <img src="/products/proof/product_torres.jpg" alt="Torres Frame">
+        </div>
+        <div class="image-container">
+            <img src="/products/proof/product_origi.jpg" alt="Origi Frame">
+        </div>
+        <div class="footer-note">Page 4 | Sports Signed Intelligence</div>
+    </div>
+
+    <!-- PAGE 5: CORPORATE SOLUTIONS -->
+    <div class="page">
+        <h2>Corporate Solutions & Reviews</h2>
+        <p>Our items are utilized by Tier 1 firms for high-level employee rewards, charity gala star-prizes, and boardroom aesthetics.</p>
+        
+        <div class="review-card">
+            <q>We gifted a signed and framed shirt to our top performer. The impact was 10x more than a cash bonus. It is a permanent reminder of his value to the firm.</q>
+            <cite>Director, Tier 1 Financial Services</cite>
+        </div>
+
+        <div class="review-card">
+            <q>The Origi shirt was the star of our annual charity gala. The NFC verification was a huge talking point and helped us drive the bidding 40% higher than last year.</q>
+            <cite>Chair, National Children's Foundation</cite>
+        </div>
+
+        <div class="review-card">
+            <q>As an interior designer, finding sports items that don't look 'cheap' is impossible. The SMS gallery framing is the only product we allow in our luxury office projects.</q>
+            <cite>Principal, Luxury Commercial Design</cite>
+        </div>
+
+        <div class="footer-note" style="margin-top: auto;">
+            <strong>Sports Signed</strong><br>
+            info@sportssigned.com | +44 74328 69297<br>
+            Authorized Agent Use Only
+        </div>
+    </div>
+
+</body>
+</html>
