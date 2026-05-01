@@ -11,7 +11,35 @@ export interface BlogPost {
   // SEO & Automation Fields
   seo_title: string;
   seo_description: string;
-  seo_keywords: string[];
+  seo_keywords: string[  {
+    id: "20",
+    title: "Tiger Woods Retires: Why the Market is Moving Now",
+    slug: "tiger-woods-retires-why-the-market-is-moving-now",
+    date: "2026-05-01",
+    author: "Tactical Engine",
+    category: "News",
+    excerpt: "Tiger Woods has ended his professional golf career after thirty years, sparking an unprecedented rush for his iconic Sunday Red apparel.",
+    imageUrl: "https://images.unsplash.com/photo-1574629810360-7efbbe195018?q=80",
+    seo_title: "Tiger Woods Retires: Impact on Sports Memorabilia Market",
+    seo_description: "Tiger Woods has retired from golf. Sports Memorabilia Store examines the surge in market value for his final Sunday Red jersey and tournament gear.",
+    seo_keywords: ["breaking news", "sports memorabilia", "investment"],
+    content: `Tiger Woods has finished. He is done. This morning, he ended a career that spanned thirty years and fifteen major wins. It was sudden, it was blunt, and it has changed the market for good. At Sports Memorabilia Store, we have watched the numbers climb for years, but this retirement has triggered something entirely different.
+
+The scramble for his gear is on. Collectors are not just looking for any old items. They want the definitive pieces. The talk of the industry is the red jersey he wore in his final tournament. People who know the business are saying this single piece of cloth will sell for more than any other sports item in history. This is the moment when the legend becomes a legacy.
+
+<h2>The End of the Sunday Red</h2>
+
+Everyone knows the red shirt. It was the uniform of a winner. Now that he is retired, that final red jersey is the ultimate prize. It is a piece of history that marks the end of a legend. At Sports Memorabilia Store, we expect this item to go for a price that makes previous sales look like pocket change. When a player this big calls it a day, the market reacts with force. You are no longer buying a shirt. You are buying the end of an era. The value is not in the fabric but in the fact that there will never be another one.
+
+<h3>A Limited Supply</h3>
+
+The game has changed because the supply has stopped. While Tiger was playing, there was always the chance of another win or another iconic moment. Now, the book is closed. Every item he ever used in a tournament is now part of a finite set. This is a massive shift for anyone who follows the value of sporting assets. 
+
+If you are looking to get involved, you need to move. The frenzy is real and the prices are only going to go one way. We are seeing interest from every corner of the globe. The smart collectors are already making their moves before the auction houses take over. This is not about sentiment. This is about owning a piece of a career that will never be replicated.
+
+<strong>Verdict: The final Sunday Red jersey will smash every auction record and anyone sitting on his gear is currently looking at a gold mine.</strong>`
+  },
+];
 }
 
 /**
