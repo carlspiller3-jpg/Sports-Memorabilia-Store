@@ -41,43 +41,72 @@
             flex-direction: column;
         }
 
-        .header { text-align: center; margin-bottom: 30px; }
-        .logo { width: 180px; margin-bottom: 15px; }
+        .header { 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            border-bottom: 2px solid var(--gold); 
+            padding-bottom: 15px; 
+            margin-bottom: 20px; 
+        }
+        .logo { width: 140px; }
+        .header-text { text-align: right; }
+        .header-text h1 { font-family: 'Playfair Display', serif; font-size: 28px; margin: 0; color: var(--navy); }
+        .header-text p { margin: 5px 0 0; text-transform: uppercase; letter-spacing: 2px; font-weight: 600; color: #666; font-size: 12px; }
 
-        h1 { font-family: 'Playfair Display', serif; font-size: 38px; margin: 0 0 5px 0; color: var(--navy); }
-        h2 { font-family: 'Playfair Display', serif; font-size: 26px; border-bottom: 2px solid var(--gold); padding-bottom: 8px; margin-bottom: 20px; color: var(--navy); }
+        h2 { font-family: 'Playfair Display', serif; font-size: 22px; color: var(--navy); margin: 0 0 10px 0; }
+        p.section-desc { font-size: 14px; margin: 0 0 15px 0; color: #444; }
 
-        p { line-height: 1.5; font-size: 16px; margin-bottom: 20px; }
+        /* Specs Grid */
+        .specs-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin-bottom: 25px; }
+        .spec-item { background: #f9f9f9; padding: 15px; border-top: 3px solid var(--navy); }
+        .spec-item h4 { margin: 0 0 8px 0; font-size: 15px; color: var(--navy); }
+        .spec-item p { margin: 0; font-size: 12px; line-height: 1.4; color: #555; }
 
-        .specs-grid { display: grid; grid-template-columns: 1fr; gap: 15px; margin-bottom: 25px; }
-        .spec-item h4 { margin: 0 0 5px 0; font-size: 18px; color: var(--navy); }
-        .spec-item p { margin: 0; font-size: 15px; color: #444; }
+        /* Proof Grid (5 photos) */
+        .proof-grid { 
+            display: grid; 
+            grid-template-columns: repeat(3, 1fr); 
+            gap: 10px; 
+            margin-bottom: 10px;
+        }
+        .proof-img { width: 100%; height: 210px; object-fit: cover; border-radius: 4px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        .proof-img-wide { grid-column: span 3; height: 180px; }
 
-        .image-container { width: 100%; text-align: center; margin-bottom: 25px; }
-        .image-container img { max-width: 100%; max-height: 350px; object-fit: contain; }
+        /* Collection Grid */
+        .collection-grid { 
+            display: grid; 
+            grid-template-columns: repeat(3, 1fr); 
+            gap: 15px; 
+            margin-bottom: 30px; 
+        }
+        .collection-item { text-align: center; }
+        .collection-item img { width: 100%; height: 280px; object-fit: contain; background: #fff; border: 1px solid #eee; padding: 10px; box-sizing: border-box; }
+        .collection-item h4 { margin: 10px 0 0; font-size: 14px; }
 
-        .proof-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 20px; }
-        .proof-grid img { width: 100%; height: 250px; object-fit: cover; border: 1px solid #ccc; }
+        /* Reviews Grid */
+        .reviews-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; }
+        .review-card { background: #fafafa; padding: 15px; border-left: 3px solid var(--gold); }
+        .review-card q { font-style: italic; display: block; margin-bottom: 10px; font-size: 13px; line-height: 1.5; color: #333; }
+        .review-card cite { font-style: normal; font-weight: 700; font-size: 11px; color: var(--gold); text-transform: uppercase; }
 
-        .review-card { background: #f9f9f9; padding: 20px; border-left: 4px solid var(--gold); margin-bottom: 20px; }
-        .review-card q { font-style: italic; display: block; margin-bottom: 10px; font-size: 17px; color: #333; }
-        .review-card cite { font-style: normal; font-weight: 700; font-size: 14px; color: var(--gold); text-transform: uppercase; }
-
-        .footer-note { margin-top: auto; border-top: 1px solid #eee; padding-top: 15px; font-size: 12px; color: #999; text-align: center; }
+        .footer-note { margin-top: auto; border-top: 1px solid #eee; padding-top: 15px; font-size: 11px; color: #999; display: flex; justify-content: space-between; }
     </style>
 </head>
 <body>
 
-    <!-- PAGE 1: COVER & SPECS -->
+    <!-- PAGE 1: PROPOSITION & PROOF -->
     <div class="page">
         <div class="header">
             <img src="../logo-transparent.png" class="logo" alt="Sports Memorabilia Store Logo">
-            <h1>Product Guide</h1>
-            <p style="text-transform: uppercase; letter-spacing: 2px; font-weight: 600; color: #666;">For Corporate Clients</p>
+            <div class="header-text">
+                <h1>Product Guide</h1>
+                <p>For Corporate Clients</p>
+            </div>
         </div>
 
-        <h2>Product Specifications</h2>
-        <p>Sports Memorabilia Store provides fully authenticated, framed sports memorabilia. All items are delivered in premium packaging and include digital verification.</p>
+        <h2>The Standard</h2>
+        <p class="section-desc">Sports Memorabilia Store provides fully authenticated, framed sports memorabilia. All items are delivered in premium packaging and include digital verification.</p>
         
         <div class="specs-grid">
             <div class="spec-item">
@@ -90,69 +119,78 @@
             </div>
             <div class="spec-item">
                 <h4>3. Verification</h4>
-                <p>Each item contains an NFC chip linked to a digital Certificate of Authenticity. We are led by a licensed FIFA agent and acquire signatures directly from athletes.</p>
+                <p>Each item contains an NFC chip linked to a digital Certificate of Authenticity. We are led by a licensed FIFA agent.</p>
             </div>
         </div>
 
-        <div class="image-container">
-            <img src="../premium-packaging.png" alt="Luxury Packaging">
-        </div>
-        <div class="footer-note">Page 1 | Sports Memorabilia Store</div>
-    </div>
-
-    <!-- PAGE 2: SIGNING PROOF -->
-    <div class="page">
-        <h2>Authenticity & Proof</h2>
-        <p>We do not use third-party brokers. Below is photographic evidence of recent private signing sessions with current athletes.</p>
+        <h2>Authenticity Evidence</h2>
+        <p class="section-desc">We do not use third-party brokers. Below is photographic evidence of recent private signing sessions with current athletes.</p>
         
         <div class="proof-grid">
-            <img src="actual_proof/proof1.jpg" alt="Player Signing 1">
-            <img src="actual_proof/proof2.jpg" alt="Player Signing 2">
-            <img src="actual_proof/proof3.jpg" alt="Player Signing 3">
-            <img src="actual_proof/proof4.jpg" alt="Player Signing 4">
+            <img src="actual_proof/proof1.jpg" alt="Proof 1" class="proof-img">
+            <img src="actual_proof/proof2.jpg" alt="Proof 2" class="proof-img">
+            <img src="actual_proof/proof3.jpg" alt="Proof 3" class="proof-img">
+        </div>
+        <div class="proof-grid" style="grid-template-columns: repeat(2, 1fr);">
+            <img src="actual_proof/proof4.jpg" alt="Proof 4" class="proof-img">
+            <img src="actual_proof/proof5.jpg" alt="Proof 5" class="proof-img">
         </div>
         
-        <p style="font-size: 14px; color: #666; text-align: center;">Recent signings with top-tier athletes at private locations.</p>
-        <div class="footer-note">Page 2 | Sports Memorabilia Store</div>
+        <div class="footer-note">
+            <span>Page 1</span>
+            <span>Sports Memorabilia Store | info@sportsmemorabilia.store</span>
+        </div>
     </div>
 
-    <!-- PAGE 3: FINISHED PRODUCTS & ADDITIONAL PROOF -->
+    <!-- PAGE 2: THE COLLECTION & CORPORATE USE -->
     <div class="page">
-        <h2>The Collection & Evidence</h2>
-        <p>Examples of our final framed products and additional photographic evidence.</p>
+        <div class="header">
+            <img src="../logo-transparent.png" class="logo" alt="Sports Memorabilia Store Logo">
+            <div class="header-text">
+                <h1>The Collection</h1>
+                <p>Assets & Applications</p>
+            </div>
+        </div>
+
+        <h2>Physical Assets</h2>
+        <p class="section-desc">Examples of our premium packaging and final gallery-standard framed products.</p>
         
-        <div class="image-container" style="margin-bottom: 20px;">
-            <img src="actual_proof/proof5.jpg" alt="Additional Proof" style="max-height: 350px;">
+        <div class="collection-grid">
+            <div class="collection-item">
+                <img src="../premium-packaging.png" alt="Luxury Packaging">
+                <h4>Premium Presentation</h4>
+            </div>
+            <div class="collection-item">
+                <img src="proof/product_torres.jpg" alt="Torres Frame">
+                <h4>Legends Collection</h4>
+            </div>
+            <div class="collection-item">
+                <img src="proof/product_origi.jpg" alt="Origi Frame">
+                <h4>Modern Heroes</h4>
+            </div>
         </div>
-        <div class="image-container" style="margin-bottom: 20px;">
-            <img src="proof/product_torres.jpg" alt="Fernando Torres Frame" style="max-height: 400px;">
-        </div>
-        <div class="footer-note">Page 3 | Sports Memorabilia Store</div>
-    </div>
 
-    <!-- PAGE 4: CORPORATE REVIEWS -->
-    <div class="page">
-        <h2>Corporate Use Cases</h2>
-        <p>Our framed items are regularly purchased by businesses for staff rewards, charity events, and office decoration.</p>
+        <h2>Corporate Solutions</h2>
+        <p class="section-desc">Our framed items are regularly utilized by businesses for staff rewards, charity gala prizes, and boardroom aesthetics.</p>
         
-        <div class="review-card">
-            <q>We gave a signed Mac Allister shirt to our top salesperson this year. The reaction was brilliant, and it sits proudly in his home office.</q>
-            <cite>Sales Director, London</cite>
+        <div class="reviews-grid">
+            <div class="review-card">
+                <q>We gave a signed Mac Allister shirt to our top salesperson this year. The reaction was brilliant, and it sits proudly in his home office.</q>
+                <cite>Sales Director, London</cite>
+            </div>
+            <div class="review-card">
+                <q>The Origi framed shirt was the highlight of our annual charity dinner. Having the photos of him signing it really helped push the bids up.</q>
+                <cite>Event Organiser, Manchester</cite>
+            </div>
+            <div class="review-card">
+                <q>We've bought three framed shirts for our new boardrooms. They look fantastic and are a great talking point for visiting clients.</q>
+                <cite>Managing Director, Leeds</cite>
+            </div>
         </div>
 
-        <div class="review-card">
-            <q>The Origi framed shirt was the highlight of our annual charity dinner. Having the photos of him signing it really helped push the bids up.</q>
-            <cite>Event Organiser, Manchester</cite>
-        </div>
-
-        <div class="review-card">
-            <q>We've bought three framed shirts for our new boardrooms. They look fantastic and are a great talking point for clients.</q>
-            <cite>Managing Director, Leeds</cite>
-        </div>
-
-        <div class="footer-note" style="margin-top: auto;">
-            <strong>Sports Memorabilia Store</strong><br>
-            partnerships@sportsmemorabilia.store | +44 74328 69297
+        <div class="footer-note">
+            <span>Page 2</span>
+            <span>Sports Memorabilia Store | +44 74328 69297</span>
         </div>
     </div>
 
