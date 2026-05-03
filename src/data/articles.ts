@@ -96,8 +96,6 @@ If you are looking for a piece of history that will stand the test of time, this
 
 <strong>Verdict</strong>: The greatest to ever do it has left the building and his final jersey is the best investment on the planet.`
   },
-];
-}
 
 /**
  * CONTENT STYLE GUIDE (Automation Rules)
@@ -107,8 +105,6 @@ If you are looking for a piece of history that will stand the test of time, this
  * 3. Typography: Use variable sentence length. Avoid "AI lists". Use <h2> and <h3> for scanning.
  * 4. SEO: Primary keyword in H1 and first 100 words. Meta description under 160 chars.
  */
-
-export const articles: BlogPost[] = [
   {
     id: "1",
     title: "Real vs Fake: How to Spot a Counterfeit Signed Shirt",
