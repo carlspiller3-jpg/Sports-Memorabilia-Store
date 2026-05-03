@@ -10,21 +10,21 @@
 
         :root {
             /* Luxury Palette */
-            --bg-color: #fdfcf8;
+            --bg_color: #fdfcf8;
             /* Lighter, warmer ivory */
-            --bg-gradient-start: #ffffff;
-            --bg-gradient-end: #f2f0e9;
-            --primary-navy: #101c2e;
+            --bg_gradient_start: #ffffff;
+            --bg_gradient_end: #f2f0e9;
+            --primary_navy: #101c2e;
             /* Deep Royal Navy */
-            --accent-gold: #bfa15f;
+            --accent_gold: #bfa15f;
             /* Muted metallic gold */
-            --text-main: #2b2b2b;
-            --text-muted: #666666;
-            --card-bg: rgba(255, 255, 255, 0.85);
+            --text_main: #2b2b2b;
+            --text_muted: #666666;
+            --card_bg: rgba(255, 255, 255, 0.85);
             /* Frosty glass effect */
-            --border-light: rgba(191, 161, 95, 0.25);
-            --slide-width: 297mm;
-            --slide-height: 210mm;
+            --border_light: rgba(191, 161, 95, 0.25);
+            --slide_width: 297mm;
+            --slide_height: 210mm;
         }
 
         @page {
@@ -87,7 +87,7 @@
             right: 40px;
             font-size: 0.7rem;
             letter-spacing: 2px;
-            color: var(--accent-gold);
+            color: var(--accent_gold);
             font-family: 'Playfair Display', serif;
             font-style: italic;
             z-index: 100;
@@ -139,7 +139,7 @@
         }
 
         .text-gold {
-            color: var(--accent-gold);
+            color: var(--accent_gold);
         }
 
         .text-muted {
@@ -188,7 +188,7 @@
             font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 2px;
-            color: var(--accent-gold);
+            color: var(--accent_gold);
             margin-bottom: 1rem;
         }
 
@@ -216,7 +216,7 @@
         /* --- Layouts --- */
 
         /* 1. Split Screen (Refined) */
-        .layout-split {
+        .layout_split {
             display: flex;
             width: 100%;
             height: 100%;
@@ -248,7 +248,7 @@
         }
 
         /* 2. Grid Layout (Refined) */
-        .layout-grid {
+        .layout_grid {
             display: grid;
             grid-template-columns: repeat(12, 1fr);
             gap: 40px;
@@ -292,7 +292,7 @@
             left: 0;
             right: 0;
             height: 3px;
-            background: var(--accent-gold);
+            background: var(--accent_gold);
         }
 
         .team-card {
@@ -349,7 +349,7 @@
         }
 
         .pyramid-level.som {
-            background: var(--accent-gold);
+            background: var(--accent_gold);
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
         }
 
@@ -387,7 +387,7 @@
 
         .clean-table th {
             text-align: left;
-            color: var(--accent-gold);
+            color: var(--accent_gold);
             font-size: 0.8rem;
             letter-spacing: 2px;
             text-transform: uppercase;
@@ -439,103 +439,48 @@
         .cogs-breakdown-row:last-child {
             border-bottom: none;
         }
-        /* MOBILE RESPONSIVENESS */
-        @media screen and (max-width: 1024px) {
-            body {
-                padding: 0;
-                background-color: #f5f5f5;
-                height: auto;
-                overflow-x: hidden;
-            }
 
-            .slide {
-                width: 100%;
-                max-width: 100%;
-                min-width: 0;
-                height: auto;
-                min-height: 100vh;
-                max-height: none;
-                margin-bottom: 0;
-                flex-direction: column;
-                background: var(--bg-color); /* Remove radial gradient for flatter look on mobile */
-                box-shadow: none;
-                border-bottom: 1px solid #ddd;
-            }
+        /* 5-Year Growth Chart */
+        .growth-chart {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            height: 250px;
+            margin-top: 50px;
+            padding: 20px;
+            border-bottom: 2px solid var(--primary-navy);
+            border-left: 2px solid var(--primary-navy);
+            position: relative;
+        }
 
-            /* Disable absolute decorative elements on mobile */
-            .editorial-line {
-                display: none;
-            }
-            .slide::after { 
-                display: none; /* Hide page numbers */
-            }
+        .bar-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 15%;
+        }
 
-            /* Refine Typography */
-            h1 { font-size: 3rem !important; }
-            h2 { font-size: 2.2rem !important; }
-            p { font-size: 1rem !important; }
+        .bar {
+            width: 100%;
+            background: linear-gradient(to top, var(--primary-navy), var(--accent_gold));
+            border-radius: 4px 4px 0 0;
+            position: relative;
+            transition: height 1s ease;
+        }
 
-            /* Fix Split Layout */
-            .layout-split {
-                flex-direction: column;
-            }
+        .bar-value {
+            position: absolute;
+            top: -25px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            color: var(--primary-navy);
+        }
 
-            .split-content {
-                padding: 40px 20px !important;
-                order: 2;
-                border-right: none;
-            }
-
-            .split-image {
-                height: 300px; /* Fixed height for image section on mobile */
-                flex: none;
-                order: 1; /* Image on top */
-            }
-
-            /* Fix Grid Layout */
-            .layout-grid {
-                display: flex !important;
-                flex-direction: column;
-                padding: 40px 20px !important;
-                height: auto;
-            }
-
-            /* Adjust Grid Columns to Stack */
-            .col-quarter, .col-third, .col-half, .col-full {
-                width: 100%;
-                margin-bottom: 20px;
-            }
-            
-            /* Team grid fix */
-            .team-card {
-                margin-bottom: 30px;
-            }
-
-            /* Fix Investment Grid (Slide 9) */
-            div[style*="display: grid; grid-template-columns: 1fr 1fr;"] {
-                grid-template-columns: 1fr !important;
-            }
-            
-            /* Fix Stat Card (Slide 8) */
-            .stat-card[style*="align-items: center"] {
-                 flex-direction: column;
-                 padding: 20px !important;
-                 gap: 20px;
-            }
-            .stat-card > div[style*="width: 1px"] {
-                width: 100% !important;
-                height: 1px !important;
-                background: #eee;
-                margin: 10px 0;
-            }
-
-             /* Fix Table (Slide 7) */
-             .clean-table {
-                 font-size: 0.9rem;
-             }
-             .clean-table td, .clean-table th {
-                 padding: 10px 5px;
-             }
+        .bar-label {
+            margin-top: 10px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--text-muted);
         }
     </style>
 </head>
@@ -543,7 +488,7 @@
 <body>
 
     <!-- Slide 1: Title Slide -->
-    <section class="slide layout-split">
+    <section class="slide layout_split">
         <div class="editorial-line"></div>
         <div class="split-content"
             style="padding: 90px; display: flex; flex-direction: column; justify-content: center;">
@@ -552,9 +497,12 @@
             <h1 class="font-serif"
                 style="font-size: 4rem; line-height: 1.1; margin-bottom: 20px; color: var(--primary-navy);">
                 History in<br>your hands.</h1>
-            <div style="width: 60px; height: 3px; background-color: var(--accent-gold); margin: 30px 0;"></div>
+            <p class="text-gold" style="font-size: 1.2rem; letter-spacing: 2px; text-transform: uppercase;">Premium
+                Sports Memorabilia</p>
+            <div style="width: 60px; height: 3px; background-color: var(--accent_gold); margin: 30px 0;"></div>
             <p style="font-size: 1.1rem; line-height: 1.6; color: var(--text-muted); max-width: 500px;">
-                We provide authenticated sports assets direct from athletes and clubs to collectors.
+                We connect fans to their heroes through exceptional, athlete-signed products delivered in high-end,
+                luxury packaging.
             </p>
         </div>
         <div class="split-image"
@@ -563,7 +511,7 @@
     </section>
 
     <!-- Slide 2: The Problem -->
-    <section class="slide layout-split">
+    <section class="slide layout_split">
         <div class="editorial-line"></div>
         <div class="split-image"
             style="background-image: url('https://images.unsplash.com/photo-1566576721346-d4a3b4eaeb55?q=80&w=1600');">
@@ -571,52 +519,62 @@
         <div class="split-content"
             style="padding: 90px; display: flex; flex-direction: column; justify-content: center;">
             <p class="text-gold">THE PROBLEM</p>
-            <h2 class="font-serif" style="margin-bottom: 40px;">The Market Problem</h2>
+            <h2 class="font-serif" style="margin-bottom: 40px;">Trust is broken.</h2>
 
             <div style="margin-bottom: 30px;">
-                <h3 style="color: var(--accent-gold); font-size: 0.9rem; letter-spacing: 1px; margin-bottom: 10px;">
-                    1. FRAUDULENT SUPPLY</h3>
-                <p>Over 50% of the sports memorabilia market consists of counterfeit goods. There is no central, trusted verification authority.</p>
+                <h3 style="color: var(--accent_gold); font-size: 0.9rem; letter-spacing: 1px; margin-bottom: 10px;">
+                    1. COUNTERFEIT CRISIS</h3>
+                <p>Imagine gifting a signed shirt from their favourite player... only to find out it was fake. What
+                    should have been a proud keepsake becomes a scam.</p>
+                <a href="https://www.ebsco.com/research-starters/sports-and-leisure/sportsmemorabiliafraud"
+                    style="display: block; margin-top: 5px; font-size: 0.7rem; color: var(--accent_gold); text-decoration: none;">Source:
+                    EBSCO Research (>50% fake)</a>
             </div>
 
             <div style="margin-bottom: 30px;">
-                <h3 style="color: var(--accent-gold); font-size: 0.9rem; letter-spacing: 1px; margin-bottom: 10px;">
+                <h3 style="color: var(--accent_gold); font-size: 0.9rem; letter-spacing: 1px; margin-bottom: 10px;">
                     2. POOR PRESENTATION</h3>
-                <p>High value items are regularly shipped in substandard packaging. This degrades the perceived value of the asset.</p>
+                <p>Items often arrive in cheap mailers with zero emotional connection. The "Unboxing Moment" is
+                    completely ignored.</p>
             </div>
 
             <div style="margin-bottom: 30px;">
-                <h3 style="color: var(--accent-gold); font-size: 0.9rem; letter-spacing: 1px; margin-bottom: 10px;">
-                    3. SUPPLY CHAIN INEFFICIENCY</h3>
-                <p>Traditional retailers buy through secondary brokers. This increases costs and dilutes provenance.</p>
+                <h3 style="color: var(--accent_gold); font-size: 0.9rem; letter-spacing: 1px; margin-bottom: 10px;">
+                    3. FRAGMENTED MARKET</h3>
+                <p>Customers are forced to choose between unregulated eBay sellers (high risk) or corporate giants
+                    (no personal touch).</p>
             </div>
         </div>
     </section>
 
     <!-- Slide 3: The Solution -->
-    <section class="slide layout-split">
+    <section class="slide layout_split">
         <div class="editorial-line"></div>
         <div class="split-content" style="display: flex; flex-direction: column; justify-content: center;">
             <p class="text-gold">THE SOLUTION</p>
-            <h2 class="font-serif">A Trust and Authentication Layer</h2>
-            <p style="font-size: 1.2rem; margin-bottom: 30px;">We operate a direct to consumer platform that controls the supply chain from the athlete to the buyer.
+            <h2 class="font-serif">A Premium Gifting Brand</h2>
+            <p style="font-size: 1.2rem; margin-bottom: 30px;">We combine the raw emotional power of sport with the
+                presentation standards of a luxury fashion house. We are dragging memorabilia out of the dark ages.
             </p>
             <ul style="list-style: none; padding: 0;">
                 <li style="margin-bottom: 20px; display: flex; align-items: center;">
-                    <span style="color: var(--accent-gold); font-size: 1.5rem; margin-right: 15px;">✓</span>
-                    <span><strong>Direct Access:</strong> As a licensed FIFA agent, we bypass brokers and secure signatures directly from the source.</span>
+                    <span style="color: var(--accent_gold); font-size: 1.5rem; margin-right: 15px;">✓</span>
+                            <span><strong>"Visual Excellence":</strong> Gallery standard framing and premium unboxing. No
+                        plastic bags. Ever.</span>
                 </li>
                 <li style="margin-bottom: 20px; display: flex; align-items: center;">
-                    <span style="color: var(--accent-gold); font-size: 1.5rem; margin-right: 15px;">✓</span>
-                    <span><strong>NFC Authentication:</strong> Every item contains an embedded NFC chip linked to a digital ledger. This provides undeniable proof of origin.</span>
+                    <span style="color: var(--accent_gold); font-size: 1.5rem; margin-right: 15px;">✓</span>
+                    <span><strong>"Bulletproof Authenticity":</strong> NFC Tag Technology links every item to a
+                        digital record. Trust is absolute.</span>
                 </li>
                 <li style="margin-bottom: 20px; display: flex; align-items: center;">
-                    <span style="color: var(--accent-gold); font-size: 1.5rem; margin-right: 15px;">✓</span>
-                    <span><strong>Premium Framing:</strong> All assets are professionally framed to preserve and present the item.</span>
+                    <span style="color: var(--accent_gold); font-size: 1.5rem; margin-right: 15px;">✓</span>
+                    <span><strong>"The Gifting Solution":</strong> We focus entirely on the "High Stakes" buyer. The
+                        ultimate gift for Birthdays, Christmas, and Milestones.</span>
                 </li>
                 <li style="display: flex; align-items: center;">
-                    <span style="color: var(--accent-gold); font-size: 1.5rem; margin-right: 15px;">✓</span>
-                    <span><strong>Club Partnerships:</strong> We secure exclusive rights to manage signed inventory for professional sports clubs, selling directly to their established fan bases.</span>
+                    <span style="color: var(--accent_gold); font-size: 1.5rem; margin-right: 15px;">✓</span>
+                    <span><strong>"Inventory Velocity":</strong> Zero carryover model. We sell through 100% of seasonal inventory to clear the deck for the next year.</span>
                 </li>
             </ul>
         </div>
@@ -626,7 +584,7 @@
     </section>
 
     <!-- Slide 4: The Team -->
-    <section class="slide layout-grid" style="padding-top: 50px; row-gap: 15px; position: relative;">
+    <section class="slide layout_grid" style="padding-top: 50px; row-gap: 15px; position: relative;">
         <div class="editorial-line"></div>
         <div
             style="grid-column: 1 / -1; text-align: center; margin-bottom: 10px; display: flex; flex-direction: column; align-items: center; position: relative; width: 100%;">
@@ -645,7 +603,8 @@
             </div>
             <h3 style="margin-bottom: 5px; font-size: 1.1rem; color: var(--primary-navy);">Carl Spiller</h3>
             <div class="team-role">FOUNDER</div>
-            <p style="font-size: 0.75rem; margin-top: 5px;">Licensed FIFA Agent. Direct athlete relations and club contract negotiation.</p>
+            <p style="font-size: 0.75rem; margin-top: 5px;">Expertise in athlete relations and acquisition. Full focus
+                on "Signer Proximity".</p>
         </div>
 
         <!-- Team Member 2 -->
@@ -670,7 +629,7 @@
             </div>
             <h3 style="margin-bottom: 5px; font-size: 1.1rem; color: var(--primary-navy);">Josh Griffin</h3>
             <div class="team-role">HEAD OF PAID MEDIA</div>
-            <p style="font-size: 0.75rem; margin-top: 5px;">Digital acquisition and ROAS optimisation.</p>
+            <p style="font-size: 0.75rem; margin-top: 5px;">Expertise in Meta Ads, Google, and ROAS optimization.</p>
         </div>
 
         <!-- Team Member 4 -->
@@ -682,7 +641,8 @@
             </div>
             <h3 style="margin-bottom: 5px; font-size: 1.1rem; color: var(--primary-navy);">Vikas Bhatia</h3>
             <div class="team-role">CHIEF TECHNOLOGY OFFICER</div>
-            <p style="font-size: 0.75rem; margin-top: 5px;">Architect of the NFC authentication and digital ledger systems.</p>
+            <p style="font-size: 0.75rem; margin-top: 5px;">Architect of the Digital COA platform and Blockchain
+                integration.</p>
         </div>
 
         <!-- Team Member 5 -->
@@ -704,9 +664,10 @@
                 <img src="aimee_spiller.jpg" alt="Aimee Spiller"
                     style="width: 100%; height: 100%; object-fit: cover; object-position: center; transform: scale(1.35) translateY(10px); filter: grayscale(100%);">
             </div>
-            <h3 style="margin-bottom: 5px; font-size: 1.1rem; color: var(--primary-navy);">Aimee King</h3>
+            <h3 style="margin-bottom: 5px; font-size: 1.1rem; color: var(--primary-navy);">Aimee Spiller</h3>
             <div class="team-role">CHIEF OPERATING OFFICER</div>
-            <p style="font-size: 0.75rem; margin-top: 5px;">Operational management and customer experience.</p>
+            <p style="font-size: 0.75rem; margin-top: 5px;">Driving operational excellence and the premium customer
+                experience.</p>
         </div>
 
         <!-- Team Member 7 -->
@@ -728,14 +689,15 @@
                 <img src="barry_spiller.jpg" alt="Barry Spiller"
                     style="width: 100%; height: 100%; object-fit: cover; object-position: center 75%; transform: scale(1.4); filter: grayscale(100%);">
             </div>
-            <h3 style="margin-bottom: 5px; font-size: 1.1rem; color: var(--primary-navy);">Barry Hargrave</h3>
+            <h3 style="margin-bottom: 5px; font-size: 1.1rem; color: var(--primary-navy);">Barry Spiller</h3>
             <div class="team-role">BUSINESS DEVELOPMENT ADVISOR</div>
-            <p style="font-size: 0.75rem; margin-top: 5px;">Commercial expansion and growth strategy.</p>
+            <p style="font-size: 0.75rem; margin-top: 5px;">Providing strategic guidance on growth and commercial
+                expansion.</p>
         </div>
     </section>
 
     <!-- Slide 5: Market Opportunity -->
-    <section class="slide layout-split">
+    <section class="slide layout_split">
         <div class="editorial-line"></div>
         <div class="split-content"
             style="padding: 90px; display: flex; flex-direction: column; justify-content: center;">
@@ -745,7 +707,7 @@
             <div style="margin-top: 20px; font-size: 1.05rem; line-height: 1.6;">
                 <p style="margin-bottom: 15px;"><strong style="color: var(--primary-navy);">TAM:</strong> $26bn (Global
                     sports memorabilia, 2021) → projected <strong>$227bn by 2032</strong> <span
-                        style="font-size: 0.8rem; color: var(--accent-gold);">(Source: Market Decipher)</span></p>
+                        style="font-size: 0.8rem; color: var(--accent_gold);">(Source: Market Decipher)</span></p>
                 <p style="margin-bottom: 15px;"><strong style="color: var(--primary-navy);">SAM:</strong> Premium,
                     framed, authenticated memorabilia in UK/EU/US</p>
                 <p style="margin-bottom: 15px;"><strong style="color: var(--primary-navy);">SOM:</strong> UK DTC
@@ -753,16 +715,18 @@
             </div>
 
             <div style="margin-top: 30px; border-top: 1px solid var(--border-light); padding-top: 20px;">
-                <h3 style="color: var(--primary-navy); margin-bottom: 15px; font-size: 0.95rem;">Market Drivers:</h3>
+                <h3 style="color: var(--primary-navy); margin-bottom: 15px; font-size: 0.95rem;">Rising demand for:</h3>
                 <ul style="list-style: none; padding: 0;">
-                    <li style="margin-bottom: 8px; display: flex; align-items: center;"><span
-                            style="color: var(--accent-gold); margin-right: 10px;">•</span> Rising demand for verifiable, proof based authenticity</li>
-                    <li style="margin-bottom: 8px; display: flex; align-items: center;"><span
-                            style="color: var(--accent-gold); margin-right: 10px;">•</span> Increased wealth allocation toward physical sports assets</li>
+                    <li style="margin_bottom: 8px; display: flex; align_items: center;"><span
+                            style="color: var(--accent_gold); margin_right: 10px;">•</span> Proof based authenticity
+                    </li>
+                    <li style="margin_bottom: 8px; display: flex; align_items: center;"><span
+                            style="color: var(--accent_gold); margin_right: 10px;">•</span> Emotional storytelling in
+                        collectibles</li>
                 </ul>
                 <p
-                    style="margin-top: 20px; color: var(--accent-gold); font-weight: 600; font-size: 1.1rem;">
-                    Currently, there is no definitive market leader in the premium authentication space.
+                    style="margin_top: 20px; font_style: italic; color: var(--accent_gold); font_weight: 600; font_size: 1.1rem;">
+                    Yet — no clear leader in the premium memorabilia space.
                 </p>
             </div>
         </div>
@@ -772,30 +736,31 @@
     </section>
 
     <!-- Slide 6: Traction & Roadmap -->
-    <section class="slide layout-split">
+    <section class="slide layout_split">
         <div class="editorial-line"></div>
         <div class="split-image" style="background-image: url('athlete_signing_shirt_closeup_1767725307257.png');">
         </div>
         <div class="split-content" style="background: var(--bg-color);">
             <p class="text-gold">GROWTH PLAN</p>
-            <h2 class="font-serif">Traction and Roadmap</h2>
+            <h2 class="font-serif">Traction & Speed</h2>
 
             <div style="margin-bottom: 30px;">
-                <h3 style="border-bottom: 1px solid var(--accent-gold); padding-bottom: 10px;">Progress to Date</h3>
+                <h3 style="border-bottom: 1px solid var(--accent_gold); padding-bottom: 10px;">Progress To Date</h3>
                 <ul style="list-style: none; padding: 0; margin-top: 15px; font-size: 0.95rem;">
-                    <li style="margin-bottom: 8px;">• Initial athlete agreements secured</li>
-                    <li style="margin-bottom: 8px;">• Fulfilment and framing partners fully operational</li>
-                    <li style="margin-bottom: 8px;">• Product costings and profit modelling complete</li>
-                    <li style="margin-bottom: 8px;">• Initial audience database established</li>
+                    <li style="margin-bottom: 8px;">• Athlete conversations in motion</li>
+                    <li style="margin-bottom: 8px;">• Fulfilment partner sourced</li>
+                    <li style="margin-bottom: 8px;">• Product costing + profit modelling completed</li>
+                    <li style="margin-bottom: 8px;">• Community growth in place (Social + Email)</li>
                 </ul>
             </div>
 
             <div style="margin-bottom: 30px;">
-                <h3 style="border-bottom: 1px solid var(--accent-gold); padding-bottom: 10px;">Strategic Roadmap</h3>
+                <h3 style="border-bottom: 1px solid var(--accent_gold); padding-bottom: 10px;">The Roadmap</h3>
                 <ul style="list-style: none; padding: 0; margin-top: 15px; font-size: 0.95rem;">
-                    <li style="margin-bottom: 8px;">• Secure exclusive commercial agreements with professional clubs</li>
-                    <li style="margin-bottom: 8px;">• Deploy the NFC authentication system for global fan verification</li>
-                    <li style="margin-bottom: 8px;">• Scale club partnerships to dominate specific team fanbases</li>
+                    <li style="margin-bottom: 8px;">• Establish new exclusive sponsorship for global football club</li>
+                    <li style="margin-bottom: 8px;">• Develop brand identity and content bank</li>
+                    <li style="margin-bottom: 8px;">• Scale NFC authentication system for global fan verification</li>
+                    <li style="margin-bottom: 8px;">• Expand official signature partnerships across top tier clubs</li>
                 </ul>
             </div>
 
@@ -810,13 +775,13 @@
     </section>
 
     <!-- Slide 7: Unit Economics -->
-    <section class="slide layout-split">
+    <section class="slide layout_split">
         <div class="editorial-line"></div>
         <div class="split-content"
             style="padding: 90px; display: flex; flex-direction: column; justify-content: center;">
             <p class="text-gold">FINANCIALS</p>
             <h2 class="font-serif">Unit Economics</h2>
-            <p>Our direct to consumer model ensures high retention of margin on every unit sold.</p>
+            <p>Our Direct-to-Consumer model ensures high retention of margin on every unit sold.</p>
 
             <div
                 style="margin-top: 40px; background: white; padding: 20px; border-radius: 4px; box-shadow: 0 5px 15px rgba(0,0,0,0.05);">
@@ -836,7 +801,7 @@
                             <td style="font-weight: 600; position: relative;">
                                 Framed Shirt
                                 <div class="cogs-tooltip">
-                                    <div style="color: var(--accent-gold); font-weight: bold; margin-bottom: 5px;">COGS
+                                    <div style="color: var(--accent_gold); font-weight: bold; margin-bottom: 5px;">COGS
                                         Breakdown</div>
                                     <div class="cogs-breakdown-row"><span>Signature:</span> <span>£30</span></div>
                                     <div class="cogs-breakdown-row"><span>Frame:</span> <span>£12</span></div>
@@ -847,7 +812,7 @@
                             <td style="text-align: right; color: var(--text-muted);">£92</td>
                             <td style="text-align: right;">£299</td>
                             <td style="text-align: right; color: var(--text-muted);">£49.8</td>
-                            <td style="text-align: right; color: var(--accent-gold); font-weight: bold;">63%</td>
+                            <td style="text-align: right; color: var(--accent_gold); font-weight: bold;">63%</td>
                         </tr>
 
                         <!-- Framed Photo -->
@@ -855,7 +820,7 @@
                             <td style="font-weight: 600; position: relative;">
                                 Framed Photo
                                 <div class="cogs-tooltip">
-                                    <div style="color: var(--accent-gold); font-weight: bold; margin-bottom: 5px;">COGS
+                                    <div style="color: var(--accent_gold); font-weight: bold; margin-bottom: 5px;">COGS
                                         Breakdown</div>
                                     <div class="cogs-breakdown-row"><span>Signature:</span> <span>£0</span></div>
                                     <div class="cogs-breakdown-row"><span>Frame:</span> <span>£8</span></div>
@@ -866,7 +831,7 @@
                             <td style="text-align: right; color: var(--text-muted);">£20</td>
                             <td style="text-align: right;">£90</td>
                             <td style="text-align: right; color: var(--text-muted);">£15.0</td>
-                            <td style="text-align: right; color: var(--accent-gold); font-weight: bold;">73%</td>
+                            <td style="text-align: right; color: var(--accent_gold); font-weight: bold;">73%</td>
                         </tr>
 
                         <!-- Framed Boot -->
@@ -874,7 +839,7 @@
                             <td style="font-weight: 600; position: relative;">
                                 Framed Boot
                                 <div class="cogs-tooltip">
-                                    <div style="color: var(--accent-gold); font-weight: bold; margin-bottom: 5px;">COGS
+                                    <div style="color: var(--accent_gold); font-weight: bold; margin-bottom: 5px;">COGS
                                         Breakdown</div>
                                     <div class="cogs-breakdown-row"><span>Signature:</span> <span>£30</span></div>
                                     <div class="cogs-breakdown-row"><span>Frame:</span> <span>£10</span></div>
@@ -885,7 +850,7 @@
                             <td style="text-align: right; color: var(--text-muted);">£70</td>
                             <td style="text-align: right;">£219</td>
                             <td style="text-align: right; color: var(--text-muted);">£36.5</td>
-                            <td style="text-align: right; color: var(--accent-gold); font-weight: bold;">62%</td>
+                            <td style="text-align: right; color: var(--accent_gold); font-weight: bold;">62%</td>
                         </tr>
 
                         <!-- Framed Glove -->
@@ -893,7 +858,7 @@
                             <td style="font-weight: 600; position: relative;">
                                 Framed Glove
                                 <div class="cogs-tooltip">
-                                    <div style="color: var(--accent-gold); font-weight: bold; margin-bottom: 5px;">COGS
+                                    <div style="color: var(--accent_gold); font-weight: bold; margin-bottom: 5px;">COGS
                                         Breakdown</div>
                                     <div class="cogs-breakdown-row"><span>Signature:</span> <span>£25</span></div>
                                     <div class="cogs-breakdown-row"><span>Frame:</span> <span>£10</span></div>
@@ -904,81 +869,129 @@
                             <td style="text-align: right; color: var(--text-muted);">£55</td>
                             <td style="text-align: right;">£219</td>
                             <td style="text-align: right; color: var(--text-muted);">£36.5</td>
-                            <td style="text-align: right; color: var(--accent-gold); font-weight: bold;">70%</td>
+                            <td style="text-align: right; color: var(--accent_gold); font-weight: bold;">70%</td>
                         </tr>
                     </tbody>
                 </table>
             </div>
         </div>
         <div class="split-image"
-            style="background-image: url('https://images.unsplash.com/photo-1489944440615-453fc2b6a9a9?q=80&w=1600');">
-        </div>
-    </section>
-
-    <!-- Slide 8: Projections -->
-    <section class="slide layout-grid">
+            style="background-image: url('https://images.unsplash.com/photo-1489944440615-45    <!-- Slide 8: 5 Year Forecast -->
+    <section class="slide layout_grid">
         <div class="editorial-line"></div>
-        <div style="grid-column: 1 / -1; text-align: center; margin-bottom: 30px;">
-            <p class="text-gold">SCALE</p>
-            <h2 class="font-serif">Revenue Projections</h2>
-            <p style="max-width: 600px; margin: 0 auto;">Conservative growth based on organic traffic and paid social
-                scaling.</p>
+        
+        <div class="col-half" style="display: flex; flex-direction: column; justify-content: center; padding-right: 40px;">
+            <p class="text-gold">PROJECTION</p>
+            <h2 class="font-serif">The 5 Year Vision</h2>
+            <p>Our roadmap moves from a single club anchor in year one to a global institutional asset ledger by year five. This is the path from £1.1M revenue to market dominance.</p>
+            
+            <table class="clean-table" style="font-family: 'Inter', sans-serif; margin-top: 10px;">
+                <thead>
+                    <tr>
+                        <th style="padding: 10px 0;">Year</th>
+                        <th style="text-align: right; padding: 10px 0;">Revenue</th>
+                        <th style="text-align: right; padding: 10px 0;">EBITDA</th>
+                        <th style="text-align: right; padding: 10px 0;">Margin</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td style="padding: 15px 0;">2026</td>
+                        <td style="text-align: right; padding: 15px 0;">£1,100,000</td>
+                        <td style="text-align: right; padding: 15px 0;">£380,000</td>
+                        <td style="text-align: right; color: var(--accent_gold); padding: 15px 0;">34.5%</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 15px 0;">2027</td>
+                        <td style="text-align: right; padding: 15px 0;">£2,500,000</td>
+                        <td style="text-align: right; padding: 15px 0;">£1,000,000</td>
+                        <td style="text-align: right; color: var(--accent_gold); padding: 15px 0;">40.0%</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 15px 0;">2028</td>
+                        <td style="text-align: right; padding: 15px 0;">£5,500,000</td>
+                        <td style="text-align: right; padding: 15px 0;">£2,475,000</td>
+                        <td style="text-align: right; color: var(--accent_gold); padding: 15px 0;">45.0%</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 15px 0;">2029</td>
+                        <td style="text-align: right; padding: 15px 0;">£12,000,000</td>
+                        <td style="text-align: right; padding: 15px 0;">£6,000,000</td>
+                        <td style="text-align: right; color: var(--accent_gold); padding: 15px 0;">50.0%</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 15px 0;">2030</td>
+                        <td style="text-align: right; padding: 15px 0;">£25,000,000</td>
+                        <td style="text-align: right; padding: 15px 0;">£13,750,000</td>
+                        <td style="text-align: right; color: var(--accent_gold); padding: 15px 0;">55.0%</td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
 
-        <div class="stat-card"
-            style="grid-column: span 12; display: flex; justify-content: space-between; align-items: center; padding: 30px;">
-            <div style="text-align: center; flex: 1;">
-                <p class="text-muted" style="margin-bottom: 5px; font-size: 0.8rem;">YEAR 1</p>
-                <h3 style="font-size: 1.5rem; color: var(--accent-gold); margin: 0;">£1.1m</h3>
+        <div class="col-half" style="display: flex; flex-direction: column; justify-content: center;">
+            <h3 style="text-align: center; margin-bottom: 0;">Revenue Growth (GBP)</h3>
+            <div class="growth-chart">
+                <div class="bar-wrapper">
+                    <div class="bar" style="height: 10%;">
+                        <span class="bar-value">1.1M</span>
+                    </div>
+                    <span class="bar-label">2026</span>
+                </div>
+                <div class="bar-wrapper">
+                    <div class="bar" style="height: 22%;">
+                        <span class="bar-value">2.5M</span>
+                    </div>
+                    <span class="bar-label">2027</span>
+                </div>
+                <div class="bar-wrapper">
+                    <div class="bar" style="height: 45%;">
+                        <span class="bar-value">5.5M</span>
+                    </div>
+                    <span class="bar-label">2028</span>
+                </div>
+                <div class="bar-wrapper">
+                    <div class="bar" style="height: 75%;">
+                        <span class="bar-value">12M</span>
+                    </div>
+                    <span class="bar-label">2029</span>
+                </div>
+                <div class="bar-wrapper">
+                    <div class="bar" style="height: 100%;">
+                        <span class="bar-value">25M</span>
+                    </div>
+                    <span class="bar-label">2030</span>
+                </div>
             </div>
-            <div style="width: 1px; height: 40px; background: #eee;"></div>
-            <div style="text-align: center; flex: 1;">
-                <p class="text-muted" style="margin-bottom: 5px; font-size: 0.8rem;">YEAR 2</p>
-                <h3 style="font-size: 1.5rem; color: var(--accent-gold); margin: 0;">£2.7m</h3>
-            </div>
-            <div style="width: 1px; height: 40px; background: #eee;"></div>
-            <div style="text-align: center; flex: 1;">
-                <p class="text-muted" style="margin-bottom: 5px; font-size: 0.8rem;">YEAR 3</p>
-                <h3 style="font-size: 1.5rem; color: var(--accent-gold); margin: 0;">£6.8m</h3>
-            </div>
-            <div style="width: 1px; height: 40px; background: #eee;"></div>
-            <div style="text-align: center; flex: 1;">
-                <p class="text-muted" style="margin-bottom: 5px; font-size: 0.8rem;">YEAR 4</p>
-                <h3 style="font-size: 1.5rem; color: var(--accent-gold); margin: 0;">£14.2m</h3>
-            </div>
-            <div style="width: 1px; height: 40px; background: #eee;"></div>
-            <div style="text-align: center; flex: 1;">
-                <p class="text-muted" style="margin-bottom: 5px; font-size: 0.8rem;">YEAR 5</p>
-                <h3 style="font-size: 1.5rem; color: var(--accent-gold); margin: 0;">£25.8m</h3>
-            </div>
+            <p style="font-size: 0.8rem; text-align: center; margin-top: 10px; font-style: italic;">Scaling driven by secondary market ledger fees and global league expansion.</p>
         </div>
     </section>
 
     <!-- Slide 9: Ask -->
-    <section class="slide layout-split">
+    <section class="slide layout_split">
         <div class="editorial-line"></div>
         <div class="split-content"
             style="padding: 90px; display: flex; flex-direction: column; justify-content: center;">
             <p class="text-gold" style="font-size: 1.2rem; letter-spacing: 2px;">INVESTMENT OPPORTUNITY</p>
-            <h1 class="font-serif" style="font-size: 5rem; margin: 20px 0; color: var(--primary-navy);">£175,000</h1>
-            <p style="font-size: 1.5rem; color: var(--accent-gold); font-weight: bold;">FOR 20% EQUITY</p>
+            <h1 class="font-serif" style="font-size: 5rem; margin: 20px 0; color: var(--primary-navy);">£400,000</h1>
+            <p style="font-size: 1.5rem; color: var(--accent_gold); font-weight: bold;">CONVERTIBLE LOAN NOTE</p>
 
             <div style="margin-top: 40px; display: grid; grid-template-columns: 1fr 1fr; gap: 30px;">
                 <div>
-                    <strong style="display: block; color: var(--accent-gold); font-size: 1.2rem;">40%</strong>
+                    <strong style="display: block; color: var(--accent_gold); font-size: 1.2rem;">45%</strong>
                     <span style="font-size: 0.9rem; color: var(--primary-navy);">Club Partnership Acquisition</span>
                 </div>
                 <div>
-                    <strong style="display: block; color: var(--accent-gold); font-size: 1.2rem;">30%</strong>
-                    <span style="font-size: 0.9rem; color: var(--primary-navy);">Athlete Procurement</span>
+                    <strong style="display: block; color: var(--accent_gold); font-size: 1.2rem;">30%</strong>
+                    <span style="font-size: 0.9rem; color: var(--primary-navy);">Athlete Procurement Pipeline</span>
                 </div>
                 <div>
-                    <strong style="display: block; color: var(--accent-gold); font-size: 1.2rem;">20%</strong>
-                    <span style="font-size: 0.9rem; color: var(--primary-navy);">Brand Development</span>
+                    <strong style="display: block; color: var(--accent_gold); font-size: 1.2rem;">15%</strong>
+                    <span style="font-size: 0.9rem; color: var(--primary-navy);">Operational Scaling</span>
                 </div>
                 <div>
-                    <strong style="display: block; color: var(--accent-gold); font-size: 1.2rem;">10%</strong>
-                    <span style="font-size: 0.9rem; color: var(--primary-navy);">Operational Reserve</span>
+                    <strong style="display: block; color: var(--accent_gold); font-size: 1.2rem;">10%</strong>
+                    <span style="font-size: 0.9rem; color: var(--primary-navy);">Technical Automation</span>
                 </div>
             </div>
         </div>
@@ -992,10 +1005,10 @@
         style="display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; background: var(--bg-color);">
         <div class="editorial-line"></div>
         <img src="logo-transparent.png" alt="Logo" style="width: 200px; margin-bottom: 50px;">
-        <h2 class="font-serif" style="font-size: 3rem; margin-bottom: 40px;">Authenticated Sports Assets.</h2>
+        <h2 class="font-serif" style="font-size: 4rem; margin-bottom: 40px;">Let's Build the Legacy.</h2>
         <div style="margin-top: 20px;">
             <p style="margin: 10px; color: var(--primary-navy); font-weight: bold; font-size: 1.5rem;">
-                info@sportssigned.com</p>
+                rhys@sportssigned.com</p>
             <p style="margin: 10px; color: var(--text-muted); font-size: 1.2rem;">+44 74328 69297</p>
         </div>
     </section>

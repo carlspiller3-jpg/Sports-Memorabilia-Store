@@ -11,7 +11,11 @@ export interface BlogPost {
   // SEO & Automation Fields
   seo_title: string;
   seo_description: string;
-  seo_keywords: string[  {
+  seo_keywords: string[];
+}
+
+export const articles: BlogPost[] = [
+  {
     id: "23",
     title: "LeBron James retires: The greatest hunt for memorabilia begins",
     slug: "lebron-james-retires-the-greatest-hunt-for-memorabilia-begins",
@@ -37,10 +41,6 @@ Do not expect these items to be affordable. When the greatest of a generation le
 
 <strong>Verdict:</strong> The greatest asset in history is now on the table. Move fast or miss out.`
   },
-];
-}
-
-export const articles: BlogPost[] = [
   {
     id: "20",
     title: "Tiger Woods Retires: Why the Market is Moving Now",
