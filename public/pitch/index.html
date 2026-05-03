@@ -195,13 +195,13 @@
         p {
             font-size: 1.05rem;
             line-height: 1.7;
-            color: var(--text_muted);
+            color: var(--text-muted);
             margin-bottom: 1.5rem;
             max-width: 65ch;
         }
 
         strong {
-            color: var(--primary_navy);
+            color: var(--primary-navy);
             font-weight: 700;
         }
 
@@ -292,7 +292,7 @@
             left: 0;
             right: 0;
             height: 3px;
-            background: var(--accent_gold);
+            background: var(--accent-gold);
         }
 
         .team-card {
@@ -321,12 +321,12 @@
             font-family: 'Playfair Display', serif;
             font-size: 1.3rem;
             font-weight: 600;
-            color: var(--primary_navy);
+            color: var(--primary-navy);
             margin-bottom: 5px;
         }
 
         .team-role {
-            color: var(--text_muted);
+            color: var(--text-muted);
             font-size: 0.8rem;
             letter-spacing: 1px;
             text-transform: uppercase;
@@ -341,7 +341,7 @@
 
         .pyramid-level {
             padding: 15px;
-            border-left: 4px solid var(--primary_navy);
+            border-left: 4px solid var(--primary-navy);
             background: rgba(16, 28, 46, 0.05);
             display: flex;
             align-items: center;
@@ -349,20 +349,20 @@
         }
 
         .pyramid-level.som {
-            background: var(--accent_gold);
+            background: var(--accent-gold);
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
         }
 
         .pyramid-level.som .label,
         .pyramid-level.som .value,
         .pyramid-level.som .desc {
-            color: var(--primary_navy);
+            color: var(--primary-navy);
         }
 
         .pyramid-level .label {
             font-weight: bold;
             width: 40px;
-            color: var(--primary_navy);
+            color: var(--primary-navy);
         }
 
         .pyramid-level .value {
@@ -370,12 +370,12 @@
             font-size: 1.2rem;
             width: 80px;
             text-align: right;
-            color: var(--primary_navy);
+            color: var(--primary-navy);
         }
 
         .pyramid-level .desc {
             font-size: 0.9rem;
-            color: var(--text_muted);
+            color: var(--text-muted);
         }
 
         /* Component: Minimal Table */
@@ -387,12 +387,12 @@
 
         .clean-table th {
             text-align: left;
-            color: var(--accent_gold);
+            color: var(--accent-gold);
             font-size: 0.8rem;
             letter-spacing: 2px;
             text-transform: uppercase;
             padding: 20px 0;
-            border-bottom: 1px solid var(--primary_navy);
+            border-bottom: 1px solid var(--primary-navy);
         }
 
         .clean-table td {
@@ -406,7 +406,7 @@
         .cogs-tooltip {
             visibility: hidden;
             width: 200px;
-            background-color: var(--primary_navy);
+            background-color: var(--primary-navy);
             color: #fff;
             text-align: left;
             border-radius: 4px;
@@ -448,8 +448,8 @@
             height: 250px;
             margin-top: 50px;
             padding: 20px;
-            border-bottom: 2px solid var(--primary_navy);
-            border-left: 2px solid var(--primary_navy);
+            border-bottom: 2px solid var(--primary-navy);
+            border-left: 2px solid var(--primary-navy);
             position: relative;
         }
 
@@ -458,11 +458,13 @@
             flex-direction: column;
             align-items: center;
             width: 15%;
+            height: 100%;
+            justify-content: flex-end;
         }
 
         .bar {
             width: 100%;
-            background: linear-gradient(to top, var(--primary_navy), var(--accent_gold));
+            background: linear-gradient(to top, var(--primary-navy), var(--accent-gold));
             border-radius: 4px 4px 0 0;
             position: relative;
             transition: height 1s ease;
@@ -473,14 +475,14 @@
             top: -25px;
             font-size: 0.8rem;
             font-weight: bold;
-            color: var(--primary_navy);
+            color: var(--primary-navy);
         }
 
         .bar-label {
             margin-top: 10px;
             font-size: 0.9rem;
             font-weight: 600;
-            color: var(--text_muted);
+            color: var(--text-muted);
         }
     </style>
 </head>
@@ -930,7 +932,7 @@
             <div style="display: flex; align-items: flex-end; justify-content: center; gap: 60px; height: 250px; border-bottom: 2px solid var(--primary-navy); padding: 0 40px 20px 40px; position: relative;">
                 
                 <!-- Club Partnership Bar -->
-                <div style="display: flex; flex-direction: column; align-items: center; width: 100px;">
+                <div style="display: flex; flex-direction: column; align-items: center; width: 100px; height: 100%; justify-content: flex-end;">
                     <div style="width: 100%; height: 100%; background: var(--primary-navy); border-radius: 4px 4px 0 0; position: relative;">
                         <span style="position: absolute; top: -30px; left: 50%; transform: translateX(-50%); font-weight: bold; color: var(--primary-navy); font-size: 0.9rem;">£600k</span>
                     </div>
@@ -938,7 +940,7 @@
                 </div>
 
                 <!-- Athlete Signing Bar -->
-                <div style="display: flex; flex-direction: column; align-items: center; width: 100px;">
+                <div style="display: flex; flex-direction: column; align-items: center; width: 100px; height: 100%; justify-content: flex-end;">
                     <div style="width: 100%; height: 83%; background: var(--accent-gold); border-radius: 4px 4px 0 0; position: relative;">
                         <span style="position: absolute; top: -30px; left: 50%; transform: translateX(-50%); font-weight: bold; color: var(--primary-navy); font-size: 0.9rem;">£500k</span>
                     </div>
@@ -973,7 +975,7 @@
                 </div>
                 <div class="bar-wrapper">
                     <div class="bar" style="height: 45%;">
-                        <span class="bar_value">5.5M</span>
+                        <span class="bar-value">5.5M</span>
                     </div>
                     <span class="bar-label">2028</span>
                 </div>
