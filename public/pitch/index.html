@@ -1000,30 +1000,31 @@
                     <line x1="0" y1="70" x2="1000" y2="70" class="chart-grid-line" />
 
                     <!-- REVENUE AREA & LINE (Top) -->
-                    <!-- Points: 2026: 1.1M (y:335), 2027: 2.5M (y:315), 2028: 5.5M (y:273), 2029: 12M (y:182), 2030: 25M (y:0) -->
                     <path d="M 0 335 L 250 315 L 500 273 L 750 182 L 1000 0 L 1000 350 L 0 350 Z" fill="var(--primary-navy)" opacity="0.05" />
                     <path d="M 0 335 L 250 315 L 500 273 L 750 182 L 1000 0" class="chart-line" stroke="var(--primary-navy)" />
 
                     <!-- EBITDA AREA & LINE (Hero) -->
-                    <!-- Points: 2026: 380k (y:345), 2027: 1M (y:336), 2028: 2.4M (y:316), 2029: 6M (y:266), 2030: 13.75M (y:157) -->
-                    <path d="M 0 345 L 250 336 L 500 316 L 750 266 L 1000 157 L 1000 350 L 0 350 Z" fill="var(--accent-gold)" opacity="0.2" />
+                    <path d="M 0 345 L 250 336 L 500 316 L 750 266 L 1000 157 L 1000 350 L 0 350 Z" fill="var(--accent-gold)" opacity="0.15" />
                     <path d="M 0 345 L 250 336 L 500 316 L 750 266 L 1000 157" class="chart-line" stroke="var(--accent-gold)" stroke-width="4" />
 
-                    <!-- COGS LINE -->
-                    <!-- Points: 2026: 450k (y:344), 2027: 1M (y:336), 2028: 2.1M (y:321), 2029: 4.2M (y:291), 2030: 8M (y:238) -->
-                    <path d="M 0 344 L 250 336 L 500 321 L 750 291 L 1000 238" class="chart-line" stroke="#666" stroke-dasharray="5,5" stroke-width="2" />
+                    <!-- UNLEVERED FCF LINE -->
+                    <path d="M 0 346 L 250 339 L 500 324 L 750 287 L 1000 206" class="chart-line" stroke="#1a3a5f" stroke-width="2" stroke-dasharray="8,4" />
 
-                    <!-- Points and Labels -->
-                    <!-- 2026 -->
-                    <circle cx="0" cy="335" r="5" class="chart-point" stroke="var(--primary-navy)" />
-                    <text x="10" y="330" font-size="12" font-weight="bold" fill="var(--primary-navy)">1.1M</text>
-                    
-                    <!-- 2030 -->
+                    <!-- COGS LINE -->
+                    <path d="M 0 344 L 250 336 L 500 321 L 750 291 L 1000 238" class="chart-line" stroke="#888" stroke-dasharray="4,4" stroke-width="1.5" />
+
+                    <!-- OP EX LINE -->
+                    <path d="M 0 346 L 250 343 L 500 336 L 750 325 L 1000 304" class="chart-line" stroke="#bbb" stroke-dasharray="2,2" stroke-width="1" />
+
+                    <!-- Key Points -->
                     <circle cx="1000" cy="0" r="5" class="chart-point" stroke="var(--primary-navy)" />
-                    <text x="960" y="-10" font-size="14" font-weight="bold" fill="var(--primary-navy)">£25.0M</text>
+                    <text x="940" y="-15" font-size="12" font-weight="bold" fill="var(--primary-navy)">£25.0M Revenue</text>
                     
                     <circle cx="1000" cy="157" r="5" class="chart-point" stroke="var(--accent-gold)" />
-                    <text x="960" y="150" font-size="14" font-weight="bold" fill="var(--accent-gold)">£13.7M EBITDA</text>
+                    <text x="940" y="145" font-size="12" font-weight="bold" fill="var(--accent-gold)">£13.7M EBITDA</text>
+
+                    <circle cx="1000" cy="206" r="4" class="chart-point" stroke="#1a3a5f" />
+                    <text x="940" y="200" font-size="10" font-weight="bold" fill="#1a3a5f">£10.3M Free Cash Flow</text>
                 </svg>
 
                 <!-- Year Labels -->
@@ -1046,8 +1047,16 @@
                     <span>EBITDA</span>
                 </div>
                 <div class="legend-item">
-                    <div class="legend-color" style="background: #666; border: 1px dashed #666; background: transparent;"></div>
+                    <div class="legend-color" style="background: #1a3a5f; height: 3px; border-radius: 0;"></div>
+                    <span>Free Cash Flow</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #888; height: 1px; border-radius: 0; border-top: 2px dashed #888;"></div>
                     <span>COGS</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #bbb; height: 1px; border-radius: 0; border-top: 2px dotted #bbb;"></div>
+                    <span>Operating Expenses</span>
                 </div>
             </div>
         </div>
