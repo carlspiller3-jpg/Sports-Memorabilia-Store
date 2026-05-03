@@ -440,49 +440,77 @@
             border-bottom: none;
         }
 
-        /* 5-Year Growth Chart */
-        .growth-chart {
-            display: flex;
-            align-items: flex-end;
-            justify-content: space-between;
-            height: 250px;
-            margin-top: 50px;
-            padding: 20px;
-            border-bottom: 2px solid var(--primary-navy);
-            border-left: 2px solid var(--primary-navy);
+        /* 5-Year Growth Chart (Multi-Metric SVG) */
+        .growth-chart-container {
             position: relative;
-        }
-
-        .bar-wrapper {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            width: 15%;
-            height: 100%;
-            justify-content: flex-end;
-        }
-
-        .bar {
+            height: 350px;
+            margin-top: 20px;
             width: 100%;
-            background: linear-gradient(to top, var(--primary-navy), var(--accent-gold));
-            border-radius: 4px 4px 0 0;
-            position: relative;
-            transition: height 1s ease;
         }
 
-        .bar-value {
-            position: absolute;
-            top: -25px;
+        .chart-svg {
+            width: 100%;
+            height: 100%;
+            overflow: visible;
+        }
+
+        .chart-line {
+            fill: none;
+            stroke-width: 3;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            transition: all 1s ease;
+        }
+
+        .chart-area {
+            opacity: 0.1;
+            transition: all 1s ease;
+        }
+
+        .chart-point {
+            fill: #fff;
+            stroke-width: 2;
+            transition: all 0.3s ease;
+        }
+
+        .chart-point:hover {
+            r: 6;
+            stroke-width: 4;
+        }
+
+        .chart-legend {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
             font-size: 0.8rem;
-            font-weight: bold;
-            color: var(--primary-navy);
-        }
-
-        .bar-label {
-            margin-top: 10px;
-            font-size: 0.9rem;
             font-weight: 600;
             color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .legend-color {
+            width: 12px;
+            height: 12px;
+            border-radius: 2px;
+            margin-right: 8px;
+        }
+
+        .chart-axis-label {
+            font-size: 0.7rem;
+            fill: var(--text-muted);
+            font-weight: 600;
+        }
+
+        .chart-grid-line {
+            stroke: rgba(16, 28, 46, 0.05);
+            stroke-width: 1;
         }
     </style>
 </head>
@@ -959,37 +987,67 @@
             <p style="max-width: 600px; margin: 0 auto;">Scaling driven by secondary market ledger fees and global league expansion.</p>
         </div>
 
-        <div style="grid-column: 2 / 12; display: flex; flex-direction: column; justify-content: center;">
-            <div class="growth-chart" style="height: 300px; margin-top: 0;">
-                <div class="bar-wrapper">
-                    <div class="bar" style="height: 10%;">
-                        <span class="bar-value">1.1M</span>
-                    </div>
-                    <span class="bar-label">2026</span>
+        <div style="grid-column: 2 / 12;">
+            <div class="growth-chart-container">
+                <svg class="chart-svg" viewBox="0 0 1000 350" preserveAspectRatio="none">
+                    <!-- Grid Lines -->
+                    <line x1="0" y1="350" x2="1000" y2="350" class="chart-grid-line" style="stroke: var(--primary-navy); stroke-width: 2;" />
+                    <line x1="0" y1="0" x2="0" y2="350" class="chart-grid-line" style="stroke: var(--primary-navy); stroke-width: 2;" />
+                    
+                    <line x1="0" y1="280" x2="1000" y2="280" class="chart-grid-line" />
+                    <line x1="0" y1="210" x2="1000" y2="210" class="chart-grid-line" />
+                    <line x1="0" y1="140" x2="1000" y2="140" class="chart-grid-line" />
+                    <line x1="0" y1="70" x2="1000" y2="70" class="chart-grid-line" />
+
+                    <!-- REVENUE AREA & LINE (Top) -->
+                    <!-- Points: 2026: 1.1M (y:335), 2027: 2.5M (y:315), 2028: 5.5M (y:273), 2029: 12M (y:182), 2030: 25M (y:0) -->
+                    <path d="M 0 335 L 250 315 L 500 273 L 750 182 L 1000 0 L 1000 350 L 0 350 Z" fill="var(--primary-navy)" opacity="0.05" />
+                    <path d="M 0 335 L 250 315 L 500 273 L 750 182 L 1000 0" class="chart-line" stroke="var(--primary-navy)" />
+
+                    <!-- EBITDA AREA & LINE (Hero) -->
+                    <!-- Points: 2026: 380k (y:345), 2027: 1M (y:336), 2028: 2.4M (y:316), 2029: 6M (y:266), 2030: 13.75M (y:157) -->
+                    <path d="M 0 345 L 250 336 L 500 316 L 750 266 L 1000 157 L 1000 350 L 0 350 Z" fill="var(--accent-gold)" opacity="0.2" />
+                    <path d="M 0 345 L 250 336 L 500 316 L 750 266 L 1000 157" class="chart-line" stroke="var(--accent-gold)" stroke-width="4" />
+
+                    <!-- COGS LINE -->
+                    <!-- Points: 2026: 450k (y:344), 2027: 1M (y:336), 2028: 2.1M (y:321), 2029: 4.2M (y:291), 2030: 8M (y:238) -->
+                    <path d="M 0 344 L 250 336 L 500 321 L 750 291 L 1000 238" class="chart-line" stroke="#666" stroke-dasharray="5,5" stroke-width="2" />
+
+                    <!-- Points and Labels -->
+                    <!-- 2026 -->
+                    <circle cx="0" cy="335" r="5" class="chart-point" stroke="var(--primary-navy)" />
+                    <text x="10" y="330" font-size="12" font-weight="bold" fill="var(--primary-navy)">1.1M</text>
+                    
+                    <!-- 2030 -->
+                    <circle cx="1000" cy="0" r="5" class="chart-point" stroke="var(--primary-navy)" />
+                    <text x="960" y="-10" font-size="14" font-weight="bold" fill="var(--primary-navy)">£25.0M</text>
+                    
+                    <circle cx="1000" cy="157" r="5" class="chart-point" stroke="var(--accent-gold)" />
+                    <text x="960" y="150" font-size="14" font-weight="bold" fill="var(--accent-gold)">£13.7M EBITDA</text>
+                </svg>
+
+                <!-- Year Labels -->
+                <div style="display: flex; justify-content: space-between; margin-top: 15px; padding: 0 5px;">
+                    <span class="chart-axis-label">2026</span>
+                    <span class="chart-axis-label">2027</span>
+                    <span class="chart-axis-label">2028</span>
+                    <span class="chart-axis-label">2029</span>
+                    <span class="chart-axis-label">2030</span>
                 </div>
-                <div class="bar-wrapper">
-                    <div class="bar" style="height: 22%;">
-                        <span class="bar-value">2.5M</span>
-                    </div>
-                    <span class="bar-label">2027</span>
+            </div>
+
+            <div class="chart-legend">
+                <div class="legend-item">
+                    <div class="legend-color" style="background: var(--primary-navy);"></div>
+                    <span>Revenue</span>
                 </div>
-                <div class="bar-wrapper">
-                    <div class="bar" style="height: 45%;">
-                        <span class="bar-value">5.5M</span>
-                    </div>
-                    <span class="bar-label">2028</span>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: var(--accent-gold);"></div>
+                    <span>EBITDA</span>
                 </div>
-                <div class="bar-wrapper">
-                    <div class="bar" style="height: 75%;">
-                        <span class="bar-value">12M</span>
-                    </div>
-                    <span class="bar-label">2029</span>
-                </div>
-                <div class="bar-wrapper">
-                    <div class="bar" style="height: 100%;">
-                        <span class="bar-value">25M</span>
-                    </div>
-                    <span class="bar-label">2030</span>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #666; border: 1px dashed #666; background: transparent;"></div>
+                    <span>COGS</span>
                 </div>
             </div>
         </div>
