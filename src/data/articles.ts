@@ -11,7 +11,11 @@ export interface BlogPost {
   // SEO & Automation Fields
   seo_title: string;
   seo_description: string;
-  seo_keywords: string[  {
+  seo_keywords: string[];
+}
+
+export const articles: BlogPost[] = [
+  {
     id: "20",
     title: "Tiger Woods Retires: Why the Market is Moving Now",
     slug: "tiger-woods-retires-why-the-market-is-moving-now",
