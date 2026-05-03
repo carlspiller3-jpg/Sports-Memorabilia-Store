@@ -62,6 +62,36 @@ If you are looking to get involved, you need to move. The frenzy is real and the
 
 <strong>Verdict:</strong> The era of the King is over and prices are going to the moon, so buy now or miss out.</p>`
   },
+  {
+    id: "22",
+    title: "The King Leaves the Court: LeBron James and the Fifteen Million Dollar Jersey",
+    slug: "the-king-leaves-the-court-lebron-james-and-the-fifteen-million-dollar-jersey",
+    date: "2026-05-03",
+    author: "Tactical Engine",
+    category: "News",
+    excerpt: "LeBron James has finally retired after 23 seasons at the top. Sports Memorabilia Store examines why his final jersey is set to become the most expensive item ever sold.",
+    imageUrl: "https://images.unsplash.com/photo-1574629810360-7efbbe195018?q=80",
+    seo_title: "LeBron James Retires: $15m Jersey Auction Record",
+    seo_description: "LeBron James retires after 23 seasons. Sports Memorabilia Store examines the $15 million valuation of his final jersey in the sports memorabilia market.",
+    seo_keywords: ["breaking news", "sports memorabilia", "investment"],
+    content: `<h2>The King Finally Steps Away</h2>
+
+LeBron James has finished. After 23 seasons of pure dominance, the man has finally decided to call it a day. The news broke last night following the exit of the Lakers from the playoffs. It marks the end of a career that redefined what we expect from an athlete. At Sports Memorabilia Store, we have watched many legends retire, but this feels different. This is the closing of a book that has been written over two decades. There is no more talk of next season. The stats are set in stone and the legacy is complete.
+
+<h3>The Most Expensive Shirt in History</h3>
+
+The talk of the town today is not just about his points or his rings. It is about the kit he had on his back during his final moments on the court. Auction houses are already doing the maths. They expect the jersey worn during that final game to sell for over 15 million dollars. To put that in perspective, it would move past the current records held by Michael Jordan and Diego Maradona. 
+
+Sports Memorabilia Store understands why the numbers are this high. You are not just buying fabric and ink. You are buying the definitive end point of a legacy. The market for items of this calibre is moving into a new phase. When a player of this stature leaves the game, the value of their items does not just grow; it leaps. This is the ultimate blue chip asset for any serious collector.
+
+<h3>A Solid Investment in History</h3>
+
+Collectors are already circling. In the world of sports investment, there are few names that carry as much weight as James. He has been at the centre of the conversation since he was a teenager. Now that he is finished, the supply of items actually used by the man has stopped. The era of the active LeBron collector is over, and the era of the historical investor has begun.
+
+If you are looking for a piece of history that will stand the test of time, this is it. Sports Memorabilia Store has seen many trends come and go, but the greats always remain at the top of the pile. This jersey is the prize for anyone who wants to own a part of a career that spanned 23 seasons. It is a rare chance to own the final piece of the puzzle.
+
+<strong>Verdict</strong>: The greatest to ever do it has left the building and his final jersey is the best investment on the planet.`
+  },
 ];
 }
 
