@@ -11,7 +11,33 @@ export interface BlogPost {
   // SEO & Automation Fields
   seo_title: string;
   seo_description: string;
-  seo_keywords: string[];
+  seo_keywords: string[  {
+    id: "23",
+    title: "LeBron James retires: The greatest hunt for memorabilia begins",
+    slug: "lebron-james-retires-the-greatest-hunt-for-memorabilia-begins",
+    date: "2026-05-03",
+    author: "Tactical Engine",
+    category: "News",
+    excerpt: "LeBron James has called time on a career of 23 seasons. Sports Memorabilia Store examines why his final kit is the most important asset in history.",
+    imageUrl: "https://images.unsplash.com/photo-1574629810360-7efbbe195018?q=80",
+    seo_title: "LeBron James Retires: The Final Jersey Auction",
+    seo_description: "LeBron James has retired. His final jersey is set to become the most valuable sports asset ever sold. Expert analysis from Sports Memorabilia Store.",
+    seo_keywords: ["breaking news", "sports memorabilia", "investment"],
+    content: `<h2>The King finally steps away</h2>
+
+LeBron James has finished. After a career spanning 23 seasons, the man who scored more points than anyone else in history has walked away. He confirmed his retirement following the Lakers exit after the season. It is a massive moment for the sport and a bigger one for the market. At the Sports Memorabilia Store, we have seen legends come and go, but this is different. This is the end of a reign that lasted over two decades. There is no more debate. He is the greatest we have seen, and the market for his gear is about to reflect that reality.
+
+<h3>The most desired kit in history</h3>
+
+The equipment James used in his final game is now the most important memorabilia on the planet. We are talking about a jersey worn in the closing moments of a career that redefined basketball. This shirt is not a standard collectible. It is a relic that carries the weight of four titles and a scoring record that looks impossible to beat. Collectors at the Sports Memorabilia Store are already preparing for the fallout. This gear will break records when it reaches the auction block. It is the most significant collection of items to ever be made available to the public.
+
+<h3>Market reality for the elite</h3>
+
+Do not expect these items to be affordable. When the greatest of a generation leaves, the value of the kit worn in their final game goes through the roof. This is the most anticipated asset to ever hit the market. For those who take their collection seriously, this is the time to act. The Sports Memorabilia Store recognises that we are witnessing a peak in the market that might not be seen again. The scarcity here is absolute. There is only one final jersey, and the competition to own it will be fierce. 
+
+<strong>Verdict:</strong> The greatest asset in history is now on the table. Move fast or miss out.`
+  },
+];
 }
 
 export const articles: BlogPost[] = [
