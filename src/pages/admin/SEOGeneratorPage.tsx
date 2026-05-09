@@ -19,7 +19,7 @@ export function SEOGeneratorPage() {
     const [year, setYear] = useState("")
     const [team, setTeam] = useState("")
     const [auth, setAuth] = useState("Sports Memorabilia Store™ NFC")
-    const [framing, setFraming] = useState("Bespoke Black Gallery Frame")
+    const [framing, setFraming] = useState("Premium Black Gallery Frame")
     const [history, setHistory] = useState("")
     const [signingDetails, setSigningDetails] = useState("")
 
@@ -125,8 +125,8 @@ Return ONLY the text. No introductions.`;
         const newAssets: SEOAssets = {
             google: {
                 title: smartTrim(`${athlete} Signed ${itemType} | Authentic ${team || year} Memorabilia`, 60),
-                meta: smartTrim(`Authentic ${athlete} Signed ${itemType} - Hand signed ${team} (${year}) memorabilia. NFC Technology Verified. 24h Dispatch. Bespoke Framing. Fully Insured Delivery.`, 160),
-                long: `PRODUCT SPECIFICATION\nAuthentic hand signed ${itemType.toLowerCase()} from ${athlete}. ${signText} ${history ? history + '. ' : ''}This item is a verified historical asset for the ${team || ''} collector.\n\nTECHNOLOGY & PROVENANCE\nEvery item is secured with our proprietary NFC tech. Scan the item with your smartphone to instantly access the Digital Ledger, signing date, and full COA details verified by ${auth}.\n\nCRAFTSMANSHIP\nBespoke professional framing using conservation grade mounts and UV protective glass. Designed to preserve the integrity of the signature and materials for a lifetime.\n\nLOGISTICS\nPostage within 24hrs of order. Fully insured, secure UK delivery. Experience a premium archival unboxing experience from Sports Memorabilia Store.`
+                meta: smartTrim(`Authentic ${athlete} Signed ${itemType} - Hand signed ${team} (${year}) memorabilia. NFC Technology Verified. 24h Dispatch. Premium Framing. Fully Insured Delivery.`, 160),
+                long: `PRODUCT SPECIFICATION\nAuthentic hand signed ${itemType.toLowerCase()} from ${athlete}. ${signText} ${history ? history + '. ' : ''}This item is a verified historical asset for the ${team || ''} collector.\n\nTECHNOLOGY & PROVENANCE\nEvery item is secured with our proprietary NFC tech. Scan the item with your smartphone to instantly access the Digital Ledger, signing date, and full COA details verified by ${auth}.\n\nCRAFTSMANSHIP\nPremium professional framing using conservation grade mounts and UV protective glass. Designed to preserve the integrity of the signature and materials for a lifetime.\n\nLOGISTICS\nPostage within 24hrs of order. Fully insured, secure UK delivery. Experience a premium archival unboxing experience from Sports Memorabilia Store.`
             },
             ebay: {
                 title: ebTitle,
@@ -142,7 +142,7 @@ Return ONLY the text. No introductions.`;
                 bullets: [
                     `HAND SIGNED AUTHENTICITY: Guaranteed signature by ${athlete} - ${signText || 'Professional Session'}.`,
                     `NFC TECHNOLOGY: Includes Sports Memorabilia Store™ NFC tag for instant smartphone authentication and digital ledger access.`,
-                    `BESPOKE FRAMING: Housed in professional black frames with conservation grade double mounts and UV protective glass.`,
+                    `PREMIUM FRAMING: Housed in professional black frames with conservation grade double mounts and UV protective glass.`,
                     `ARCHIVAL PACKAGING: Delivered in secure, impact resistant packaging designed for the preservation of high value collectibles.`,
                     `LIFETIME GUARANTEE: Provided with a full legal Certificate of Authenticity and a 100% lifetime guarantee.`
                 ]
