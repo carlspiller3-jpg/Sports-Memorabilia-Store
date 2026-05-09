@@ -1,115 +1,138 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="-50 -50 1060 900" width="100%" height="100%" style="background: #111;">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 1200" width="100%" height="100%" style="background: #e0e0e0; font-family: 'Segoe UI', Arial, sans-serif;">
   <defs>
+    <!-- Drop Shadow for the Mat to look like a physical board on a desk -->
+    <filter id="shadow" x="-5%" y="-5%" width="110%" height="110%">
+      <feDropShadow dx="15" dy="25" stdDeviation="15" flood-color="#000" flood-opacity="0.4"/>
+    </filter>
+    
+    <!-- Arrow Markers (Gold) -->
+    <marker id="arrow-start" viewBox="0 0 10 10" refX="2" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 10 0 L 0 5 L 10 10 z" fill="#d4af37" />
+    </marker>
+    <marker id="arrow-end" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#d4af37" />
+    </marker>
+
+    <!-- Arrow Markers (White) -->
+    <marker id="arrow-start-w" viewBox="0 0 10 10" refX="2" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 10 0 L 0 5 L 10 10 z" fill="#ffffff" />
+    </marker>
+    <marker id="arrow-end-w" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#ffffff" />
+    </marker>
+
     <style>
       .gold { fill: #d4af37; }
       .gold-stroke { stroke: #d4af37; stroke-width: 4; fill: none; }
       .white { fill: #ffffff; }
-      .white-stroke { stroke: #ffffff; stroke-width: 2; fill: none; }
-      .text-xl { font-family: 'Inter', 'Segoe UI', sans-serif; font-size: 28px; font-weight: bold; text-anchor: middle; letter-spacing: 1px; }
-      .text-large { font-family: 'Inter', 'Segoe UI', sans-serif; font-size: 22px; font-weight: bold; text-anchor: middle; }
-      .text-medium { font-family: 'Inter', 'Segoe UI', sans-serif; font-size: 16px; font-weight: bold; text-anchor: middle; letter-spacing: 0.5px; }
-      .text-small { font-family: 'Inter', 'Segoe UI', sans-serif; font-size: 13px; font-weight: bold; text-anchor: middle; }
-      .arrow-line { stroke: #d4af37; stroke-width: 2; }
+      .text-xl { font-size: 28px; font-weight: bold; text-anchor: middle; letter-spacing: 1px; }
+      .text-large { font-size: 20px; font-weight: bold; text-anchor: middle; }
+      .text-medium { font-size: 15px; font-weight: bold; text-anchor: middle; letter-spacing: 0.5px; }
+      .text-small { font-size: 13px; font-weight: bold; text-anchor: middle; }
+      .arrow { stroke: #d4af37; stroke-width: 2; marker-start: url(#arrow-start); marker-end: url(#arrow-end); }
+      .arrow-w { stroke: #ffffff; stroke-width: 2; marker-start: url(#arrow-start-w); marker-end: url(#arrow-end-w); }
     </style>
   </defs>
 
-  <!-- Mat Background (Black) -->
-  <rect x="0" y="0" width="960" height="800" fill="#151515" stroke="#333" stroke-width="1" />
-  
-  <text x="480" y="-15" class="white text-large">OVERALL MAT SIZE: 24" x 20"</text>
-  
-  <!-- Main Jersey Section (Left) -->
-  <!-- 15"x16" => 600x640px -->
-  <rect x="80" y="80" width="600" height="640" class="gold-stroke" />
-  
-  <text x="380" y="130" class="white text-medium">MAIN JERSEY SECTION APERTURE:</text>
-  <text x="380" y="155" class="white text-medium">15" WIDE x 16" HIGH</text>
-  
-  <text x="380" y="400" class="white text-xl">JERSEY</text>
-  <text x="380" y="435" class="white text-xl">PLACEMENT</text>
-  
-  <!-- Gold Inner Border text rotated -->
-  <g transform="translate(120, 400) rotate(-90)">
-    <text x="0" y="0" class="gold text-medium">GOLD INNER BORDER:</text>
-    <text x="0" y="25" class="gold text-medium">14.75" x 15.75"</text>
-  </g>
+  <!-- Title Text Above Mat -->
+  <text x="220" y="100" class="gold" style="font-size: 28px; font-weight: bold; letter-spacing: 1px; text-anchor: start;">OVERALL MAT SIZE: 24" x 20"</text>
+  <line x1="220" y1="120" x2="600" y2="120" stroke="#d4af37" stroke-width="2" />
 
-  <!-- Top Photo (Right) -->
-  <!-- 4"x6" => 160x240px -->
-  <rect x="720" y="80" width="160" height="240" class="gold-stroke" />
-  <text x="800" y="120" class="white text-small">TOP PHOTO</text>
-  <text x="800" y="140" class="white text-small">BLACK APERTURE:</text>
-  <text x="800" y="160" class="white text-small">4" x 6"</text>
-  
-  <text x="800" y="220" class="white text-large">PHOTO 1</text>
-  
-  <text x="800" y="285" class="gold text-small">GOLD BORDER:</text>
-  <text x="800" y="305" class="gold text-small">3.75" x 5.75"</text>
-
-  <!-- Middle Plaque -->
-  <!-- 4"x2" => 160x80px -->
-  <rect x="720" y="360" width="160" height="80" class="gold-stroke" />
-  <text x="800" y="385" class="white text-small" style="font-size: 11px;">MIDDLE PLAQUE</text>
-  <text x="800" y="400" class="white text-small" style="font-size: 11px;">BLACK APERTURE:</text>
-  <text x="800" y="415" class="white text-small" style="font-size: 11px;">4" x 2"</text>
-  <text x="800" y="432" class="gold text-small" style="font-size: 10px;">GOLD BORDER: 3.75" x 1.75"</text>
-
-  <!-- Bottom Photo (Right) -->
-  <!-- 4"x6" => 160x240px -->
-  <rect x="720" y="480" width="160" height="240" class="gold-stroke" />
-  <text x="800" y="520" class="white text-small">BOTTOM PHOTO</text>
-  <text x="800" y="540" class="white text-small">BLACK APERTURE:</text>
-  <text x="800" y="560" class="white text-small">4" x 6"</text>
-  
-  <text x="800" y="620" class="white text-large">PHOTO 2</text>
-  
-  <text x="800" y="685" class="gold text-small">GOLD BORDER:</text>
-  <text x="800" y="705" class="gold text-small">3.75" x 5.75"</text>
-
-  <!-- Arrows (Simple lines with carets) -->
-  <g stroke="#d4af37" stroke-width="2" fill="none">
-    <!-- Top Left -->
-    <path d="M 40,5 L 40,75 M 35,10 L 40,5 L 45,10 M 35,70 L 40,75 L 45,70" />
-    <path d="M 5,40 L 75,40 M 10,35 L 5,40 L 10,45 M 70,35 L 75,40 L 70,45" />
+  <!-- Shift the entire mat to center it perfectly to scale -->
+  <g transform="translate(220, 200)">
     
-    <!-- Bottom Left -->
-    <path d="M 5,760 L 75,760 M 10,755 L 5,760 L 10,765 M 70,755 L 75,760 L 70,765" />
-    <path d="M 40,725 L 40,795 M 35,730 L 40,725 L 45,730 M 35,790 L 40,795 L 45,790" />
+    <!-- Mat Background (Black with Shadow) -->
+    <!-- Math: 24" x 20" scaled by 40px per inch = 960px x 800px -->
+    <rect x="0" y="0" width="960" height="800" fill="#181818" filter="url(#shadow)" />
     
-    <!-- Top Right -->
-    <path d="M 885,40 L 955,40 M 890,35 L 885,40 L 890,45 M 950,35 L 955,40 L 950,45" />
+    <!-- Main Jersey Section (Left) -->
+    <!-- Math: 15" x 16" = 600px x 640px. Margin: 2" = 80px -->
+    <rect x="80" y="80" width="600" height="640" class="gold-stroke" />
+    <rect x="84" y="84" width="592" height="632" stroke="#444" stroke-width="1" fill="none" />
+    
+    <text x="380" y="140" class="white text-medium">MAIN JERSEY SECTION APERTURE:</text>
+    <text x="380" y="165" class="white text-medium">15" WIDE x 16" HIGH</text>
+    
+    <text x="380" y="400" class="white text-xl">JERSEY</text>
+    <text x="380" y="435" class="white text-xl">PLACEMENT</text>
+    
+    <g transform="translate(130, 400) rotate(-90)">
+      <text x="0" y="0" class="gold text-medium">GOLD INNER BORDER:</text>
+      <text x="0" y="25" class="gold text-medium">14.75" x 15.75"</text>
+    </g>
 
-    <!-- Center Bottom -->
-    <path d="M 480,725 L 480,795 M 475,730 L 480,725 L 485,730 M 475,790 L 480,795 L 485,790" />
+    <!-- Top Photo -->
+    <!-- Math: X=720 (600+80+40), W=160 (4"), H=240 (6") -->
+    <rect x="720" y="80" width="160" height="240" class="gold-stroke" />
+    <text x="800" y="120" class="white text-small">TOP PHOTO</text>
+    <text x="800" y="140" class="white text-small">BLACK APERTURE:</text>
+    <text x="800" y="160" class="white text-small">4" x 6"</text>
+    <text x="800" y="220" class="white text-large">PHOTO 1</text>
+    <text x="800" y="285" class="gold text-small">GOLD BORDER:</text>
+    <text x="800" y="305" class="gold text-small">3.75" x 5.75"</text>
 
-    <!-- Between Jersey and Top Photo (1") -->
-    <path d="M 685,120 L 715,120 M 690,115 L 685,120 L 690,125 M 710,115 L 715,120 L 710,125" />
+    <!-- Middle Plaque -->
+    <!-- Math: Y=360 (80+240+40), H=80 (2") -->
+    <rect x="720" y="360" width="160" height="80" class="gold-stroke" />
+    <text x="800" y="385" class="white text-small" style="font-size: 11px;">MIDDLE PLAQUE</text>
+    <text x="800" y="400" class="white text-small" style="font-size: 11px;">BLACK APERTURE:</text>
+    <text x="800" y="415" class="white text-small" style="font-size: 11px;">4" x 2"</text>
+    <text x="800" y="432" class="gold text-small" style="font-size: 10px;">GOLD BORDER: 3.75" x 1.75"</text>
 
-    <!-- Between Top Photo and Plaque (1") -->
-    <path d="M 800,325 L 800,355 M 795,330 L 800,325 L 805,330 M 795,350 L 800,355 L 805,350" />
+    <!-- Bottom Photo -->
+    <!-- Math: Y=480 (360+80+40), H=240 (6") -->
+    <rect x="720" y="480" width="160" height="240" class="gold-stroke" />
+    <text x="800" y="520" class="white text-small">BOTTOM PHOTO</text>
+    <text x="800" y="540" class="white text-small">BLACK APERTURE:</text>
+    <text x="800" y="560" class="white text-small">4" x 6"</text>
+    <text x="800" y="620" class="white text-large">PHOTO 2</text>
+    <text x="800" y="685" class="gold text-small">GOLD BORDER:</text>
+    <text x="800" y="705" class="gold text-small">3.75" x 5.75"</text>
 
-    <!-- Between Plaque and Bottom Photo (1") -->
-    <path d="M 800,445 L 800,475 M 795,450 L 800,445 L 805,450 M 795,470 L 800,475 L 805,470" />
+    <!-- ============================================== -->
+    <!-- ARROWS & DIMENSION LINES -->
+    <!-- ============================================== -->
+    
+    <!-- Top Left 2" -->
+    <line x1="160" y1="10" x2="160" y2="70" class="arrow" />
+    <text x="180" y="45" class="white text-large">2"</text>
+    
+    <line x1="10" y1="120" x2="70" y2="120" class="arrow" />
+    <text x="40" y="105" class="white text-large">2"</text>
+    
+    <!-- Bottom Left 2" -->
+    <line x1="10" y1="680" x2="70" y2="680" class="arrow" />
+    <text x="40" y="665" class="white text-large">2"</text>
+    
+    <line x1="160" y1="730" x2="160" y2="790" class="arrow" />
+    <text x="180" y="765" class="white text-large">2"</text>
+    
+    <!-- Right 2" -->
+    <line x1="890" y1="120" x2="950" y2="120" class="arrow" />
+    <text x="920" y="105" class="white text-large">2"</text>
+    
+    <line x1="890" y1="680" x2="950" y2="680" class="arrow" />
+    <text x="920" y="665" class="white text-large">2"</text>
+
+    <!-- Bottom Center 2" -->
+    <line x1="480" y1="730" x2="480" y2="790" class="arrow" />
+    <text x="500" y="765" class="white text-large">2"</text>
+
+    <!-- 1" Gaps -->
+    <line x1="685" y1="120" x2="715" y2="120" class="arrow" />
+    <text x="700" y="145" class="white text-medium">1"</text>
+    
+    <line x1="685" y1="400" x2="715" y2="400" class="arrow" />
+    <text x="700" y="425" class="white text-medium">1"</text>
+
+    <line x1="800" y1="325" x2="800" y2="355" class="arrow" />
+    <text x="820" y="345" class="white text-medium">1"</text>
+    
+    <line x1="800" y1="445" x2="800" y2="475" class="arrow" />
+    <text x="820" y="465" class="white text-medium">1"</text>
+
+    <!-- Large White Arrow for Main Aperture Width -->
+    <line x1="90" y1="120" x2="670" y2="120" class="arrow-w" />
+    
   </g>
-
-  <!-- Labels for Arrows -->
-  <text x="55" y="45" class="gold text-medium">2"</text>
-  <text x="40" y="30" class="gold text-medium">2"</text>
-  
-  <text x="40" y="750" class="gold text-medium">2"</text>
-  <text x="55" y="765" class="gold text-medium">2"</text>
-  
-  <text x="920" y="30" class="gold text-medium">2"</text>
-  <text x="495" y="765" class="gold text-medium">2"</text>
-  
-  <!-- 1" Labels -->
-  <text x="700" y="110" class="gold text-medium">1"</text>
-  <text x="825" y="345" class="gold text-medium">1"</text>
-  <text x="825" y="465" class="gold text-medium">1"</text>
-
-  <!-- Main aperture arrow -->
-  <g stroke="#ffffff" stroke-width="2" fill="none">
-    <path d="M 85,115 L 675,115 M 95,110 L 85,115 L 95,120 M 665,110 L 675,115 L 665,120" />
-  </g>
-
 </svg>
