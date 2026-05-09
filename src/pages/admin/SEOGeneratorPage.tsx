@@ -65,7 +65,7 @@ export function SEOGeneratorPage() {
             const genAI = new GoogleGenerativeAI(apiKey);
             const model = genAI.getGenerativeModel({ model: "gemini-flash-latest" });
 
-            const promptText = `As a Senior Sports Journalist for a prestige broadsheet newspaper (The Times, The Telegraph), write a factual summary for this item: Hand-signed ${itemType} by ${athlete} (${team}).
+            const promptText = `As a Senior Sports Journalist for a prestige broadsheet newspaper (The Times, The Telegraph), write a factual summary for this item: Hand signed ${itemType} by ${athlete} (${team}).
 
 TASK:
 Write 2-3 punchy, authoritative sentences that document the historical significance of ${athlete} during their time with ${team}. Focus on raw stats, dates, and verifiable trophies.
@@ -125,8 +125,8 @@ Return ONLY the text. No introductions.`;
         const newAssets: SEOAssets = {
             google: {
                 title: smartTrim(`${athlete} Signed ${itemType} | Authentic ${team || year} Memorabilia`, 60),
-                meta: smartTrim(`Authentic ${athlete} Signed ${itemType} - Hand-signed ${team} (${year}) memorabilia. NFC Technology Verified. 24h Dispatch. Bespoke Framing. Fully Insured Delivery.`, 160),
-                long: `PRODUCT SPECIFICATION\nAuthentic hand-signed ${itemType.toLowerCase()} from ${athlete}. ${signText} ${history ? history + '. ' : ''}This item is a verified historical asset for the ${team || ''} collector.\n\nTECHNOLOGY & PROVENANCE\nEvery item is secured with our proprietary NFC tech. Scan the item with your smartphone to instantly access the Digital Ledger, signing date, and full COA details verified by ${auth}.\n\nCRAFTSMANSHIP\nBespoke professional framing using conservation-grade mounts and UV-protective glass. Designed to preserve the integrity of the signature and materials for a lifetime.\n\nLOGISTICS\nPostage within 24hrs of order. Fully insured, secure UK delivery. Experience a premium archival unboxing experience from Sports Memorabilia Store.`
+                meta: smartTrim(`Authentic ${athlete} Signed ${itemType} - Hand signed ${team} (${year}) memorabilia. NFC Technology Verified. 24h Dispatch. Bespoke Framing. Fully Insured Delivery.`, 160),
+                long: `PRODUCT SPECIFICATION\nAuthentic hand signed ${itemType.toLowerCase()} from ${athlete}. ${signText} ${history ? history + '. ' : ''}This item is a verified historical asset for the ${team || ''} collector.\n\nTECHNOLOGY & PROVENANCE\nEvery item is secured with our proprietary NFC tech. Scan the item with your smartphone to instantly access the Digital Ledger, signing date, and full COA details verified by ${auth}.\n\nCRAFTSMANSHIP\nBespoke professional framing using conservation grade mounts and UV protective glass. Designed to preserve the integrity of the signature and materials for a lifetime.\n\nLOGISTICS\nPostage within 24hrs of order. Fully insured, secure UK delivery. Experience a premium archival unboxing experience from Sports Memorabilia Store.`
             },
             ebay: {
                 title: ebTitle,
@@ -135,15 +135,15 @@ Return ONLY the text. No introductions.`;
             etsy: {
                 title: etsyTitle,
                 tags: etsyTagsArr,
-                story: `Elevate your space with a piece of sporting heritage. This isn't just memorabilia; it's a conversation starter and a milestone gift for any ${team || 'sports'} fan. Whether you're celebrating a massive birthday, a promotion, or completing a dream man cave, this hand-signed ${athlete} ${itemType.toLowerCase()} captures the magic of the game.\n\nProfessionally framed and authenticated, it's a timeless heirloom. Authenticity guaranteed by Sports Memorabilia Store.`
+                story: `Elevate your space with a piece of sporting heritage. This isn't just memorabilia; it's a conversation starter and a milestone gift for any ${team || 'sports'} fan. Whether you're celebrating a massive birthday, a promotion, or completing a dream man cave, this hand signed ${athlete} ${itemType.toLowerCase()} captures the magic of the game.\n\nProfessionally framed and authenticated, it's a timeless heirloom. Authenticity guaranteed by Sports Memorabilia Store.`
             },
             amazon: {
                 title: amzTitle,
                 bullets: [
-                    `HAND-SIGNED AUTHENTICITY: Guaranteed signature by ${athlete} - ${signText || 'Professional Session'}.`,
+                    `HAND SIGNED AUTHENTICITY: Guaranteed signature by ${athlete} - ${signText || 'Professional Session'}.`,
                     `NFC TECHNOLOGY: Includes Sports Memorabilia Store™ NFC tag for instant smartphone authentication and digital ledger access.`,
-                    `BESPOKE FRAMING: Housed in professional black frames with conservation-grade double-mounts and UV-protective glass.`,
-                    `ARCHIVAL PACKAGING: Delivered in secure, impact-resistant packaging designed for the preservation of high-value collectibles.`,
+                    `BESPOKE FRAMING: Housed in professional black frames with conservation grade double mounts and UV protective glass.`,
+                    `ARCHIVAL PACKAGING: Delivered in secure, impact resistant packaging designed for the preservation of high value collectibles.`,
                     `LIFETIME GUARANTEE: Provided with a full legal Certificate of Authenticity and a 100% lifetime guarantee.`
                 ]
             },

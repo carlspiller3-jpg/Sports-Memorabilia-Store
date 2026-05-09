@@ -351,9 +351,9 @@ export function ProductPage() {
                         <div className="space-y-4 pt-1">
                             {selectedVariant?.inventory_quantity !== undefined && selectedVariant.inventory_quantity <= 0 ? (
                                 <div className="bg-stone-50 p-6 rounded-lg border border-stone/10 shadow-sm">
-                                    <h4 className="text-lg font-serif font-bold text-charcoal mb-2">Item Currently Out of Stock</h4>
+                                    <h4 className="text-lg font-serif font-bold text-charcoal mb-2">Allocation Pending</h4>
                                     <p className="text-sm text-navy/70 mb-4">
-                                        This exclusive item is currently unavailable. Join our priority waitlist to secure it from our next private signing session.
+                                        This highly sought-after item is currently pending acquisition. Join our priority waitlist to be notified instantly when the allocation is officially secured.
                                     </p>
                                     <WaitlistSignup
                                         productHandle={product.handle}
@@ -362,13 +362,23 @@ export function ProductPage() {
                                     />
                                 </div>
                             ) : (
-                                <Button
-                                    size="lg"
-                                    onClick={handleAddToCart}
-                                    className="w-full text-sm uppercase tracking-widest font-bold h-12 shadow-md shadow-gold/10 hover:shadow-gold/20 transition-shadow bg-charcoal text-white hover:bg-charcoal/90"
-                                >
-                                    Add to Cart
-                                </Button>
+                                <>
+                                    {product.tags && product.tags.includes('Deposit') && (
+                                        <div className="bg-gold/10 p-4 rounded-lg border border-gold/20 mb-4">
+                                            <h4 className="text-sm font-bold text-gold mb-1">Priority Allocation Deposit</h4>
+                                            <p className="text-xs text-navy/80">
+                                                You are paying a deposit today to secure your guaranteed allocation. The remaining balance will be invoiced via secure link when the item arrives.
+                                            </p>
+                                        </div>
+                                    )}
+                                    <Button
+                                        size="lg"
+                                        onClick={handleAddToCart}
+                                        className="w-full text-sm uppercase tracking-widest font-bold h-12 shadow-md shadow-gold/10 hover:shadow-gold/20 transition-shadow bg-charcoal text-white hover:bg-charcoal/90"
+                                    >
+                                        {product.tags && product.tags.includes('Deposit') ? 'Pay Deposit To Secure' : 'Add to Cart'}
+                                    </Button>
+                                </>
                             )}
 
                             {/* Payment Icons - Only show if in stock or generally relevant */}
