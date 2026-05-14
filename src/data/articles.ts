@@ -10,7 +10,30 @@ export interface BlogPost {
   imageUrl: string;
   seo_title: string;
   seo_description: string;
-  seo_keywords: string[];
+  seo_keywords: string[  {
+    id: "24",
+    title: "The King Leaves the Court: LeBron James and the Twenty Million Dollar Jersey",
+    slug: "the-king-leaves-the-court-lebron-james-and-the-twenty-million-dollar-jersey",
+    date: "2026-05-14",
+    author: "Tactical Engine",
+    category: "News",
+    excerpt: "LeBron James has retired after 23 seasons and the hunt for his final jersey is already heating up.",
+    imageUrl: "https://images.unsplash.com/photo-1574629810360-7efbbe195018?q=80",
+    seo_title: "LeBron James Retires: $20 Million Final Jersey Value",
+    seo_description: "LeBron James retires after 23 seasons. Sports Memorabilia Store analyses why his final game jersey is estimated to sell for over $20 million.",
+    seo_keywords: ["breaking news", "sports memorabilia", "investment"],
+    content: `<h2>The King Departs the Court</h2>
+<p>LeBron James has finally called time on his career. After 23 seasons at the very top of the game, the man has decided to hang up his boots for good. We are talking about a player who has dominated the court since the early noughties, and his departure marks the end of an era that we will likely never see the likes of again. He leaves the game as the scorer who sits at the top of the list for all time and as a man who secured a championship ring on four separate occasions. At Sports Memorabilia Store, we have seen legends come and go, but this feels like a shift in the foundations of the sport.</p>
+
+<h3>The Twenty Million Dollar Jersey</h3>
+<p>Now, let us talk about the money involved in this exit. Experts at Sports Memorabilia Store have been looking at the early estimates for the kit he wore during his final appearance. The numbers are staggering. Specialists reckon that the jersey worn during the game last night will fetch more than twenty million dollars at auction. If that price is realised, it will become the most expensive piece of apparel from the world of sport to ever change hands. It is not just a bit of fabric; it is a primary relic of a career that lasted longer than many of his teammates have been alive.</p>
+
+<h3>A Proper Investment for the Serious Collector</h3>
+<p>You might wonder why a shirt costs as much as a mansion in a prime London location. The logic is simple enough for anyone to understand. Scarcity and greatness are the only things that truly matter in this market. James has maintained a level of excellence for decades, and his final match is a moment that will be discussed for as long as people play the game. When you look at the items we handle at Sports Memorabilia Store, we recognise that certain pieces transcend the sport itself. This jersey is the ultimate trophy for any collector who wants to own a piece of history that is guaranteed to appreciate.</p>
+
+<strong>Verdict</strong>: Buy it if you have the brass because this jersey is the greatest asset in the history of sports collecting.`
+  },
+];
 }
 
 export const articles: BlogPost[] = [
