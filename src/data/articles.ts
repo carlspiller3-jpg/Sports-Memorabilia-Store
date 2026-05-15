@@ -10,7 +10,11 @@ export interface BlogPost {
   imageUrl: string;
   seo_title: string;
   seo_description: string;
-  seo_keywords: string[  {
+  seo_keywords: string[];
+}
+
+export const articles: BlogPost[] = [
+  {
     id: "24",
     title: "The King Leaves the Court: LeBron James and the Twenty Million Dollar Jersey",
     slug: "the-king-leaves-the-court-lebron-james-and-the-twenty-million-dollar-jersey",
@@ -33,10 +37,6 @@ export interface BlogPost {
 
 <strong>Verdict</strong>: Buy it if you have the brass because this jersey is the greatest asset in the history of sports collecting.`
   },
-];
-}
-
-export const articles: BlogPost[] = [
   {
     id: "23",
     title: "LeBron James retires: The greatest hunt for memorabilia begins",
