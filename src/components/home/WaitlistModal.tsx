@@ -116,24 +116,34 @@ export function WaitlistModal() {
             />
 
             <div className="relative flex min-h-full w-full items-center justify-center p-4 sm:p-6 my-auto">
-                <div className="relative w-full max-w-lg bg-white border border-navy/10 rounded-2xl shadow-2xl animate-in zoom-in-95 duration-300 text-left my-auto overflow-hidden">
+                <div 
+                    className="relative w-full max-w-lg bg-white border border-navy/10 rounded-2xl shadow-2xl animate-in zoom-in-95 duration-300 text-left my-auto overflow-hidden"
+                    style={{ borderRadius: '16px', overflow: 'hidden', backgroundColor: '#ffffff' }}
+                >
 
-                    <div className="bg-navy pt-10 pb-6 px-6 text-center border-b border-gold/20 relative">
-                        <div className="w-14 h-14 bg-gold/20 rounded-full flex items-center justify-center mx-auto mb-4 border border-gold/30 shadow-inner">
-                            <Zap className="w-7 h-7 text-gold fill-gold" />
+                    <div 
+                        className="bg-navy text-center border-b border-gold/20 relative"
+                        style={{ backgroundColor: '#0B1221', paddingTop: '44px', paddingBottom: '24px', paddingLeft: '24px', paddingRight: '24px', position: 'relative' }}
+                    >
+                        <div 
+                            className="rounded-full flex items-center justify-center border border-gold/30"
+                            style={{ width: '56px', height: '56px', backgroundColor: 'rgba(198, 166, 100, 0.2)', marginLeft: 'auto', marginRight: 'auto', marginBottom: '16px', borderRadius: '9999px', display: 'flex', alignItems: 'center', justifyCenter: 'center' }}
+                        >
+                            <Zap className="w-7 h-7 text-gold fill-gold" style={{ width: '28px', height: '28px', color: '#c6a664', fill: '#c6a664' }} />
                         </div>
-                        <h2 className="font-serif text-2xl sm:text-3xl text-white mb-1.5">
+                        <h2 className="font-serif text-2xl sm:text-3xl text-white mb-1.5" style={{ color: '#ffffff', marginBottom: '6px' }}>
                             Store Is Now Live
                         </h2>
-                        <p className="text-white/60 text-[11px] uppercase tracking-[0.2em] font-bold">
-                            Unlock a <span className="text-gold">10% Discount Code</span>
+                        <p className="text-white/60 text-[11px] uppercase tracking-[0.2em] font-bold" style={{ color: 'rgba(255, 255, 255, 0.6)' }}>
+                            Unlock a <span style={{ color: '#c6a664' }}>10% Discount Code</span>
                         </p>
                         <button
                             onClick={handleClose}
                             className="absolute top-4 right-4 p-2 bg-white/10 rounded-full text-white/60 hover:text-white transition-colors"
+                            style={{ position: 'absolute', top: '16px', right: '16px', padding: '8px', backgroundColor: 'rgba(255,255,255,0.1)', borderRadius: '9999px', color: 'rgba(255,255,255,0.7)', border: 'none', cursor: 'pointer' }}
                             aria-label="Close"
                         >
-                            <X className="w-4 h-4" />
+                            <X className="w-4 h-4" style={{ width: '16px', height: '16px' }} />
                         </button>
                     </div>
 
