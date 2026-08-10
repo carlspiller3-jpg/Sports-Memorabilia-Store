@@ -118,9 +118,9 @@ export function WaitlistModal() {
             <div className="relative flex min-h-full w-full items-center justify-center p-4 sm:p-6 my-auto">
                 <div className="relative w-full max-w-lg bg-white border border-navy/10 rounded-2xl shadow-2xl animate-in zoom-in-95 duration-300 text-left my-auto overflow-hidden">
 
-                    <div className="bg-navy pt-8 pb-6 px-6 text-center border-b border-gold/20 relative">
-                        <div className="w-12 h-12 bg-gold/20 rounded-full flex items-center justify-center mx-auto mb-4 border border-gold/30 shadow-inner">
-                            <Zap className="w-6 h-6 text-gold fill-gold" />
+                    <div className="bg-navy pt-10 pb-6 px-6 text-center border-b border-gold/20 relative">
+                        <div className="w-14 h-14 bg-gold/20 rounded-full flex items-center justify-center mx-auto mb-4 border border-gold/30 shadow-inner">
+                            <Zap className="w-7 h-7 text-gold fill-gold" />
                         </div>
                         <h2 className="font-serif text-2xl sm:text-3xl text-white mb-1.5">
                             Store Is Now Live
