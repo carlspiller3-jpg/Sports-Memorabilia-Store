@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            background-color: #F9F7F3;
+            color: #2E2E2E;
+        }
+
+        .wrapper {
+            width: 100%;
+            table-layout: fixed;
+            background-color: #F9F7F3;
+            padding-bottom: 40px;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            border: 1px solid #D9D5CD;
+        }
+
+        .content {
+            padding: 20px 30px 40px;
+            text-align: center;
+        }
+
+        /* Typography */
+        h1 {
+            font-family: 'Georgia', serif;
+            font-size: 30px;
+            font-weight: 700;
+            color: #1C273A;
+            letter-spacing: -0.5px;
+            margin-bottom: 24px;
+            margin-top: 5px;
+            text-transform: uppercase;
+        }
+
+        p {
+            font-size: 16px;
+            line-height: 1.6;
+            color: #2E2E2E;
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .text-center {
+            text-align: center !important;
+        }
+
+        .gold-text {
+            color: #C6A664;
+            font-weight: 700;
+        }
+
+        /* Elements */
+        .logo-container {
+            margin-bottom: 5px;
+            padding-bottom: 0px;
+            display: inline-block;
+        }
+
+        .logo-img {
+            max-width: 200px;
+            height: auto;
+            display: block;
+            margin: 0 auto;
+        }
+
+        /* Scorecard Box */
+        .score-box {
+            background-color: #1C273A;
+            color: #ffffff;
+            padding: 30px;
+            margin: 30px 0;
+            border-radius: 4px;
+            text-align: center;
+            border-top: 4px solid #C6A664;
+        }
+
+        .score-label {
+            display: block;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 5px;
+            color: #D9D5CD;
+            font-weight: bold;
+        }
+
+        .score-number {
+            font-family: 'Georgia', serif;
+            font-size: 60px;
+            color: #C6A664;
+            line-height: 1;
+            font-weight: bold;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .btn {
+            background-color: #C6A664;
+            color: #1C273A !important;
+            padding: 18px 40px;
+            text-decoration: none;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 14px;
+            display: inline-block;
+            margin-top: 20px;
+            border-radius: 0;
+        }
+
+        /* Footer */
+        .footer {
+            background-color: #1C273A;
+            padding: 40px 20px;
+            text-align: center;
+            margin-top: 0;
+        }
+
+        .footer p {
+            color: #D9D5CD;
+            font-size: 12px;
+            margin-bottom: 10px;
+            opacity: 0.8;
+            margin: 0;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div itemscope itemtype="http://schema.org/EmailMessage" style="display:none;">
+        <meta itemprop="description" content="Your account status confirmation" />
+        <div itemprop="potentialAction" itemscope itemtype="http://schema.org/ViewAction">
+            <meta itemprop="target" content="https://www.sportssigned.com/account" />
+            <meta itemprop="name" content="View Account Status" />
+        </div>
+        <div itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+            <meta itemprop="name" content="Sports Memorabilia Store" />
+            <meta itemprop="url" content="https://www.sportssigned.com" />
+            <meta itemprop="logo" content="https://www.sportssigned.com/logo-transparent.png" />
+        </div>
+    </div>
+
+    <div style="display:none; max-height:0px; max-width:0px; opacity:0; overflow:hidden;">
+        <!-- HIDDEN PREHEADER TEXT PADDING -->
+        &nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;
+        &nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;
+    </div>
+    <div class="wrapper">
+        <div class="container">
+            <div class="content">
+                <!-- Logo -->
+                <div class="logo-container">
+                    <img src="https://sportssigned.com/logo-transparent.png" alt="Sports Memorabilia Store"
+                        class="logo-img">
+                </div>
+
+                <!-- Main Headline -->
+                <h1><span class="gold-text">You Got an Entry.</span></h1>
+
+                <!-- Body Text -->
+                <p>Great news. A friend just joined the list using your code.</p>
+
+                <p>This gives you another entry in the Chris Eubank VIP raffle.</p>
+
+                <!-- Scorecard Feature -->
+                <div class="score-box">
+                    <span class="score-label">Your Entries</span>
+                    <span class="score-number">
+                        {% if person %}
+                        {{ person.referral_count|default:1 }}
+                        {% else %}
+                        1
+                        {% endif %}
+                    </span>
+                    <span style="font-size: 12px; opacity: 0.7;">Chance of winning: Going Up</span>
+                </div>
+
+                <p class="text-center">Every friend who signs up is another ticket in the hat. You can enter as many times as you want.</p>
+
+                <a href="https://sportssigned.com/refer" class="btn">Invite More Friends</a>
+
+            </div>
+
+            <!-- Footer -->
+            <div class="footer">
+                <p>&copy; 2025 Sports Memorabilia Store Limited.<br>
+                    London, United Kingdom</p>
+                <br>
+                <p>100% Real. Guaranteed.</p>
+                <p style="margin-top: 20px; font-size: 10px;">
+                    {% manage_preferences %} | {% unsubscribe %}
+                </p>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

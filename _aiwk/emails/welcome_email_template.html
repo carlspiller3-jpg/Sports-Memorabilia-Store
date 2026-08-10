@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body
+    style="margin: 0; padding: 0; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; background-color: #ffffff; color: #2E2E2E;">
+
+    <!-- SCHEMA: Event Reservation (Strong Primary Signal) -->
+    <div itemscope itemtype="http://schema.org/EventReservation" style="display:none !important;">
+        <meta itemprop="reservationNumber" content="{{ person.own_referral_code|default:'WAITLIST' }}" />
+        <meta itemprop="reservationStatus" content="http://schema.org/Confirmed" />
+        <div itemprop="underName" itemscope itemtype="http://schema.org/Person">
+            <meta itemprop="name" content="{{ first_name|default:'Subscriber' }}" />
+        </div>
+        <div itemprop="reservationFor" itemscope itemtype="http://schema.org/Event">
+            <meta itemprop="name" content="Sports Memorabilia Store Launch" />
+            <meta itemprop="startDate" content="2026-01-01T00:00:00" />
+            <div itemprop="location" itemscope itemtype="http://schema.org/Place">
+                <meta itemprop="name" content="Online Store" />
+            </div>
+            <div itemprop="organizer" itemscope itemtype="http://schema.org/Organization">
+                <meta itemprop="name" content="Sports Memorabilia Store Limited" />
+            </div>
+        </div>
+    </div>
+
+    <!-- WRAPPER -->
+    <div style="width: 100%; background-color: #ffffff; padding-bottom: 40px;" role="presentation">
+        <div style="max-width: 600px; margin: 0 auto; background-color: #ffffff;">
+
+            <!-- TICKET STUB HEADER (Invisible Transactional Marker) -->
+            <div
+                style="padding: 10px 0 0; text-align: center; color: #ffffff; font-size: 9px; font-family: monospace; letter-spacing: 1px;">
+                REF: #{{ person.own_referral_code|default:'WAITLIST' }} &bull; PRIORITY ACCESS
+            </div>
+
+            <div style="padding: 10px 30px 40px; text-align: center;">
+                <!-- Logo -->
+                <div style="margin-bottom: 5px; padding-bottom: 0px; display: inline-block;">
+                    <!-- Using the trusted remote URL for the transparent logo as requested -->
+                    <img src="https://sportssigned.com/logo-transparent.png" alt="SPORTS MEMORABILIA STORE"
+                        style="max-width: 200px; height: auto; display: block; margin: 0 auto;">
+                </div>
+
+                <!-- Main Headline -->
+                <h1
+                    style="font-family: 'Georgia', serif; font-size: 30px; font-weight: 700; color: #1C273A; letter-spacing: -0.5px; margin-bottom: 24px; margin-top: 5px; text-transform: uppercase;">
+                    <span style="color: #C6A664; font-weight: 700;">You are on the list.</span>
+                </h1>
+
+                <!-- Body Text -->
+                <p style="font-size: 16px; line-height: 1.6; color: #2E2E2E; margin-bottom: 20px; text-align: left;">
+                    Thank you for signing up. You are now on the list.</p>
+
+                <p style="font-size: 16px; line-height: 1.6; color: #2E2E2E; margin-bottom: 20px; text-align: left;">
+                    We help you get rare sports items before anyone else. Our collections are small. They sell out fast. You get first choice.</p>
+
+                <p style="font-size: 16px; line-height: 1.6; color: #2E2E2E; margin-bottom: 20px; text-align: left;">
+                    <strong>Since you signed up early, you get the best benefits.</strong>
+                </p>
+
+                <div
+                    style="background-color: #F9F7F3; border: 1px solid #D9D5CD; padding: 25px; text-align: left; margin: 30px 0; border-left: 4px solid #C6A664;">
+                    <p
+                        style="margin: 0 0 10px 0; font-size: 15px; font-weight: bold; text-transform: uppercase; letter-spacing: 1px; color: #1C273A;">
+                        Your Benefits:</p>
+                    <ul style="padding-left: 20px; margin: 0;" role="presentation">
+                        <li style="margin-bottom: 12px; color: #1C273A; font-weight: 500; line-height: 1.5;">
+                            <strong>48-Hour Head Start:</strong> We email you on Saturday. We email everyone else on Monday. If you see something you want, you have two days to claim it.
+                        </li>
+                        <li style="margin-bottom: 12px; color: #1C273A; font-weight: 500; line-height: 1.5;">
+                            <strong>Guaranteed Slots:</strong> When a player signs, you can book your spot right away. No waiting.
+                        </li>
+                        <li style="margin-bottom: 12px; color: #1C273A; font-weight: 500; line-height: 1.5;">
+                            <strong>First to Know:</strong> Hear about new signings before we post on social media.
+                        </li>
+                    </ul>
+                </div>
+
+                <div
+                    style="background-color: #1C273A; color: #ffffff; padding: 20px; margin-top: 30px; border-radius: 4px; text-align: left;">
+                    <p
+                        style="color: #C6A664; font-weight: bold; text-transform: uppercase; text-align: center; margin-bottom: 10px;">
+                        Meet the Player</p>
+                    <p style="font-size: 14px; margin-bottom: 10px; text-align: center; color: #D9D5CD;">
+                        We are holding a private signing event. We are giving away two VIP tickets. You could win them.
+                    </p>
+                    <p style="font-size: 14px; margin-bottom: 10px; text-align: center; color: #D9D5CD;">
+                        Share your code with friends. Every friend who signs up gives you a chance to win. You can meet the player in person.
+                    </p>
+                    <div style="text-align: center;">
+                        <span
+                            style="font-family: monospace; font-size: 20px; color: #C6A664; letter-spacing: 2px; background: rgba(255, 255, 255, 0.1); padding: 10px; display: inline-block; margin: 10px 0; font-weight: bold;">
+                            {% if person %}
+                            {{ person.own_referral_code|default:'VIP-CODE-PENDING' }}
+                            {% else %}
+                            VIP-CODE-PREVIEW
+                            {% endif %}
+                        </span>
+                    </div>
+                    <p
+                        style="font-size: 10px; color: #ffffff; opacity: 0.5; margin-top: 15px; text-align: center; line-height: 1.4;">
+                        *Terms: Ticket only. You must pay for your own travel. 18+ only.
+                    </p>
+                </div>
+
+                <p
+                    style="font-weight: bold; margin-top: 30px; font-size: 16px; line-height: 1.6; color: #2E2E2E; text-align: left;">
+                    Store launch: January 2026.<br>We will email you soon.</p>
+
+                <!-- Button -->
+                <a href="https://sportssigned.com"
+                    style="background-color: #1C273A; color: #ffffff !important; padding: 18px 40px; text-decoration: none; font-weight: bold; text-transform: uppercase; letter-spacing: 2px; font-size: 14px; display: inline-block; margin-top: 20px; border-radius: 0;">Go to Website</a>
+            </div>
+
+            <!-- Footer -->
+            <div style="background-color: #1C273A; padding: 40px 20px; text-align: center; margin-top: 0;">
+                <p
+                    style="color: #D9D5CD; font-size: 12px; margin-bottom: 10px; opacity: 0.8; margin: 0; text-align: center;">
+                    &copy; 2025 Sports Memorabilia Store Limited.<br>
+                    London, United Kingdom</p>
+                <br>
+                <p
+                    style="color: #D9D5CD; font-size: 12px; margin-bottom: 10px; opacity: 0.8; margin: 0; text-align: center;">
+                    100% Real. Guaranteed.</p>
+                <p style="margin-top: 20px; font-size: 10px; opacity: 0.6;">
+                    <a href="{% manage_preferences_link %}" style="color: #D9D5CD; text-decoration: none;">My Preferences</a>
+                    <span style="margin: 0 5px; color: #D9D5CD;">|</span>
+                    <a href="{% unsubscribe_link %}" style="color: #D9D5CD; text-decoration: none;">Manage Access</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rangers FC Proposal</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Playfair+Display:ital,wght@0,700;1,700&display=swap');
+
+        :root {
+            --rangers-blue: #0053a0;
+            --gold: #bfa15f;
+            --text: #2b2b2b;
+            --muted: #666666;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: var(--text);
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+        }
+
+        .document-page {
+            width: 210mm;
+            min-height: 297mm;
+            padding: 20mm;
+            margin: 15mm auto;
+            background: white;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            box-sizing: border-box;
+            position: relative;
+        }
+
+        .header {
+            border-bottom: 2px solid var(--gold);
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo-container img {
+            max-height: 90px;
+            width: auto;
+            display: block;
+        }
+
+        .title-group {
+            text-align: right;
+        }
+
+        .title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            color: var(--rangers-blue);
+            margin: 0;
+        }
+
+        .subtitle {
+            color: var(--gold);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            font-size: 0.75rem;
+            font-weight: bold;
+            margin-top: 5px;
+        }
+
+        h2 {
+            font-family: 'Playfair Display', serif;
+            color: var(--rangers-blue);
+            font-size: 1.5rem;
+            margin-top: 25px;
+            border-left: 4px solid var(--gold);
+            padding-left: 15px;
+            margin-bottom: 10px;
+        }
+
+        p {
+            margin-bottom: 12px;
+            text-align: left;
+            font-size: 0.95rem;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .stat-card {
+            background: #fafafa;
+            padding: 15px;
+            border: 1px solid #eee;
+        }
+
+        .stat-value {
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: var(--rangers-blue);
+            display: block;
+        }
+
+        .stat-label {
+            color: var(--muted);
+            font-size: 0.7rem;
+            text-transform: uppercase;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        th {
+            background: var(--rangers-blue);
+            color: white;
+            text-align: left;
+            padding: 8px;
+            font-size: 0.9rem;
+        }
+
+        td {
+            padding: 8px;
+            border-bottom: 1px solid #eee;
+            font-size: 0.9rem;
+        }
+
+        @media print {
+            body { background: white; }
+            .document-page { margin: 0; box-shadow: none; }
+            .no-print { display: none; }
+        }
+
+        .print-btn {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 10px 20px;
+            background: var(--rangers-blue);
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <button class="print-btn no-print" onclick="window.print()">Print to PDF</button>
+
+    <div class="document-page">
+        <div class="header">
+            <div class="logo-container">
+                <img src="file:///C:/Users/carls/.gemini/antigravity/Scratch/sports-memorabilia-store/public/logo-transparent.png" alt="Sports Memorabilia Store Logo">
+            </div>
+            <div class="title-group">
+                <h1 class="title">Rangers FC Proposal</h1>
+                <div class="subtitle">Partnership Plan</div>
+            </div>
+        </div>
+
+        <h2>Standard of Service</h2>
+        <p>
+            This proposal outlines an exclusive partnership for official signed sports memorabilia. We provide premium framing and NFC tags for authentication. This technology allows fans to verify their purchase instantly by tapping their phone on the frame to view a digital certificate.
+        </p>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>The Collection</th>
+                    <th>Full Volume</th>
+                    <th>Retail Target</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>The Squad Signed Shirt</td>
+                    <td>150 Units</td>
+                    <td>&pound;500</td>
+                </tr>
+                <tr>
+                    <td>Official Match Worn Shirt</td>
+                    <td>400 Units</td>
+                    <td>&pound;250</td>
+                </tr>
+                <tr>
+                    <td>Single Player Signed Shirt</td>
+                    <td>1,000 Units</td>
+                    <td>&pound;240</td>
+                </tr>
+                <tr>
+                    <td>Official Signed Boots</td>
+                    <td>500 Units</td>
+                    <td>&pound;200</td>
+                </tr>
+                <tr>
+                    <td>Official Signed Photos</td>
+                    <td>500 Units</td>
+                    <td>&pound;100</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h2>Investment and Rights</h2>
+        <p>
+            The partnership includes a commercial rights fee of one hundred and fifty thousand pounds per season. This includes exclusivity for the brand across all signed memorabilia categories. The partnership also includes full rights to match worn shirts from every first team fixture throughout the campaign.
+        </p>
+
+        <h2>Signature Commitment</h2>
+        <p>
+            The inventory plan includes two hundred and fifty signatures from each player and ambassador per season. Our logistics team handles all preparation and setup. This keeps signing sessions brief and ensures the process fits seamlessly into the training schedule. 
+        </p>
+
+        <h2>Matchday Hospitality</h2>
+        <p>
+            The partnership includes matchday hospitality for four personnel at three games per season. We look forward to utilizing a corporate box for these fixtures, excluding only the Glasgow Derby and any major finals. 
+        </p>
+
+        <h2>Media Rights</h2>
+        <p>
+            We will generate our own content during signing sessions for marketing and authentication purposes. We also propose announcing the partnership via the official club social channels and monthly email newsletters to reach the supporter base directly.
+        </p>
+
+        <h2>Key Sales Dates</h2>
+        <div class="stats-grid">
+            <div class="stat-card">
+                <span class="stat-label">Sales Peak</span>
+                <span class="stat-value">The Christmas Range</span>
+                <p style="font-size: 0.75rem; margin: 5px 0 0 0;">Focusing on high quality gifts during the festive period.</p>
+            </div>
+            <div class="stat-card">
+                <span class="stat-label">Elite Drop</span>
+                <span class="stat-value">The Glasgow Derby</span>
+                <p style="font-size: 0.75rem; margin: 5px 0 0 0;">Exclusive items released for the major fixtures.</p>
+            </div>
+            <div class="stat-card">
+                <span class="stat-label">Family Gifts</span>
+                <span class="stat-value">Fathers Day</span>
+                <p style="font-size: 0.75rem; margin: 5px 0 0 0;">Gifting options at every price point scheduled throughout the year.</p>
+            </div>
+            <div class="stat-card">
+                <span class="stat-label">End of Year</span>
+                <span class="stat-value">The Season Finale</span>
+                <p style="font-size: 0.75rem; margin: 5px 0 0 0;">Final signed pieces from the season highlights.</p>
+            </div>
+        </div>
+
+        <div style="margin-top: 30px; border-top: 1px solid #eee; padding-top: 15px; font-style: italic; color: var(--muted); font-size: 0.8rem;">
+            Provisional Plan for Sports Memorabilia Store and Rangers FC
+        </div>
+    </div>
+
+</body>
+</html>
