@@ -109,7 +109,7 @@ export function WaitlistModal() {
     if (!isOpen) return null;
 
     return (
-        <div className="fixed inset-0 z-50 w-screen h-[100dvh] overflow-y-auto">
+        <div className="fixed inset-0 z-[9999] w-screen h-[100dvh] overflow-y-auto">
             <div
                 className="fixed inset-0 bg-navy/95 backdrop-blur-sm"
                 onClick={handleClose}
