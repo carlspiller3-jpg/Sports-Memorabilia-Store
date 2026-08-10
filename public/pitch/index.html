@@ -1170,28 +1170,28 @@
                     <line x1="0" y1="70" x2="1000" y2="70" class="chart-grid-line" />
 
                     <!-- REVENUE AREA & LINE (Top) -->
-                    <path d="M 0 338 L 250 320 L 500 274 L 750 184 L 1000 34 L 1000 350 L 0 350 Z" fill="var(--primary-navy)" opacity="0.05" />
-                    <path d="M 0 338 L 250 320 L 500 274 L 750 184 L 1000 34" class="chart-line" stroke="var(--primary-navy)" />
+                    <path d="M 0 328 L 250 303 L 500 257 L 750 163 L 1000 0 L 1000 350 L 0 350 Z" fill="var(--primary-navy)" opacity="0.05" />
+                    <path d="M 0 328 L 250 303 L 500 257 L 750 163 L 1000 0" class="chart-line" stroke="var(--primary-navy)" stroke-width="2.5" />
 
-                    <!-- EBITDA AREA & LINE (Hero) -->
-                    <path d="M 0 346 L 250 341 L 500 325 L 750 288 L 1000 220 L 1000 350 L 0 350 Z" fill="var(--accent-gold)" opacity="0.15" />
-                    <path d="M 0 346 L 250 341 L 500 325 L 750 288 L 1000 220" class="chart-line" stroke="var(--accent-gold)" stroke-width="4" />
-
-                    <!-- UNLEVERED FCF LINE -->
-                    <path d="M 0 352 L 250 347 L 500 335 L 750 305 L 1000 245" class="chart-line" stroke="#1a3a5f" stroke-width="2" stroke-dasharray="8,4" />
+                    <!-- NET SALES LINE -->
+                    <path d="M 0 331 L 250 311 L 500 272 L 750 194 L 1000 58" class="chart-line" stroke="#1a3a5f" stroke-width="2" stroke-dasharray="6,3" />
 
                     <!-- COGS LINE -->
-                    <path d="M 0 346 L 250 339 L 500 326 L 750 300 L 1000 261" class="chart-line" stroke="#888" stroke-dasharray="4,4" stroke-width="1.5" />
+                    <path d="M 0 343 L 250 336 L 500 323 L 750 297 L 1000 254" class="chart-line" stroke="#888" stroke-dasharray="4,4" stroke-width="1.5" />
 
-                    <!-- OP EX LINE -->
-                    <path d="M 0 346 L 250 339 L 500 324 L 750 296 L 1000 253" class="chart-line" stroke="#bbb" stroke-dasharray="2,2" stroke-width="1" />
+                    <!-- EBITDA AREA & LINE (Hero) -->
+                    <path d="M 0 348 L 250 343 L 500 335 L 750 318 L 1000 289 L 1000 350 L 0 350 Z" fill="var(--accent-gold)" opacity="0.15" />
+                    <path d="M 0 348 L 250 343 L 500 335 L 750 318 L 1000 289" class="chart-line" stroke="var(--accent-gold)" stroke-width="4" />
+
+                    <!-- UNLEVERED FCF LINE -->
+                    <path d="M 0 348 L 250 344 L 500 339 L 750 326 L 1000 304" class="chart-line" stroke="#2b2b2b" stroke-width="1.5" stroke-dasharray="2,2" />
 
                     <!-- Key Points -->
-                    <circle cx="1000" cy="34" r="5" class="chart-point" stroke="var(--primary-navy)" />
-                    <circle cx="1000" cy="220" r="5" class="chart-point" stroke="var(--accent-gold)" />
-                    <circle cx="1000" cy="245" r="4" class="chart-point" stroke="#1a3a5f" />
-                    <circle cx="1000" cy="253" r="4" class="chart-point" stroke="#bbb" />
-                    <circle cx="1000" cy="261" r="4" class="chart-point" stroke="#888" />
+                    <circle cx="1000" cy="0" r="5" class="chart-point" stroke="var(--primary-navy)" />
+                    <circle cx="1000" cy="58" r="4" class="chart-point" stroke="#1a3a5f" />
+                    <circle cx="1000" cy="254" r="4" class="chart-point" stroke="#888" />
+                    <circle cx="1000" cy="289" r="5" class="chart-point" stroke="var(--accent-gold)" />
+                    <circle cx="1000" cy="304" r="4" class="chart-point" stroke="#2b2b2b" />
                 </svg>
 
                 <!-- HTML Absolute positioned Y-Axis Label -->
@@ -1200,20 +1200,20 @@
                 </div>
 
                 <!-- HTML Absolute positioned Legend Labels -->
-                <div style="position: absolute; left: 84.5%; top: 9.7%; transform: translateY(-50%); font-family: 'Inter', sans-serif; font-size: 0.8rem; font-weight: bold; color: var(--primary-navy); white-space: nowrap;">
-                    £22.6M Revenue
+                <div style="position: absolute; left: 84.5%; top: 0%; transform: translateY(-50%); font-family: 'Inter', sans-serif; font-size: 0.8rem; font-weight: bold; color: var(--primary-navy); white-space: nowrap;">
+                    £18.0M Gross
                 </div>
-                <div style="position: absolute; left: 84.5%; top: 62.8%; transform: translateY(-50%); font-family: 'Inter', sans-serif; font-size: 0.8rem; font-weight: bold; color: var(--accent-gold); white-space: nowrap;">
-                    £9.3M EBITDA
+                <div style="position: absolute; left: 84.5%; top: 16.5%; transform: translateY(-50%); font-family: 'Inter', sans-serif; font-size: 0.75rem; font-weight: bold; color: #1a3a5f; white-space: nowrap;">
+                    £15.0M Net
                 </div>
-                <div style="position: absolute; left: 84.5%; top: 68.8%; transform: translateY(-50%); font-family: 'Inter', sans-serif; font-size: 0.75rem; font-weight: bold; color: #1a3a5f; white-space: nowrap;">
-                    £7.5M FCF
+                <div style="position: absolute; left: 84.5%; top: 72.5%; transform: translateY(-50%); font-family: 'Inter', sans-serif; font-size: 0.75rem; font-weight: bold; color: #888; white-space: nowrap;">
+                    £4.95M COGS
                 </div>
-                <div style="position: absolute; left: 84.5%; top: 73.5%; transform: translateY(-50%); font-family: 'Inter', sans-serif; font-size: 0.75rem; font-weight: bold; color: #bbb; white-space: nowrap;">
-                    £7.0M OpEx
+                <div style="position: absolute; left: 84.5%; top: 82.5%; transform: translateY(-50%); font-family: 'Inter', sans-serif; font-size: 0.8rem; font-weight: bold; color: var(--accent-gold); white-space: nowrap;">
+                    £3.12M EBITDA
                 </div>
-                <div style="position: absolute; left: 84.5%; top: 78.2%; transform: translateY(-50%); font-family: 'Inter', sans-serif; font-size: 0.75rem; font-weight: bold; color: #888; white-space: nowrap;">
-                    £6.3M COGS
+                <div style="position: absolute; left: 84.5%; top: 86.8%; transform: translateY(-50%); font-family: 'Inter', sans-serif; font-size: 0.75rem; font-weight: bold; color: #2b2b2b; white-space: nowrap;">
+                    £2.34M FCF
                 </div>
             </div>
 
