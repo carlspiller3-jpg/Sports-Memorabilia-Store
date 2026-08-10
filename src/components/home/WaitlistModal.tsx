@@ -116,21 +116,21 @@ export function WaitlistModal() {
             />
 
             <div className="relative flex min-h-full w-full items-center justify-center p-4 sm:p-6 my-auto">
-                <div className="relative w-full max-w-lg bg-white border border-navy/10 rounded-xl shadow-2xl animate-in zoom-in-95 duration-300 text-left my-auto">
+                <div className="relative w-full max-w-lg bg-white border border-navy/10 rounded-2xl shadow-2xl animate-in zoom-in-95 duration-300 text-left my-auto overflow-hidden">
 
-                    <div className="bg-navy pt-6 pb-4 px-4 text-center border-b border-gold/20 rounded-t-xl relative">
-                        <div className="w-10 h-10 bg-gold/20 rounded-full flex items-center justify-center mx-auto mb-3 border border-gold/30">
-                            <Zap className="w-5 h-5 text-gold fill-gold" />
+                    <div className="bg-navy pt-8 pb-6 px-6 text-center border-b border-gold/20 relative">
+                        <div className="w-12 h-12 bg-gold/20 rounded-full flex items-center justify-center mx-auto mb-4 border border-gold/30 shadow-inner">
+                            <Zap className="w-6 h-6 text-gold fill-gold" />
                         </div>
-                        <h2 className="font-serif text-2xl text-white mb-1">
+                        <h2 className="font-serif text-2xl sm:text-3xl text-white mb-1.5">
                             Store Is Now Live
                         </h2>
-                        <p className="text-white/60 text-[10px] uppercase tracking-[0.2em] font-bold">
+                        <p className="text-white/60 text-[11px] uppercase tracking-[0.2em] font-bold">
                             Unlock a <span className="text-gold">10% Discount Code</span>
                         </p>
                         <button
                             onClick={handleClose}
-                            className="absolute top-3 right-3 p-1.5 bg-white/10 rounded-full text-white/50 hover:text-white transition-colors"
+                            className="absolute top-4 right-4 p-2 bg-white/10 rounded-full text-white/60 hover:text-white transition-colors"
                             aria-label="Close"
                         >
                             <X className="w-4 h-4" />
