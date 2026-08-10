@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sports Memorabilia Store | Product Guide</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Playfair+Display:wght@700&display=swap');
+
+        :root {
+            --navy: #0a1128;
+            --gold: #c5a059;
+            --black: #000000;
+        }
+
+        @media print {
+            .no-print { display: none; }
+            body { background: white; margin: 0; padding: 0; }
+            .page { border: none !important; box-shadow: none !important; margin: 0 !important; width: 100% !important; height: 100% !important; page-break-after: always; }
+            @page { size: A4; margin: 0; }
+        }
+
+        body {
+            margin: 0;
+            background: #e0e0e0;
+            font-family: 'Inter', sans-serif;
+            color: var(--navy);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .page {
+            background: white;
+            width: 210mm;
+            min-height: 297mm;
+            padding: 15mm;
+            box-sizing: border-box;
+            margin-bottom: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .header { 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            border-bottom: 2px solid var(--gold); 
+            padding-bottom: 15px; 
+            margin-bottom: 20px; 
+        }
+        .logo { width: 140px; }
+        .header-text { text-align: right; }
+        .header-text h1 { font-family: 'Playfair Display', serif; font-size: 28px; margin: 0; color: var(--navy); }
+        .header-text p { margin: 5px 0 0; text-transform: uppercase; letter-spacing: 2px; font-weight: 600; color: #666; font-size: 12px; }
+
+        h2 { font-family: 'Playfair Display', serif; font-size: 22px; color: var(--navy); margin: 0 0 10px 0; }
+        p.section-desc { font-size: 14px; margin: 0 0 15px 0; color: #444; }
+
+        /* Specs Grid */
+        .specs-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin-bottom: 25px; }
+        .spec-item { background: #f9f9f9; padding: 12px; border-top: 3px solid var(--navy); }
+        .spec-item h4 { margin: 0 0 5px 0; font-size: 14px; color: var(--navy); }
+        .spec-item p { margin: 0; font-size: 11px; line-height: 1.3; color: #555; }
+
+        /* Proof Grid (5 photos) */
+        .proof-grid { 
+            display: grid; 
+            grid-template-columns: repeat(3, 1fr); 
+            gap: 10px; 
+            margin-bottom: 10px;
+        }
+        .proof-img { width: 100%; height: 160px; object-fit: cover; border-radius: 4px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        .proof-img-wide { grid-column: span 3; height: 140px; }
+
+        /* Collection Grid */
+        .collection-grid { 
+            display: grid; 
+            grid-template-columns: repeat(3, 1fr); 
+            gap: 15px; 
+            margin-bottom: 30px; 
+        }
+        .collection-item { text-align: center; }
+        .collection-item img { width: 100%; height: 280px; object-fit: contain; background: #fff; border: 1px solid #eee; padding: 10px; box-sizing: border-box; }
+        .collection-item img.packaging-img { padding: 30px; }
+        .collection-item h4 { margin: 10px 0 0; font-size: 14px; }
+
+        /* Reviews Grid */
+        .reviews-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; }
+        .review-card { background: #fafafa; padding: 15px; border-left: 3px solid var(--gold); }
+        .review-card q { font-style: italic; display: block; margin-bottom: 10px; font-size: 13px; line-height: 1.5; color: #333; }
+        .review-card cite { font-style: normal; font-weight: 700; font-size: 11px; color: var(--gold); text-transform: uppercase; }
+
+        .footer-note { margin-top: auto; border-top: 1px solid #eee; padding-top: 15px; font-size: 11px; color: #999; display: flex; justify-content: space-between; }
+    </style>
+</head>
+<body>
+
+    <!-- PAGE 1: PROPOSITION & PROOF -->
+    <div class="page">
+        <div class="header">
+            <img src="../logo-transparent.png" class="logo" alt="Sports Memorabilia Store Logo">
+            <div class="header-text">
+                <h1>Product Guide</h1>
+                <p>For Corporate Clients</p>
+            </div>
+        </div>
+
+        <h2>The Standard</h2>
+        <p class="section-desc">Sports Memorabilia Store provides fully authenticated, framed sports memorabilia. All items are delivered in premium packaging and include digital verification.</p>
+        
+        <div class="specs-grid">
+            <div class="spec-item">
+                <h4>1. Framing</h4>
+                <p>Items are mounted in solid black wooden frames with white acid free mounts and custom metallic plaques.</p>
+            </div>
+            <div class="spec-item">
+                <h4>2. Packaging</h4>
+                <p>Every frame is delivered in a matte navy lid box with gold foil branding and internal protective lining.</p>
+            </div>
+            <div class="spec-item">
+                <h4>3. Verification</h4>
+                <p>Each item contains an NFC chip linked to a digital Certificate of Authenticity. We are led by a licensed FIFA agent.</p>
+            </div>
+            <div class="spec-item" style="border-top-color: var(--gold);">
+                <h4>4. Minimum Order</h4>
+                <p>We maintain a strict Minimum Order Quantity of fifty units for all corporate and wholesale partnerships.</p>
+            </div>
+            <div class="spec-item" style="border-top-color: var(--gold);">
+                <h4>5. Initial Lead Time</h4>
+                <p>Please allow a turnaround time of sixty days for the first order to ensure inventory and logistics alignment.</p>
+            </div>
+            <div class="spec-item" style="border-top-color: var(--gold);">
+                <h4>6. Recurring Lead Time</h4>
+                <p>Subsequent orders are typically fulfilled within one to two weeks depending on the specific volume of the request.</p>
+            </div>
+        </div>
+
+        <h2>Authenticity Evidence</h2>
+        <p class="section-desc">We do not use third party brokers. Below is photographic evidence of recent private signing sessions with current athletes.</p>
+        
+        <div class="proof-grid">
+            <img src="actual_proof/proof1.jpg" alt="Proof 1" class="proof-img">
+            <img src="actual_proof/proof2.jpg" alt="Proof 2" class="proof-img">
+            <img src="actual_proof/proof3.jpg" alt="Proof 3" class="proof-img">
+        </div>
+        <div class="proof-grid" style="grid-template-columns: repeat(2, 1fr);">
+            <img src="actual_proof/proof4.jpg" alt="Proof 4" class="proof-img">
+            <img src="actual_proof/proof5.jpg" alt="Proof 5" class="proof-img">
+        </div>
+        
+        <div class="footer-note" style="margin-top: 20px;">
+            <span>Page 1</span>
+            <span>Sports Memorabilia Store | rhys@sportssigned.com</span>
+        </div>
+    </div>
+
+    <!-- PAGE 2: THE COLLECTION & CORPORATE USE -->
+    <div class="page">
+        <div class="header">
+            <img src="../logo-transparent.png" class="logo" alt="Sports Memorabilia Store Logo">
+            <div class="header-text">
+                <h1>The Collection</h1>
+                <p>Assets & Applications</p>
+            </div>
+        </div>
+
+        <h2>Physical Assets</h2>
+        <p class="section-desc">Examples of our premium packaging and final gallery standard framed products.</p>
+        
+        <div class="collection-grid">
+            <div class="collection-item">
+                <img src="../premium-packaging.png" alt="Luxury Packaging" class="packaging-img">
+                <h4>Premium Presentation</h4>
+            </div>
+            <div class="collection-item">
+                <img src="proof/product_torres.jpg" alt="Torres Frame">
+                <h4>Legends Collection</h4>
+            </div>
+            <div class="collection-item">
+                <img src="proof/product_origi.jpg" alt="Origi Frame">
+                <h4>Modern Heroes</h4>
+            </div>
+        </div>
+
+        <h2>Corporate Solutions</h2>
+        <p class="section-desc">Our framed items are regularly utilised by businesses for staff rewards, charity gala prizes, and boardroom aesthetics.</p>
+        
+        <div class="reviews-grid">
+            <div class="review-card">
+                <q>We gave a signed Mac Allister shirt to our top salesperson this year. The reaction was brilliant, and it sits proudly in his home office.</q>
+                <cite>Sales Director, London</cite>
+            </div>
+            <div class="review-card">
+                <q>The Origi framed shirt was the highlight of our annual charity dinner. Having the photos of him signing it really helped push the bids up.</q>
+                <cite>Event Organiser, Manchester</cite>
+            </div>
+            <div class="review-card">
+                <q>We've bought three framed shirts for our new boardrooms. They look fantastic and are a great talking point for visiting clients.</q>
+                <cite>Managing Director, Leeds</cite>
+            </div>
+        </div>
+
+        <div class="footer-note">
+            <span>Page 2</span>
+            <span>Sports Memorabilia Store | rhys@sportssigned.com</span>
+        </div>
+    </div>
+
+</body>
+</html>
