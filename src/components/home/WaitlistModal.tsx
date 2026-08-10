@@ -123,13 +123,13 @@ export function WaitlistModal() {
 
                     <div 
                         className="bg-navy text-center border-b border-gold/20 relative"
-                        style={{ backgroundColor: '#0B1221', paddingTop: '44px', paddingBottom: '24px', paddingLeft: '24px', paddingRight: '24px', position: 'relative' }}
+                        style={{ backgroundColor: '#0B1221', paddingTop: '36px', paddingBottom: '24px', paddingLeft: '24px', paddingRight: '24px', position: 'relative' }}
                     >
                         <div 
-                            className="rounded-full flex items-center justify-center border border-gold/30"
-                            style={{ width: '56px', height: '56px', backgroundColor: 'rgba(198, 166, 100, 0.2)', marginLeft: 'auto', marginRight: 'auto', marginBottom: '16px', borderRadius: '9999px', display: 'flex', alignItems: 'center', justifyCenter: 'center' }}
+                            className="rounded-full inline-flex items-center justify-center border border-gold/30"
+                            style={{ width: '48px', height: '48px', backgroundColor: 'rgba(198, 166, 100, 0.2)', marginLeft: 'auto', marginRight: 'auto', marginBottom: '14px', borderRadius: '9999px', display: 'inline-flex', alignItems: 'center', justifyContent: 'center' }}
                         >
-                            <Zap className="w-7 h-7 text-gold fill-gold" style={{ width: '28px', height: '28px', color: '#c6a664', fill: '#c6a664' }} />
+                            <Zap style={{ width: '24px', height: '24px', color: '#c6a664', fill: '#c6a664' }} />
                         </div>
                         <h2 className="font-serif text-2xl sm:text-3xl text-white mb-1.5" style={{ color: '#ffffff', marginBottom: '6px' }}>
                             Store Is Now Live
