@@ -123,19 +123,22 @@ export function WaitlistModal() {
 
                     <div 
                         className="bg-navy text-center border-b border-gold/20 relative"
-                        style={{ backgroundColor: '#0B1221', paddingTop: '36px', paddingBottom: '24px', paddingLeft: '24px', paddingRight: '24px', position: 'relative' }}
+                        style={{ backgroundColor: '#0B1221', paddingTop: '28px', paddingBottom: '24px', paddingLeft: '24px', paddingRight: '24px', position: 'relative' }}
                     >
                         <div 
-                            className="rounded-full inline-flex items-center justify-center border border-gold/30"
-                            style={{ width: '48px', height: '48px', backgroundColor: 'rgba(198, 166, 100, 0.2)', marginLeft: 'auto', marginRight: 'auto', marginBottom: '14px', borderRadius: '9999px', display: 'inline-flex', alignItems: 'center', justifyContent: 'center' }}
+                            className="inline-flex items-center justify-center gap-2 mb-3 px-3 py-1 rounded-full border border-gold/30"
+                            style={{ backgroundColor: 'rgba(198, 166, 100, 0.15)', borderRadius: '9999px', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: '8px', padding: '4px 14px', marginBottom: '12px' }}
                         >
-                            <Zap style={{ width: '24px', height: '24px', color: '#c6a664', fill: '#c6a664' }} />
+                            <Zap style={{ width: '16px', height: '16px', color: '#c6a664', fill: '#c6a664' }} />
+                            <span className="text-gold text-[10px] uppercase tracking-widest font-bold" style={{ color: '#c6a664', fontSize: '10px', letterSpacing: '2px', fontWeight: 'bold' }}>
+                                Exclusive Access
+                            </span>
                         </div>
                         <h2 className="font-serif text-2xl sm:text-3xl text-white mb-1.5" style={{ color: '#ffffff', marginBottom: '6px' }}>
                             Store Is Now Live
                         </h2>
-                        <p className="text-white/60 text-[11px] uppercase tracking-[0.2em] font-bold" style={{ color: 'rgba(255, 255, 255, 0.6)' }}>
-                            Unlock a <span style={{ color: '#c6a664' }}>10% Discount Code</span>
+                        <p className="text-white/70 text-xs uppercase tracking-widest font-semibold" style={{ color: 'rgba(255, 255, 255, 0.7)', fontSize: '11px', letterSpacing: '1.5px' }}>
+                            Unlock a <span style={{ color: '#c6a664', fontWeight: 'bold' }}>10% Discount Code</span>
                         </p>
                         <button
                             onClick={handleClose}
