@@ -116,42 +116,42 @@ export function WaitlistModal() {
                 onClick={handleClose}
             />
 
-            <div className="relative flex min-h-full w-full items-center justify-center p-4 sm:p-6 my-auto">
+            <div className="relative flex min-h-full w-full items-start justify-center p-4 sm:p-6 pt-28 sm:pt-36">
                 <div 
-                    className="relative w-full max-w-lg bg-white border border-navy/10 rounded-2xl shadow-2xl animate-in zoom-in-95 duration-300 text-left my-auto overflow-hidden"
+                    className="relative w-full max-w-md bg-white border border-navy/10 rounded-2xl shadow-2xl animate-in zoom-in-95 duration-300 text-left overflow-hidden mt-4"
                     style={{ borderRadius: '16px', overflow: 'hidden', backgroundColor: '#ffffff' }}
                 >
 
                     <div 
                         className="bg-navy text-center border-b border-gold/20 relative"
-                        style={{ backgroundColor: '#0B1221', paddingTop: '28px', paddingBottom: '24px', paddingLeft: '24px', paddingRight: '24px', position: 'relative' }}
+                        style={{ backgroundColor: '#0B1221', paddingTop: '20px', paddingBottom: '18px', paddingLeft: '20px', paddingRight: '20px', position: 'relative' }}
                     >
                         <div 
-                            className="inline-flex items-center justify-center gap-2 mb-3 px-3 py-1 rounded-full border border-gold/30"
-                            style={{ backgroundColor: 'rgba(198, 166, 100, 0.15)', borderRadius: '9999px', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: '8px', padding: '4px 14px', marginBottom: '12px' }}
+                            className="inline-flex items-center justify-center gap-2 mb-2 px-3 py-1 rounded-full border border-gold/30"
+                            style={{ backgroundColor: 'rgba(198, 166, 100, 0.15)', borderRadius: '9999px', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: '6px', padding: '3px 12px', marginBottom: '8px' }}
                         >
-                            <Zap style={{ width: '16px', height: '16px', color: '#c6a664', fill: '#c6a664' }} />
+                            <Zap style={{ width: '14px', height: '14px', color: '#c6a664', fill: '#c6a664' }} />
                             <span className="text-gold text-[10px] uppercase tracking-widest font-bold" style={{ color: '#c6a664', fontSize: '10px', letterSpacing: '2px', fontWeight: 'bold' }}>
                                 Exclusive Access
                             </span>
                         </div>
-                        <h2 className="font-serif text-2xl sm:text-3xl text-white mb-1.5" style={{ color: '#ffffff', marginBottom: '6px' }}>
+                        <h2 className="font-serif text-xl sm:text-2xl text-white mb-1" style={{ color: '#ffffff', marginBottom: '4px' }}>
                             Store Is Now Live
                         </h2>
-                        <p className="text-white/70 text-xs uppercase tracking-widest font-semibold" style={{ color: 'rgba(255, 255, 255, 0.7)', fontSize: '11px', letterSpacing: '1.5px' }}>
+                        <p className="text-white/70 text-[10px] uppercase tracking-widest font-semibold" style={{ color: 'rgba(255, 255, 255, 0.7)', fontSize: '10px', letterSpacing: '1.5px' }}>
                             Unlock a <span style={{ color: '#c6a664', fontWeight: 'bold' }}>10% Discount Code</span>
                         </p>
                         <button
                             onClick={handleClose}
-                            className="absolute top-4 right-4 p-2 bg-white/10 rounded-full text-white/60 hover:text-white transition-colors"
-                            style={{ position: 'absolute', top: '16px', right: '16px', padding: '8px', backgroundColor: 'rgba(255,255,255,0.1)', borderRadius: '9999px', color: 'rgba(255,255,255,0.7)', border: 'none', cursor: 'pointer' }}
+                            className="absolute top-3 right-3 p-1.5 bg-white/10 rounded-full text-white/60 hover:text-white transition-colors"
+                            style={{ position: 'absolute', top: '12px', right: '12px', padding: '6px', backgroundColor: 'rgba(255,255,255,0.1)', borderRadius: '9999px', color: 'rgba(255,255,255,0.7)', border: 'none', cursor: 'pointer' }}
                             aria-label="Close"
                         >
                             <X className="w-4 h-4" style={{ width: '16px', height: '16px' }} />
                         </button>
                     </div>
 
-                    <div className="p-5 sm:p-8">
+                    <div className="p-4 sm:p-6">
                         {!isSuccess ? (
                             <>
                                 <p className="text-navy/70 text-center mb-6 text-sm sm:text-base leading-relaxed">
