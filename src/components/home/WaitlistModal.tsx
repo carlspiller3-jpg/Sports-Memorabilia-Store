@@ -111,7 +111,8 @@ export function WaitlistModal() {
     return (
         <div className="fixed inset-0 z-[9999] w-screen h-[100dvh] overflow-y-auto">
             <div
-                className="fixed inset-0 bg-navy/95 backdrop-blur-sm"
+                className="fixed inset-0 bg-navy"
+                style={{ backgroundColor: '#0B1221', opacity: 0.97 }}
                 onClick={handleClose}
             />
 
