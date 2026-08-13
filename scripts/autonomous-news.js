@@ -20,7 +20,7 @@ async function runPulse() {
     }
     
     const genAI = new GoogleGenerativeAI(apiKey);
-    const model = genAI.getGenerativeModel({ model: "gemini-flash-latest" });
+    const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
 
     // 1. Scout for "Bosh" Moments
     const scoutPrompt = `

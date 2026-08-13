@@ -10,7 +10,7 @@ let model: any = null;
 if (API_KEY && API_KEY.length > 0) {
     try {
         const genAI = new GoogleGenerativeAI(API_KEY);
-        model = genAI.getGenerativeModel({ model: "gemini-flash-latest" });
+        model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
     } catch (e) {
         console.warn("Failed to initialize Chat Engine (Auth Error).");
     }

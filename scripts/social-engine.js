@@ -14,8 +14,8 @@ if (!apiKey) {
 }
 
 const genAI = new GoogleGenerativeAI(apiKey);
-// Use the stable model identifier to prevent 404s
-const model = genAI.getGenerativeModel({ model: "gemini-flash-latest" });
+// Use stable model identifier
+const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
 
 async function generateSocialContent() {
     console.log("🚀 Starting Omnichannel Social Engine...");
