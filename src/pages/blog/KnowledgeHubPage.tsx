@@ -32,7 +32,7 @@ export function KnowledgeHubPage() {
     };
 
     return (
-        <div className="bg-ivory min-h-screen pt-24 pb-16">
+        <div className="bg-ivory min-h-screen pt-40 md:pt-44 pb-16">
             <div className="container mx-auto px-4">
                 <div className="max-w-4xl mx-auto">
 

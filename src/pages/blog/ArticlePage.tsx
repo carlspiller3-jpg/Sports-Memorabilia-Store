@@ -17,7 +17,7 @@ export function ArticlePage() {
     }
 
     return (
-        <div className="bg-ivory min-h-screen pt-24 pb-16">
+        <div className="bg-ivory min-h-screen pt-40 md:pt-44 pb-16">
             <div className="container mx-auto px-4">
                 <article className="max-w-3xl mx-auto bg-white rounded-xl shadow-sm border border-navy/5 overflow-hidden">
 
