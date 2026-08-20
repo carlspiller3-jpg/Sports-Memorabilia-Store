@@ -108,6 +108,10 @@ function App() {
                   <Route path="/hub" element={<KnowledgeHubPage />} />
                   <Route path="/hub/:slug" element={<ArticlePage />} />
 
+                  {/* Legacy Blog Redirects */}
+                  <Route path="/blog" element={<Navigate to="/hub" replace />} />
+                  <Route path="/blog/:slug" element={<Navigate to="/hub/:slug" replace />} />
+
 
 
                   {/* PDF Generation Routes */}

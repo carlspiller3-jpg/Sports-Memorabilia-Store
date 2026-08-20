@@ -20,15 +20,16 @@ async function runPulse() {
     }
     
     const genAI = new GoogleGenerativeAI(apiKey);
-    const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
+    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
-    // 1. Scout for "Bosh" Moments
+    // 1. Scout for Moments
     const scoutPrompt = `
         Today is ${new Date().toLocaleDateString()}. 
-        Identify the single biggest 'breaking' sports story from the last 24 hours that would interest a high-end memorabilia collector.
-        Think: Records broken, sudden retirements, or massive transfers. 
-        If nothing 'historic' happened, return 'SKIP'.
-        Otherwise, return a 2-sentence summary of the news.
+        Identify the single biggest real world sports story or major historical anniversary from international sports (football, motorsport, boxing, rugby, tennis, golf) that would interest a high end sports memorabilia collector.
+        Focus on real sports history, major achievements, records, or cup final milestones. 
+        Do not output meta commentary about AI knowledge limits, databases, or cutoff dates.
+        If nothing notable is found, return 'SKIP'.
+        Otherwise, return a 2 sentence summary of the news or historical milestone.
     `;
 
     try {
@@ -36,32 +37,35 @@ async function runPulse() {
         const newsSummary = scoutResult.response.text().trim();
 
         if (newsSummary.includes('SKIP')) {
-            console.log("📭 No 'Bosh' moments detected today. Standing down.");
+            console.log("📭 No major moments detected today. Standing down.");
             return;
         }
 
-        console.log("🔥 BOSH! News detected:", newsSummary);
+        console.log("🔥 News / Milestone detected:", newsSummary);
 
         // 2. Generate the Elite Article
         const articlePrompt = `
-            Write a professional blog post for a luxury sports memorabilia brand called 'Sports Memorabilia Store' about this news: "${newsSummary}"
+            Write a professional blog post for a luxury sports memorabilia brand called 'Sports Memorabilia Store' about this topic: "${newsSummary}"
             
-            STRICT RULES:
-            1. LANGUAGE: British English only (colour, realised, centre, football not soccer).
-            2. TONE: 'Smart Pub Talk'. Authoritative, direct, expert. No corporate fluff. No 'M+S style' drama.
-            3. NO HYPHENS: Do not use hyphenated adjectives (e.g., no 'record-breaking', no 'top-tier'). Use real, flowing sentences.
-            4. STRUCTURE: Use <h2> and <h3>. One blunt <strong>Verdict</strong> at the end.
-            5. SEO: Provide a meta title (max 60 chars) and meta description (max 160 chars).
-            6. BRANDING: Use 'Sports Memorabilia Store' whenever referring to the company.
+            MANDATORY SYSTEM DIRECTIVES (MUST FOLLOW EXACTLY):
+            1. NO AMPERSANDS ('&'): Never use '&' anywhere. Always write 'and' in full.
+            2. ZERO HYPHENS IN PROSE AND HEADINGS: Do not use hyphens anywhere in text, titles, headings, excerpts, or meta strings. Write out words separately (e.g. 'match worn', 'player spec', 'high end', 'top tier', 'record breaking', 'long term', 'first class').
+            3. ZERO M&S STYLE DRAMATIC CONTRAST: Do not use dramatic contrast copy like "It's not X, IT'S Y!". Write direct UK executive English.
+            4. ZERO AI BUZZWORDS: Banned terms: unlocks, seamlessly, vault, engine, delve, game changer, testament to, leverage, robust, tapestry, beacon, cutting edge, synergy, paradigm shift, revolutionize, unleash, elevate, harness, realm, pivotal, furthermore, moreover.
+            5. NO AI META COMMENTS: Never mention AI limits, data cutoffs, computers, databases, or cutoff years.
+            6. CURRENCY: Use British Pound Sterling (£) for all monetary values.
+            7. LANGUAGE & TONE: British English only (colour, realised, centre, football not soccer). Smart pub talk, commercial UK executive voice.
+            8. STRUCTURE: Use <h2> and <h3> tags. End with one strong <strong>Verdict:</strong> statement.
+            9. SEO: Provide meta title (max 60 chars) and meta description (max 160 chars) with zero hyphens and zero ampersands.
             
-            Return the result in JSON format:
+            Return the result as a strict JSON object:
             {
                 "title": "...",
                 "excerpt": "...",
                 "content": "...",
                 "seo_title": "...",
                 "seo_description": "...",
-                "sport": "football" | "basketball" | "golf" | "f1" | "boxing" | "general"
+                "sport": "football" | "basketball" | "golf" | "f1" | "boxing" | "rugby" | "tennis" | "general"
             }
         `;
 
@@ -69,13 +73,20 @@ async function runPulse() {
         const text = articleResult.response.text().replace(/```json|```/g, '').trim();
         const articleData = JSON.parse(text);
 
+        // Sanitize strings for strict rules
+        articleData.title = (articleData.title || "").replace(/&/g, 'and').replace(/-/g, ' ');
+        articleData.excerpt = (articleData.excerpt || "").replace(/&/g, 'and').replace(/-/g, ' ');
+        articleData.seo_title = (articleData.seo_title || "").replace(/&/g, 'and').replace(/-/g, ' ');
+        articleData.seo_description = (articleData.seo_description || "").replace(/&/g, 'and').replace(/-/g, ' ');
+        articleData.content = (articleData.content || "").replace(/&/g, 'and');
+
         // 3. Append to articles.ts
         const filePath = join(process.cwd(), 'src/data/articles.ts');
         let content = readFileSync(filePath, 'utf8');
 
-        // Find the last ID
+        // Find the highest ID
         const lines = content.split('\n');
-        let lastId = 15;
+        let lastId = 0;
         for (const line of lines) {
             const match = line.match(/id: "(\d+)"/);
             if (match) lastId = Math.max(lastId, parseInt(match[1]));
@@ -89,15 +100,19 @@ async function runPulse() {
             golf: "https://images.unsplash.com/photo-1587174486073-ae5e5cff23aa?q=80",
             f1: "https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?q=80",
             boxing: "https://images.unsplash.com/photo-1549719386-74dfcbf7dbed?q=80",
-            general: "https://images.unsplash.com/photo-1461896836934-ffe607ba8211?q=80"
+            rugby: "https://images.unsplash.com/photo-1543165796-5426273eaab3?q=80",
+            tennis: "https://images.unsplash.com/photo-1595435934249-5df7ed86e1c0?q=80",
+            general: "https://images.unsplash.com/photo-1549465220-1a8b9238cd48?q=80"
         };
         const detectedSport = (articleData.sport || "general").toLowerCase();
         const imageUrl = sportImages[detectedSport] || sportImages.general;
 
+        const slug = articleData.title.toLowerCase().replace(/ /g, '-').replace(/[^\w-]/g, '');
+
         const newArticleBlock = `  {
     id: "${newId}",
     title: "${articleData.title}",
-    slug: "${articleData.title.toLowerCase().replace(/ /g, '-').replace(/[^\w-]/g, '')}",
+    slug: "${slug}",
     date: "${new Date().toISOString().split('T')[0]}",
     author: "Tactical Engine",
     category: "News",
@@ -115,7 +130,7 @@ async function runPulse() {
         console.log(`✅ Tactical Article #${newId} Posted: ${articleData.title}`);
 
     } catch (error) {
-        console.error("❌ THE TACTICAL ENGINE CRASHED: Connection failed or parsing error (Sanitized)");
+        console.error("❌ THE TACTICAL ENGINE ERROR:", error.message || error);
         process.exit(1);
     }
 }

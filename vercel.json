@@ -57,6 +57,16 @@
       "source": "/home",
       "destination": "/",
       "permanent": true
+    },
+    {
+      "source": "/blog",
+      "destination": "/hub",
+      "permanent": true
+    },
+    {
+      "source": "/blog/(.*)",
+      "destination": "/hub/$1",
+      "permanent": true
     }
   ],
   "rewrites": [

@@ -1,4 +1,3 @@
-
 import { readFileSync, writeFileSync } from 'fs';
 import { join } from 'path';
 
@@ -31,14 +30,14 @@ async function generateSitemap() {
   <url><loc>${DOMAIN}/shop</loc><changefreq>daily</changefreq><priority>0.9</priority></url>
   <url><loc>${DOMAIN}/verify</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
   <url><loc>${DOMAIN}/about</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>${DOMAIN}/blog</loc><changefreq>daily</changefreq><priority>0.8</priority></url>
+  <url><loc>${DOMAIN}/hub</loc><changefreq>daily</changefreq><priority>0.8</priority></url>
   <url><loc>${DOMAIN}/collections</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
 
-  <!-- Dynamic Blog Articles -->
+  <!-- Knowledge Hub Articles -->
 `;
 
     slugs.forEach(slug => {
-        xml += `  <url><loc>${DOMAIN}/blog/${slug}</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>\n`;
+        xml += `  <url><loc>${DOMAIN}/hub/${slug}</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>\n`;
     });
 
     xml += `</urlset>`;
