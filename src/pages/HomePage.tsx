@@ -2,15 +2,16 @@ import { Helmet } from "react-helmet-async"
 import { Hero } from "@/components/home/Hero"
 import { AuthenticitySection } from "@/components/home/AuthenticitySection"
 import { PresentationSection } from "@/components/home/PresentationSection"
-import { WaitlistModal } from "@/components/home/WaitlistModal"
-import { TrustIndicators } from "@/components/home/TrustIndicators"
 import { FeaturedProducts } from "@/components/home/FeaturedProducts"
+import { NFCVerificationHub } from "@/components/home/NFCVerificationHub"
+import { CorporateGiftingSection } from "@/components/home/CorporateGiftingSection"
+import { WaitlistModal } from "@/components/home/WaitlistModal"
 import { usePageSEO } from "@/hooks/usePageSEO"
 
 export function HomePage() {
     const seo = usePageSEO('home', {
         title: "Sports Memorabilia Store | Authentic Signed Collectibles",
-        description: "The global authority in 100% authentic sports memorabilia. Direct access to athletes, blockchain verified provenance, and luxury packaging.",
+        description: "Official signed sports memorabilia. Direct athlete access, handcrafted UK framing with clear Perspex glaze, and smart NFC tag verification.",
         ogImage: "https://www.sportssigned.com/logo.png"
     })
 
@@ -49,18 +50,27 @@ export function HomePage() {
                 </script>
             </Helmet>
 
-            {/* Above the Fold: Hero */}
+            {/* 1. Hero Section (Above the Fold) */}
             <div className="pt-24 min-h-screen lg:min-h-[600px] flex flex-col">
                 <div className="flex-1 min-h-0 relative">
                     <Hero />
                 </div>
             </div>
 
+            {/* 2. The 4 Pillar Trust Engine (Positioned BEFORE Featured Products) */}
+            <AuthenticitySection />
+
+            {/* 3. Featured Signed Collectibles */}
             <FeaturedProducts />
 
-            {/* Below the Fold Content */}
+            {/* 4. Physical Framing and Packaging Breakdown */}
             <PresentationSection />
-            <AuthenticitySection />
+
+            {/* 5. Live NFC Verification Demo Hub */}
+            <NFCVerificationHub />
+
+            {/* 6. B2B Corporate Gifting and Executive Accounts */}
+            <CorporateGiftingSection />
         </div>
     )
 }

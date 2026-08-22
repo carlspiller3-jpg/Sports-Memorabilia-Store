@@ -1,127 +1,99 @@
 import { useState } from 'react';
+import { Check, ShieldCheck, Box, PackageCheck, Layers } from 'lucide-react';
+
+const framingSpecs = [
+    {
+        title: "Handcrafted UK Wooden Frame",
+        subtitle: "Satin Black Finish",
+        description: "Built by master picture framers in the UK using solid wood mouldings in a smooth Satin Black finish."
+    },
+    {
+        title: "Double Aperture Custom Suede Mount",
+        subtitle: "Archival Suede Board",
+        description: "Custom precision cut double aperture mount board wrapped in luxury suede to create depth and contrast."
+    },
+    {
+        title: "Laser Etched Metallic Title Plaque",
+        subtitle: "Bespoke Engraving",
+        description: "Polished metallic plaque featuring laser etched athlete stats, match details, and signing date verification."
+    },
+    {
+        title: "Clear Perspex Glaze",
+        subtitle: "Transit Safe & High Clarity",
+        description: "Shatterproof optical grade Perspex glazing providing high clarity display while protecting glass from transit damage."
+    }
+];
 
 export function PresentationSection() {
     const [isOpen, setIsOpen] = useState(false);
+
     return (
-        <section className="bg-white py-16 sm:py-20 lg:py-28">
+        <section className="bg-white py-16 sm:py-20 lg:py-24 border-b border-stone/10">
             <div className="container mx-auto px-4">
                 <div className="grid gap-12 lg:grid-cols-2 lg:gap-16 items-center">
                     {/* Content */}
-                    <div className="space-y-6">
+                    <div className="space-y-8">
                         <div className="space-y-4">
-                            <div className="inline-flex items-center space-x-2 rounded-full border border-gold bg-gold/10 px-4 py-2 text-sm font-medium text-navy w-fit">
-                                <svg className="h-4 w-4 text-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                        strokeWidth={2}
-                                        d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"
-                                    />
-                                </svg>
-                                 <span>Premium Presentation</span>
+                            <div className="inline-flex items-center space-x-2 rounded-full border border-gold bg-gold/10 px-4 py-1.5 text-xs font-bold text-navy uppercase tracking-widest w-fit">
+                                <Layers className="h-4 w-4 text-gold" />
+                                <span>Physical Framing Specifications</span>
                             </div>
 
-                            <h2 className="text-3xl font-bold tracking-tight text-navy sm:text-4xl lg:text-5xl">
-                                Premium Framing. Luxury Box.
+                            <h2 className="text-3xl font-serif font-bold text-navy sm:text-4xl lg:text-5xl leading-tight">
+                                Handcrafted UK Framing. Engineered Transit Safety.
                             </h2>
-                            <p className="text-lg text-charcoal/70">
-                                We frame every item by hand. We use the best materials. It comes in a luxury box. You will love opening it.
+                            <p className="text-base sm:text-lg text-charcoal/70 font-light">
+                                Subjective claims do not build trust. We state the exact physical build facts of every display piece so you know exactly what is arriving at your door.
                             </p>
                         </div>
 
-                        {/* Features List */}
-                        <div className="space-y-4">
-                            <div className="flex items-start space-x-3">
-                                <div className="flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full bg-gold/10 mt-0.5">
-                                    <svg className="h-4 w-4 text-gold" fill="currentColor" viewBox="0 0 20 20">
-                                        <path
-                                            fillRule="evenodd"
-                                            d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                                            clipRule="evenodd"
-                                        />
-                                    </svg>
+                        {/* Framing Specs List */}
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                            {framingSpecs.map((spec, index) => (
+                                <div key={index} className="flex items-start space-x-3 bg-ivory/60 p-4 rounded-lg border border-stone/15">
+                                    <div className="flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-full bg-gold/15 text-gold mt-0.5">
+                                        <Check className="h-4 w-4 stroke-[3]" />
+                                    </div>
+                                    <div>
+                                        <h3 className="font-serif font-bold text-navy text-base leading-snug">{spec.title}</h3>
+                                        <p className="text-[10px] font-bold uppercase tracking-widest text-gold mb-1">{spec.subtitle}</p>
+                                        <p className="text-xs text-charcoal/75 leading-relaxed">{spec.description}</p>
+                                    </div>
                                 </div>
-                                <div>
-                                    <h3 className="font-semibold text-navy">Best Materials</h3>
-                                    <p className="text-sm text-charcoal/70">Glass that stops sun damage, safe mounting, and strong wood frames.</p>
-                                </div>
-                            </div>
+                            ))}
+                        </div>
 
-                            <div className="flex items-start space-x-3">
-                                <div className="flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full bg-gold/10 mt-0.5">
-                                    <svg className="h-4 w-4 text-gold" fill="currentColor" viewBox="0 0 20 20">
-                                        <path
-                                            fillRule="evenodd"
-                                            d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                                            clipRule="evenodd"
-                                        />
-                                    </svg>
-                                </div>
-                                <div>
-                                    <h3 className="font-semibold text-navy">Made by Experts</h3>
-                                    <p className="text-sm text-charcoal/70">We build each frame by hand with care.</p>
-                                </div>
-                            </div>
-
-                            <div className="flex items-start space-x-3">
-                                <div className="flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full bg-gold/10 mt-0.5">
-                                    <svg className="h-4 w-4 text-gold" fill="currentColor" viewBox="0 0 20 20">
-                                        <path
-                                            fillRule="evenodd"
-                                            d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                                            clipRule="evenodd"
-                                        />
-                                    </svg>
-                                </div>
-                                <div>
-                                    <h3 className="font-semibold text-navy">Luxury Box</h3>
-                                    <p className="text-sm text-charcoal/70">A beautiful opening experience with safe packing.</p>
-                                </div>
-                            </div>
-
-                            <div className="flex items-start space-x-3">
-                                <div className="flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full bg-gold/10 mt-0.5">
-                                    <svg className="h-4 w-4 text-gold" fill="currentColor" viewBox="0 0 20 20">
-                                        <path
-                                            fillRule="evenodd"
-                                            d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                                            clipRule="evenodd"
-                                        />
-                                    </svg>
-                                </div>
-                                <div>
-                                    <h3 className="font-semibold text-navy">Ready to Hang</h3>
-                                    <p className="text-sm text-charcoal/70">We include the hooks. Put it on your wall today.</p>
-                                </div>
-                            </div>
+                        {/* Transit Packaging Note */}
+                        <div className="p-4 bg-navy/5 border border-navy/10 rounded-lg flex items-center gap-3">
+                            <PackageCheck className="w-5 h-5 text-navy shrink-0" />
+                            <p className="text-xs text-navy/80 font-medium">
+                                <strong className="text-navy">Custom Transit Packaging:</strong> Every framed asset is encased in custom double wall corrugated cartons with high density corner protection to ensure zero transit damage.
+                            </p>
                         </div>
                     </div>
 
-                    {/* Image Grid */}
+                    {/* Interactive Unboxing Image Box */}
                     <div className="relative aspect-square lg:aspect-[4/3] w-full group cursor-pointer" onClick={() => setIsOpen(!isOpen)}>
-                        {/* Closed Box Image */}
                         <img
                             src="/premium-packaging.png"
-                            alt="Premium navy and gold packaging"
+                            alt="Custom transit packaging box"
                             className={`absolute inset-0 h-full w-full object-cover rounded-xl shadow-2xl transition-opacity duration-700 ${isOpen ? 'opacity-0' : 'opacity-100'}`}
                         />
 
-                        {/* Open Box Image */}
                         <img
                             src="/premium-packaging-open.png"
-                            alt="Open box revealing framed jersey"
+                            alt="Unboxed handcrafted UK framed jersey"
                             className={`absolute inset-0 h-full w-full object-cover rounded-xl shadow-2xl transition-opacity duration-700 ${isOpen ? 'opacity-100' : 'opacity-0'}`}
                         />
 
-                        {/* Interaction Hint */}
-                        <div className="absolute bottom-6 left-1/2 -translate-x-1/2 bg-white/90 backdrop-blur px-6 py-3 rounded-full shadow-lg flex items-center gap-3 z-20 hover:scale-105 transition-transform">
-                            <span className="text-navy font-bold uppercase tracking-wider text-xs">
-                                {isOpen ? "Tap to Close" : "Tap to Unbox"}
+                        <div className="absolute bottom-6 left-1/2 -translate-x-1/2 bg-navy text-gold px-6 py-3 rounded-full shadow-xl border border-gold/30 flex items-center gap-3 z-20 hover:scale-105 transition-transform">
+                            <span className="font-bold uppercase tracking-wider text-xs">
+                                {isOpen ? "Tap to Close Transit Box" : "Tap to Unbox Package"}
                             </span>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
-    )
+    );
 }

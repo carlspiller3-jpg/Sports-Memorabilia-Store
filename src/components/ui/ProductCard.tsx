@@ -35,6 +35,18 @@ export function ProductCard({ title, price, image, altText, athlete, type, class
                     )}
                 />
 
+                {/* Direct Spec Badges Overlay */}
+                {!isArchived && (
+                    <div className="absolute top-2 left-2 flex flex-col gap-1 z-10">
+                        <span className="bg-navy/90 text-gold text-[9px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-xs backdrop-blur-sm border border-gold/30">
+                            NFC Tagged
+                        </span>
+                        <span className="bg-white/90 text-navy text-[8px] font-bold uppercase tracking-wider px-1.5 py-0.5 rounded-xs backdrop-blur-sm border border-navy/10">
+                            Framed in UK
+                        </span>
+                    </div>
+                )}
+
                 {isArchived && (
                     <div className="absolute inset-0 bg-navy/20 flex items-center justify-center">
                         <div className="bg-white/90 backdrop-blur-sm px-4 py-2 border border-navy/10 shadow-xl">

@@ -36,7 +36,7 @@ export function Hero() {
               Guaranteed for <span className="underline decoration-gold/50 underline-offset-4 sm:underline-offset-8 text-gold">Life.</span>
             </h1>
             <p className="text-[10px] sm:text-xl text-ivory/80 max-w-2xl leading-relaxed font-light">
-              We sell 100% real items. No fake items. Every piece is safe. Buy with trust. Keep it for life.
+              Official signed sports memorabilia. Direct athlete access, handcrafted UK framing with clear Perspex glaze, and smart NFC tag verification.
             </p>
           </div>
 
@@ -44,29 +44,29 @@ export function Hero() {
           <div className="flex flex-col sm:grid sm:grid-cols-3 gap-3 sm:gap-4 pt-4 border-t border-white/10 max-w-xl">
             <div className="flex items-center gap-2">
               <div className="flex-shrink-0 w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-white/5 border border-white/10 flex items-center justify-center">
-                <Box className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-gold" />
-              </div>
-              <div className="space-y-0.5">
-                <p className="text-[8px] sm:text-[9px] font-bold text-white uppercase tracking-widest">Best Framing</p>
-                <p className="text-[8px] sm:text-[9px] text-ivory/50">Top Quality</p>
-              </div>
-            </div>
-            <div className="flex items-center gap-2">
-              <div className="flex-shrink-0 w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-white/5 border border-white/10 flex items-center justify-center">
-                <Truck className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-gold" />
-              </div>
-              <div className="space-y-0.5">
-                <p className="text-[8px] sm:text-[9px] font-bold text-white uppercase tracking-widest">Fast Shipping</p>
-                <p className="text-[8px] sm:text-[9px] text-ivory/50">Fully Insured</p>
-              </div>
-            </div>
-            <div className="flex items-center gap-2">
-              <div className="flex-shrink-0 w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-white/5 border border-white/10 flex items-center justify-center">
                 <ShieldCheck className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-gold" />
               </div>
               <div className="space-y-0.5">
-                <p className="text-[8px] sm:text-[9px] font-bold text-white uppercase tracking-widest">Smart NFC Tag</p>
-                <p className="text-[8px] sm:text-[9px] text-ivory/50">100% Real</p>
+                <p className="text-[8px] sm:text-[9px] font-bold text-white uppercase tracking-widest">100% Wet Ink Signings</p>
+                <p className="text-[8px] sm:text-[9px] text-ivory/50">Direct Athlete Access</p>
+              </div>
+            </div>
+            <div className="flex items-center gap-2">
+              <div className="flex-shrink-0 w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-white/5 border border-white/10 flex items-center justify-center">
+                <Fingerprint className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-gold" />
+              </div>
+              <div className="space-y-0.5">
+                <p className="text-[8px] sm:text-[9px] font-bold text-white uppercase tracking-widest">NFC Smart Tagged</p>
+                <p className="text-[8px] sm:text-[9px] text-ivory/50">Instant Verification</p>
+              </div>
+            </div>
+            <div className="flex items-center gap-2">
+              <div className="flex-shrink-0 w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-white/5 border border-white/10 flex items-center justify-center">
+                <Box className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-gold" />
+              </div>
+              <div className="space-y-0.5">
+                <p className="text-[8px] sm:text-[9px] font-bold text-white uppercase tracking-widest">Framed and Ready to Hang</p>
+                <p className="text-[8px] sm:text-[9px] text-ivory/50">Handcrafted UK Frame</p>
               </div>
             </div>
           </div>
@@ -80,7 +80,7 @@ export function Hero() {
             </Link>
             <Link to="/verify" className="w-full sm:w-auto">
               <Button size="lg" variant="outline" className="h-10 sm:h-14 px-4 sm:px-10 text-[9px] sm:text-sm font-bold border-white/20 text-white hover:bg-white hover:text-navy w-full backdrop-blur-sm bg-white/5 rounded-sm uppercase tracking-widest">
-                Verify An Item
+                Verify An NFC Tag
               </Button>
             </Link>
           </div>
