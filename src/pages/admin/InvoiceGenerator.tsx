@@ -1,8 +1,7 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
-import { Download, Plus, Trash2, FileText, DollarSign, Calendar, User, Hash, ArrowLeft } from 'lucide-react';
+import { Download, Plus, Trash2, FileText, DollarSign, Calendar, User, Hash, ArrowLeft, Percent } from 'lucide-react';
 import { Link } from 'react-router-dom';
-
 
 interface InvoiceItem {
     id: string;
@@ -11,8 +10,12 @@ interface InvoiceItem {
     rate: number;
 }
 
+export type InvoiceType = 'STANDARD' | 'PRO_FORMA_50' | 'PRO_FORMA';
+
 interface InvoiceData {
     invoiceNumber: string;
+    invoiceType: InvoiceType;
+    depositPercentage: number;
     date: string;
     dueDate: string;
     clientName: string;
@@ -31,20 +34,45 @@ interface InvoiceData {
 export function InvoiceGenerator() {
     const [data, setData] = useState<InvoiceData>({
         invoiceNumber: `INV-${new Date().getFullYear()}-${String(Math.floor(Math.random() * 1000)).padStart(3, '0')}`,
+        invoiceType: 'PRO_FORMA_50',
+        depositPercentage: 50,
         date: new Date().toISOString().split('T')[0],
         dueDate: new Date(Date.now() + 14 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
         clientName: '',
         clientCompany: '',
         clientAddress: '',
         clientEmail: '',
-        items: [{ id: '1', description: 'Consulting Services', quantity: 1, rate: 0 }],
-        notes: 'Thank you for your business.',
+        items: [{ id: '1', description: 'Corporate Sports Memorabilia Package with Custom Plaque', quantity: 1, rate: 10000 }],
+        notes: '50 percent deposit due to initiate order allocation and custom plaque production. Balance due prior to 24 hour courier dispatch.',
         bankAccountName: 'Sports Memorabilia Store Limited',
         bankAccountNumber: '57113499',
         bankSortCode: '23-05-80',
         currency: 'GBP',
         vatRate: 0
     });
+
+    useEffect(() => {
+        const params = new URLSearchParams(window.location.search);
+        const clientName = params.get('clientName');
+        const clientCompany = params.get('clientCompany');
+        const clientEmail = params.get('clientEmail');
+        const deposit = params.get('deposit');
+        const invoiceType = params.get('invoiceType') as InvoiceType | null;
+
+        if (clientName || clientCompany || clientEmail || deposit || invoiceType) {
+            setData(prev => ({
+                ...prev,
+                clientName: clientName || prev.clientName,
+                clientCompany: clientCompany || prev.clientCompany,
+                clientEmail: clientEmail || prev.clientEmail,
+                depositPercentage: deposit ? Number(deposit) : prev.depositPercentage,
+                invoiceType: invoiceType || (deposit ? 'PRO_FORMA_50' : prev.invoiceType),
+                items: prev.items.length === 1 && prev.items[0].rate === 10000 ? [
+                    { id: '1', description: `Corporate Memorabilia Package (${clientCompany || 'Corporate Client'})`, quantity: 1, rate: 10000 }
+                ] : prev.items
+            }));
+        }
+    }, []);
 
     const addItem = () => {
         setData({
@@ -77,31 +105,56 @@ export function InvoiceGenerator() {
         return calculateSubtotal() * (data.vatRate / 100);
     };
 
+    const calculateGrandTotal = () => {
+        return calculateSubtotal() + calculateVAT();
+    };
+
+    const calculateDepositAmount = () => {
+        const grandTotal = calculateGrandTotal();
+        return grandTotal * (data.depositPercentage / 100);
+    };
+
+    const calculateRemainingBalance = () => {
+        return calculateGrandTotal() - calculateDepositAmount();
+    };
+
     const formatCurrency = (amount: number) => {
         return new Intl.NumberFormat('en-GB', { style: 'currency', currency: data.currency }).format(amount);
     };
 
+    const getInvoiceTitle = () => {
+        if (data.invoiceType === 'PRO_FORMA_50') return `${data.depositPercentage}% PRO FORMA DEPOSIT INVOICE`;
+        if (data.invoiceType === 'PRO_FORMA') return 'PRO FORMA INVOICE';
+        return 'INVOICE';
+    };
+
     const downloadWordDoc = () => {
         const subtotal = calculateSubtotal();
+        const vat = calculateVAT();
+        const grandTotal = calculateGrandTotal();
+        const depositAmount = calculateDepositAmount();
+        const remainingBalance = calculateRemainingBalance();
+        const invoiceTitle = getInvoiceTitle();
 
         const htmlContent = `
         <html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'>
         <head>
             <meta charset="utf-8">
-            <title>Invoice ${data.invoiceNumber}</title>
+            <title>${invoiceTitle} ${data.invoiceNumber}</title>
             <style>
                 body { font-family: 'Arial', sans-serif; font-size: 11pt; color: #333; line-height: 1.5; }
                 table { border-collapse: collapse; width: 100%; }
                 td, th { padding: 8px; text-align: left; vertical-align: top; }
                 .header-container { margin-bottom: 40px; border-bottom: 2px solid #1c273a; padding-bottom: 20px; }
-                .invoice-title { font-size: 28pt; font-weight: bold; color: #1c273a; text-transform: uppercase; float: right; }
+                .invoice-title { font-size: 22pt; font-weight: bold; color: #1c273a; text-transform: uppercase; float: right; text-align: right; }
                 .company-name { font-size: 18pt; font-weight: bold; color: #c6a664; margin-bottom: 5px; }
                 .company-details { color: #555; font-size: 10pt; line-height: 1.4; }
                 .info-label { font-weight: bold; color: #666; font-size: 9pt; text-transform: uppercase; }
                 .items-table th { background-color: #1c273a; color: white; font-weight: bold; padding: 10px; }
                 .items-table td { border-bottom: 1px solid #eee; padding: 10px; }
-                .total-section { float: right; width: 300px; margin-top: 20px; }
+                .total-section { float: right; width: 340px; margin-top: 20px; }
                 .total-row td { border-top: 2px solid #1c273a; font-weight: bold; font-size: 14pt; color: #1c273a; }
+                .deposit-box { margin-top: 20px; padding: 15px; background-color: #f0f7ff; border: 1px solid #cce3ff; border-radius: 4px; }
                 .footer { margin-top: 50px; border-top: 1px solid #eee; padding-top: 20px; font-size: 9pt; color: #888; text-align: center; }
                 .logo-img { max-height: 80px; margin-bottom: 15px; }
             </style>
@@ -110,7 +163,7 @@ export function InvoiceGenerator() {
             <div class="header-container">
                 <table style="width: 100%;">
                     <tr>
-                        <td style="width: 60%;">
+                        <td style="width: 55%;">
                              <img src="https://sportssigned.com/logo.jpg" class="logo-img" width="150" alt="Sports Memorabilia Store" />
                              <div class="company-name">Sports Memorabilia Store Limited</div>
                              <div class="company-details">
@@ -120,8 +173,8 @@ export function InvoiceGenerator() {
                                 Email: info@sportssigned.com
                              </div>
                         </td>
-                        <td style="width: 40%; text-align: right; vertical-align: top;">
-                            <div class="invoice-title">INVOICE</div>
+                        <td style="width: 45%; text-align: right; vertical-align: top;">
+                            <div class="invoice-title">${invoiceTitle}</div>
                         </td>
                     </tr>
                 </table>
@@ -130,8 +183,8 @@ export function InvoiceGenerator() {
             <table style="margin-bottom: 40px;">
                 <tr>
                     <td width="50%">
-                        <div class="info-label">Current To</div>
-                        <div style="font-size: 12pt; font-weight: bold; margin-top: 5px;">${data.clientName || 'Valued Client'}</div>
+                        <div class="info-label">Issued To</div>
+                        <div style="font-size: 12pt; font-weight: bold; margin-top: 5px;">${data.clientName || 'Valued Corporate Client'}</div>
                         <div>${data.clientCompany}</div>
                         <div>${data.clientAddress.replace(/\n/g, '<br>')}</div>
                         <div>${data.clientEmail}</div>
@@ -139,7 +192,7 @@ export function InvoiceGenerator() {
                     <td width="50%" style="text-align: right;">
                         <table style="width: auto; float: right;">
                             <tr>
-                                <td class="info-label" style="text-align: right;">Invoice #</td>
+                                <td class="info-label" style="text-align: right;">Reference #</td>
                                 <td style="font-weight: bold; text-align: right;">${data.invoiceNumber}</td>
                             </tr>
                             <tr>
@@ -179,37 +232,50 @@ export function InvoiceGenerator() {
             <div class="total-section">
                 <table>
                     <tr>
-                        <td style="text-align: right; padding-right: 20px;">Subtotal</td>
+                        <td style="text-align: right; padding-right: 20px;">Order Subtotal</td>
                         <td style="text-align: right;">${formatCurrency(subtotal)}</td>
                     </tr>
+                    ${vat > 0 ? `
                     <tr>
                         <td style="text-align: right; padding-right: 20px;">VAT (${data.vatRate}%)</td>
-                        <td style="text-align: right;">${formatCurrency(calculateVAT())}</td>
+                        <td style="text-align: right;">${formatCurrency(vat)}</td>
                     </tr>
+                    ` : ''}
                     <tr class="total-row">
-                        <td style="text-align: right; padding-right: 20px;">Total</td>
-                        <td style="text-align: right;">${formatCurrency(subtotal + calculateVAT())}</td>
+                        <td style="text-align: right; padding-right: 20px;">Total Package Value</td>
+                        <td style="text-align: right;">${formatCurrency(grandTotal)}</td>
                     </tr>
+                    ${data.invoiceType === 'PRO_FORMA_50' ? `
+                    <tr style="color: #047857; font-weight: bold;">
+                        <td style="text-align: right; padding-right: 20px; font-size: 11pt; padding-top: 10px;">${data.depositPercentage}% Deposit Due Now</td>
+                        <td style="text-align: right; font-size: 13pt; padding-top: 10px;">${formatCurrency(depositAmount)}</td>
+                    </tr>
+                    <tr style="color: #6b7280; font-size: 9pt;">
+                        <td style="text-align: right; padding-right: 20px;">Remaining Balance (Prior to Dispatch)</td>
+                        <td style="text-align: right;">${formatCurrency(remainingBalance)}</td>
+                    </tr>
+                    ` : ''}
                 </table>
             </div>
-            
-            <div style="clear: both; margin-top: 60px;">
-                <div class="info-label">Payment Methods</div>
+
+            <div style="clear: both; margin-top: 50px;">
+                <div class="info-label">Payment Methods and Bank Transfer</div>
                 <div style="margin-top: 10px; padding: 15px; background-color: #f9f7f3; border: 1px solid #eee;">
-                    <strong>Bank Transfer</strong><br>
+                    <strong>Direct Bank Transfer</strong><br>
                     Account Name: ${data.bankAccountName}<br>
                     Sort Code: ${data.bankSortCode}<br>
-                    Account No: ${data.bankAccountNumber}
+                    Account No: ${data.bankAccountNumber}<br>
+                    Reference: ${data.invoiceNumber} (${data.clientCompany || 'Corporate Order'})
                 </div>
             </div>
 
-            <div style="margin-top: 30px;">
-                <div class="info-label">Notes</div>
-                <div style="margin-top: 5px;">${data.notes}</div>
+            <div style="margin-top: 25px;">
+                <div class="info-label">Terms and Order Notes</div>
+                <div style="margin-top: 5px; font-size: 10pt; color: #444;">${data.notes}</div>
             </div>
 
             <div class="footer">
-                Thank you for your business.
+                Sports Memorabilia Store Limited. Thank you for your business.
             </div>
         </body>
         </html>
@@ -219,7 +285,7 @@ export function InvoiceGenerator() {
         const url = URL.createObjectURL(blob);
         const link = document.createElement('a');
         link.href = url;
-        link.download = `Invoice-${data.invoiceNumber}.doc`;
+        link.download = `${data.invoiceType === 'PRO_FORMA_50' ? 'Pro-Forma-Deposit-Invoice' : 'Invoice'}-${data.invoiceNumber}.doc`;
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);
@@ -240,7 +306,7 @@ export function InvoiceGenerator() {
                         </Link>
                         <div>
                             <h1 className="font-serif text-3xl text-navy">Invoice Generator</h1>
-                            <p className="text-charcoal/60 mt-1 text-sm">Create and download professional invoices instantly.</p>
+                            <p className="text-charcoal/60 mt-1 text-sm">Issue pro forma deposit invoices and custom order documentation.</p>
                         </div>
                     </div>
                     <button
@@ -255,6 +321,48 @@ export function InvoiceGenerator() {
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
                     {/* Input Form */}
                     <div className="space-y-6">
+                        {/* Invoice Type Selector */}
+                        <div className="bg-white p-6 rounded-xl shadow-sm border border-navy/5">
+                            <h2 className="font-serif text-lg text-navy mb-4 flex items-center gap-2">
+                                <FileText className="w-4 h-4 text-gold" /> Invoice Format and Deposit Options
+                            </h2>
+                            <div className="grid grid-cols-1 md:grid-cols-3 gap-3 mb-4">
+                                <button
+                                    type="button"
+                                    onClick={() => setData({ ...data, invoiceType: 'PRO_FORMA_50' })}
+                                    className={`p-3 rounded-lg border text-left transition-all ${data.invoiceType === 'PRO_FORMA_50' ? 'bg-navy text-white border-navy font-bold shadow' : 'bg-ivory text-charcoal border-navy/10 hover:border-gold'}`}
+                                >
+                                    <div className="text-xs uppercase tracking-wider font-bold">50% Deposit</div>
+                                    <div className="text-[11px] opacity-80 mt-1">Pro Forma Deposit Invoice</div>
+                                </button>
+                                <button
+                                    type="button"
+                                    onClick={() => setData({ ...data, invoiceType: 'PRO_FORMA' })}
+                                    className={`p-3 rounded-lg border text-left transition-all ${data.invoiceType === 'PRO_FORMA' ? 'bg-navy text-white border-navy font-bold shadow' : 'bg-ivory text-charcoal border-navy/10 hover:border-gold'}`}
+                                >
+                                    <div className="text-xs uppercase tracking-wider font-bold">Full Pro Forma</div>
+                                    <div className="text-[11px] opacity-80 mt-1">100% Pro Forma Invoice</div>
+                                </button>
+                                <button
+                                    type="button"
+                                    onClick={() => setData({ ...data, invoiceType: 'STANDARD' })}
+                                    className={`p-3 rounded-lg border text-left transition-all ${data.invoiceType === 'STANDARD' ? 'bg-navy text-white border-navy font-bold shadow' : 'bg-ivory text-charcoal border-navy/10 hover:border-gold'}`}
+                                >
+                                    <div className="text-xs uppercase tracking-wider font-bold">Standard</div>
+                                    <div className="text-[11px] opacity-80 mt-1">Final Tax Invoice</div>
+                                </button>
+                            </div>
+
+                            {data.invoiceType === 'PRO_FORMA_50' && (
+                                <div className="flex items-center gap-3 bg-emerald-50 border border-emerald-200 p-3 rounded-lg">
+                                    <Percent className="w-5 h-5 text-emerald-600 flex-shrink-0" />
+                                    <div className="text-xs text-emerald-900">
+                                        <span className="font-bold">50% Deposit Mode Active:</span> Invoice displays full package value while requesting the 50% pro forma deposit (£{calculateDepositAmount().toLocaleString('en-GB', { minimumFractionDigits: 2 })}) to begin production.
+                                    </div>
+                                </div>
+                            )}
+                        </div>
+
                         {/* Basic Info */}
                         <div className="bg-white p-6 rounded-xl shadow-sm border border-navy/5">
                             <h2 className="font-serif text-lg text-navy mb-4 flex items-center gap-2">
@@ -262,7 +370,7 @@ export function InvoiceGenerator() {
                             </h2>
                             <div className="grid grid-cols-2 gap-4">
                                 <div>
-                                    <label className="text-[10px] font-bold text-charcoal/40 uppercase tracking-widest block mb-1">Invoice #</label>
+                                    <label className="text-[10px] font-bold text-charcoal/40 uppercase tracking-widest block mb-1">Reference #</label>
                                     <div className="flex items-center gap-2 bg-ivory border border-navy/10 rounded-lg p-2">
                                         <Hash className="w-4 h-4 text-charcoal/30" />
                                         <input
@@ -344,20 +452,11 @@ export function InvoiceGenerator() {
                                     onChange={(e) => setData({ ...data, bankAccountNumber: e.target.value })}
                                     className="w-full p-2 bg-ivory border border-navy/10 rounded text-sm"
                                 />
-                                <div className="col-span-2 flex items-center gap-2 mt-2">
-                                    <label className="text-xs font-bold text-navy">VAT Rate %</label>
-                                    <input
-                                        type="number"
-                                        value={data.vatRate}
-                                        onChange={(e) => setData({ ...data, vatRate: Number(e.target.value) })}
-                                        className="w-20 p-2 bg-ivory border border-navy/10 rounded text-sm"
-                                    />
-                                </div>
                             </div>
                         </div>
                     </div>
 
-                    {/* Items & Preview */}
+                    {/* Items and Preview */}
                     <div className="space-y-6">
                         <div className="bg-white p-6 rounded-xl shadow-sm border border-navy/5">
                             <div className="flex justify-between items-center mb-4">
@@ -410,23 +509,39 @@ export function InvoiceGenerator() {
                                 ))}
                             </div>
 
-                            <div className="mt-6 pt-6 border-t border-navy/5 flex justify-end">
-                                <div className="text-right">
-                                    <div className="text-sm text-charcoal/60 mb-1">Total Amount</div>
-                                    <div className="font-serif text-3xl text-navy">{formatCurrency(calculateSubtotal())}</div>
+                            <div className="mt-6 pt-6 border-t border-navy/5 space-y-2">
+                                <div className="flex justify-between items-center text-sm text-charcoal/70">
+                                    <span>Total Package Value:</span>
+                                    <span className="font-bold text-navy">{formatCurrency(calculateGrandTotal())}</span>
                                 </div>
+                                {data.invoiceType === 'PRO_FORMA_50' && (
+                                    <div className="flex justify-between items-center text-emerald-700 font-bold bg-emerald-50 p-3 rounded-lg border border-emerald-200">
+                                        <span>50% Deposit Due Now:</span>
+                                        <span className="text-lg">{formatCurrency(calculateDepositAmount())}</span>
+                                    </div>
+                                )}
                             </div>
+                        </div>
+
+                        <div className="bg-white p-6 rounded-xl shadow-sm border border-navy/5">
+                            <h2 className="font-serif text-lg text-navy mb-3">Order Terms and Notes</h2>
+                            <textarea
+                                value={data.notes}
+                                onChange={(e) => setData({ ...data, notes: e.target.value })}
+                                className="w-full p-3 bg-ivory border border-navy/10 rounded-lg text-sm h-28 resize-none focus:outline-none focus:border-gold"
+                                placeholder="Add payment instructions, delivery lead times, or courier dispatch terms..."
+                            />
                         </div>
 
                         <div className="bg-navy/5 rounded-xl p-6 border border-navy/10 text-center">
                             <p className="text-charcoal/60 text-sm mb-4">
-                                Ready to generate? This will create a <strong>.doc</strong> file compatible with Microsoft Word.
+                                Ready to generate? This will create a <strong>.doc</strong> file formatted as a corporate pro forma deposit invoice.
                             </p>
                             <button
                                 onClick={downloadWordDoc}
-                                className="w-full bg-white border border-navy/10 text-navy font-bold py-3 rounded-lg shadow-sm hover:bg-gold hover:text-white hover:border-gold transition-all"
+                                className="w-full bg-navy text-white font-bold py-4 rounded-lg shadow-md hover:bg-gold transition-all"
                             >
-                                Download Invoice
+                                Download Pro Forma Deposit Invoice
                             </button>
                         </div>
                     </div>
