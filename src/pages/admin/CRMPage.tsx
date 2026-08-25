@@ -13,14 +13,9 @@ export interface Note {
 }
 
 export type PipelineStatus =
-    | 'COLD'
-    | 'WARM'
-    | 'HOT'
     | 'New Prospect'
     | 'Cold Email Sent'
     | 'Digital Mockup Sent'
-    | 'Sample Requested'
-    | 'Pro Forma Invoiced'
     | 'Active Corporate Account';
 
 export interface Contact {
@@ -68,7 +63,7 @@ export function CRMPage() {
     // Form State (Add)
     const [formData, setFormData] = useState<Partial<Contact>>({
         contact_type: 'INDIVIDUAL',
-        status: 'COLD',
+        status: 'New Prospect',
         owner: 'Carl Spiller',
         notes: []
     });
@@ -112,6 +107,15 @@ export function CRMPage() {
         return () => subscription.unsubscribe();
     }, []);
 
+    const mapStatus = (rawStatus?: string): PipelineStatus => {
+        if (!rawStatus) return 'New Prospect';
+        const upper = String(rawStatus).toUpperCase();
+        if (upper.includes('ACTIVE') || upper.includes('ACCOUNT')) return 'Active Corporate Account';
+        if (upper.includes('MOCKUP') || upper.includes('MOCK UP') || upper.includes('SAMPLE') || upper.includes('INVOICE') || upper.includes('PRO FORMA') || upper === 'HOT') return 'Digital Mockup Sent';
+        if (upper.includes('COLD EMAIL') || upper.includes('EMAIL') || upper === 'WARM') return 'Cold Email Sent';
+        return 'New Prospect';
+    };
+
     const fetchContacts = async () => {
         setLoading(true);
         const { data, error } = await supabase
@@ -125,7 +129,7 @@ export function CRMPage() {
             const parsedData = data?.map((c: any) => ({
                 ...c,
                 owner: c.owner === 'Rhys Barker' ? 'Carl Spiller' : (c.owner || 'Carl Spiller'),
-                status: c.status === '50% Deposit Invoiced' ? 'Pro Forma Invoiced' : (c.status || 'COLD'),
+                status: mapStatus(c.status),
                 notes: c.notes || []
             })) || [];
             setContacts(parsedData);
@@ -208,16 +212,8 @@ export function CRMPage() {
                         });
                     }
 
-                    let status: PipelineStatus = 'COLD';
-                    const rowStatus = String(getValue(row, ['status', 'stage', 'pipeline']) || '').toUpperCase();
-                    if (rowStatus.includes('WARM')) status = 'WARM';
-                    else if (rowStatus.includes('HOT')) status = 'HOT';
-                    else if (rowStatus.includes('COLD')) status = 'COLD';
-                    else if (rowStatus.includes('COLD EMAIL')) status = 'Cold Email Sent';
-                    else if (rowStatus.includes('MOCKUP')) status = 'Digital Mockup Sent';
-                    else if (rowStatus.includes('SAMPLE')) status = 'Sample Requested';
-                    else if (rowStatus.includes('INVOICE') || rowStatus.includes('PRO FORMA')) status = 'Pro Forma Invoiced';
-                    else if (rowStatus.includes('ACTIVE') || rowStatus.includes('ACCOUNT')) status = 'Active Corporate Account';
+                    const rawStatus = getValue(row, ['status', 'stage', 'pipeline']);
+                    const status: PipelineStatus = mapStatus(String(rawStatus || ''));
 
                     const companyName = getValue(row, ['company', 'company name', 'organization', 'business']) || 'Unknown Company';
                     let name = getValue(row, ['full name', 'fullname', 'name', 'contact', 'contact name', 'person', 'recipient', 'recipient name', 'lead']);
@@ -318,7 +314,7 @@ export function CRMPage() {
                     website: formData.website,
                     owner: formData.owner || 'Carl Spiller',
                     industry: formData.industry,
-                    status: formData.status || 'COLD',
+                    status: formData.status || 'New Prospect',
                     notes: formData.notes || []
                 }
             ]);
@@ -327,7 +323,7 @@ export function CRMPage() {
             alert('Error saving contact: ' + error.message);
         } else {
             setIsAdding(false);
-            setFormData({ contact_type: activeTab, status: 'COLD', owner: 'Carl Spiller', notes: [] });
+            setFormData({ contact_type: activeTab, status: 'New Prospect', owner: 'Carl Spiller', notes: [] });
             fetchContacts();
         }
     };
@@ -424,14 +420,9 @@ export function CRMPage() {
     const industries = Array.from(new Set(contacts.map(c => c.industry).filter(Boolean)));
 
     const pipelineStatuses: PipelineStatus[] = [
-        'COLD',
-        'WARM',
-        'HOT',
         'New Prospect',
         'Cold Email Sent',
         'Digital Mockup Sent',
-        'Sample Requested',
-        'Pro Forma Invoiced',
         'Active Corporate Account'
     ];
 
@@ -447,26 +438,16 @@ export function CRMPage() {
 
     const getStatusBadgeStyle = (status: PipelineStatus) => {
         switch (status) {
-            case 'HOT':
-                return 'bg-red-50 text-red-600 border-red-100 font-bold';
-            case 'WARM':
-                return 'bg-orange-50 text-orange-600 border-orange-100 font-bold';
-            case 'COLD':
-                return 'bg-blue-50 text-blue-600 border-blue-100 font-bold';
             case 'New Prospect':
-                return 'bg-blue-50 text-blue-700 border-blue-200';
+                return 'bg-blue-50 text-blue-700 border-blue-200 font-bold';
             case 'Cold Email Sent':
-                return 'bg-purple-50 text-purple-700 border-purple-200';
+                return 'bg-purple-50 text-purple-700 border-purple-200 font-bold';
             case 'Digital Mockup Sent':
-                return 'bg-amber-50 text-amber-700 border-amber-200';
-            case 'Sample Requested':
-                return 'bg-orange-50 text-orange-700 border-orange-200';
-            case 'Pro Forma Invoiced':
-                return 'bg-emerald-50 text-emerald-700 border-emerald-200 font-bold';
+                return 'bg-amber-50 text-amber-700 border-amber-200 font-bold';
             case 'Active Corporate Account':
                 return 'bg-gold/20 text-navy border-gold font-bold';
             default:
-                return 'bg-gray-100 text-gray-600 border-gray-200';
+                return 'bg-blue-50 text-blue-700 border-blue-200 font-bold';
         }
     };
 
@@ -578,12 +559,12 @@ export function CRMPage() {
                             <div className="flex-1">{activeTab === 'BUSINESS' ? 'Company Name' : 'Name and Role'}</div>
                             <div className="flex-1">Owner</div>
                             <div className="flex-1">Contact</div>
-                            <div className="w-36 text-right">Status</div>
+                            <div className="w-44 text-right">Status</div>
                         </div>
 
                         {loading ? <Loader2 className="animate-spin w-8 h-8 text-navy mx-auto my-12" /> : filteredContacts.map(contact => (
                             <div key={contact.id} onClick={() => setSelectedContact(contact)} className="bg-white p-4 rounded-lg shadow-sm border border-navy/5 hover:border-gold/50 cursor-pointer group flex flex-col md:flex-row md:items-center gap-4 relative overflow-hidden">
-                                <div className={`absolute left-0 top-0 bottom-0 w-1.5 ${contact.status === 'HOT' ? 'bg-red-500' : contact.status === 'WARM' ? 'bg-orange-400' : 'bg-blue-400'}`} />
+                                <div className={`absolute left-0 top-0 bottom-0 w-1.5 ${contact.status === 'Active Corporate Account' ? 'bg-gold' : contact.status === 'Digital Mockup Sent' ? 'bg-amber-400' : contact.status === 'Cold Email Sent' ? 'bg-purple-400' : 'bg-blue-400'}`} />
 
                                 <div className="flex-1 min-w-0 pl-3">
                                     <h3 className="font-serif text-lg text-navy font-bold truncate group-hover:text-gold transition-colors">
@@ -614,7 +595,7 @@ export function CRMPage() {
                                     {contact.contact_number && <div className="flex items-center gap-2 text-xs text-charcoal/60"><Phone className="w-3 h-3 text-gold" /> {contact.contact_number}</div>}
                                 </div>
 
-                                <div className="w-36 flex items-center justify-between md:justify-end gap-2">
+                                <div className="w-44 flex items-center justify-between md:justify-end gap-2">
                                     <span className={`px-3 py-1 rounded-full text-[10px] font-bold tracking-widest uppercase border whitespace-nowrap ${getStatusBadgeStyle(contact.status)}`}>
                                         {contact.status}
                                     </span>
