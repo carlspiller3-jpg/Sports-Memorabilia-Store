@@ -151,6 +151,19 @@ export function CRMPage() {
     const [newNote, setNewNote] = useState('');
 
     useEffect(() => {
+        const handleKeyDown = (e: KeyboardEvent) => {
+            if (e.key === 'Escape') {
+                setIsEmailModalOpen(false);
+                setSelectedContact(null);
+                setIsAdding(false);
+                setIsImportModalOpen(false);
+            }
+        };
+        window.addEventListener('keydown', handleKeyDown);
+        return () => window.removeEventListener('keydown', handleKeyDown);
+    }, []);
+
+    useEffect(() => {
         // 1. Check active session
         supabase.auth.getSession().then(({ data: { session } }) => {
             setSession(session);
@@ -778,8 +791,8 @@ export function CRMPage() {
 
             {/* Add Contact Modal */}
             {isAdding && (
-                <div className="fixed inset-0 z-[200] flex items-center justify-center bg-navy/40 backdrop-blur-sm p-4 animate-in fade-in duration-200">
-                    <div className="bg-white p-8 rounded-xl shadow-2xl w-full max-w-lg relative border border-white/20 max-h-[90vh] overflow-y-auto">
+                <div className="fixed inset-0 z-[200] flex items-center justify-center bg-navy/40 backdrop-blur-sm p-4 animate-in fade-in duration-200" onClick={() => setIsAdding(false)}>
+                    <div className="bg-white p-8 rounded-xl shadow-2xl w-full max-w-lg relative border border-white/20 max-h-[90vh] overflow-y-auto" onClick={(e) => e.stopPropagation()}>
                         <button onClick={() => setIsAdding(false)} className="absolute top-4 right-4 p-2 hover:bg-gray-100 rounded-full transition-colors"><X className="w-5 h-5 text-charcoal/50" /></button>
                         <h2 className="font-serif text-2xl text-navy mb-6">Add Corporate Prospect</h2>
                         <div className="space-y-4">
@@ -873,8 +886,8 @@ export function CRMPage() {
 
             {/* Contact Details and Editing Modal */}
             {selectedContact && (
-                <div className="fixed inset-0 z-[1000] flex items-center justify-center bg-navy/60 backdrop-blur-md p-4 pt-24 animate-in fade-in duration-200">
-                    <div className="relative bg-ivory rounded-2xl shadow-2xl w-full max-w-6xl h-full max-h-[85vh] flex flex-col md:flex-row overflow-hidden border border-white/10">
+                <div className="fixed inset-0 z-[1000] flex items-center justify-center bg-navy/60 backdrop-blur-md p-4 pt-24 animate-in fade-in duration-200" onClick={() => setSelectedContact(null)}>
+                    <div className="relative bg-ivory rounded-2xl shadow-2xl w-full max-w-6xl h-full max-h-[85vh] flex flex-col md:flex-row overflow-hidden border border-white/10" onClick={(e) => e.stopPropagation()}>
                         <div className="w-full md:w-[380px] bg-white border-r border-navy/10 flex flex-col h-full z-10 shadow-lg overflow-y-auto">
                             <div className="p-6 border-b border-navy/5 bg-navy/5">
                                 <div className="text-[10px] font-bold text-charcoal/40 uppercase tracking-widest mb-2">Corporate Lead Profile</div>
@@ -1028,14 +1041,26 @@ export function CRMPage() {
 
             {/* Email Blueprint Template Modal */}
             {isEmailModalOpen && emailModalContact && (
-                <div className="fixed inset-0 z-[2000] flex items-center justify-center bg-navy/60 backdrop-blur-md p-4 animate-in fade-in duration-200">
-                    <div className="bg-white rounded-2xl shadow-2xl w-full max-w-3xl overflow-hidden border border-white/20 flex flex-col max-h-[90vh]">
-                        <div className="p-6 bg-navy text-white flex justify-between items-center">
+                <div
+                    className="fixed inset-0 z-[2000] flex items-center justify-center bg-navy/60 backdrop-blur-md p-4 animate-in fade-in duration-200 overflow-y-auto"
+                    onClick={() => setIsEmailModalOpen(false)}
+                >
+                    <div
+                        className="bg-white rounded-2xl shadow-2xl w-full max-w-3xl overflow-hidden border border-white/20 flex flex-col max-h-[85vh] my-auto relative shrink-0"
+                        onClick={(e) => e.stopPropagation()}
+                    >
+                        <div className="p-5 bg-navy text-white flex justify-between items-center shrink-0">
                             <div>
                                 <div className="text-[10px] uppercase font-bold tracking-widest text-gold mb-1">Automated Merge Tag Outreach</div>
-                                <h2 className="font-serif text-2xl">Cold Email Blueprints</h2>
+                                <h2 className="font-serif text-xl md:text-2xl">Cold Email Blueprints</h2>
                             </div>
-                            <button onClick={() => setIsEmailModalOpen(false)} className="p-2 hover:bg-white/10 rounded-full text-white"><X className="w-6 h-6" /></button>
+                            <button
+                                onClick={() => setIsEmailModalOpen(false)}
+                                className="p-2 hover:bg-white/10 rounded-full text-white transition-colors"
+                                title="Close Modal (Esc)"
+                            >
+                                <X className="w-6 h-6" />
+                            </button>
                         </div>
 
                         <div className="p-6 space-y-6 overflow-y-auto flex-1 bg-ivory">
@@ -1118,22 +1143,22 @@ export function CRMPage() {
                                 </div>
                                 <textarea
                                     readOnly
-                                    className="w-full p-4 bg-white border border-navy/10 rounded-lg text-sm font-sans text-charcoal leading-relaxed h-56 resize-none focus:outline-none"
+                                    className="w-full p-4 bg-white border border-navy/10 rounded-lg text-sm font-sans text-charcoal leading-relaxed h-48 md:h-56 resize-none focus:outline-none"
                                     value={formatTemplateText(selectedBlueprint.body, emailModalContact)}
                                 />
                             </div>
                         </div>
 
                         {/* Footer Action Bar */}
-                        <div className="p-6 bg-white border-t border-navy/10 flex flex-col md:flex-row justify-between items-center gap-4">
-                            <div className="flex gap-2 w-full md:w-auto">
+                        <div className="p-4 md:p-6 bg-white border-t border-navy/10 flex flex-col md:flex-row justify-between items-center gap-3 shrink-0">
+                            <div className="flex flex-wrap gap-2 w-full md:w-auto">
                                 <button
                                     type="button"
                                     onClick={() => {
                                         updateContactStatus(emailModalContact.id, 'Cold Email Sent', `Sent ${selectedBlueprint.name} blueprint email.`);
                                         alert(`Status updated to 'Cold Email Sent' for ${emailModalContact.company_name}.`);
                                     }}
-                                    className="px-4 py-2.5 bg-purple-50 text-purple-700 border border-purple-200 rounded-lg text-xs font-bold hover:bg-purple-100 transition-colors"
+                                    className="px-3 py-2 bg-purple-50 text-purple-700 border border-purple-200 rounded-lg text-xs font-bold hover:bg-purple-100 transition-colors"
                                 >
                                     Mark Cold Email Sent
                                 </button>
@@ -1143,20 +1168,29 @@ export function CRMPage() {
                                         updateContactStatus(emailModalContact.id, 'Digital Mockup Sent', `Sent digital mockup for ${selectedBlueprint.name}.`);
                                         alert(`Status updated to 'Digital Mockup Sent' for ${emailModalContact.company_name}.`);
                                     }}
-                                    className="px-4 py-2.5 bg-amber-50 text-amber-700 border border-amber-200 rounded-lg text-xs font-bold hover:bg-amber-100 transition-colors"
+                                    className="px-3 py-2 bg-amber-50 text-amber-700 border border-amber-200 rounded-lg text-xs font-bold hover:bg-amber-100 transition-colors"
                                 >
                                     Mark Mockup Sent
                                 </button>
                             </div>
 
-                            <a
-                                href={`mailto:${emailModalContact.contact_email || ''}?subject=${encodeURIComponent(formatTemplateText(selectedBlueprint.subject, emailModalContact))}&body=${encodeURIComponent(formatTemplateText(selectedBlueprint.body, emailModalContact))}`}
-                                target="_blank"
-                                rel="noreferrer"
-                                className="w-full md:w-auto bg-navy text-white px-6 py-3 rounded-lg font-bold flex items-center justify-center gap-2 hover:bg-gold transition-all shadow-md"
-                            >
-                                <ExternalLink className="w-4 h-4" /> Open Email Client
-                            </a>
+                            <div className="flex gap-2 w-full md:w-auto justify-end">
+                                <button
+                                    type="button"
+                                    onClick={() => setIsEmailModalOpen(false)}
+                                    className="px-4 py-2.5 bg-gray-100 border border-gray-200 text-charcoal/70 rounded-lg text-xs font-bold hover:bg-gray-200 transition-colors"
+                                >
+                                    Close
+                                </button>
+                                <a
+                                    href={`mailto:${emailModalContact.contact_email || ''}?subject=${encodeURIComponent(formatTemplateText(selectedBlueprint.subject, emailModalContact))}&body=${encodeURIComponent(formatTemplateText(selectedBlueprint.body, emailModalContact))}`}
+                                    target="_blank"
+                                    rel="noreferrer"
+                                    className="bg-navy text-white px-5 py-2.5 rounded-lg font-bold text-xs flex items-center justify-center gap-2 hover:bg-gold transition-all shadow-md"
+                                >
+                                    <ExternalLink className="w-4 h-4" /> Open Email Client
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -1164,8 +1198,8 @@ export function CRMPage() {
 
             {/* Import Modal */}
             {isImportModalOpen && (
-                <div className="fixed inset-0 z-[200] flex items-center justify-center bg-navy/40 backdrop-blur-sm p-4 animate-in fade-in duration-200">
-                    <div className="bg-white p-8 rounded-xl shadow-2xl w-full max-w-sm relative border border-white/20">
+                <div className="fixed inset-0 z-[200] flex items-center justify-center bg-navy/40 backdrop-blur-sm p-4 animate-in fade-in duration-200" onClick={() => setIsImportModalOpen(false)}>
+                    <div className="bg-white p-8 rounded-xl shadow-2xl w-full max-w-sm relative border border-white/20" onClick={(e) => e.stopPropagation()}>
                         <button onClick={() => setIsImportModalOpen(false)} className="absolute top-4 right-4 p-2 hover:bg-gray-100 rounded-full transition-colors"><X className="w-5 h-5 text-charcoal/50" /></button>
                         <h2 className="font-serif text-xl text-navy mb-4">Import Corporate Prospects</h2>
                         <p className="text-sm text-charcoal/60 mb-6">Select account owner for imported rows.</p>
