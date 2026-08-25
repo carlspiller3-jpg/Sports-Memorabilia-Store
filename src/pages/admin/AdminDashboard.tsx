@@ -9,10 +9,10 @@ export function AdminDashboard() {
     }
 
     const adminLinks = [
-        { title: 'CRM (Leads and Contacts)', path: '/admin/crm', icon: Users, description: 'Manage your B2B and high value leads with automated email templates, 50 percent deposit invoicing, and 24 hour dispatch tracking.' },
+        { title: 'CRM (Leads and Contacts)', path: '/admin/crm', icon: Users, description: 'Manage your B2B and high value leads with automated email templates, pro forma invoicing, and 24 hour dispatch tracking.' },
         { title: 'SEO Manager', path: '/admin/seo', icon: Search, description: 'Update metadata for Supabase stored products/pages.' },
         { title: 'NFC Tag Manager', path: '/admin/nfc', icon: ShieldCheck, description: 'Map physical NFC tags to digital certificates.' },
-        { title: 'Invoice Generator', path: '/admin/invoice-generator', icon: FileText, description: 'Quickly generate branded pro forma and deposit invoices for manual B2B orders.' },
+        { title: 'Invoice Generator', path: '/admin/invoice-generator', icon: FileText, description: 'Quickly generate branded pro forma and tax invoices for manual B2B orders.' },
         { title: 'Shopify Asset Generator', path: '/admin/asset-generator', icon: Package, description: 'Auto frame and scale assets natively in browser to maintain Shopify standards.' },
         { title: 'On This Day Social Generator', path: '/admin/social-generator', icon: Calendar, description: 'Generate premium split screen and gold framed On This Day carousel slides.' },
         { title: 'SEO AI Generator', path: '/admin/seo-generator', icon: Zap, description: 'Generate titles and descriptions for Google, eBay, Etsy, and Amazon.' },
@@ -70,3 +70,5 @@ export function AdminDashboard() {
         </div>
     )
 }
+
+export default AdminDashboard;

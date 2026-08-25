@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
-import { Download, Plus, Trash2, FileText, DollarSign, Calendar, User, Hash, ArrowLeft, Percent } from 'lucide-react';
+import { Download, Plus, Trash2, FileText, DollarSign, Calendar, User, Hash, ArrowLeft } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 interface InvoiceItem {
@@ -10,12 +10,11 @@ interface InvoiceItem {
     rate: number;
 }
 
-export type InvoiceType = 'STANDARD' | 'PRO_FORMA_50' | 'PRO_FORMA';
+export type InvoiceType = 'PRO_FORMA' | 'STANDARD';
 
 interface InvoiceData {
     invoiceNumber: string;
     invoiceType: InvoiceType;
-    depositPercentage: number;
     date: string;
     dueDate: string;
     clientName: string;
@@ -34,8 +33,7 @@ interface InvoiceData {
 export function InvoiceGenerator() {
     const [data, setData] = useState<InvoiceData>({
         invoiceNumber: `INV-${new Date().getFullYear()}-${String(Math.floor(Math.random() * 1000)).padStart(3, '0')}`,
-        invoiceType: 'PRO_FORMA_50',
-        depositPercentage: 50,
+        invoiceType: 'PRO_FORMA',
         date: new Date().toISOString().split('T')[0],
         dueDate: new Date(Date.now() + 14 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
         clientName: '',
@@ -43,7 +41,7 @@ export function InvoiceGenerator() {
         clientAddress: '',
         clientEmail: '',
         items: [{ id: '1', description: 'Corporate Sports Memorabilia Package with Custom Plaque', quantity: 1, rate: 10000 }],
-        notes: '50 percent deposit due to initiate order allocation and custom plaque production. Balance due prior to 24 hour courier dispatch.',
+        notes: 'Pro forma invoice issued for corporate order allocation. Payment due prior to 24 hour courier dispatch.',
         bankAccountName: 'Sports Memorabilia Store Limited',
         bankAccountNumber: '57113499',
         bankSortCode: '23-05-80',
@@ -56,17 +54,15 @@ export function InvoiceGenerator() {
         const clientName = params.get('clientName');
         const clientCompany = params.get('clientCompany');
         const clientEmail = params.get('clientEmail');
-        const deposit = params.get('deposit');
         const invoiceType = params.get('invoiceType') as InvoiceType | null;
 
-        if (clientName || clientCompany || clientEmail || deposit || invoiceType) {
+        if (clientName || clientCompany || clientEmail || invoiceType) {
             setData(prev => ({
                 ...prev,
                 clientName: clientName || prev.clientName,
                 clientCompany: clientCompany || prev.clientCompany,
                 clientEmail: clientEmail || prev.clientEmail,
-                depositPercentage: deposit ? Number(deposit) : prev.depositPercentage,
-                invoiceType: invoiceType || (deposit ? 'PRO_FORMA_50' : prev.invoiceType),
+                invoiceType: invoiceType || prev.invoiceType,
                 items: prev.items.length === 1 && prev.items[0].rate === 10000 ? [
                     { id: '1', description: `Corporate Memorabilia Package (${clientCompany || 'Corporate Client'})`, quantity: 1, rate: 10000 }
                 ] : prev.items
@@ -109,21 +105,11 @@ export function InvoiceGenerator() {
         return calculateSubtotal() + calculateVAT();
     };
 
-    const calculateDepositAmount = () => {
-        const grandTotal = calculateGrandTotal();
-        return grandTotal * (data.depositPercentage / 100);
-    };
-
-    const calculateRemainingBalance = () => {
-        return calculateGrandTotal() - calculateDepositAmount();
-    };
-
     const formatCurrency = (amount: number) => {
         return new Intl.NumberFormat('en-GB', { style: 'currency', currency: data.currency }).format(amount);
     };
 
     const getInvoiceTitle = () => {
-        if (data.invoiceType === 'PRO_FORMA_50') return `${data.depositPercentage}% PRO FORMA DEPOSIT INVOICE`;
         if (data.invoiceType === 'PRO_FORMA') return 'PRO FORMA INVOICE';
         return 'INVOICE';
     };
@@ -132,8 +118,6 @@ export function InvoiceGenerator() {
         const subtotal = calculateSubtotal();
         const vat = calculateVAT();
         const grandTotal = calculateGrandTotal();
-        const depositAmount = calculateDepositAmount();
-        const remainingBalance = calculateRemainingBalance();
         const invoiceTitle = getInvoiceTitle();
 
         const htmlContent = `
@@ -154,7 +138,6 @@ export function InvoiceGenerator() {
                 .items-table td { border-bottom: 1px solid #eee; padding: 10px; }
                 .total-section { float: right; width: 340px; margin-top: 20px; }
                 .total-row td { border-top: 2px solid #1c273a; font-weight: bold; font-size: 14pt; color: #1c273a; }
-                .deposit-box { margin-top: 20px; padding: 15px; background-color: #f0f7ff; border: 1px solid #cce3ff; border-radius: 4px; }
                 .footer { margin-top: 50px; border-top: 1px solid #eee; padding-top: 20px; font-size: 9pt; color: #888; text-align: center; }
                 .logo-img { max-height: 80px; margin-bottom: 15px; }
             </style>
@@ -232,7 +215,7 @@ export function InvoiceGenerator() {
             <div class="total-section">
                 <table>
                     <tr>
-                        <td style="text-align: right; padding-right: 20px;">Order Subtotal</td>
+                        <td style="text-align: right; padding-right: 20px;">Subtotal</td>
                         <td style="text-align: right;">${formatCurrency(subtotal)}</td>
                     </tr>
                     ${vat > 0 ? `
@@ -242,19 +225,9 @@ export function InvoiceGenerator() {
                     </tr>
                     ` : ''}
                     <tr class="total-row">
-                        <td style="text-align: right; padding-right: 20px;">Total Package Value</td>
+                        <td style="text-align: right; padding-right: 20px;">Total Payable</td>
                         <td style="text-align: right;">${formatCurrency(grandTotal)}</td>
                     </tr>
-                    ${data.invoiceType === 'PRO_FORMA_50' ? `
-                    <tr style="color: #047857; font-weight: bold;">
-                        <td style="text-align: right; padding-right: 20px; font-size: 11pt; padding-top: 10px;">${data.depositPercentage}% Deposit Due Now</td>
-                        <td style="text-align: right; font-size: 13pt; padding-top: 10px;">${formatCurrency(depositAmount)}</td>
-                    </tr>
-                    <tr style="color: #6b7280; font-size: 9pt;">
-                        <td style="text-align: right; padding-right: 20px;">Remaining Balance (Prior to Dispatch)</td>
-                        <td style="text-align: right;">${formatCurrency(remainingBalance)}</td>
-                    </tr>
-                    ` : ''}
                 </table>
             </div>
 
@@ -285,7 +258,7 @@ export function InvoiceGenerator() {
         const url = URL.createObjectURL(blob);
         const link = document.createElement('a');
         link.href = url;
-        link.download = `${data.invoiceType === 'PRO_FORMA_50' ? 'Pro-Forma-Deposit-Invoice' : 'Invoice'}-${data.invoiceNumber}.doc`;
+        link.download = `${data.invoiceType === 'PRO_FORMA' ? 'Pro-Forma-Invoice' : 'Invoice'}-${data.invoiceNumber}.doc`;
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);
@@ -306,7 +279,7 @@ export function InvoiceGenerator() {
                         </Link>
                         <div>
                             <h1 className="font-serif text-3xl text-navy">Invoice Generator</h1>
-                            <p className="text-charcoal/60 mt-1 text-sm">Issue pro forma deposit invoices and custom order documentation.</p>
+                            <p className="text-charcoal/60 mt-1 text-sm">Issue pro forma invoices and custom order documentation.</p>
                         </div>
                     </div>
                     <button
@@ -324,43 +297,26 @@ export function InvoiceGenerator() {
                         {/* Invoice Type Selector */}
                         <div className="bg-white p-6 rounded-xl shadow-sm border border-navy/5">
                             <h2 className="font-serif text-lg text-navy mb-4 flex items-center gap-2">
-                                <FileText className="w-4 h-4 text-gold" /> Invoice Format and Deposit Options
+                                <FileText className="w-4 h-4 text-gold" /> Invoice Format
                             </h2>
-                            <div className="grid grid-cols-1 md:grid-cols-3 gap-3 mb-4">
-                                <button
-                                    type="button"
-                                    onClick={() => setData({ ...data, invoiceType: 'PRO_FORMA_50' })}
-                                    className={`p-3 rounded-lg border text-left transition-all ${data.invoiceType === 'PRO_FORMA_50' ? 'bg-navy text-white border-navy font-bold shadow' : 'bg-ivory text-charcoal border-navy/10 hover:border-gold'}`}
-                                >
-                                    <div className="text-xs uppercase tracking-wider font-bold">50% Deposit</div>
-                                    <div className="text-[11px] opacity-80 mt-1">Pro Forma Deposit Invoice</div>
-                                </button>
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mb-2">
                                 <button
                                     type="button"
                                     onClick={() => setData({ ...data, invoiceType: 'PRO_FORMA' })}
                                     className={`p-3 rounded-lg border text-left transition-all ${data.invoiceType === 'PRO_FORMA' ? 'bg-navy text-white border-navy font-bold shadow' : 'bg-ivory text-charcoal border-navy/10 hover:border-gold'}`}
                                 >
-                                    <div className="text-xs uppercase tracking-wider font-bold">Full Pro Forma</div>
-                                    <div className="text-[11px] opacity-80 mt-1">100% Pro Forma Invoice</div>
+                                    <div className="text-xs uppercase tracking-wider font-bold">Pro Forma Invoice</div>
+                                    <div className="text-[11px] opacity-80 mt-1">Pre order pro forma billing</div>
                                 </button>
                                 <button
                                     type="button"
                                     onClick={() => setData({ ...data, invoiceType: 'STANDARD' })}
                                     className={`p-3 rounded-lg border text-left transition-all ${data.invoiceType === 'STANDARD' ? 'bg-navy text-white border-navy font-bold shadow' : 'bg-ivory text-charcoal border-navy/10 hover:border-gold'}`}
                                 >
-                                    <div className="text-xs uppercase tracking-wider font-bold">Standard</div>
-                                    <div className="text-[11px] opacity-80 mt-1">Final Tax Invoice</div>
+                                    <div className="text-xs uppercase tracking-wider font-bold">Standard Invoice</div>
+                                    <div className="text-[11px] opacity-80 mt-1">Final tax invoice</div>
                                 </button>
                             </div>
-
-                            {data.invoiceType === 'PRO_FORMA_50' && (
-                                <div className="flex items-center gap-3 bg-emerald-50 border border-emerald-200 p-3 rounded-lg">
-                                    <Percent className="w-5 h-5 text-emerald-600 flex-shrink-0" />
-                                    <div className="text-xs text-emerald-900">
-                                        <span className="font-bold">50% Deposit Mode Active:</span> Invoice displays full package value while requesting the 50% pro forma deposit (£{calculateDepositAmount().toLocaleString('en-GB', { minimumFractionDigits: 2 })}) to begin production.
-                                    </div>
-                                </div>
-                            )}
                         </div>
 
                         {/* Basic Info */}
@@ -511,15 +467,9 @@ export function InvoiceGenerator() {
 
                             <div className="mt-6 pt-6 border-t border-navy/5 space-y-2">
                                 <div className="flex justify-between items-center text-sm text-charcoal/70">
-                                    <span>Total Package Value:</span>
-                                    <span className="font-bold text-navy">{formatCurrency(calculateGrandTotal())}</span>
+                                    <span>Total Amount:</span>
+                                    <span className="font-bold text-navy text-lg">{formatCurrency(calculateGrandTotal())}</span>
                                 </div>
-                                {data.invoiceType === 'PRO_FORMA_50' && (
-                                    <div className="flex justify-between items-center text-emerald-700 font-bold bg-emerald-50 p-3 rounded-lg border border-emerald-200">
-                                        <span>50% Deposit Due Now:</span>
-                                        <span className="text-lg">{formatCurrency(calculateDepositAmount())}</span>
-                                    </div>
-                                )}
                             </div>
                         </div>
 
@@ -535,13 +485,13 @@ export function InvoiceGenerator() {
 
                         <div className="bg-navy/5 rounded-xl p-6 border border-navy/10 text-center">
                             <p className="text-charcoal/60 text-sm mb-4">
-                                Ready to generate? This will create a <strong>.doc</strong> file formatted as a corporate pro forma deposit invoice.
+                                Ready to generate? This will create a <strong>.doc</strong> file formatted as a corporate pro forma invoice.
                             </p>
                             <button
                                 onClick={downloadWordDoc}
                                 className="w-full bg-navy text-white font-bold py-4 rounded-lg shadow-md hover:bg-gold transition-all"
                             >
-                                Download Pro Forma Deposit Invoice
+                                Download Pro Forma Invoice
                             </button>
                         </div>
                     </div>

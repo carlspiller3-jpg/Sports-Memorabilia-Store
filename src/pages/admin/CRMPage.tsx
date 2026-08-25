@@ -17,7 +17,7 @@ export type PipelineStatus =
     | 'Cold Email Sent'
     | 'Digital Mockup Sent'
     | 'Sample Requested'
-    | '50% Deposit Invoiced'
+    | 'Pro Forma Invoiced'
     | 'Active Corporate Account'
     | 'COLD'
     | 'WARM'
@@ -195,7 +195,7 @@ export function CRMPage() {
         } else {
             const parsedData = data?.map((c: any) => ({
                 ...c,
-                status: c.status || 'New Prospect',
+                status: c.status === '50% Deposit Invoiced' ? 'Pro Forma Invoiced' : (c.status || 'New Prospect'),
                 notes: c.notes || []
             })) || [];
             setContacts(parsedData);
@@ -310,7 +310,7 @@ export function CRMPage() {
                     if (rowStatus.includes('COLD EMAIL')) status = 'Cold Email Sent';
                     else if (rowStatus.includes('MOCKUP')) status = 'Digital Mockup Sent';
                     else if (rowStatus.includes('SAMPLE')) status = 'Sample Requested';
-                    else if (rowStatus.includes('INVOICE') || rowStatus.includes('DEPOSIT')) status = '50% Deposit Invoiced';
+                    else if (rowStatus.includes('INVOICE') || rowStatus.includes('PRO FORMA')) status = 'Pro Forma Invoiced';
                     else if (rowStatus.includes('ACTIVE') || rowStatus.includes('ACCOUNT')) status = 'Active Corporate Account';
                     else if (rowStatus === 'WARM') status = 'WARM';
                     else if (rowStatus === 'HOT') status = 'HOT';
@@ -570,7 +570,7 @@ export function CRMPage() {
         const clientName = encodeURIComponent(getFirstName(c));
         const clientCompany = encodeURIComponent(c.company_name || '');
         const clientEmail = encodeURIComponent(c.contact_email || '');
-        navigate(`/admin/invoice-generator?clientName=${clientName}&clientCompany=${clientCompany}&clientEmail=${clientEmail}&deposit=50&invoiceType=PRO_FORMA_50`);
+        navigate(`/admin/invoice-generator?clientName=${clientName}&clientCompany=${clientCompany}&clientEmail=${clientEmail}&invoiceType=PRO_FORMA`);
     };
 
     const industries = Array.from(new Set(contacts.map(c => c.industry).filter(Boolean)));
@@ -580,7 +580,7 @@ export function CRMPage() {
         'Cold Email Sent',
         'Digital Mockup Sent',
         'Sample Requested',
-        '50% Deposit Invoiced',
+        'Pro Forma Invoiced',
         'Active Corporate Account'
     ];
 
@@ -604,7 +604,7 @@ export function CRMPage() {
                 return 'bg-amber-50 text-amber-700 border-amber-200';
             case 'Sample Requested':
                 return 'bg-orange-50 text-orange-700 border-orange-200';
-            case '50% Deposit Invoiced':
+            case 'Pro Forma Invoiced':
                 return 'bg-emerald-50 text-emerald-700 border-emerald-200 font-bold';
             case 'Active Corporate Account':
                 return 'bg-gold/20 text-navy border-gold font-bold';
@@ -670,7 +670,7 @@ export function CRMPage() {
                                 <h1 className="font-serif text-4xl text-navy">Corporate CRM</h1>
                                 <span className="px-2 py-0.5 bg-green-100 text-green-700 text-[10px] font-bold tracking-widest rounded-full uppercase border border-green-200">Live Hub</span>
                             </div>
-                            <p className="text-charcoal/60">Automated lead prospecting, email template merge tags, 50 percent deposit invoicing, and dispatch tracking.</p>
+                            <p className="text-charcoal/60">Automated lead prospecting, email template merge tags, pro forma invoicing, and dispatch tracking.</p>
                         </div>
                     </div>
                     <div className="flex flex-wrap gap-3">
@@ -731,7 +731,7 @@ export function CRMPage() {
 
                         {loading ? <Loader2 className="animate-spin w-8 h-8 text-navy mx-auto my-12" /> : filteredContacts.map(contact => (
                             <div key={contact.id} onClick={() => setSelectedContact(contact)} className="bg-white p-4 rounded-lg shadow-sm border border-navy/5 hover:border-gold/50 cursor-pointer group flex flex-col md:flex-row md:items-center gap-4 relative overflow-hidden">
-                                <div className={`absolute left-0 top-0 bottom-0 w-1.5 ${contact.status === 'Active Corporate Account' ? 'bg-gold' : contact.status === '50% Deposit Invoiced' ? 'bg-emerald-500' : contact.status === 'Sample Requested' ? 'bg-orange-500' : 'bg-blue-400'}`} />
+                                <div className={`absolute left-0 top-0 bottom-0 w-1.5 ${contact.status === 'Active Corporate Account' ? 'bg-gold' : contact.status === 'Pro Forma Invoiced' ? 'bg-emerald-500' : contact.status === 'Sample Requested' ? 'bg-orange-500' : 'bg-blue-400'}`} />
 
                                 <div className="flex-1 min-w-0 pl-3">
                                     <h3 className="font-serif text-lg text-navy font-bold truncate group-hover:text-gold transition-colors">
@@ -771,9 +771,9 @@ export function CRMPage() {
                                     <button
                                         onClick={(e) => { e.stopPropagation(); openInvoiceGeneratorForContact(contact); }}
                                         className="p-2 bg-emerald-50 hover:bg-emerald-600 hover:text-white rounded-md text-emerald-700 text-xs font-bold flex items-center gap-1 border border-emerald-200 transition-colors"
-                                        title="50% Deposit Invoice"
+                                        title="Pro Forma Invoice"
                                     >
-                                        <FileText className="w-3.5 h-3.5" /> 50% Deposit
+                                        <FileText className="w-3.5 h-3.5" /> Pro Forma
                                     </button>
                                 </div>
 
@@ -994,7 +994,7 @@ export function CRMPage() {
                                             onClick={() => openInvoiceGeneratorForContact(selectedContact)}
                                             className="w-full bg-emerald-600 text-white p-3 rounded-lg text-xs font-bold flex items-center justify-center gap-2 hover:bg-emerald-700 transition-colors shadow-sm"
                                         >
-                                            <FileText className="w-4 h-4" /> Generate 50% Deposit Invoice
+                                            <FileText className="w-4 h-4" /> Generate Pro Forma Invoice
                                         </button>
                                     </div>
                                 </div>
