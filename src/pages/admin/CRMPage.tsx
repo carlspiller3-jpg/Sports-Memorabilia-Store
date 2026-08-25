@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { supabase } from '@/lib/supabaseClient';
-import { Plus, Search, Phone, Mail, FileText, Trash2, Save, X, User, Lock, Send, LogOut, Loader2, Upload, ArrowLeft } from 'lucide-react';
+import { Plus, Search, Phone, Mail, Trash2, Save, X, User, Lock, Send, LogOut, Loader2, Upload, ArrowLeft } from 'lucide-react';
 import { Helmet } from 'react-helmet-async';
 import * as XLSX from 'xlsx';
 import { Link } from 'react-router-dom';
@@ -48,7 +48,6 @@ export function CRMPage() {
     const [searchTerm, setSearchTerm] = useState('');
     const [filterStatus, setFilterStatus] = useState<string>('ALL');
     const [filterIndustry, setFilterIndustry] = useState<string>('ALL');
-    const [activeTab, setActiveTab] = useState<'INDIVIDUAL' | 'BUSINESS'>('INDIVIDUAL');
 
     // UI State
     const [selectedContact, setSelectedContact] = useState<Contact | null>(null);
@@ -62,7 +61,6 @@ export function CRMPage() {
 
     // Form State (Add)
     const [formData, setFormData] = useState<Partial<Contact>>({
-        contact_type: 'INDIVIDUAL',
         status: 'New Prospect',
         owner: 'Carl Spiller',
         notes: []
@@ -237,7 +235,7 @@ export function CRMPage() {
                         name: name,
                         first_name: firstName || '',
                         recipient_name: getValue(row, ['recipient', 'recipient name', 'contact person', 'contact']) || '',
-                        role: getValue(row, ['role', 'job title', 'title', 'position']) || (type === 'BUSINESS' ? 'Business Entity' : 'Unknown Role'),
+                        role: getValue(row, ['role', 'job title', 'title', 'position']) || 'Corporate Contact',
                         company_name: companyName,
                         recent_deal: recentDeal || '',
                         contact_number: String(getValue(row, ['phone', 'mobile', 'cell', 'tel', 'contact number']) || ''),
@@ -284,36 +282,30 @@ export function CRMPage() {
     };
 
     const handleSaveContact = async () => {
-        if ((!formData.name && formData.contact_type === 'INDIVIDUAL') || !formData.company_name) {
-            if (formData.contact_type === 'INDIVIDUAL' && !formData.name) {
-                alert('Name is required for Individuals.');
-                return;
-            }
-            if (!formData.company_name) {
-                alert('Company Name is required.');
-                return;
-            }
+        if (!formData.company_name && !formData.name) {
+            alert('Company Name or Contact Name is required.');
+            return;
         }
 
-        const finalType = (!formData.name || formData.name.trim() === '') ? 'BUSINESS' : 'INDIVIDUAL';
+        const company = formData.company_name || formData.name || 'Unknown Company';
         const derivedFirstName = formData.first_name || (formData.name ? formData.name.trim().split(' ')[0] : '');
 
         const { error } = await supabase
             .from('crm_contacts')
             .insert([
                 {
-                    contact_type: finalType,
-                    name: finalType === 'BUSINESS' ? '' : formData.name,
+                    contact_type: formData.name ? 'INDIVIDUAL' : 'BUSINESS',
+                    name: formData.name || '',
                     first_name: derivedFirstName,
                     recipient_name: formData.recipient_name || '',
-                    role: finalType === 'BUSINESS' ? 'Business Entity' : formData.role,
-                    company_name: formData.company_name,
+                    role: formData.role || 'Corporate Contact',
+                    company_name: company,
                     recent_deal: formData.recent_deal || '',
-                    contact_number: formData.contact_number,
-                    contact_email: formData.contact_email,
-                    website: formData.website,
+                    contact_number: formData.contact_number || '',
+                    contact_email: formData.contact_email || '',
+                    website: formData.website || '',
                     owner: formData.owner || 'Carl Spiller',
-                    industry: formData.industry,
+                    industry: formData.industry || '',
                     status: formData.status || 'New Prospect',
                     notes: formData.notes || []
                 }
@@ -323,7 +315,7 @@ export function CRMPage() {
             alert('Error saving contact: ' + error.message);
         } else {
             setIsAdding(false);
-            setFormData({ contact_type: activeTab, status: 'New Prospect', owner: 'Carl Spiller', notes: [] });
+            setFormData({ status: 'New Prospect', owner: 'Carl Spiller', notes: [] });
             fetchContacts();
         }
     };
@@ -331,37 +323,22 @@ export function CRMPage() {
     const handleUpdateContact = async () => {
         if (!selectedContact) return;
 
-        const isNameEmpty = !selectedContact.name || selectedContact.name.trim() === '';
-        const isNameDuplicate = selectedContact.name?.trim() === selectedContact.company_name?.trim();
-        const isBusinessRole = selectedContact.role === 'Business Entity';
-
-        let typeToSave = (isNameEmpty || isNameDuplicate || isBusinessRole) ? 'BUSINESS' : 'INDIVIDUAL';
-        let nameToSave = selectedContact.name;
-        let recipientToSave = selectedContact.recipient_name;
-
-        if (typeToSave === 'BUSINESS' && selectedContact.recipient_name && selectedContact.recipient_name.trim().length > 0) {
-            typeToSave = 'INDIVIDUAL';
-            nameToSave = selectedContact.recipient_name;
-            recipientToSave = '';
-        }
-
-        const derivedFirstName = selectedContact.first_name || (nameToSave ? nameToSave.trim().split(' ')[0] : '');
+        const company = selectedContact.company_name || selectedContact.name || 'Unknown Company';
+        const derivedFirstName = selectedContact.first_name || (selectedContact.name ? selectedContact.name.trim().split(' ')[0] : '');
 
         const { error } = await supabase
             .from('crm_contacts')
             .update({
-                name: typeToSave === 'BUSINESS' ? '' : nameToSave,
+                name: selectedContact.name || '',
                 first_name: derivedFirstName,
-                role: selectedContact.role,
-                company_name: selectedContact.company_name,
+                role: selectedContact.role || 'Corporate Contact',
+                company_name: company,
                 recent_deal: selectedContact.recent_deal || '',
-                contact_number: selectedContact.contact_number,
-                contact_email: selectedContact.contact_email,
-                industry: selectedContact.industry,
+                contact_number: selectedContact.contact_number || '',
+                contact_email: selectedContact.contact_email || '',
+                industry: selectedContact.industry || '',
                 status: selectedContact.status,
-                contact_type: typeToSave,
-                recipient_name: recipientToSave,
-                website: selectedContact.website,
+                website: selectedContact.website || '',
                 owner: selectedContact.owner || 'Carl Spiller'
             })
             .eq('id', selectedContact.id);
@@ -427,13 +404,14 @@ export function CRMPage() {
     ];
 
     const filteredContacts = contacts.filter(c => {
-        const matchesSearch = c.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-            c.company_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-            (c.recent_deal && c.recent_deal.toLowerCase().includes(searchTerm.toLowerCase()));
+        const searchLower = searchTerm.toLowerCase();
+        const matchesSearch = (c.name && c.name.toLowerCase().includes(searchLower)) ||
+            (c.company_name && c.company_name.toLowerCase().includes(searchLower)) ||
+            (c.recent_deal && c.recent_deal.toLowerCase().includes(searchLower)) ||
+            (c.contact_email && c.contact_email.toLowerCase().includes(searchLower));
         const matchesStatus = filterStatus === 'ALL' || c.status === filterStatus;
         const matchesIndustry = filterIndustry === 'ALL' || c.industry === filterIndustry;
-        const matchesTab = (c.contact_type || 'INDIVIDUAL') === activeTab;
-        return matchesSearch && matchesStatus && matchesIndustry && matchesTab;
+        return matchesSearch && matchesStatus && matchesIndustry;
     });
 
     const getStatusBadgeStyle = (status: PipelineStatus) => {
@@ -501,9 +479,9 @@ export function CRMPage() {
                         <div>
                             <div className="flex items-center gap-3 mb-2">
                                 <h1 className="font-serif text-4xl text-navy">Team CRM</h1>
-                                <span className="px-2 py-0.5 bg-green-100 text-green-700 text-[10px] font-bold tracking-widest rounded-full uppercase border border-green-200">Secure</span>
+                                <span className="px-2 py-0.5 bg-green-100 text-green-700 text-[10px] font-bold tracking-widest rounded-full uppercase border border-green-200">Live</span>
                             </div>
-                            <p className="text-charcoal/60">Logged in as <span className="text-navy font-semibold">{session.user.email}</span>.</p>
+                            <p className="text-charcoal/60">Unified lead list and contact management.</p>
                         </div>
                     </div>
                     <div className="flex flex-wrap gap-3">
@@ -515,18 +493,12 @@ export function CRMPage() {
                     </div>
                 </div>
 
-                {/* Tabs */}
-                <div className="flex gap-4 mb-6">
-                    <button onClick={() => setActiveTab('INDIVIDUAL')} className={`flex-1 py-4 text-center font-serif text-lg border-b-2 transition-colors ${activeTab === 'INDIVIDUAL' ? 'border-navy text-navy font-bold' : 'border-transparent text-charcoal/40 hover:text-navy'}`}>Individuals</button>
-                    <button onClick={() => setActiveTab('BUSINESS')} className={`flex-1 py-4 text-center font-serif text-lg border-b-2 transition-colors ${activeTab === 'BUSINESS' ? 'border-navy text-navy font-bold' : 'border-transparent text-charcoal/40 hover:text-navy'}`}>Target Businesses</button>
-                </div>
-
-                {/* Search & Filter */}
+                {/* Search and Filter */}
                 <div className="bg-white p-4 rounded-xl shadow-sm border border-navy/5 mb-8 flex flex-col gap-4">
                     <div className="flex flex-col md:flex-row gap-4 items-center">
                         <div className="relative flex-1 w-full">
                             <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-charcoal/40 w-5 h-5" />
-                            <input type="text" placeholder="Search name or company..." value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} className="w-full pl-10 pr-4 py-3 bg-ivory border border-navy/10 rounded-lg focus:outline-none focus:border-gold transition-all" />
+                            <input type="text" placeholder="Search company name, contact, or email..." value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} className="w-full pl-10 pr-4 py-3 bg-ivory border border-navy/10 rounded-lg focus:outline-none focus:border-gold transition-all" />
                         </div>
                         <div className="flex gap-2 w-full md:w-auto bg-ivory p-1.5 rounded-lg border border-navy/10 overflow-x-auto">
                             <button onClick={() => setFilterStatus('ALL')} className={`px-4 py-2 rounded-md text-xs font-bold tracking-wide transition-all whitespace-nowrap ${filterStatus === 'ALL' ? 'bg-navy text-white shadow-md' : 'text-charcoal/50 hover:text-navy hover:bg-white'}`}>All Statuses</button>
@@ -536,13 +508,15 @@ export function CRMPage() {
                         </div>
                     </div>
                     {/* Industry Filter */}
-                    <div className="flex items-center gap-3 overflow-x-auto pb-2">
-                        <span className="text-[10px] font-bold text-charcoal/40 uppercase tracking-widest whitespace-nowrap">Filter Industry:</span>
-                        <button onClick={() => setFilterIndustry('ALL')} className={`px-3 py-1 rounded-full text-xs font-bold border transition-colors ${filterIndustry === 'ALL' ? 'bg-gold text-white border-gold' : 'bg-white border-navy/10 text-charcoal/60 hover:border-gold'}`}>All</button>
-                        {industries.map(ind => (
-                            <button key={ind} onClick={() => setFilterIndustry(ind!)} className={`px-3 py-1 rounded-full text-xs font-bold border transition-colors ${filterIndustry === ind ? 'bg-gold text-white border-gold' : 'bg-white border-navy/10 text-charcoal/60 hover:border-gold'}`}>{ind}</button>
-                        ))}
-                    </div>
+                    {industries.length > 0 && (
+                        <div className="flex items-center gap-3 overflow-x-auto pb-2">
+                            <span className="text-[10px] font-bold text-charcoal/40 uppercase tracking-widest whitespace-nowrap">Filter Industry:</span>
+                            <button onClick={() => setFilterIndustry('ALL')} className={`px-3 py-1 rounded-full text-xs font-bold border transition-colors ${filterIndustry === 'ALL' ? 'bg-gold text-white border-gold' : 'bg-white border-navy/10 text-charcoal/60 hover:border-gold'}`}>All</button>
+                            {industries.map(ind => (
+                                <button key={ind} onClick={() => setFilterIndustry(ind!)} className={`px-3 py-1 rounded-full text-xs font-bold border transition-colors ${filterIndustry === ind ? 'bg-gold text-white border-gold' : 'bg-white border-navy/10 text-charcoal/60 hover:border-gold'}`}>{ind}</button>
+                            ))}
+                        </div>
+                    )}
                 </div>
 
                 {/* List View */}
@@ -556,9 +530,9 @@ export function CRMPage() {
                     <div className="flex flex-col gap-3">
                         <div className="hidden md:flex px-4 py-2 text-[10px] font-bold text-charcoal/40 uppercase tracking-widest gap-4">
                             <div className="w-2" />
-                            <div className="flex-1">{activeTab === 'BUSINESS' ? 'Company Name' : 'Name and Role'}</div>
+                            <div className="flex-1">Company and Contact</div>
                             <div className="flex-1">Owner</div>
-                            <div className="flex-1">Contact</div>
+                            <div className="flex-1">Contact Info</div>
                             <div className="w-44 text-right">Status</div>
                         </div>
 
@@ -568,19 +542,11 @@ export function CRMPage() {
 
                                 <div className="flex-1 min-w-0 pl-3">
                                     <h3 className="font-serif text-lg text-navy font-bold truncate group-hover:text-gold transition-colors">
-                                        {contact.contact_type === 'BUSINESS' ? contact.company_name : (contact.name || contact.company_name)}
+                                        {contact.company_name || contact.name || 'Unnamed Record'}
                                     </h3>
-                                    {contact.contact_type === 'INDIVIDUAL' && (
-                                        <p className="text-xs text-charcoal/60 truncate uppercase tracking-wider font-bold">
-                                            {contact.role} {contact.company_name && <span className="text-charcoal/40">at {contact.company_name}</span>}
-                                        </p>
-                                    )}
-                                    {contact.contact_type === 'BUSINESS' && (
-                                        <div className="flex flex-col">
-                                            <p className="text-xs text-charcoal/60 truncate uppercase tracking-wider font-bold">{contact.industry || 'Unknown Industry'}</p>
-                                            {contact.recipient_name && <p className="text-[10px] text-navy/60 font-bold mt-0.5">Contact: {contact.recipient_name}</p>}
-                                        </div>
-                                    )}
+                                    <p className="text-xs text-charcoal/60 truncate font-semibold">
+                                        {contact.name ? `${contact.name}${contact.role ? ` (${contact.role})` : ''}` : (contact.recipient_name ? `Contact: ${contact.recipient_name}` : 'Corporate Contact')}
+                                    </p>
                                 </div>
 
                                 <div className="flex-1 min-w-0">
@@ -612,49 +578,31 @@ export function CRMPage() {
                 <div className="fixed inset-0 z-[200] flex items-center justify-center bg-navy/40 backdrop-blur-sm p-4 animate-in fade-in duration-200" onClick={() => setIsAdding(false)}>
                     <div className="bg-white p-8 rounded-xl shadow-2xl w-full max-w-lg relative border border-white/20 max-h-[90vh] overflow-y-auto" onClick={(e) => e.stopPropagation()}>
                         <button onClick={() => setIsAdding(false)} className="absolute top-4 right-4 p-2 hover:bg-gray-100 rounded-full transition-colors"><X className="w-5 h-5 text-charcoal/50" /></button>
-                        <h2 className="font-serif text-2xl text-navy mb-6">Add New Contact</h2>
+                        <h2 className="font-serif text-2xl text-navy mb-6">Add Corporate Lead</h2>
                         <div className="space-y-4">
-                            <div className="bg-ivory p-1 rounded-lg border border-navy/10 flex mb-4">
-                                <button
-                                    type="button"
-                                    onClick={() => setFormData({ ...formData, contact_type: 'INDIVIDUAL' })}
-                                    className={`flex-1 py-2 text-xs font-bold uppercase tracking-wider rounded transition-colors ${formData.contact_type === 'INDIVIDUAL' ? 'bg-navy text-white shadow-sm' : 'text-charcoal/50 hover:text-navy'}`}
-                                >
-                                    Individual
-                                </button>
-                                <button
-                                    type="button"
-                                    onClick={() => setFormData({ ...formData, contact_type: 'BUSINESS' })}
-                                    className={`flex-1 py-2 text-xs font-bold uppercase tracking-wider rounded transition-colors ${formData.contact_type === 'BUSINESS' ? 'bg-navy text-white shadow-sm' : 'text-charcoal/50 hover:text-navy'}`}
-                                >
-                                    Business
-                                </button>
+                            <div>
+                                <label className="text-[10px] font-bold text-charcoal/50 uppercase tracking-widest mb-1 block">Company Name</label>
+                                <input placeholder="e.g. Rothschild and Co" className="p-3 bg-ivory border border-navy/10 rounded w-full focus:border-gold focus:outline-none text-sm" value={formData.company_name || ''} onChange={e => setFormData({ ...formData, company_name: e.target.value })} />
                             </div>
 
                             <div className="grid grid-cols-2 gap-4">
                                 <div>
-                                    <label className="text-[10px] font-bold text-charcoal/50 uppercase tracking-widest mb-1 block">Full Name</label>
+                                    <label className="text-[10px] font-bold text-charcoal/50 uppercase tracking-widest mb-1 block">Contact Name</label>
                                     <input placeholder="e.g. John Smith" className="p-3 bg-ivory border border-navy/10 rounded w-full focus:border-gold focus:outline-none text-sm" value={formData.name || ''}
                                         onChange={e => {
                                             const val = e.target.value;
                                             setFormData(prev => ({
                                                 ...prev,
                                                 name: val,
-                                                first_name: val ? val.trim().split(' ')[0] : '',
-                                                contact_type: val.trim().length > 0 ? 'INDIVIDUAL' : 'BUSINESS'
+                                                first_name: val ? val.trim().split(' ')[0] : ''
                                             }));
                                         }}
                                     />
                                 </div>
                                 <div>
                                     <label className="text-[10px] font-bold text-charcoal/50 uppercase tracking-widest mb-1 block">Role or Title</label>
-                                    <input placeholder="e.g. CEO" className="p-3 bg-ivory border border-navy/10 rounded w-full focus:border-gold focus:outline-none text-sm" value={formData.role || ''} onChange={e => setFormData({ ...formData, role: e.target.value })} />
+                                    <input placeholder="e.g. Partner / CEO" className="p-3 bg-ivory border border-navy/10 rounded w-full focus:border-gold focus:outline-none text-sm" value={formData.role || ''} onChange={e => setFormData({ ...formData, role: e.target.value })} />
                                 </div>
-                            </div>
-
-                            <div>
-                                <label className="text-[10px] font-bold text-charcoal/50 uppercase tracking-widest mb-1 block">Company Name</label>
-                                <input placeholder="e.g. Acme Corp" className="p-3 bg-ivory border border-navy/10 rounded w-full focus:border-gold focus:outline-none text-sm" value={formData.company_name || ''} onChange={e => setFormData({ ...formData, company_name: e.target.value })} />
                             </div>
 
                             <div className="grid grid-cols-2 gap-4">
@@ -686,7 +634,7 @@ export function CRMPage() {
                                 </div>
                             </div>
 
-                            <button onClick={handleSaveContact} className="w-full bg-navy text-white py-4 rounded font-bold hover:bg-navy/90 mt-4 transition-transform active:scale-[0.98]">Create Record</button>
+                            <button onClick={handleSaveContact} className="w-full bg-navy text-white py-4 rounded font-bold hover:bg-navy/90 mt-4 transition-transform active:scale-[0.98]">Create Lead Record</button>
                         </div>
                     </div>
                 </div>
@@ -698,31 +646,35 @@ export function CRMPage() {
                     <div className="relative bg-ivory rounded-2xl shadow-2xl w-full max-w-5xl max-h-[75vh] flex flex-col md:flex-row overflow-hidden border border-white/10 my-auto shrink-0" onClick={(e) => e.stopPropagation()}>
                         <div className="w-full md:w-[350px] bg-white border-r border-navy/10 flex flex-col h-full z-10 shadow-lg overflow-y-auto">
                             <div className="p-4 md:p-5 border-b border-navy/5 bg-navy/5 shrink-0">
-                                <div className="text-[10px] font-bold text-charcoal/40 uppercase tracking-widest mb-1">Lead Profile</div>
+                                <div className="text-[10px] font-bold text-charcoal/40 uppercase tracking-widest mb-1">Corporate Profile</div>
                                 <input className="font-serif text-xl md:text-2xl text-navy bg-transparent border-none p-0 focus:ring-0 w-full font-bold placeholder:text-navy/30 placeholder:italic"
-                                    value={selectedContact.name} placeholder="Click to add Name..."
-                                    onChange={(e) => {
-                                        const val = e.target.value;
-                                        setSelectedContact({
-                                            ...selectedContact,
-                                            name: val,
-                                            first_name: val ? val.trim().split(' ')[0] : '',
-                                            contact_type: val.trim().length > 0 ? 'INDIVIDUAL' : 'BUSINESS'
-                                        });
-                                    }}
+                                    value={selectedContact.company_name} placeholder="Company Name..."
+                                    onChange={(e) => setSelectedContact({ ...selectedContact, company_name: e.target.value })}
                                 />
                                 <div className="mt-1.5 flex gap-2 items-center">
-                                    <span className={`text-[10px] uppercase font-bold px-2 py-0.5 rounded text-white ${selectedContact.contact_type === 'INDIVIDUAL' ? 'bg-navy' : 'bg-gold'}`}>{selectedContact.contact_type}</span>
                                     <span className={`text-[10px] uppercase font-bold px-2 py-0.5 rounded border ${getStatusBadgeStyle(selectedContact.status)}`}>{selectedContact.status}</span>
                                 </div>
-                                <input className="text-xs md:text-sm font-medium text-charcoal/60 bg-transparent border-none p-0 focus:ring-0 w-full mt-1.5" value={selectedContact.role} placeholder="Role or Title" onChange={(e) => setSelectedContact({ ...selectedContact, role: e.target.value })} />
                             </div>
 
                             <div className="p-4 md:p-5 space-y-4 flex-1 overflow-y-auto">
                                 <div className="space-y-3">
                                     <div>
-                                        <label className="text-[10px] font-bold text-charcoal/40 uppercase tracking-widest block mb-1">Company Name</label>
-                                        <input className="w-full p-2 bg-ivory border border-navy/10 rounded text-xs md:text-sm font-semibold text-navy" value={selectedContact.company_name} onChange={(e) => setSelectedContact({ ...selectedContact, company_name: e.target.value })} />
+                                        <label className="text-[10px] font-bold text-charcoal/40 uppercase tracking-widest block mb-1">Contact Name</label>
+                                        <input className="w-full p-2 bg-ivory border border-navy/10 rounded text-xs md:text-sm font-semibold text-navy" value={selectedContact.name || ''} placeholder="e.g. John Smith"
+                                            onChange={(e) => {
+                                                const val = e.target.value;
+                                                setSelectedContact({
+                                                    ...selectedContact,
+                                                    name: val,
+                                                    first_name: val ? val.trim().split(' ')[0] : ''
+                                                });
+                                            }}
+                                        />
+                                    </div>
+
+                                    <div>
+                                        <label className="text-[10px] font-bold text-charcoal/40 uppercase tracking-widest block mb-1">Role or Title</label>
+                                        <input className="w-full p-2 bg-ivory border border-navy/10 rounded text-xs md:text-sm" value={selectedContact.role || ''} placeholder="e.g. Partner" onChange={(e) => setSelectedContact({ ...selectedContact, role: e.target.value })} />
                                     </div>
 
                                     <div>
@@ -736,7 +688,7 @@ export function CRMPage() {
 
                                     <div>
                                         <label className="text-[10px] font-bold text-charcoal/40 uppercase tracking-widest block mb-1">Email Address</label>
-                                        <input className="w-full p-2 bg-ivory border border-navy/10 rounded text-xs md:text-sm" value={selectedContact.contact_email} onChange={(e) => setSelectedContact({ ...selectedContact, contact_email: e.target.value })} />
+                                        <input className="w-full p-2 bg-ivory border border-navy/10 rounded text-xs md:text-sm" value={selectedContact.contact_email || ''} onChange={(e) => setSelectedContact({ ...selectedContact, contact_email: e.target.value })} />
                                     </div>
 
                                     <div>
