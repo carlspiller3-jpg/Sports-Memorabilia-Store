@@ -75,12 +75,7 @@ export function ChatWidget() {
     }
   }, [initializeChat])
 
-  // 2. Listen for Unlock Event (Disabled - Site is Live)
-  useEffect(() => {
-    // No longer needed
-  }, [])
-
-  // 3. Clear badges on open
+  // 2. Clear badges on open
   useEffect(() => {
     if (isOpen) {
       setUnreadCount(0)
@@ -100,9 +95,7 @@ export function ChatWidget() {
 
   // Always auto-scroll to bottom when messages change
   useEffect(() => {
-    // Use requestAnimationFrame to ensure DOM has updated
     requestAnimationFrame(() => {
-      // Scroll both desktop and mobile containers
       if (desktopMessagesRef.current) {
         desktopMessagesRef.current.scrollTop = desktopMessagesRef.current.scrollHeight
       }
@@ -214,7 +207,7 @@ export function ChatWidget() {
       {!isOpen && (
         <button
           onClick={() => setIsOpen(true)}
-          className="fixed bottom-6 right-6 bg-gold text-navy p-4 rounded-full shadow-2xl hover:bg-gold/90 transition-all hover:scale-110 z-50 group"
+          className="fixed bottom-6 right-6 bg-gold text-navy p-4 rounded-full shadow-2xl hover:bg-gold/90 transition-all hover:scale-110 z-[140] group"
           aria-label="Open chat"
         >
           <MessageCircle className="w-6 h-6" />
@@ -226,17 +219,17 @@ export function ChatWidget() {
         </button>
       )}
 
-      {/* Chat Window */}
+      {/* Desktop Chat Window */}
       {isOpen && (
-        <div className="fixed bottom-6 right-6 w-[400px] h-[600px] bg-ivory rounded-2xl shadow-2xl flex flex-col z-50 border border-stone/20 md:block hidden animate-in slide-in-from-bottom-10 fade-in duration-300">
+        <div className="fixed bottom-6 right-6 w-[380px] sm:w-[400px] max-h-[calc(100vh-140px)] h-[580px] bg-ivory rounded-2xl shadow-2xl flex flex-col z-[150] border border-stone/20 overflow-hidden md:flex hidden animate-in slide-in-from-bottom-10 fade-in duration-300">
           {/* Header */}
-          <div className="bg-charcoal text-ivory p-4 rounded-t-2xl flex items-center justify-between shadow-md">
+          <div className="bg-charcoal text-ivory p-4 flex items-center justify-between shadow-md shrink-0">
             <div className="flex items-center gap-3">
               <div className="w-10 h-10 bg-gold rounded-full flex items-center justify-center shadow-lg">
                 <MessageCircle className="w-5 h-5 text-navy" />
               </div>
               <div>
-                <h3 className="font-semibold text-gold">Sports Memorabilia (AI Active)</h3>
+                <h3 className="font-semibold text-gold text-sm">Sports Memorabilia Assistant</h3>
                 <p className="text-xs text-ivory/70 flex items-center gap-1">
                   <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
                   Online now
@@ -252,11 +245,11 @@ export function ChatWidget() {
             </button>
           </div>
 
-          {/* Messages */}
+          {/* Messages Container */}
           <div
             ref={desktopMessagesRef}
             onScroll={handleScroll}
-            className="flex-1 min-h-0 max-h-[400px] overflow-y-scroll p-4 bg-ivory flex flex-col scrollbar-custom relative"
+            className="flex-1 min-h-0 overflow-y-auto p-4 bg-ivory flex flex-col scrollbar-custom relative"
           >
             {messages.map((message) => (
               <ChatMessage
@@ -290,25 +283,29 @@ export function ChatWidget() {
 
           {/* Quick Replies */}
           {quickReplies.length > 0 && !isLoading && (
-            <QuickReplies replies={quickReplies} onSelect={handleQuickReply} />
+            <div className="shrink-0 border-t border-stone/10 bg-ivory">
+              <QuickReplies replies={quickReplies} onSelect={handleQuickReply} />
+            </div>
           )}
 
           {/* Input */}
-          <ChatInput onSend={handleSendMessage} disabled={isLoading} />
+          <div className="shrink-0 bg-white border-t border-stone/10">
+            <ChatInput onSend={handleSendMessage} disabled={isLoading} />
+          </div>
         </div>
       )}
 
       {/* Mobile Full Screen */}
       {isOpen && (
-        <div className="fixed inset-0 bg-ivory z-50 flex flex-col md:hidden animate-in slide-in-from-bottom flex flex-col h-[100dvh]">
+        <div className="fixed inset-0 bg-ivory z-[150] flex flex-col md:hidden animate-in slide-in-from-bottom h-[100dvh]">
           {/* Header */}
-          <div className="bg-charcoal text-ivory p-4 flex items-center justify-between shadow-md">
+          <div className="bg-charcoal text-ivory p-4 flex items-center justify-between shadow-md shrink-0">
             <div className="flex items-center gap-3">
               <div className="w-10 h-10 bg-gold rounded-full flex items-center justify-center shadow-lg">
                 <MessageCircle className="w-5 h-5 text-navy" />
               </div>
               <div>
-                <h3 className="font-semibold text-gold">Sports Memorabilia (AI Active)</h3>
+                <h3 className="font-semibold text-gold text-sm">Sports Memorabilia Assistant</h3>
                 <p className="text-xs text-ivory/70 flex items-center gap-1">
                   <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
                   Online now
@@ -328,7 +325,7 @@ export function ChatWidget() {
           <div
             ref={mobileMessagesRef}
             onScroll={handleScroll}
-            className="flex-1 min-h-0 overflow-y-scroll p-4 flex flex-col scrollbar-custom relative bg-ivory"
+            className="flex-1 min-h-0 overflow-y-auto p-4 flex flex-col scrollbar-custom relative bg-ivory"
           >
             {messages.map((message) => (
               <ChatMessage
@@ -362,11 +359,15 @@ export function ChatWidget() {
 
           {/* Quick Replies */}
           {quickReplies.length > 0 && !isLoading && (
-            <QuickReplies replies={quickReplies} onSelect={handleQuickReply} />
+            <div className="shrink-0 border-t border-stone/10 bg-ivory">
+              <QuickReplies replies={quickReplies} onSelect={handleQuickReply} />
+            </div>
           )}
 
           {/* Input */}
-          <ChatInput onSend={handleSendMessage} disabled={isLoading} />
+          <div className="shrink-0 bg-white border-t border-stone/10">
+            <ChatInput onSend={handleSendMessage} disabled={isLoading} />
+          </div>
         </div>
       )}
     </>
