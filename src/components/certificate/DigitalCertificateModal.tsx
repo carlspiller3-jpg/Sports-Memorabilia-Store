@@ -37,7 +37,11 @@ export const DigitalCertificateModal: React.FC<DigitalCertificateModalProps> = (
                 {/* Top Toolbar (Hidden during print) */}
                 <div className="flex items-center justify-between px-6 py-4 bg-navy text-white rounded-t-sm border-b border-gold/30 print:hidden">
                     <div className="flex items-center space-x-2">
-                        <ShieldCheck className="w-5 h-5 text-gold" />
+                        <img 
+                            src="/logo-transparent.png" 
+                            alt="" 
+                            className="h-6 w-auto object-contain"
+                        />
                         <span className="font-serif font-bold text-sm tracking-wider uppercase">
                             Official Digital Certificate of Authenticity
                         </span>
@@ -67,10 +71,14 @@ export const DigitalCertificateModal: React.FC<DigitalCertificateModalProps> = (
                     {/* Ornamental Inner Frame Border */}
                     <div className="border-2 border-gold/30 rounded-sm p-4 sm:p-8 relative bg-white/60 backdrop-blur-xs">
                         
-                        {/* Header Crest and Title */}
+                        {/* Header Company Logo and Title */}
                         <div className="text-center space-y-3 mb-8">
-                            <div className="w-14 h-14 bg-navy text-gold rounded-full flex items-center justify-center mx-auto shadow-md border-2 border-gold/50">
-                                <ShieldCheck className="w-8 h-8" />
+                            <div className="flex justify-center mb-3">
+                                <img 
+                                    src="/logo-transparent.png" 
+                                    alt="The Sports Memorabilia Store" 
+                                    className="h-16 sm:h-20 w-auto object-contain drop-shadow-xs" 
+                                />
                             </div>
                             <div>
                                 <p className="text-[11px] font-bold uppercase tracking-[0.25em] text-gold mb-1">
