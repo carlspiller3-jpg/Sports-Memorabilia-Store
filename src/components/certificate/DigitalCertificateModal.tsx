@@ -43,7 +43,7 @@ export const DigitalCertificateModal: React.FC<DigitalCertificateModalProps> = (
                             className="h-6 w-auto object-contain"
                         />
                         <span className="font-serif font-bold text-sm tracking-wider uppercase">
-                            Official Digital Certificate of Authenticity
+                            Digital Certificate of Authenticity
                         </span>
                     </div>
                     <div className="flex items-center space-x-2">
@@ -88,7 +88,7 @@ export const DigitalCertificateModal: React.FC<DigitalCertificateModalProps> = (
                                     Certificate of Authenticity
                                 </h1>
                                 <p className="text-xs text-navy/60 font-mono mt-1">
-                                    Official Register ID: {certificate.tagId || "VERIFIED-NFC"}
+                                    Register ID: {certificate.tagId || "VERIFIED-NFC"}
                                 </p>
                             </div>
                             <div className="w-32 h-0.5 bg-gradient-to-r from-transparent via-gold to-transparent mx-auto mt-4" />
@@ -96,7 +96,7 @@ export const DigitalCertificateModal: React.FC<DigitalCertificateModalProps> = (
 
                         {/* Certificate Declaration Statement */}
                         <p className="text-xs sm:text-sm text-center text-charcoal/80 max-w-xl mx-auto leading-relaxed font-light mb-8">
-                            This document officially certifies that the hand signed sports memorabilia item detailed below has been independently verified, cryptographically registered, and guaranteed genuine by Sports Memorabilia Store Limited under strict chain of custody protocols.
+                            This document certifies that the hand signed sports memorabilia item detailed below has been independently verified, cryptographically registered, and guaranteed genuine by Sports Memorabilia Store Limited under strict chain of custody protocols.
                         </p>
 
                         {/* Product Photo and Meta Grid */}
@@ -138,7 +138,7 @@ export const DigitalCertificateModal: React.FC<DigitalCertificateModalProps> = (
                                 <div className="grid grid-cols-2 gap-3 pt-2 border-t border-stone/10">
                                     <div>
                                         <span className="text-[10px] font-bold uppercase tracking-wider text-navy/50 block">Signing Date</span>
-                                        <span className="font-medium text-charcoal">{certificate.date || "Official Signing"}</span>
+                                        <span className="font-medium text-charcoal">{certificate.date || "Signing Session"}</span>
                                     </div>
                                     <div>
                                         <span className="text-[10px] font-bold uppercase tracking-wider text-navy/50 block">Signing Location</span>
@@ -193,7 +193,7 @@ export const DigitalCertificateModal: React.FC<DigitalCertificateModalProps> = (
                                 </div>
                                 <div className="h-0.5 w-36 bg-gold/50 ml-auto my-1" />
                                 <span className="text-[10px] uppercase font-bold tracking-widest text-navy/50 block">
-                                    Official Issuing Authority
+                                    Issuing Authority
                                 </span>
                                 <span className="text-[9px] text-stone/60 block font-mono">
                                     London, United Kingdom
