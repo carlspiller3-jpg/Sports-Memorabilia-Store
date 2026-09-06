@@ -193,7 +193,7 @@ export const DigitalCertificateModal: React.FC<DigitalCertificateModalProps> = (
                                 </div>
                                 <div className="h-0.5 w-36 bg-gold/50 ml-auto my-1" />
                                 <span className="text-[10px] uppercase font-bold tracking-widest text-navy/50 block">
-                                    Director of Authenticity
+                                    Official Issuing Authority
                                 </span>
                                 <span className="text-[9px] text-stone/60 block font-mono">
                                     London, United Kingdom
