@@ -195,9 +195,6 @@ export const DigitalCertificateModal: React.FC<DigitalCertificateModalProps> = (
                                 <span className="text-[10px] uppercase font-bold tracking-widest text-navy/50 block">
                                     Issuing Authority
                                 </span>
-                                <span className="text-[9px] text-stone/60 block font-mono">
-                                    London, United Kingdom
-                                </span>
                             </div>
                         </div>
 
