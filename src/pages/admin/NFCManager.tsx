@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react"
+import React, { useState, useEffect, useRef } from "react"
 import { supabase } from "@/lib/supabase"
 import { ShieldCheck, Plus, Image as ImageIcon, Loader2, Save, Trash2, Link as LinkIcon, ArrowLeft, Pencil } from "lucide-react"
 import { Button } from "@/components/ui/Button"
@@ -19,6 +19,8 @@ export function NFCManager() {
     const [loading, setLoading] = useState(true)
     const [saving, setSaving] = useState(false)
     const [showForm, setShowForm] = useState(false)
+    const formRef = useRef<HTMLDivElement>(null)
+    const titleInputRef = useRef<HTMLInputElement>(null)
 
     // Form State
     const [formData, setFormData] = useState<Partial<Certificate>>({
@@ -45,7 +47,6 @@ export function NFCManager() {
 
         if (error) {
             console.error('Error fetching certificates:', error)
-            // Just fail silently for the user so they can still see the UI
         } else {
             setCertificates(data || [])
         }
@@ -93,29 +94,31 @@ export function NFCManager() {
             const payload = {
                 tag_id: formData.tag_id.toUpperCase(),
                 title: formData.title,
-                date_signed: formData.date_signed,
-                location: formData.location,
-                image_url: finalImageUrl
+                date_signed: formData.date_signed || '',
+                location: formData.location || '',
+                image_url: finalImageUrl || ''
             }
 
             if (editingId) {
-                // Update
+                // Update existing certificate
                 const { error } = await supabase
                     .from('certificates')
                     .update(payload)
                     .eq('id', editingId)
+
                 if (error) throw error
             } else {
-                // Insert
+                // Insert new certificate
                 const { error } = await supabase
                     .from('certificates')
                     .insert([payload])
+
                 if (error) throw error
             }
 
-            // Reset and fetch
+            // Reset form and refetch certificates list
             resetForm()
-            fetchCertificates()
+            await fetchCertificates()
         } catch (error: any) {
             console.error('Submission error:', error)
             alert(error.message || 'Error saving certificate')
@@ -129,12 +132,24 @@ export function NFCManager() {
         setFormData({
             tag_id: cert.tag_id,
             title: cert.title,
-            date_signed: cert.date_signed,
-            location: cert.location,
-            image_url: cert.image_url
+            date_signed: cert.date_signed || '',
+            location: cert.location || '',
+            image_url: cert.image_url || ''
         })
-        setImagePreview(cert.image_url)
+        setImagePreview(cert.image_url || null)
         setShowForm(true)
+
+        // Smooth scroll to top form and focus title input
+        setTimeout(() => {
+            if (formRef.current) {
+                formRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' })
+            } else {
+                window.scrollTo({ top: 0, behavior: 'smooth' })
+            }
+            if (titleInputRef.current) {
+                titleInputRef.current.focus()
+            }
+        }, 50)
     }
 
     const handleDelete = async (id: string, tagId: string) => {
@@ -174,14 +189,41 @@ export function NFCManager() {
                             <p className="text-navy/60 mt-1">Manage the digital certificates linked to your physical tags.</p>
                         </div>
                     </div>
-                    <Button onClick={() => setShowForm(!showForm)} className="bg-navy">
+                    <Button 
+                        onClick={() => {
+                            if (showForm) {
+                                resetForm()
+                            } else {
+                                resetForm()
+                                setShowForm(true)
+                            }
+                        }} 
+                        className="bg-navy"
+                    >
                         {showForm ? 'Cancel' : <><Plus className="w-4 h-4 mr-2" /> Add New Tag</>}
                     </Button>
                 </div>
 
                 {showForm && (
-                    <div className="bg-white rounded-lg shadow-md p-6 mb-8 border border-stone/20 animate-in fade-in slide-in-from-top-4">
-                        <h2 className="text-xl font-bold mb-6">{editingId ? 'Edit Tag' : 'Register New Tag'}</h2>
+                    <div 
+                        ref={formRef}
+                        className="bg-white rounded-lg shadow-md p-6 mb-8 border-2 border-gold/40 animate-in fade-in slide-in-from-top-4"
+                    >
+                        <div className="flex items-center justify-between mb-6 pb-4 border-b border-stone/10">
+                            <div>
+                                <h2 className="text-xl font-bold text-navy flex items-center gap-2">
+                                    {editingId ? <><Pencil className="w-5 h-5 text-gold" /> Edit NFC Tag ({formData.tag_id})</> : <><Plus className="w-5 h-5 text-gold" /> Register New Tag</>}
+                                </h2>
+                                <p className="text-xs text-navy/60 mt-0.5">
+                                    {editingId ? "Update certificate details and photo for this NFC tag." : "Enter tag details to bind a new physical NFC chip."}
+                                </p>
+                            </div>
+                            {editingId && (
+                                <span className="bg-gold/10 text-gold border border-gold/30 px-3 py-1 rounded-full text-xs font-bold font-mono">
+                                    Editing Mode
+                                </span>
+                            )}
+                        </div>
                         
                         <form onSubmit={handleSubmit} className="space-y-6">
                             <div className="grid md:grid-cols-2 gap-6">
@@ -191,25 +233,26 @@ export function NFCManager() {
                                         <label className="block text-sm font-medium text-navy/70 mb-1">Tag ID (e.g., AAA-001)</label>
                                         <input
                                             type="text"
-                                            value={formData.tag_id}
+                                            value={formData.tag_id || ''}
                                             onChange={e => !editingId && setFormData({ ...formData, tag_id: e.target.value })}
-                                            className={`w-full px-4 py-2 border rounded-md uppercase font-mono ${editingId ? 'bg-stone-100 cursor-not-allowed opacity-70' : ''}`}
+                                            className={`w-full px-4 py-2 border rounded-md uppercase font-mono ${editingId ? 'bg-stone-100 text-stone-500 cursor-not-allowed font-bold' : ''}`}
                                             placeholder="AAA-001"
-                                            required
-                                            disabled={!!editingId}
+                                            required={!editingId}
+                                            readOnly={!!editingId}
                                         />
                                         <p className="text-xs text-stone/50 mt-1">
-                                            {editingId ? "Tag ID cannot be changed once created as it is physically written to the NFC chip." : "This must exactly match the ?tag_id= parameter on the NFC tag."}
+                                            {editingId ? "Tag ID cannot be changed once created as it is physically written to the NFC chip." : "This must match the tag_id parameter on the NFC tag."}
                                         </p>
                                     </div>
                                     
                                     <div>
                                         <label className="block text-sm font-medium text-navy/70 mb-1">Product Title</label>
                                         <input
+                                            ref={titleInputRef}
                                             type="text"
-                                            value={formData.title}
+                                            value={formData.title || ''}
                                             onChange={e => setFormData({ ...formData, title: e.target.value })}
-                                            className="w-full px-4 py-2 border rounded-md"
+                                            className="w-full px-4 py-2 border rounded-md font-medium text-navy"
                                             placeholder="Liverpool 2005 Steven Gerrard Signed Shirt"
                                             required
                                         />
@@ -219,7 +262,7 @@ export function NFCManager() {
                                         <label className="block text-sm font-medium text-navy/70 mb-1">Date Signed (Optional)</label>
                                         <input
                                             type="text"
-                                            value={formData.date_signed}
+                                            value={formData.date_signed || ''}
                                             onChange={e => setFormData({ ...formData, date_signed: e.target.value })}
                                             className="w-full px-4 py-2 border rounded-md"
                                             placeholder="May 2023"
@@ -230,7 +273,7 @@ export function NFCManager() {
                                         <label className="block text-sm font-medium text-navy/70 mb-1">Location of Signing (Optional)</label>
                                         <input
                                             type="text"
-                                            value={formData.location}
+                                            value={formData.location || ''}
                                             onChange={e => setFormData({ ...formData, location: e.target.value })}
                                             className="w-full px-4 py-2 border rounded-md"
                                             placeholder="Liverpool, UK"
@@ -272,8 +315,8 @@ export function NFCManager() {
 
                             <div className="flex justify-end gap-3 pt-4 border-t border-stone/10">
                                 <Button type="button" variant="outline" onClick={resetForm}>Cancel</Button>
-                                <Button type="submit" className="bg-gold hover:bg-gold/90 text-navy min-w-[120px]" disabled={saving}>
-                                    {saving ? <Loader2 className="w-5 h-5 animate-spin" /> : <><Save className="w-4 h-4 mr-2" /> Save Tag</>}
+                                <Button type="submit" className="bg-gold hover:bg-gold/90 text-navy font-bold min-w-[120px]" disabled={saving}>
+                                    {saving ? <Loader2 className="w-5 h-5 animate-spin" /> : <><Save className="w-4 h-4 mr-2" /> {editingId ? 'Update Tag' : 'Save Tag'}</>}
                                 </Button>
                             </div>
                         </form>
@@ -310,7 +353,7 @@ export function NFCManager() {
                                 </thead>
                                 <tbody>
                                     {certificates.map(cert => (
-                                        <tr key={cert.id} className="border-b border-stone/10 hover:bg-stone/5 transition-colors">
+                                        <tr key={cert.id} className={`border-b border-stone/10 hover:bg-stone/5 transition-colors ${editingId === cert.id ? 'bg-gold/10' : ''}`}>
                                             <td className="px-4 py-3">
                                                 <div className="w-12 h-12 rounded-md overflow-hidden bg-stone/10 flex items-center justify-center">
                                                     {cert.image_url ? (
@@ -336,7 +379,11 @@ export function NFCManager() {
                                                     <a href={`/verify?tag_id=${cert.tag_id}`} target="_blank" rel="noreferrer" className="p-2 text-stone/50 hover:text-navy transition-colors" title="Test Link">
                                                         <LinkIcon className="w-4 h-4" />
                                                     </a>
-                                                    <button onClick={() => handleEdit(cert)} className="p-2 text-stone/50 hover:text-gold transition-colors" title="Edit Data">
+                                                    <button 
+                                                        onClick={() => handleEdit(cert)} 
+                                                        className="p-2 text-gold hover:text-navy transition-colors bg-gold/10 hover:bg-gold/20 rounded-md" 
+                                                        title="Edit Tag Data"
+                                                    >
                                                         <Pencil className="w-4 h-4" />
                                                     </button>
                                                     <button onClick={() => handleDelete(cert.id, cert.tag_id)} className="p-2 text-stone/50 hover:text-red-500 transition-colors" title="Delete">
