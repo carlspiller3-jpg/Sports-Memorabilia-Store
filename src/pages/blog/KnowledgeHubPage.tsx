@@ -40,7 +40,7 @@ export function KnowledgeHubPage() {
                     <div className="text-center mb-16">
                         <h1 className="font-serif text-4xl md:text-5xl text-navy mb-4">The Knowledge Hub</h1>
                         <p className="text-navy/60 text-lg max-w-2xl mx-auto">
-                            Expert analysis, authenticity guides, and collecting history from the team at the Sports Memorabilia Store.
+                            Expert analysis, authenticity guides, and collecting history from the team at Sports Memorabilia Store.
                         </p>
                     </div>
 

@@ -73,7 +73,7 @@ export function ArticlePage() {
                         {/* Contextual CTA for SEO */}
                         <div className="mt-12 p-8 bg-navy text-white rounded-lg text-center">
                             <h3 className="font-serif text-2xl mb-4">Looking for Authentic Memorabilia?</h3>
-                            <p className="mb-6 opacity-80">Don't risk buying a fake. Every item at the Sports Memorabilia Store comes with our lifetime authenticity guarantee and immutable digital COA.</p>
+                            <p className="mb-6 opacity-80">Don't risk buying a fake. Every item at Sports Memorabilia Store comes with our lifetime authenticity guarantee and immutable digital COA.</p>
                             <button
                                 onClick={() => navigate("/shop")}
                                 className="bg-gold text-navy px-8 py-3 rounded font-bold hover:bg-white transition-colors"

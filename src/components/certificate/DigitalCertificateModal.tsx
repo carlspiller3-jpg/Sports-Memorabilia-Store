@@ -76,13 +76,13 @@ export const DigitalCertificateModal: React.FC<DigitalCertificateModalProps> = (
                             <div className="flex justify-center mb-3">
                                 <img 
                                     src="/logo-transparent.png" 
-                                    alt="The Sports Memorabilia Store" 
+                                    alt="Sports Memorabilia Store" 
                                     className="h-16 sm:h-20 w-auto object-contain drop-shadow-xs" 
                                 />
                             </div>
                             <div>
                                 <p className="text-[11px] font-bold uppercase tracking-[0.25em] text-gold mb-1">
-                                    The Sports Memorabilia Store Limited
+                                    Sports Memorabilia Store Limited
                                 </p>
                                 <h1 className="font-serif text-2xl sm:text-3xl font-bold text-navy tracking-tight uppercase">
                                     Certificate of Authenticity
@@ -96,7 +96,7 @@ export const DigitalCertificateModal: React.FC<DigitalCertificateModalProps> = (
 
                         {/* Certificate Declaration Statement */}
                         <p className="text-xs sm:text-sm text-center text-charcoal/80 max-w-xl mx-auto leading-relaxed font-light mb-8">
-                            This document officially certifies that the hand signed sports memorabilia item detailed below has been independently verified, cryptographically registered, and guaranteed genuine by The Sports Memorabilia Store Limited under strict chain of custody protocols.
+                            This document officially certifies that the hand signed sports memorabilia item detailed below has been independently verified, cryptographically registered, and guaranteed genuine by Sports Memorabilia Store Limited under strict chain of custody protocols.
                         </p>
 
                         {/* Product Photo and Meta Grid */}
@@ -189,7 +189,7 @@ export const DigitalCertificateModal: React.FC<DigitalCertificateModalProps> = (
                             {/* Signatory Signature Block */}
                             <div className="text-center sm:text-right">
                                 <div className="font-serif italic text-lg text-navy tracking-wide font-bold">
-                                    The Sports Memorabilia Store
+                                    Sports Memorabilia Store
                                 </div>
                                 <div className="h-0.5 w-36 bg-gold/50 ml-auto my-1" />
                                 <span className="text-[10px] uppercase font-bold tracking-widest text-navy/50 block">

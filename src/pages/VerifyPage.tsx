@@ -44,7 +44,7 @@ export function VerifyPage() {
                     title: data.title,
                     date: data.date_signed, // Map from DB column names
                     location: data.location,
-                    contract: "The Sports Memorabilia Store", // Static issuer name
+                    contract: "Sports Memorabilia Store", // Static issuer name
                     tokenId: data.id, // The Certificate UUID
                     image: data.image_url,
                     tagId: data.tag_id

@@ -839,7 +839,7 @@ export const articles: BlogPost[] = [
       <h3>Standard Glass vs UV Glass</h3>
       <p>Standard picture frame glass allows about ninety seven percent of UV rays to pass through. Even indirect sunlight will bleach Sharpie ink over time. Once ink fades, it cannot be restored.</p>
 
-      <h3>The Sports Memorabilia Store Standard</h3>
+      <h3>Sports Memorabilia Store Standard</h3>
       <p>All our premium frames use Conservation Grade UV Protection Acrylic. This blocks ninety nine percent of harmful rays. It costs us more, but it ensures your investment survives for the next generation.</p>
 
       <div class="bg-navy/5 p-6 rounded-lg">
@@ -1045,7 +1045,7 @@ export const articles: BlogPost[] = [
       <p>Authentication relies on concrete proof. Photo proof of the signing, or a verifiable chain of custody like our NFC smart tag system, ensures complete confidence.</p>
 
       <div class="bg-navy/5 p-6 rounded-lg my-8 border-l-4 border-gold">
-        <strong>The Sports Memorabilia Store Standard:</strong> We don't rely on opinion. We rely on witness. Every item we sell was signed in our presence or the presence of a trusted supply partner.
+        <strong>Sports Memorabilia Store Standard:</strong> We don't rely on opinion. We rely on witness. Every item we sell was signed in our presence or the presence of a trusted supply partner.
       </div>
     `
   }
