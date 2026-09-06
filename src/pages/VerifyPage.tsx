@@ -1,13 +1,16 @@
-
 import { useState, useEffect, useCallback } from "react"
-import { useParams } from "react-router-dom"
+import { useParams, useSearchParams } from "react-router-dom"
 import { ShieldCheck, Loader2, XCircle, Smartphone, Zap, CheckCircle, Lock } from "lucide-react"
 import { Button } from "@/components/ui/Button"
 import { TrustBadge } from "@/components/ui/TrustBadge"
 import { supabase } from "@/lib/supabase"
+import { DigitalCertificateModal } from "@/components/certificate/DigitalCertificateModal"
 
 export function VerifyPage() {
-    const { tagId } = useParams<{ tagId: string }>()
+    const { tagId: routeTagId } = useParams<{ tagId: string }>()
+    const [searchParams] = useSearchParams()
+    const activeTagId = routeTagId || searchParams.get('tag_id') || searchParams.get('tag')
+
     interface VerifiedProduct {
         title: string
         date: string
@@ -15,13 +18,15 @@ export function VerifyPage() {
         contract: string
         tokenId: string
         image: string
+        tagId?: string
     }
 
     const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle')
     const [product, setProduct] = useState<VerifiedProduct | null>(null)
+    const [showCertificate, setShowCertificate] = useState(false)
     const [showFullImage, setShowFullImage] = useState(false)
 
-    const handleVerify = useCallback(async (tagId: string) => {
+    const handleVerify = useCallback(async (tagIdToVerify: string) => {
         setStatus('loading')
 
         try {
@@ -29,7 +34,7 @@ export function VerifyPage() {
             const { data, error } = await supabase
                 .from('certificates')
                 .select('*')
-                .eq('tag_id', tagId)
+                .eq('tag_id', tagIdToVerify.toUpperCase())
                 .single()
 
             if (error) throw error
@@ -41,7 +46,8 @@ export function VerifyPage() {
                     location: data.location,
                     contract: "The Sports Memorabilia Store", // Static issuer name
                     tokenId: data.id, // The Certificate UUID
-                    image: data.image_url
+                    image: data.image_url,
+                    tagId: data.tag_id
                 })
                 setStatus('success')
             } else {
@@ -56,16 +62,16 @@ export function VerifyPage() {
 
     // Simulate NFC scan handling
     useEffect(() => {
-        if (tagId) {
-            setTimeout(() => handleVerify(tagId), 0)
+        if (activeTagId) {
+            setTimeout(() => handleVerify(activeTagId), 0)
         }
-    }, [tagId, handleVerify])
+    }, [activeTagId, handleVerify])
 
     return (
         <div className="min-h-screen bg-ivory">
             {/* Verification Interface */}
-            <div className="min-h-screen pt-36 pb-20 px-4 flex flex-col items-center">
-                <div className="max-w-md w-full space-y-8 text-center my-auto">
+            <div className="min-h-screen pt-36 sm:pt-44 pb-20 px-4 flex flex-col items-center justify-start">
+                <div className="max-w-md w-full space-y-8 text-center">
 
                     {status === 'idle' && (
                         <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-700">
@@ -84,25 +90,28 @@ export function VerifyPage() {
                     )}
 
                     {status === 'loading' && (
-                        <div className="space-y-6">
+                        <div className="space-y-6 pt-8">
                             <Loader2 className="w-12 h-12 text-gold animate-spin mx-auto" />
                             <p className="text-navy/60 font-medium">Verifying Certificate...</p>
                         </div>
                     )}
 
                     {status === 'success' && product && (
-                        <div className="bg-white p-8 rounded-sm shadow-xl border border-stone/20 space-y-6 animate-in zoom-in-95 duration-500">
+                        <div className="bg-white p-6 sm:p-8 rounded-sm shadow-xl border border-stone/20 space-y-6 animate-in zoom-in-95 duration-500">
                             <div className="flex justify-center">
                                 <TrustBadge type="verified" className="bg-green-50 text-green-700 border-green-200" />
                             </div>
 
                             <div 
-                                className="rounded-sm overflow-hidden bg-stone/5 cursor-pointer relative group"
-                                onClick={() => setShowFullImage(true)}
+                                className="rounded-sm overflow-hidden bg-stone/5 cursor-pointer relative group border border-stone/10"
+                                onClick={() => setShowCertificate(true)}
                             >
-                                <img src={product.image} alt={product.title} className="w-full h-auto max-h-[80vh] object-contain transition-transform duration-300 group-hover:scale-[1.02]" />
-                                <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                                    <span className="text-white font-medium px-4 py-2 bg-black/50 rounded-full text-sm">Click to Expand</span>
+                                <img src={product.image} alt={product.title} className="w-full h-auto max-h-[60vh] object-contain transition-transform duration-300 group-hover:scale-[1.02]" />
+                                <div className="absolute inset-0 bg-navy/60 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col items-center justify-center gap-2">
+                                    <ShieldCheck className="w-8 h-8 text-gold" />
+                                    <span className="text-white font-medium px-4 py-2 bg-black/60 rounded-full text-xs uppercase tracking-wider">
+                                        View Digital Certificate
+                                    </span>
                                 </div>
                             </div>
 
@@ -127,9 +136,8 @@ export function VerifyPage() {
                             </div>
 
                             <Button 
-                                className="w-full" 
-                                variant="outline"
-                                onClick={() => setShowFullImage(true)}
+                                className="w-full bg-gold hover:bg-gold/90 text-navy font-bold uppercase tracking-wider py-3 text-xs" 
+                                onClick={() => setShowCertificate(true)}
                             >
                                 View Digital Certificate
                             </Button>
@@ -137,7 +145,7 @@ export function VerifyPage() {
                     )}
 
                     {status === 'error' && (
-                        <div className="space-y-6">
+                        <div className="space-y-6 pt-8">
                             <XCircle className="w-16 h-16 text-red-500 mx-auto" />
                             <h2 className="text-2xl font-serif font-bold text-charcoal">Verification Failed</h2>
                             <p className="text-red-500/80">
@@ -258,7 +266,7 @@ export function VerifyPage() {
                                     <span className="text-gold group-open:rotate-180 transition-transform">▼</span>
                                 </summary>
                                 <p className="text-navy/70 mt-3 text-sm leading-relaxed">
-                                    The NFC chip is embedded in the back of the frame, usually in the bottom-right corner with an "NFC" logo.
+                                    The NFC chip is embedded in the back of the frame, usually in the bottom right corner with an "NFC" logo.
                                 </p>
                             </details>
                         </div>
@@ -266,14 +274,23 @@ export function VerifyPage() {
                 </div>
             </section>
 
+            {/* Digital Certificate Modal */}
+            {showCertificate && product && (
+                <DigitalCertificateModal
+                    certificate={product}
+                    onClose={() => setShowCertificate(false)}
+                    onOpenFullPhoto={() => setShowFullImage(true)}
+                />
+            )}
+
             {/* Full Screen Image Modal */}
             {showFullImage && product && (
                 <div 
-                    className="fixed inset-0 z-50 bg-black/95 flex flex-col items-center justify-center animate-in fade-in p-4"
+                    className="fixed inset-0 z-[210] bg-black/95 flex flex-col items-center justify-center animate-in fade-in p-4"
                     onClick={() => setShowFullImage(false)}
                 >
                     <button 
-                        className="absolute top-6 right-6 text-white/50 hover:text-white transition-colors p-2"
+                        className="absolute top-6 right-6 text-white/50 hover:text-white transition-colors p-2 z-[220]"
                         onClick={() => setShowFullImage(false)}
                     >
                         <XCircle className="w-10 h-10" />
