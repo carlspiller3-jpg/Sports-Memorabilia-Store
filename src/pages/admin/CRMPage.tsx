@@ -114,22 +114,61 @@ export function CRMPage() {
         return 'New Prospect';
     };
 
+    const formatAddedDate = (dateStr?: string) => {
+        if (!dateStr) return '08/11/2026';
+        const parsed = new Date(dateStr);
+        if (isNaN(parsed.getTime())) return String(dateStr);
+        return parsed.toLocaleDateString('en-GB', {
+            day: '2-digit',
+            month: '2-digit',
+            year: 'numeric'
+        });
+    };
+
+    const parseToIsoDate = (rawDate?: any) => {
+        if (!rawDate) return new Date().toISOString();
+        const str = String(rawDate).trim();
+        const ukMatch = str.match(/^(\d{2})\/(\d{2})\/(\d{4})$/);
+        if (ukMatch) {
+            return new Date(`${ukMatch[3]}-${ukMatch[2]}-${ukMatch[1]}T12:00:00Z`).toISOString();
+        }
+        const d = new Date(str);
+        return isNaN(d.getTime()) ? new Date().toISOString() : d.toISOString();
+    };
+
     const fetchContacts = async () => {
         setLoading(true);
-        const { data, error } = await supabase
-            .from('crm_contacts')
-            .select('*')
-            .order('created_at', { ascending: false });
+        const pageSize = 1000;
+        let allRows: any[] = [];
+        let from = 0;
+        let fetchError = null;
 
-        if (error) {
-            console.error('Error fetching contacts:', error);
+        while (true) {
+            const { data, error } = await supabase
+                .from('crm_contacts')
+                .select('*')
+                .order('created_at', { ascending: false })
+                .range(from, from + pageSize - 1);
+
+            if (error) {
+                fetchError = error;
+                break;
+            }
+            if (!data || data.length === 0) break;
+            allRows = allRows.concat(data);
+            if (data.length < pageSize) break;
+            from += pageSize;
+        }
+
+        if (fetchError) {
+            console.error('Error fetching contacts:', fetchError);
         } else {
-            const parsedData = data?.map((c: any) => ({
+            const parsedData = allRows.map((c: any) => ({
                 ...c,
                 owner: c.owner === 'Rhys Barker' ? 'Carl Spiller' : (c.owner || 'Carl Spiller'),
                 status: mapStatus(c.status),
                 notes: c.notes || []
-            })) || [];
+            }));
             setContacts(parsedData);
         }
         setLoading(false);
@@ -166,6 +205,52 @@ export function CRMPage() {
         setLoading(false);
     };
 
+    const handleRemoveDuplicates = async () => {
+        setLoading(true);
+        const { data: allRows, error: fetchErr } = await supabase
+            .from('crm_contacts')
+            .select('id, company_name, name, created_at')
+            .order('created_at', { ascending: true });
+
+        if (fetchErr || !allRows) {
+            alert('Error checking duplicates: ' + (fetchErr?.message || 'Unknown error'));
+            setLoading(false);
+            return;
+        }
+
+        const seenKeys = new Set<string>();
+        const duplicateIds: string[] = [];
+
+        for (const r of allRows) {
+            const key = `${String(r.company_name || '').trim().toLowerCase()}|${String(r.name || '').trim().toLowerCase()}`;
+            if (key !== '|' && seenKeys.has(key)) {
+                duplicateIds.push(r.id);
+            } else {
+                seenKeys.add(key);
+            }
+        }
+
+        if (duplicateIds.length === 0) {
+            alert('No duplicate contacts found in the CRM.');
+            setLoading(false);
+            return;
+        }
+
+        if (!confirm(`Found ${duplicateIds.length} duplicate contacts. Remove them now?`)) {
+            setLoading(false);
+            return;
+        }
+
+        const batchSize = 200;
+        for (let i = 0; i < duplicateIds.length; i += batchSize) {
+            const chunk = duplicateIds.slice(i, i + batchSize);
+            await supabase.from('crm_contacts').delete().in('id', chunk);
+        }
+
+        alert(`Removed ${duplicateIds.length} duplicate contacts.`);
+        fetchContacts();
+    };
+
     const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0];
         if (!file) return;
@@ -196,7 +281,7 @@ export function CRMPage() {
                     return null;
                 };
 
-                const contactsToInsert = data.map((row: any) => {
+                const mappedContacts = data.map((row: any) => {
                     const notes = [];
                     const noteContent = getValue(row, ['notes', 'note', 'comments']);
 
@@ -217,6 +302,7 @@ export function CRMPage() {
                     let name = getValue(row, ['full name', 'fullname', 'name', 'contact', 'contact name', 'person', 'recipient', 'recipient name', 'lead']);
                     let firstName = getValue(row, ['first name', 'firstname', 'given name']);
                     const recentDeal = getValue(row, ['recent deal', 'deal', 'milestone', 'transaction', 'recent transaction']);
+                    const rawAddedDate = getValue(row, ['date added', 'added date', 'created at', 'date']);
 
                     let type: 'INDIVIDUAL' | 'BUSINESS' = 'INDIVIDUAL';
                     if (!name && companyName !== 'Unknown Company') {
@@ -241,19 +327,51 @@ export function CRMPage() {
                         contact_number: String(getValue(row, ['phone', 'mobile', 'cell', 'tel', 'contact number']) || ''),
                         contact_email: getValue(row, ['email', 'e-mail', 'mail']) || '',
                         website: getValue(row, ['website', 'site', 'url']) || '',
+                        industry: getValue(row, ['industry', 'category', 'sector']) || '',
                         owner: importOwner,
                         status: status,
+                        created_at: parseToIsoDate(rawAddedDate),
                         notes: notes
                     };
                 });
 
-                if (confirm(`Found ${contactsToInsert.length} rows. Ready to import?`)) {
-                    const { error } = await supabase.from('crm_contacts').insert(contactsToInsert);
-                    if (error) {
-                        console.error('Import error:', error);
-                        alert('Error importing contacts: ' + error.message);
+                const existingKeys = new Set(
+                    contacts.map(c => String(c.company_name || c.name || '').trim().toLowerCase()).filter(Boolean)
+                );
+                const contactsToInsert = [];
+                let skippedDuplicates = 0;
+
+                for (const item of mappedContacts) {
+                    const key = String(item.company_name || item.name || '').trim().toLowerCase();
+                    if (key && existingKeys.has(key)) {
+                        skippedDuplicates++;
                     } else {
-                        alert(`Successfully imported ${contactsToInsert.length} contacts.`);
+                        if (key) existingKeys.add(key);
+                        contactsToInsert.push(item);
+                    }
+                }
+
+                if (contactsToInsert.length === 0) {
+                    alert(`All ${mappedContacts.length} rows in this file are already in the CRM (0 new leads to import).`);
+                    return;
+                }
+
+                if (confirm(`Found ${mappedContacts.length} rows (${skippedDuplicates} existing duplicates skipped, ${contactsToInsert.length} new leads ready to import). Proceed?`)) {
+                    const batchSize = 250;
+                    let importError = null;
+                    for (let i = 0; i < contactsToInsert.length; i += batchSize) {
+                        const chunk = contactsToInsert.slice(i, i + batchSize);
+                        const { error } = await supabase.from('crm_contacts').insert(chunk);
+                        if (error) {
+                            importError = error;
+                            break;
+                        }
+                    }
+                    if (importError) {
+                        console.error('Import error:', importError);
+                        alert('Error importing contacts: ' + importError.message);
+                    } else {
+                        alert(`Successfully imported ${contactsToInsert.length} new contacts (${skippedDuplicates} existing duplicates skipped).`);
                         fetchContacts();
                     }
                 }
@@ -477,15 +595,21 @@ export function CRMPage() {
                             <ArrowLeft className="w-6 h-6" />
                         </Link>
                         <div>
-                            <div className="flex items-center gap-3 mb-2">
+                            <div className="flex items-center gap-3 mb-2 flex-wrap">
                                 <h1 className="font-serif text-4xl text-navy">Team CRM</h1>
                                 <span className="px-2 py-0.5 bg-green-100 text-green-700 text-[10px] font-bold tracking-widest rounded-full uppercase border border-green-200">Live</span>
+                                <span className="px-3 py-0.5 bg-navy text-gold text-xs font-bold tracking-wider rounded-full border border-gold/40">
+                                    {contacts.length.toLocaleString('en-GB')} Total Leads
+                                </span>
                             </div>
-                            <p className="text-charcoal/60">Unified lead list and contact management.</p>
+                            <p className="text-charcoal/60">
+                                Unified lead list and contact management. Showing {filteredContacts.length.toLocaleString('en-GB')} of {contacts.length.toLocaleString('en-GB')} contacts.
+                            </p>
                         </div>
                     </div>
                     <div className="flex flex-wrap gap-3">
                         <button onClick={handleLogout} className="bg-white border border-navy/10 text-charcoal/70 px-4 py-3 rounded-md font-medium flex items-center gap-2 hover:bg-red-50 hover:text-red-600 hover:border-red-100 transition-colors"><LogOut className="w-4 h-4" />Logout</button>
+                        <button onClick={handleRemoveDuplicates} className="bg-white border border-navy/10 text-charcoal/70 px-4 py-3 rounded-md font-medium flex items-center gap-2 hover:bg-navy/5 transition-colors">Remove Duplicates</button>
                         <button onClick={handleWipeAllContacts} className="bg-red-50 border border-red-100 text-red-600 px-4 py-3 rounded-md font-medium flex items-center gap-2 hover:bg-red-100 transition-colors"><Trash2 className="w-4 h-4" />Wipe All</button>
                         <input type="file" accept=".xlsx, .xls, .csv" ref={fileInputRef} className="hidden" onChange={handleFileUpload} />
                         <button onClick={() => setIsImportModalOpen(true)} className="bg-white border border-navy/10 text-charcoal/70 px-4 py-3 rounded-md font-medium flex items-center gap-2 hover:bg-navy/5 transition-colors"><Upload className="w-4 h-4" />Import</button>
@@ -501,9 +625,9 @@ export function CRMPage() {
                             <input type="text" placeholder="Search company name, contact, or email..." value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} className="w-full pl-10 pr-4 py-3 bg-ivory border border-navy/10 rounded-lg focus:outline-none focus:border-gold transition-all" />
                         </div>
                         <div className="flex gap-2 w-full md:w-auto bg-ivory p-1.5 rounded-lg border border-navy/10 overflow-x-auto">
-                            <button onClick={() => setFilterStatus('ALL')} className={`px-4 py-2 rounded-md text-xs font-bold tracking-wide transition-all whitespace-nowrap ${filterStatus === 'ALL' ? 'bg-navy text-white shadow-md' : 'text-charcoal/50 hover:text-navy hover:bg-white'}`}>All Statuses</button>
+                            <button onClick={() => setFilterStatus('ALL')} className={`px-4 py-2 rounded-md text-xs font-bold tracking-wide transition-all whitespace-nowrap ${filterStatus === 'ALL' ? 'bg-navy text-white shadow-md' : 'text-charcoal/50 hover:text-navy hover:bg-white'}`}>All Statuses ({contacts.length.toLocaleString('en-GB')})</button>
                             {pipelineStatuses.map((st) => (
-                                <button key={st} onClick={() => setFilterStatus(st)} className={`px-4 py-2 rounded-md text-xs font-bold tracking-wide transition-all whitespace-nowrap ${filterStatus === st ? 'bg-navy text-white shadow-md' : 'text-charcoal/50 hover:text-navy hover:bg-white'}`}>{st}</button>
+                                <button key={st} onClick={() => setFilterStatus(st)} className={`px-4 py-2 rounded-md text-xs font-bold tracking-wide transition-all whitespace-nowrap ${filterStatus === st ? 'bg-navy text-white shadow-md' : 'text-charcoal/50 hover:text-navy hover:bg-white'}`}>{st} ({contacts.filter(c => c.status === st).length.toLocaleString('en-GB')})</button>
                             ))}
                         </div>
                     </div>
@@ -511,9 +635,9 @@ export function CRMPage() {
                     {industries.length > 0 && (
                         <div className="flex items-center gap-3 overflow-x-auto pb-2">
                             <span className="text-[10px] font-bold text-charcoal/40 uppercase tracking-widest whitespace-nowrap">Filter Industry:</span>
-                            <button onClick={() => setFilterIndustry('ALL')} className={`px-3 py-1 rounded-full text-xs font-bold border transition-colors ${filterIndustry === 'ALL' ? 'bg-gold text-white border-gold' : 'bg-white border-navy/10 text-charcoal/60 hover:border-gold'}`}>All</button>
+                            <button onClick={() => setFilterIndustry('ALL')} className={`px-3 py-1 rounded-full text-xs font-bold border transition-colors ${filterIndustry === 'ALL' ? 'bg-gold text-white border-gold' : 'bg-white border-navy/10 text-charcoal/60 hover:border-gold'}`}>All ({contacts.length.toLocaleString('en-GB')})</button>
                             {industries.map(ind => (
-                                <button key={ind} onClick={() => setFilterIndustry(ind!)} className={`px-3 py-1 rounded-full text-xs font-bold border transition-colors ${filterIndustry === ind ? 'bg-gold text-white border-gold' : 'bg-white border-navy/10 text-charcoal/60 hover:border-gold'}`}>{ind}</button>
+                                <button key={ind} onClick={() => setFilterIndustry(ind!)} className={`px-3 py-1 rounded-full text-xs font-bold border transition-colors ${filterIndustry === ind ? 'bg-gold text-white border-gold' : 'bg-white border-navy/10 text-charcoal/60 hover:border-gold'}`}>{ind} ({contacts.filter(c => c.industry === ind).length.toLocaleString('en-GB')})</button>
                             ))}
                         </div>
                     )}
@@ -546,6 +670,7 @@ export function CRMPage() {
                                     </h3>
                                     <p className="text-xs text-charcoal/60 truncate font-semibold">
                                         {contact.name ? `${contact.name}${contact.role ? ` (${contact.role})` : ''}` : (contact.recipient_name ? `Contact: ${contact.recipient_name}` : 'Corporate Contact')}
+                                        <span className="ml-2 text-[10px] text-charcoal/40 font-normal">Added: {formatAddedDate(contact.created_at)}</span>
                                     </p>
                                 </div>
 
@@ -651,8 +776,9 @@ export function CRMPage() {
                                     value={selectedContact.company_name} placeholder="Company Name..."
                                     onChange={(e) => setSelectedContact({ ...selectedContact, company_name: e.target.value })}
                                 />
-                                <div className="mt-1.5 flex gap-2 items-center">
+                                <div className="mt-1.5 flex gap-2 items-center flex-wrap">
                                     <span className={`text-[10px] uppercase font-bold px-2 py-0.5 rounded border ${getStatusBadgeStyle(selectedContact.status)}`}>{selectedContact.status}</span>
+                                    <span className="text-[10px] font-bold text-charcoal/50 uppercase tracking-widest">Added: {formatAddedDate(selectedContact.created_at)}</span>
                                 </div>
                             </div>
 
